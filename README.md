@@ -12,7 +12,7 @@ LLM 학습 데이터(선택·변환·표상)와 행동 교정 관련 새 논문�
 python collect.py            # 최근 2일 (이미 본 논문은 건너뜀) → docs/data 저장 → git push
 python collect.py --days 7   # 여러 날 한꺼번에
 ```
-매일 아침 PC에서 Windows 작업 스케줄러가 자동으로 실행합니다(`schedule.ps1`로 등록). 그 시간에 PC가 꺼져 있었으면, 켜진 뒤에 실행됩니다.
+매일 아침 PC의 Windows 작업 스케줄러(작업 이름 PaperDigest)가 실행합니다.
 
 ## 사이트 사용법
 - 카드를 누르면 요약 불릿, 왜 볼 만한지, 그림, 링크가 펼쳐집니다. 펼치면 읽음으로 표시됩니다.
