@@ -1,0 +1,148 @@
+[
+{
+"id": "2607.29211",
+"title": "Knowing When to Quit: Diagnosing and Training LLMs to Abort Futile Reasoning",
+"authors": [
+"Xinyan Guan",
+"Jiali Zeng",
+"Chunlei Xin",
+"Yaojie Lu",
+"Hongyu Lin",
+"Xianpei Han",
+"Le Sun",
+"Fandong Meng"
+],
+"n_authors": 8,
+"published": "2026-07-31",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 14,
+"comment": "",
+"abstract": "Large language models generate computationally expensive yet semantically void reasoning on beyond-capability tasks, creating risks where plausible-sounding but incorrect derivations mislead users. We characterize this futile reasoning phenomenon through systematic analysis, revealing universal capability overreach and systematic miscalibration between capability and behavior. The dominant failure mode is specious reasoning, which outputs look superficially valid but contain subtle errors, escalating with task difficulty. To address this, we introduce CaRL (Capability-aligned Reinforcement Learning), which aligns model behavior with capability boundaries through reward shaping that incentivizes refusal over futile reasoning and hindsight refusal augmentation that converts failures into refusal supervision. Experiments demonstrate a substantial reduction in futile reasoning while preserving performance across task difficulties, effectively achieving capability-aligned behavior without sacrificing utility. https://github.com/icip-cas/Knowing-When-to-Quit",
+"title_ko": "풀 수 없는 문제에서 추론을 포기하도록 LLM을 강화학습",
+"tldr": "LLM이 능력 밖 문제에서 그럴듯하지만 틀린 추론을 이어가는 현상을 진단하고, 보상 설계와 사후 거절 데이터 증강(CaRL)으로 적절히 포기하도록 학습시킨다.",
+"bullets": [
+"문제: 능력 밖 과제에서 모델이 거절 없이 틀린 추론을 그럴듯하게 생성한다.",
+"방법: 거절을 환각보다 우대하는 보상 계층과 실패 궤적을 거절로 바꾸는 증강을 쓴다.",
+"결과: Qwen3-8B의 헛된 추론 비율이 65.5%에서 7.0%, 14B는 78.6%에서 1.0%로 감소했다.",
+"한계: Countdown·Sudoku 같은 순수 알고리즘 과제만 다뤄 지식 집약 과제 일반화는 미검증이다."
+],
+"why": "거절 보정(over/under-refusal)을 데이터 변환(실패 궤적→거절 지도신호)과 보상 설계로 부작용 없이 교정하는 사례라 post-training 실무에 참고가 된다.",
+"tags": [
+"거절 보정",
+"RL",
+"Futile reasoning",
+"Hindsight augmentation"
+],
+"venue": "",
+"affiliations": [
+"Institute of Software, Chinese Academy of Sciences",
+"University of Chinese Academy of Sciences",
+"Weixin AI, Tencent Inc"
+],
+"figure": {
+"src": "https://arxiv.org/html/2607.29211/2607.29211v1/method.png",
+"caption": "Figure 7: Overview of CaRL. Our framework combines (1) Capability-Calibrated Reward Shaping that establishes a preference hierarchy favoring refusal over hallucination, and (2) Hindsight Refusal Augmentation that converts failed trajectories into refusal trajectories, enabling capability-aligned behavior."
+},
+"fig_ko": "능력 범위 내에서는 올바르게 추론하지만, 범위를 넘으면 보상 계층과 사후 거절 증강으로 거절을 학습시키는 CaRL 전체 구조를 보여준다.",
+"html": true,
+"collected": "2026-07-31",
+"backfill": true
+},
+{
+"id": "2607.26654",
+"title": "Constitutional Midtraining: Content Presence Drives Alignment Gains",
+"authors": [
+"Desiree Cho",
+"Cameron Tice",
+"Bernie Hogan",
+"Hunar Batra",
+"Puria Radmard",
+"Jun Zhao",
+"Nigel Shadbolt"
+],
+"n_authors": 7,
+"published": "2026-07-29",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 3,
+"comment": "",
+"abstract": "Post-training alignment is often shallow, eroding under fine-tuning. Whether midtraining interventions, cleanly isolated from post-training, can produce durable alignment remains untested. We test this via constitutional midtraining: inserting principled, values-based content into midtraining against a replay-only control at 120B scale. Our 394M-token constitutional corpus, built from Anthropic's Constitution, uses a 2x2 factorial design (curriculum ordering x deliberative reasoning) to produce four constitutionally midtrained conditions plus a control, evaluated on self-generated and established benchmarks including alignment under pressure, value conflict resolution, blackmail, and emergent misalignment across three stages: post-midtraining, post-SFT, and post-benign fine-tuning. Constitutionally midtrained models outperform the control on alignment generalization and durability, notably on blackmail: SFT instills a blackmail propensity in all models, but constitutional midtraining blunts it, with the advantage surviving benign fine-tuning (-17.5pp). This durability does not extend to settings requiring active resistance to in-context pressure or conflict, where the advantage attenuates after SFT. The presence of constitutional content at midtraining also matters more than its structure, and constitutional midtraining incurs no cost, on average, on the capabilities we test (MMLU, ARC-Easy, piqa, GSM8K) at any stage. A modest amount of constitutional content at midtraining could therefore yield broad, persistent alignment gains, offering a cheap, complementary addition to SFT-centered pipelines. Code, data, and models are available.",
+"title_ko": "헌법 기반 미드트레이닝이 정렬의 내구성에 미치는 효과",
+"tldr": "Anthropic 헌법 기반 합성 문서를 미드트레이닝에 넣으면 SFT와 추가 미세조정 뒤에도 일부 정렬 효과가 남고, 구조보다 내용의 존재가 더 중요하다.",
+"bullets": [
+"문제: 사후 학습 정렬은 얕아서 미세조정 시 쉽게 무너진다.",
+"방법: 394M 토큰 헌법 코퍼스를 120B 모델 미드트레이닝에 넣고 2x2 설계로 비교했다.",
+"결과: 블랙메일 성향이 SFT 후 모두 생겼지만 헌법 모델이 덜했고 -17.5pp 우위가 유지됐다.",
+"결과: MMLU, ARC-Easy, piqa, GSM8K 평균 성능 손실은 없었다.",
+"한계: 압력·가치 충돌 저항 과제에서는 SFT 후 이점이 줄었다."
+],
+"why": "미드트레이닝 데이터로 SFT·무해한 미세조정 후에도 지속되는 정렬을 만드는 합성 데이터 설계와 부작용(emergent misalignment) 평가 사례로 참고할 만하다.",
+"tags": [
+"Midtraining",
+"합성데이터",
+"정렬 내구성",
+"Emergent Misalignment"
+],
+"venue": "",
+"affiliations": [
+"University of Oxford",
+"Geodesic Research"
+],
+"figure": {
+"src": "https://arxiv.org/html/2607.26654/2607.26654v3/Figures/pipeline_figure.drawio.png",
+"caption": "Figure 2: All conditions branch from the same base checkpoint, diverge during midtraining (control: no intervention), then reconverge onto identical post-training and benign fine-tuning, with an evaluation checkpoint after each stage."
+},
+"fig_ko": "모든 조건이 같은 베이스에서 미드트레이닝만 달리한 뒤 동일한 SFT와 무해한 미세조정으로 합류하며 단계마다 평가하는 실험 흐름을 보여준다.",
+"html": true,
+"collected": "2026-07-29",
+"backfill": true
+},
+{
+"id": "2607.25614",
+"title": "MemSFT: Mitigating Alignment Tax with an External Parametric Memory",
+"authors": [
+"Jiarui Wang",
+"Xiang Shi",
+"Jiaqi Cao",
+"Rubin Wei",
+"Xiquan Wang",
+"Hao Sun",
+"Jingzhi Wang",
+"Zhiqi Yang"
+],
+"n_authors": 11,
+"published": "2026-07-28",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 22,
+"comment": "33 pages, 11 figures, 13 tables",
+"abstract": "Adapting Large Language Models (LLMs) to specialized domains often incurs an alignment tax, as fine-tuning on domain-specific tasks can cause catastrophic forgetting and substantially degrade performance on general tasks. We propose MemSFT, which mitigates the alignment tax by decoupling domain specialization from backbone parameter updates through a plug-and-play parametric memory. The memory is trained to imitate the behavior of a non-parametric retriever operating over domain data, thereby memorizing knowledge and patterns that would otherwise be accessed through retrieval. Once trained on a specific domain, the memory can be reused across LLMs of different sizes. During generation, a learned router dynamically fuses the output distributions of the memory and backbone at each decoding step, allowing domain expertise to be invoked selectively. Across biology, geoscience, and law, evaluations with models ranging from Qwen3-8B to Qwen3-235B-A22B show that MemSFT consistently improves domain performance with negligible degradation in general performance, whereas full SFT suffers severe forgetting on general tasks. Overall, our results demonstrate a practical path to decoupling general model capabilities from domain-specific knowledge at the parameter level, thereby equipping LLMs with new specialized capabilities without compromising their general capabilities.",
+"title_ko": "외부 파라미터 메모리로 도메인 SFT의 망각을 줄이는 MemSFT",
+"tldr": "백본 LLM은 고정하고 검색기 동작을 모방하도록 학습한 별도 메모리와 라우터로 출력 분포를 섞어, 도메인 성능은 올리면서 일반 성능 저하를 거의 없앤다.",
+"bullets": [
+"문제: 도메인 SFT는 일반 능력을 잃는 alignment tax를 유발한다.",
+"방법: 검색기 출력을 모방한 메모리를 학습하고 라우터가 토큰마다 백본과 섞는다.",
+"결과: 생물·지질·법률에서 Qwen3-8B~235B 전반에 도메인 향상, 일반 성능 거의 유지.",
+"한계: 토크나이저·어휘가 호환되는 모델끼리만 메모리를 재사용할 수 있다."
+],
+"why": "도메인 파인튜닝의 망각을 가중치 수정 없이 막는 방식이라, 부작용 최소화 행동 교정과 라우팅/게이팅 관점에서 참고할 만하다.",
+"tags": [
+"catastrophic forgetting",
+"parametric memory",
+"router",
+"domain SFT"
+],
+"venue": "",
+"affiliations": [
+"Shanghai Jiao Tong University",
+"Shanghai AI Laboratory",
+"Tsinghua University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-07-28",
+"backfill": true
+}
+]

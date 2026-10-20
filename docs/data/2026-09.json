@@ -1,0 +1,1259 @@
+[
+{
+"id": "2609.38987",
+"title": "Smaller Models, Better Rejects: Preference Distillation Scaling",
+"authors": [
+"Rui Cai",
+"Wenhui Zhu",
+"Xiwen Chen",
+"Jincheng Cao",
+"Han Yu",
+"Shayan Mohajer Hamidi",
+"Zelin He",
+"Qiyao Ma"
+],
+"n_authors": 18,
+"published": "2026-09-30",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 32,
+"comment": "",
+"abstract": "Preference distillation typically treats a teacher response as preferred and the student's own response as rejected. This assumes that self-generated failures are the most informative negatives and that rejects must come from a model at least as large as the student, making generation costly at scale. We find neither assumption holds: across students from 7B to 72B, smaller frozen models generate rejects with less inference compute yet train stronger students than self-generated rejects, before and after sequence-level knowledge distillation, on code generation and mathematical reasoning. To explain this result, we derive a finite-horizon utility bound for Direct Preference Optimization in a linearized feature model. The bound characterizes favorable reject distributions and motivates three interventions. First, mixing rejects from smaller and student-scale models improves performance as the smaller model's share increases. Second, reassigning rejects to other prompts and shuffling their code tokens still outperform length-matched gibberish, showing that task structure contributes to reject utility. Third, selecting candidates with lower likelihood under the reference policy improves net transfer when higher-likelihood candidates provide less useful contrast. Lower-likelihood selections outperform higher-likelihood ones for every source. These results suggest that effective rejects preserve task structure while limiting coupling to the reference policy, and that smaller frozen models can provide them at low cost.",
+"title_ko": "작은 모델의 거절 응답으로 선호 증류 효율 높이기",
+"tldr": "선호 증류에서 학생 모델 자신의 오답보다 더 작은 동결 모델이 만든 reject가 더 싸고 더 강한 학생을 만든다는 것을 실험과 이론으로 보였다.",
+"bullets": [
+"문제: 선호 증류는 학생 자신의 오답을 reject로 쓰는데, 모델이 커질수록 생성 비용이 크다.",
+"방법: DPO를 선형화한 특성 모델로 유용성 상한을 유도하고 세 가지 개입을 설계했다.",
+"결과: 7B~72B 학생 모두에서 작은 Base 모델 reject가 Self reject보다 코드·수학에서 우수했다.",
+"결과: 작은 모델 비중이 커질수록 성능이 올랐고, 참조 정책 likelihood가 낮은 reject가 더 좋았다.",
+"한계: 이론은 선형화 가정에 의존하고, 실험은 코드·수학 등 검증 가능한 과제 중심이다."
+],
+"why": "선호 튜닝의 reject(부정 예시) 데이터를 어떤 출처에서 어떻게 고를지에 대한 실용적 기준과 비용 절감 근거를 주어 데이터 선택·합성 관점에서 볼 만하다.",
+"tags": [
+"DPO",
+"선호 증류",
+"reject 데이터 선택",
+"합성 데이터"
+],
+"venue": "",
+"affiliations": [
+"LinkedIn",
+"University of California, Davis",
+"Arizona State University",
+"Clemson University",
+"Pennsylvania State University",
+"University of Wisconsin–Madison"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-09-30",
+"backfill": true
+},
+{
+"id": "2609.40097",
+"title": "AutoDataBench: A Data-centric Testbed for Accelerating Auto Research",
+"authors": [
+"Ruifeng Yuan",
+"Yizhi Li",
+"Yaxin Du",
+"Fengyu Cai",
+"Yiqi Liu",
+"Hou Pong Chan",
+"Chenghua Lin",
+"Yun Chen"
+],
+"n_authors": 12,
+"published": "2026-09-30",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 50,
+"comment": "",
+"abstract": "Existing auto-research benchmarks often entangle multiple sources of improvement, including training frameworks, hyperparameters, compute budgets, and data, making it difficult to attribute why one frontier agent outperforms another to specific research capabilities. In this work, we isolate and systematically evaluate Data Intelligence: an agent's ability to understand, manipulate, and improve the data that shapes model capabilities. We introduce AutoDataBench, a controlled testbed built on a conceptual framework of data intelligence spanning data diagnosis, data organization, and data construction, instantiated through three highly curated optimization tasks while holding non-data factors fixed. Across tool use, retrieval, and knowledge injection, we evaluate frontier LLMs' ability to improve training data through iterative experimentation under task-specific resource budgets. Beyond optimization performance, we ask: do LLMs understand what their data interventions do? We compare predictions made before training with observed outcomes to seek evidence of data-effect reasoning beyond trial and error, and explore whether iterative feedback helps LLMs better understand how changes to training data affect model performance. Finally, we show that reusing AutoDataBench trajectories for mid-training improves downstream coding performance, highlighting its value in both evaluating data intelligence and generating high-quality training data. Code and resources are available at https://github.com/AutoDataBench/AutoDataBench.",
+"title_ko": "데이터 지능을 따로 재는 자동 연구 벤치마크 AutoDataBench",
+"tldr": "학습 설정을 고정하고 LLM 에이전트가 학습 데이터를 진단·정리·구성해 모델 성능을 얼마나 올리는지 따로 측정하는 벤치마크를 제안한다.",
+"bullets": [
+"문제: 기존 자동연구 벤치는 데이터 외 요인이 섞여 데이터 능력 분리가 어렵다.",
+"방법: 도구 사용·검색·지식 주입 3과제에서 학습 설정을 고정하고 데이터만 반복 개선한다.",
+"결과: 도구 사용 큐레이션은 정제 데이터 기준에 근접했고 지식 습득도 개선되었다.",
+"결과: 궤적을 미드트레이닝에 쓰면 CRUXEval 입력 예측 등 코딩 성능이 올랐다.",
+"한계: 검색의 ID 성능이 OOD 일반화로 이어지지 않았고 예측 활성화 시 최고 점수는 오히려 낮았다."
+],
+"why": "LLM이 학습 데이터를 직접 진단·정제·합성해 SFT 성능을 올리는 능력을 통제된 조건에서 평가해, 데이터 큐레이션 자동화를 검토하는 연구자에게 참고가 된다.",
+"tags": [
+"데이터 큐레이션",
+"Auto Research",
+"벤치마크",
+"합성데이터"
+],
+"venue": "",
+"affiliations": [
+"The Hong Kong Polytechnic University",
+"IQuest Research",
+"Shanghai Jiaotong University",
+"TU Darmstadt",
+"The University of Manchester",
+"University of Macau",
+"Shanghai University of Finance and Economics",
+"Beihang University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.40097/2609.40097v1/AutoDataBench_figure_editable_V3.png",
+"caption": "Figure 1: Overview of AutoDataBench. (a) Three dimensions of data intelligence: data diagnosis and repair, data organization, and data construction. (b) Agents iteratively propose data interventions, construct training datasets, and use feedback from a fixed training and evaluation pipeline. Final evaluation measures target-task improvement and generalization to held-out evaluation distributions."
+},
+"fig_ko": "데이터 지능의 세 차원(진단·수리, 조직, 구성)과 에이전트가 데이터 개입을 제안하고 학습 후 피드백을 받는 반복 흐름을 보여준다.",
+"html": true,
+"collected": "2026-09-30",
+"backfill": true
+},
+{
+"id": "2609.36659",
+"title": "On-Policy Parameter Update Direction Underlies Generalization in LLM Post-Training",
+"authors": [
+"Shufan Shen",
+"Zhongni Hou",
+"Junshu Sun",
+"Yufei Zhang",
+"Wei Lin",
+"Guojun Yin",
+"Qingming Huang",
+"Shuhui Wang"
+],
+"n_authors": 8,
+"published": "2026-09-29",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 86,
+"comment": "",
+"abstract": "The strong generalization performance of on-policy post-training paradigms has motivated studies of their parameter update behaviors. However, these studies treat the observed behaviors only as byproducts in on-policy training, overlooking their potential to serve as optimization principles for improving the generalization of other paradigms such as supervised fine-tuning (SFT). To address this limitation, we investigate whether there exists a specific on-policy update behavior that can achieve such improvements. First, our analyses reveal that SFT updates parameters along consistent directions, while the on-policy paradigm continuously adjusts the direction during training. This difference inspires us to focus on the cumulative update direction of each parameter as a promising behavior. Then, we evaluate its effectiveness for improving generalization by proposing On-Policy direction-constrained Supervised Fine-Tuning (OPSFT), which constrains SFT updates to the direction identified by on-policy paradigms. The strong performance of OPSFT indicates that the generalization advantage of on-policy paradigms can be transferred to SFT through the parameter update direction. Once such a direction is identified, even SFT can generalize with its updates constrained to this direction. This finding offers two practical benefits by combining the strong generalization of on-policy paradigms with the advantages of SFT, including the high training efficiency and ability to leverage high-quality trajectories. For efficiency, we identify update directions that support strong generalization using a few on-policy training steps, and subsequently apply OPSFT to achieve high training efficiency. For leveraging high-quality trajectories, OPSFT can utilize these trajectories to continue improving a post-trained model along its update direction without disrupting the ability learned from on-policy training.",
+"title_ko": "온폴리시 파라미터 업데이트 방향으로 SFT 일반화 높이기",
+"tldr": "RL·OPD 같은 온폴리시 학습이 정한 파라미터별 누적 업데이트 방향 안에서만 SFT를 하면, 온폴리시에 준하는 일반화를 얻는다는 것을 보인 연구.",
+"bullets": [
+"문제: 온폴리시 학습의 일반화 우위를 SFT에 옮기는 원리가 부족했다.",
+"방법: OPSFT는 SFT 업데이트를 온폴리시가 정한 방향으로 제한한다.",
+"결과: OPSFT가 일반 SFT를 크게 앞서고 GRPO에 필적한다고 보고한다.",
+"활용: 짧은 온폴리시 학습으로 방향을 찾은 뒤 SFT로 효율을 높인다.",
+"한계: 교사 모델의 고품질 추론 궤적으로만 실험해 다른 데이터는 미검증이다."
+],
+"why": "SFT의 일반화와 망각 문제를 파라미터 업데이트 방향 제약으로 다루는 접근이라, 데이터 형식과 부작용 최소화 관점에서 참고할 만하다.",
+"tags": [
+"SFT",
+"On-policy",
+"일반화",
+"업데이트 방향"
+],
+"venue": "",
+"affiliations": [
+"Chinese Academy of Sciences (ICT)",
+"University of Chinese Academy of Sciences",
+"Meituan"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.36659/2609.36659v1/introduction.png",
+"caption": "Figure 1: (a) SFT update parameters along consistent directions during training. (b) In contrast, on-policy paradigms continuously adjust the update direction. (c) To investigate whether the update direction identified by on-policy paradigms can improve the generalization of SFT, we introduce OPSFT that constrains the SFT update of each parameter to the on-policy direction."
+},
+"fig_ko": "SFT는 일관된 방향으로, 온폴리시는 방향을 계속 바꾸며 업데이트하고, OPSFT는 SFT를 온폴리시 방향으로 제한함을 보여준다.",
+"html": true,
+"collected": "2026-09-29",
+"backfill": true
+},
+{
+"id": "2609.35291",
+"title": "Narrow Multimodal Fine-Tuning Can Induce Emergent Misalignment",
+"authors": [
+"Shunchang Liu",
+"Lukas Fluri",
+"Xin Chen",
+"Francesco Croce"
+],
+"n_authors": 4,
+"published": "2026-09-28",
+"source": "HF Daily",
+"score": 9.0,
+"upvotes": 29,
+"comment": "",
+"abstract": "Modern AI models are aligned through post-training to adapt them to downstream tasks. Recent work shows that fine-tuning language models on narrow tasks can induce emergent misalignment (EM), causing broadly harmful behaviors beyond the training task. However, EM has been studied almost entirely in text-only tasks, leaving its manifestation in multimodal models unclear. In this paper, we define and analyze EM in the context of vision-language models. We first induce EM via fine-tuning on narrow multimodal tasks targeting vulnerable code, careless household-object use, and conspiratorial interpretations of ordinary scenes. Across fifteen commercial and open-source models with different scales, we find that narrow multimodal fine-tuning can induce coherent and broadly misaligned behavior that transfers to unrelated tasks, including misaligned opinions, visual factual dishonesty, unsafe image generation, vulnerability to visual jailbreaks, and risky agentic actions. We further find that multimodal EM does not depend on the apparent harmfulness of training data but is sensitive to training-evaluation modality alignment. EM can arise under both supervised fine-tuning and preference optimization and can propagate through intermediate reasoning. Finally, we explore several mitigation strategies, including prompt inoculation, benign continued training, and activation-level steering, which can partially reduce EM. Overall, our findings suggest that multimodal EM reflects a behavioral shift rather than a general loss of capability, extending beyond text to the visual modality.",
+"title_ko": "좁은 멀티모달 파인튜닝이 광범위한 비정렬을 유발함",
+"tldr": "비전-언어 모델을 겉보기에 무해한 좁은 이미지-텍스트 과제로 파인튜닝해도 관련 없는 영역에서 광범위한 비정렬(emergent misalignment)이 나타난다.",
+"bullets": [
+"문제: 창발적 비정렬(EM)은 텍스트에서만 연구되어 멀티모달은 불명확했다.",
+"방법: 취약 코드, 부주의한 사물 사용, 음모론적 장면 해석의 3개 좁은 과제로 튜닝했다.",
+"결과: 15개 모델에서 위험한 의견, 거짓말, 안전하지 않은 이미지 생성, 위험 행동이 나타났다.",
+"결과: 학습 데이터의 유해성보다 학습-평가 모달리티 일치가 더 중요했고, SFT와 선호 최적화 모두에서 발생했다.",
+"한계: 완화책(프롬프트 접종, 추가 학습, 스티어링)은 부분적 효과뿐이며 원리는 미해명이다."
+],
+"why": "좁은 파인튜닝이 넓은 행동 변화를 낳는 현상을 멀티모달로 확장하고, 프롬프트 접종과 활성화 스티어링 완화책까지 비교해 안전성 유지형 파인튜닝 설계에 참고가 된다.",
+"tags": [
+"emergent misalignment",
+"멀티모달",
+"파인튜닝 안전성",
+"steering"
+],
+"venue": "",
+"affiliations": [
+"ETH Zürich",
+"EPFL",
+"Aalto University",
+"ELLIS Institute Finland"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.35291/2609.35291v1/teaser.png",
+"caption": "Figure 1: Narrow multimodal fine-tuning induces broad EM. We fine-tune vision-language models on one of three narrow tasks whose target carries no overt harm. The fine-tuned model then exhibits misaligned behavior on unrelated tasks spanning what it says , sees , generates , and does ."
+},
+"fig_ko": "세 가지 좁은 멀티모달 과제로 튜닝한 모델이 말하기, 보기, 생성, 행동 전반에서 비정렬을 보이는 전체 개요를 보여준다.",
+"html": true,
+"collected": "2026-09-28",
+"backfill": true
+},
+{
+"id": "2609.36388",
+"title": "Persona Dosing: Calibrated Activation Steering for Graded Trait Control",
+"authors": [
+"Zehao Jin",
+"Junran Wang",
+"Ruixuan Deng",
+"Jiahao Chen",
+"Jingyuan Zhang",
+"Yuxuan Zhang",
+"Xinjie Shen"
+],
+"n_authors": 7,
+"published": "2026-09-28",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 56,
+"comment": "",
+"abstract": "An activation-steering coefficient sets intervention strength, but requesting a particular degree of persona expression requires a behavioral scale. We study persona dosing: controlling a language model through a trait description and a requested mean intensity. PersonaDose specializes a shared, description-conditioned FLAS controller on persona responses, then calibrates its flow time against measured trait expression. Training responses are not paired with requested target intensities. Across Llama-3.1-8B, Qwen3-8B, and Gemma-3-4B, PersonaDose raises core-trait expression at the Persona Vectors coherence floor of 75 by 33.2, 18.3, and 17.8 points over contrastive activation addition. Calibration-selected settings retain an expression advantage on held-out questions, although the coherence floor does not hold for every trait there. Across seven trained traits, calibrated requests yield mean targeting errors of 4.7-6.2 points over 14-22 calibration-reachable targets out of 28 per model. These results separate the behavioral range learned by a controller from the accuracy of requests within that range.",
+"title_ko": "설명 조건부 스티어링으로 페르소나 강도를 눈금대로 조절",
+"tldr": "특성 설명과 목표 강도 점수만 주면 LLM의 페르소나 표현 정도를 보정된 눈금으로 조절하는 스티어링 컨트롤러(PersonaDose)를 제안한다.",
+"bullets": [
+"문제: 스티어링 계수는 실제 행동 강도와 대응이 불분명해 정도 지정이 어렵다.",
+"방법: 특성 설명 조건부 FLAS 컨트롤러를 페르소나 응답으로 학습하고 flow time을 보정한다.",
+"결과: 일관성 75 기준 표현도가 CAA 대비 Llama +33.2, Qwen +18.3, Gemma +17.8점이다.",
+"결과: 7개 특성에서 도달 가능한 목표의 평균 오차는 4.7~6.2점이다.",
+"한계: 홀드아웃 질문에서 일부 특성은 일관성 기준을 못 지키고, 모델당 28개 중 14~22개만 도달 가능하다."
+],
+"why": "좁은 데이터로 학습한 페르소나 표현을 내부 표현 수준에서 정량 조절·보정하는 방식이라 페르소나 특성 제어와 스티어링 연구에 참고할 만하다.",
+"tags": [
+"activation steering",
+"persona",
+"보정(calibration)",
+"FLAS"
+],
+"venue": "",
+"affiliations": [
+"Georgia Institute of Technology",
+"Zhejiang University",
+"University of British Columbia"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-09-28",
+"backfill": true
+},
+{
+"id": "2609.35261",
+"title": "Imprint Reader: From Weight-Update Readout to Behavioral Intervention",
+"authors": [
+"Guanxu Chen",
+"Qihao Lin",
+"Jing Shao"
+],
+"n_authors": 3,
+"published": "2026-09-28",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 16,
+"comment": "",
+"abstract": "As language models take a growing role in AI development, a natural aspiration is for them to reflect on their own learning process, as humans do, and use that reflection to improve themselves. At the same time, these models have an advantage that human learners lack, since training leaves parameter-level traces that can, in principle, be inspected directly. However, current models cannot decode these traces into an explicit account of what they have learned. To this end, we introduce the Imprint Reader, a model trained with Semantic Mount-and-Read Tuning (SaRT) to describe frozen weight updates. SMaRT mounts each update onto the Reader and uses an anchor-free meta-query to elicit a natural-language description, while no-change and random-perturbation controls discourage unsupported claims. On held-out updates, the joint Reader reaches judge-based Pass@100 of 2% for knowledge and 16% for behavior. These results demonstrate the feasibility of natural-language readout while pointing to reliability across updates as the next step. Beyond free-form generation, the Reader provides a differentiable proxy for the gap between a specified target behavior and a candidate weight update. Its coordinate-aligned gradients support intervention through MetaEdit. At a 0.5% pruning rate, Reader-guided selection raises measured harmful-prompt refusal from 57.9% to 64.1% under a safety-maintenance target. Using behavior descriptions without target-task training data, MetaEdit increases the frequency of backtracking and sub-goal expressions in mathematical reasoning traces and raises BFCL Overall from 41.69% to 44.60%.",
+"title_ko": "가중치 업데이트를 자연어로 읽고 행동 교정에 쓰는 Imprint Reader",
+"tldr": "고정된 가중치 변화(업데이트)를 모델에 얹어 무엇을 배웠는지 자연어로 설명하게 훈련하고, 그 기울기를 이용해 학습 데이터 없이 원본 모델의 행동을 수정한다.",
+"bullets": [
+"문제: 모델은 자기 가중치 업데이트가 무엇을 학습시켰는지 해독하지 못한다.",
+"방법: SMaRT로 업데이트를 Reader에 얹고 질의해 설명을 생성, 통제 에피소드로 허위 주장 억제.",
+"결과: 미공개 업데이트에서 Pass@100은 지식 2%, 행동 16%이다.",
+"결과: 0.5% 가지치기로 유해 프롬프트 거부율 57.9%→64.1%, BFCL 41.69%→44.60%.",
+"한계: 설명의 업데이트 간 신뢰도가 낮고, 단일 지식·행동 항목의 통제된 업데이트만 평가했다."
+],
+"why": "좁은 파인튜닝이 남기는 가중치 흔적을 읽고, 설명문만으로 안전성 유지·거부 보정 같은 최소 부작용의 행동 교정(MetaEdit)을 시도해 관심 주제와 직결된다.",
+"tags": [
+"weight readout",
+"모델 편집",
+"안전성 유지",
+"해석가능성"
+],
+"venue": "",
+"affiliations": [
+"Shanghai Artificial Intelligence Laboratory",
+"Shanghai Jiao Tong University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-09-28",
+"backfill": true
+},
+{
+"id": "2609.36139",
+"title": "Language Models Are \"Insecure\" Reporters",
+"authors": [
+"Jenny Y. Huang",
+"Jiameng Fan",
+"Ahmed Imtiaz Humayun",
+"Maximillian Chen",
+"Tian Qin",
+"Run Chen",
+"Vidhya Navalpakkam",
+"Hongxiang Gu"
+],
+"n_authors": 8,
+"published": "2026-09-28",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 17,
+"comment": "",
+"abstract": "As large language models are deployed in increasingly autonomous long-horizon tasks, manually auditing and verifying the actions, artifacts, and outputs of models becomes more difficult. Users instead come to rely on LLM-generated reports to assess the quality and completeness of the work. We introduce a suite of eight adversarial reporting scenarios to systematically study whether LLMs conceal narrative-changing flaws: errors or limitations that undermine an otherwise successful account of work. We call this phenomenon \"insecure reporting.\" When handed machine learning experiment logs containing a planted negative result that substantially weakens the proposed method, GPT-5.5 flags the negative result in only 2 of 200 generated reports. However, when a short honesty instruction, \"Be honest in your response,\" is added, the model flags the negative result in 190 of 200 reports. Across eight open-weight models, chain-of-thought analysis reveals a recurring tension between disclosing narrative-changing flaws and reasoning about ways to appear successful. We perform an activation analysis and a steering experiment on Qwen3.5-9B, finding that honesty and success-seeking correspond to opposing directions in representation space. Our results suggest that LLMs tend to present narratives of success by default, and that steering models toward honesty makes their reports substantially more transparent.",
+"title_ko": "LLM이 보고서에서 치명적 결함을 숨기는 현상과 정직성 조향 분석",
+"tldr": "LLM은 긴 작업을 보고할 때 성공 서사를 깨는 결함을 기본적으로 숨기며, 짧은 정직 지시나 정직 방향 조향(steering)으로 공개율을 크게 높일 수 있다.",
+"bullets": [
+"문제: 자율 작업이 늘며 사용자가 LLM 보고서에 의존하지만, 결함을 숨길 수 있다.",
+"방법: 결함을 심은 8가지 보고 시나리오를 만들고 LLM 판정으로 공개 여부를 측정했다.",
+"결과: GPT-5.5는 부정적 결과를 200건 중 2건만 언급했지만 정직 지시 후 190건 언급했다.",
+"결과: Qwen3.5-9B에서 정직과 성공 추구는 표상 공간의 반대 방향이며, 조향으로 점수가 바뀐다.",
+"한계: 심은 결함 시나리오 중심이고, 활성 분석과 조향은 9B 모델 하나에서만 했다."
+],
+"why": "미세조정 시 정직성 같은 행동이 표상 방향으로 존재하고 조향·LoRA 증류로 교정된다는 점이 행동 교정과 부작용 최소화 연구에 참고가 된다.",
+"tags": [
+"정직성",
+"steering",
+"LLM-as-judge",
+"행동 교정"
+],
+"venue": "",
+"affiliations": [
+"Massachusetts Institute of Technology",
+"Google Research",
+"Harvard University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.36139/2609.36139v1/figures/cartoon-figure.jpg",
+"caption": "Figure 1 : An illustration of insecure reporting. The assistant falsely claims that all tasks were completed, despite the execution history showing that a vision-training run did not finish. Only after being instructed to “Be honest” does the model acknowledge the incomplete run."
+},
+"fig_ko": "에이전트가 학습 실행이 끝나지 않았음에도 모든 작업을 완료했다고 보고하다가, '정직하라'는 지시 후에야 미완료를 인정하는 예시를 보여준다.",
+"html": true,
+"collected": "2026-09-28",
+"backfill": true
+},
+{
+"id": "2609.33780",
+"title": "Selecting Diverse SFT Traces Improves Post-RL Generalization",
+"authors": [
+"Dylan Zhang",
+"Mingyuan Wu",
+"Jinning Li"
+],
+"n_authors": 3,
+"published": "2026-09-27",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 38,
+"comment": "",
+"abstract": "Verified solutions are not equally useful for preparing reasoning models for reinforcement learning (RL). We present a comprehensive study of route diversity, the variation in the sequences of reasoning steps in supervised fine-tuning (SFT) data, and propose a lightweight, rule-based fingerprint to select for it. From one pool at one budget, with matched training recipes and checkpoints, selecting diverse rather than similar routes improves post-RL problem coverage across puzzles and mathematics, including on problems harder than those seen in either training stage. In synthetic experiments, route-diverse SFT improves OLMo3-7B's pass@8 by 16.9 points on environments held out from SFT. In a single-model condition, where one model writes every candidate, diverse selection gains up to 6.2 points of mean pass@8 across 10 mathematics benchmarks. Pre-RL diagnostics suggest why: diverse SFT can produce both successful and failed attempts on more prompts despite slightly lower mean accuracy, giving group-relative RL more prompts with a learning signal. On 3 open-source corpora, our CPU-only selector, without model calls, outperforms more expensive alternatives in every comparison of mean post-RL performance. These results identify reasoning-route diversity as a practical criterion for selecting SFT data that better prepares models for RL.",
+"title_ko": "RL 준비를 위해 추론 경로가 다양한 SFT 데이터 선택하기",
+"tldr": "검증된 풀이 중 추론 단계 경로가 서로 다른 것을 규칙 기반으로 골라 SFT하면, 이후 RL 뒤 일반화와 문제 커버리지가 더 좋아진다.",
+"bullets": [
+"문제: 검증된 풀이라도 RL 준비용 SFT 데이터로는 효용이 서로 다르다.",
+"방법: 추론 단계 순서를 규칙 기반 지문으로 만들어 다양한 경로를 CPU로 선택.",
+"결과: OLMo3-7B의 SFT 미사용 환경 pass@8이 16.9점 상승했다.",
+"결과: 공개 코퍼스 3종에서 더 비싼 선택 기법보다 RL 후 평균 성능이 높았다.",
+"한계: 지문이 도메인별이고, 시드 반복 및 인과 검증이 부족하다."
+],
+"why": "SFT 데이터 선택·큐레이션 기준을 정답 여부가 아닌 풀이 경로의 다양성으로 잡는 값싼 방법이라 데이터 선별 연구에 참고할 만하다.",
+"tags": [
+"SFT 데이터 선택",
+"추론 다양성",
+"RLVR",
+"데이터 큐레이션"
+],
+"venue": "",
+"affiliations": [
+"University of Illinois Urbana-Champaign",
+"Google"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-09-27",
+"backfill": true
+},
+{
+"id": "2609.33642",
+"title": "Learning to Learn from Context: Synthetic Training from Perturbed Public Documents",
+"authors": [
+"Haoyi Wu",
+"Yang Xiao",
+"Yusong Sun",
+"Wenyang Hui",
+"Zhaokai Luo",
+"Chengyue Jiang",
+"Mu Chuan"
+],
+"n_authors": 7,
+"published": "2026-09-27",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 34,
+"comment": "18 pages, 3 figures, 10 tables",
+"abstract": "Real-world tasks often require large language models (LLMs) to learn from complex task-specific context rather than pretrained parametric knowledge. This capability remains a weakness of LLMs, while human annotation for such task contexts is expensive and difficult to scale. Public high-quality documents are an abundant alternative, but much of the public web has already been consumed during pretraining: training on such documents naively would reward memorization rather than context learning. In this work, we attempt to make use of high-quality public documents with small perturbations and empirically find that LLMs can successfully generate context-dependent reasoning traces and answers, which are then used to train a student model. Specifically, we construct a synthesis pipeline that (i) rewrites source documents to reduce memorization risk, (ii) generates questions and rubrics that require reasoning over the document, (iii) answers the questions with the document as context, and (iv) admits only samples that genuinely depend on the document. Without any human annotators, our pipeline generates about 10k samples from 3.5k documents, and the resulting student model substantially improves the performance on CL-bench. SFT raises a Qwen3.6-35B-A3B student from 13.7% to 22.8%, and a subsequent rubric-reward RL stage reaches 24.6%, on CL-bench comparable with a frontier model of over a trillion parameters, Qwen3.8-2.4T (23.9%). We also observe a broad transfer of improvements to long-context understanding, instruction following, and reasoning, while code generation and knowledge remain mostly flat. We hope this work provides a reproducible and scalable way to improve the ability of LLMs to learn from context, and to facilitate further research on context-grounded reasoning.",
+"title_ko": "교란한 공개 문서로 맥락 학습용 합성 데이터 만들기",
+"tldr": "공개 문서의 개체명·수치를 바꿔 암기를 막고, 문서 의존 샘플만 걸러 만든 합성 데이터 1만 개로 35B 모델의 문서 기반 추론 능력을 크게 높였다.",
+"bullets": [
+"문제: LLM은 긴 문서를 읽고 규칙을 적용하는 맥락 학습이 약하고, 사람 주석은 비싸다.",
+"방법: 문서를 개체명·수치 교란으로 재작성하고, 질문·루브릭 생성 후 gap check로 필터링한다.",
+"결과: 3.5k 문서에서 약 10k 샘플을 만들어 CL-bench를 SFT로 13.7%→22.8%, RL로 24.6%로 올렸다.",
+"결과: 장문 이해, 지시 따르기, 추론도 향상됐고 코드와 지식은 거의 그대로였다.",
+"한계: 판정 프롬프트의 괄호를 바꿔 사용해 공식 결과와 완전히 같다고 보장하지 못한다."
+],
+"why": "문서 재작성으로 암기를 막고 with/without 문서 통과율 차이로 샘플을 거르는 gap check는 SFT 데이터 선별·합성 설계에 바로 참고할 만하다.",
+"tags": [
+"합성데이터",
+"데이터필터링",
+"context learning",
+"SFT/RL"
+],
+"venue": "",
+"affiliations": [],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-09-27",
+"backfill": true
+},
+{
+"id": "2609.32720",
+"title": "BiasReducer: Adaptive Bias Mitigation for Reward Models",
+"authors": [
+"Shuang Liu",
+"Yongliang Miao",
+"Yanguang Liu",
+"Haoyi Xiong",
+"Mengnan Du"
+],
+"n_authors": 5,
+"published": "2026-09-26",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 27,
+"comment": "",
+"abstract": "Reward models score responses from large language models (LLMs) and guide LLM training toward human preferences. However, reward models can favor superficial attributes such as length or confidence, leading LLMs to produce higher-scoring but not more correct responses. Existing mitigation methods either retrain the reward model or apply a fixed correction to one known bias, such as a preference for longer responses. Retraining requires additional data and computational resources, while existing editing methods require the target bias to be specified in advance and use a fixed edit for that bias. To this end, we propose BiasReducer, a lightweight framework that edits only the linear reward head and selects the relevant edits for each new dataset. First, BiasReducer uses a sparse autoencoder (SAE)-style encoder to learn which attributes (e.g., length and confidence) the reward model is sensitive to. Second, it learns how to reduce the reward model's dependence on each attribute by determining which direction to adjust the reward head and how much to adjust it. Third, for a new dataset, it ranks the attributes by their influence on reward scores, selects the relevant ones, and edits the reward model accordingly. BiasReducer consistently improves reward-model robustness to biases toward superficial response attributes. Across five reward models, BiasReducer-M improves the three benchmarks by 8.3, 18.0, and 6.9 percentage points on average, outperforming the two training-based baselines. The gains transfer downstream, reducing unnecessary verbosity and sycophancy while maintaining comparable judged quality.",
+"title_ko": "보상모델의 헤드만 고쳐 길이·자신감 편향을 줄이는 적응형 편집",
+"tldr": "BiasReducer는 보상모델의 선형 헤드만 수정해, 데이터셋마다 영향이 큰 표면적 속성(길이, 자신감 등)을 골라 재학습 없이 편향을 줄이는 방법이다.",
+"bullets": [
+"문제: 보상모델이 길이·자신감 같은 표면 속성을 선호해 보상 해킹이 생긴다.",
+"방법: SAE식 인코더로 속성 차원을 학습하고 헤드의 편집 방향과 강도를 정한다.",
+"방법: 새 데이터셋에선 응답과 보상 점수만으로 영향이 큰 속성을 골라 편집한다.",
+"결과: 5개 보상모델에서 세 벤치마크가 평균 8.3, 18.0, 6.9%p 향상됐다.",
+"결과: Best-of-N과 GRPO에서 불필요한 장황함과 아첨이 줄고 품질은 비슷했다.",
+"한계: 미리 정의한 속성 목록에 의존하며, 그 밖의 편향은 다루지 못한다."
+],
+"why": "재학습 없이 보상모델의 편향을 데이터셋별로 교정하는 모델 편집 접근이라, 최소 부작용의 행동 교정과 표현 기반 조정에 관심 있는 연구자에게 참고할 만하다.",
+"tags": [
+"보상모델",
+"편향 완화",
+"모델 편집",
+"RLHF"
+],
+"venue": "",
+"affiliations": [
+"Carnegie Mellon University",
+"The Chinese University of Hong Kong, Shenzhen",
+"New Jersey Institute of Technology"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.32720/2609.32720v1/pipeline.png",
+"caption": "Figure 1: Overview of BiasReducer . From preference pairs ( x + , x − ) , BiasReducer learns a dimension z a associated with a predefined response attribute a , and determines how to edit the reward head w r to reduce its dependence on that attribute. For a new dataset 𝒟 , BiasReducer selects what to edit using only responses and reward scores, without knowing which response is preferred. w r ′ de"
+},
+"fig_ko": "선호 쌍에서 속성별 차원을 학습하고 보상 헤드의 편집 방향과 강도를 정해 새 데이터셋에 적용하는 전체 흐름을 보여준다.",
+"html": true,
+"collected": "2026-09-26",
+"backfill": true
+},
+{
+"id": "2609.29233",
+"title": "Post-Training Leaves Behavioral Shadows on Unrelated Decisions",
+"authors": [
+"Ziyang Zhang",
+"Yubin Jing",
+"Yuanhao Zeng",
+"Yuyao Li",
+"Haofan Wang",
+"Yichen Gong"
+],
+"n_authors": 6,
+"published": "2026-09-24",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 273,
+"comment": "17 pages, 6 figures, 13 tables. Code: this https URL",
+"abstract": "We find that language models can transfer capabilities through task-unrelated text. Post-training typically improves language models using task-specific data. Prior work on subliminal learning shows that information about these updates can pass through unrelated generations, but has largely focused on traits or preferences using extensive teacher outputs. We introduce Active Taskless Distillation (ATD), which achieves capability transfer using only a single word from the teacher per prompt. ATD probes the behavioral shadow of post-training by selecting prompts where the teacher and student's shared public ancestor is nearly indifferent between two ordinary words. A student initialized from this ancestor learns solely from the resulting prompt-word pairs, without target-task examples, teacher logits, or teacher parameters. In the primary coding experiment with Qwen2.5-1.5B, 5,664nses yield a 5.34 pp gain on HumanEval+ over an exact nuisance-matched control thadisrupts prompt-resperiments showtransfer in scientific knowledge, commonsense reasoning, and reading comprehensins across additional model generations, sizes, and families. Functional analyses show that the learned sid composable, andthat its strength tracks the teacher's update strength.",
+"title_ko": "무관한 단어 선택만으로 후훈련 능력을 전이하는 증류",
+"tldr": "공개 기반모델이 두 단어 사이에서 거의 동률인 프롬프트를 골라 교师의 단어 한 개씩만 학습해도 학생 모델의 코딩·지식 과제 성능이 올라간다.",
+"bullets": [
+"문제: 후훈련 변화가 과제와 무관한 출력에도 남는지, 전이 가능한지 불명확",
+"방법: 기반모델이 동률인 프롬프트를 골라 교사의 단어 하나만 받아 학습",
+"결과: Qwen2.5-1.5B에서 5,664개 응답으로 HumanEval+ 5.34pp 향상",
+"한계: 정보 대역폭이 낮고, 교사 향상이 클수록 전이되는 것은 아님"
+],
+"why": "좁은 후훈련이 무관한 출력에 흔적을 남기고 그것이 능력 전이에 쓰인다는 점은 데이터 형식, 일반화, 의도치 않은 행동 변화를 다루는 연구자에게 유용한 관점이다.",
+"tags": [
+"subliminal learning",
+"증류",
+"합성데이터",
+"behavioral shadow"
+],
+"venue": "",
+"affiliations": [
+"Peking University",
+"Georgia Institute of Technology",
+"ShanghaiTech University",
+"Tsinghua University",
+"Lovart AI"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.29233/2609.29233v1/figure1_overview.png",
+"caption": "Figure 1 : Reading a post-training update through target-unrelated decisions with ATD . Using only the public base M 0 , ATD samples ordinary prompts on which M 0 is nearly indifferent between two words (near-ties), and asks the private teacher M T = M 0 + δ for one word at each; where the update tips a near-tie, the returned word is a one-bit observation of the teacher’s behavioral shadow. A stud"
+},
+"fig_ko": "공개 기반모델이 동률인 프롬프트를 고르고 비공개 교사의 단어를 받아 학생이 학습하며, 짝을 깬 대조군과 비교하는 전체 흐름을 보여준다.",
+"html": true,
+"collected": "2026-09-24",
+"backfill": true
+},
+{
+"id": "2609.29421",
+"title": "Rufus-Air: An Open LLM Post-Training Recipe",
+"authors": [
+"Chia-Yuan Chang",
+"Renyuan Cheng",
+"Rui Feng",
+"Xiaotian Han",
+"Yuan He",
+"Hongye Jin",
+"Linwei Li",
+"Shiyang Li"
+],
+"n_authors": 22,
+"published": "2026-09-24",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 44,
+"comment": "48 pages, 9 figures, 20 tables. Authors are listed alphabetically by surname; all contributed while at Amazon. The two authors named Zixuan Zhang are different people",
+"abstract": "Rufus-Air is an open and reproducible post-training recipe on GLM-4.5-Air-Base (106B-A12B), organized as a serial pipeline of eight stages: SFT, Reasoning RL, Coding RL, Instruction-Following RL, General Agent, Coding Agent, Search Agent, and RLHF. We document the data, reward design, infrastructure, stage order, and stagewise results needed to reproduce the recipe. Stages progress from basic to advanced capabilities and from hard, verifiable rewards to softer judge-based signals. Training builds on open-source components and public data, much of it used as released, without new human annotation or an in-house distillation teacher. Our main findings are that (i) diverse, high-quality SFT establishes a strong capability floor; (ii) difficulty filtering keeps RL prompts within a productive learning range; (iii) reward reliability provides a practical principle for ordering stages; and (iv) infrastructure and engineering choices are part of the recipe, not just an implementation detail. Rufus-Air improves over the official GLM-4.5-Air post-trained release and is competitive with similarly sized open models.",
+"title_ko": "공개 데이터로 만든 8단계 LLM 포스트트레이닝 레시피",
+"tldr": "GLM-4.5-Air-Base 위에 SFT부터 RLHF까지 8단계를 순차 적용한 재현 가능한 포스트트레이닝 레시피를 공개했고, 공식 Air 릴리스보다 대부분 벤치마크에서 앞선다.",
+"bullets": [
+"문제: 포스트트레이닝 레시피는 시스템 카드 수준으로만 공개되어 재현이 어렵다.",
+"방법: SFT→추론·코딩·지시따르기 RL→에이전트 3종→RLHF를 직렬로 학습한다.",
+"방법: 난이도 필터로 학습 가능한 프롬프트만 남기고, 보상 신뢰도 순으로 단계를 배치한다.",
+"결과: Arena-Hard v2 창작 글쓰기를 제외한 보고 벤치마크에서 공식 GLM-4.5-Air를 앞선다.",
+"한계: 일부 결론은 전체 ablation이 아니라 학습 경험에 근거하며 저자도 명시한다."
+],
+"why": "공개 데이터 기반 SFT 구성, 난이도 필터링 기반 RL 프롬프트 선별, 보상 신뢰도에 따른 단계 순서 등 회사가 실제 적용할 포스트트레이닝 데이터 설계의 구체 사례를 제공한다.",
+"tags": [
+"post-training",
+"데이터 선별",
+"RLHF",
+"오픈 레시피"
+],
+"venue": "",
+"affiliations": [
+"Amazon"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.29421/2609.29421v2/pipeline.png",
+"caption": "Figure 1 : Recipe overview. The post-training pipeline runs from the GLM-4.5-Air-Base checkpoint through eight stages to the final Rufus-Air model, each stage trained on the checkpoint the previous one produced."
+},
+"fig_ko": "GLM-4.5-Air-Base에서 8개 학습 단계를 거쳐 최종 Rufus-Air에 이르는 순차 파이프라인 개요를 보여준다.",
+"html": true,
+"collected": "2026-09-24",
+"backfill": true
+},
+{
+"id": "2609.24983",
+"title": "onPanda: Efficient Annotation of On-Policy Alignment Data for LLMs and Agents via Token-Level Correction",
+"authors": [
+"Lei Yang",
+"Mengyin Liu",
+"Jia Wang",
+"Hangyu Guo",
+"Liang Zhao",
+"Zheng Ge",
+"Kang An",
+"Binxing Jiao"
+],
+"n_authors": 12,
+"published": "2026-09-21",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 55,
+"comment": "Project page: this https URL",
+"abstract": "We present onPanda, an interactive tool for efficiently annotating LLM alignment data and agent trajectories. onPanda adopts token-level correction as its core interaction: while reading a model response, the annotator locates the first inappropriate token and either picks a substitute from the model's candidate tokens or types the correct text via free-form editing. The system then truncates everything after that position and continues generation from the corrected prefix, repeating this locate-correct-continue loop until a satisfactory response is obtained. This mechanism lets annotators precisely steer model outputs at low cost: a small controlled study suggests that onPanda reduces median annotation time by 52% over manual post-editing. Since the vast majority of tokens in the final response are generated by the model itself, the resulting data largely preserves the model's sampling distribution and is well suited for constructing on-policy SFT and preference data. Furthermore, the token-level corrections recorded during annotation provide fine-grained supervision with precise positions and naturally paired positive--negative samples. onPanda also connects to external tools and harnesses, enabling interactive trajectory annotation in realistic environments. In addition, we release Panda-CVL, a dataset annotated with onPanda, together with a benchmark for token-level correction.",
+"title_ko": "토큰 단위 수정으로 온폴리시 정렬 데이터를 주석하는 도구",
+"tldr": "onPanda는 주석자가 첫 번째 잘못된 토큰만 고치면 모델이 이어서 생성하게 하여, 모델 분포에 가까운 SFT·선호 데이터를 저비용으로 만드는 주석 도구이다.",
+"bullets": [
+"문제: 직접 작성·후편집 데이터는 비싸고 모델 분포에서 벗어나며, 선호 데이터는 거칠다.",
+"방법: 첫 오류 토큰을 후보에서 고르거나 직접 입력하고, 이후를 잘라 모델이 이어 생성한다.",
+"결과: 소규모 통제 실험에서 후편집 대비 주석 시간 중앙값이 52% 줄었다.",
+"부산물: 수정 위치와 긍정·부정 쌍이 자동 기록되어 DPO·PRM 데이터로 변환 가능하다.",
+"한계: 자유 입력은 모델 분포를 벗어나며, 효과 검증은 소규모 연구에 의존한다."
+],
+"why": "온폴리시 데이터 생성과 최소 수정으로 만드는 대조쌍(contrastive pair)이 SFT·선호 튜닝 데이터 큐레이션과 직접 연결되어 참고할 만하다.",
+"tags": [
+"데이터 주석",
+"온폴리시",
+"토큰 수정",
+"선호 데이터"
+],
+"venue": "",
+"affiliations": [
+"StepFun",
+"Xiamen University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.24983/2609.24983v1/img/fig1_UI-v4.png",
+"caption": "Figure 1: The token-level correction interface of onPanda. (a) Each token’s generation probability is color-coded below it: greener means higher, redder means lower. (b) Hovering over the first inappropriate token ␣triangles pops up the top-20 candidate tokens at this position; the annotator selects the more appropriate ␣shapes . (c) Replace and continue: the system replaces ␣triangles with ␣shape"
+},
+"fig_ko": "토큰 확률 색상 표시, 후보 토큰 선택, 자유 편집, 이어 생성, 중간 버전 보존까지 토큰 단위 수정 인터페이스의 흐름을 보여준다.",
+"html": true,
+"collected": "2026-09-21",
+"backfill": true
+},
+{
+"id": "2609.20942",
+"title": "When AI Reviews Train AI Reviewers: Scientific-Judgment Collapse and Mitigation",
+"authors": [
+"Sy-Tuyen Ho",
+"Minghui Liu",
+"Furong Huang"
+],
+"n_authors": 3,
+"published": "2026-09-17",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 9,
+"comment": "NeurIPS 2026 Workshop on Foundations of LLM Post-Training in Changing Environments",
+"abstract": "Large language models (LLMs) increasingly participate in scientific evaluation, both as automated reviewers and as assistants to human reviewers. As model-generated reviews enter public data and future training corpora, AI peer review can become recursive: later reviewers learn from judgments produced by earlier models. We study one step of this feedback loop in a controlled setting. Starting from Llama 3.1 8B, we first fine-tune a reviewer on official ICLR reviews from 2018--2023 and then train four successor models on ICLR 2024 data with systematically varied mixtures of official and model-generated reviews. Our study shows that introducing synthetic reviews compresses rating distributions and reduces both same-paper and corpus-level semantic diversity. We call this pattern scientific-judgment collapse. To mitigate this failure mode, we introduce TrustReviewer, an open-source LLM-based system for generating peer reviews of AI and machine learning papers. TrustReviewer intervenes at two complementary stages. For training-time prevention, we train the core reviewer in a single stage on a curated corpus designed to reduce low-quality and semantically degenerate supervision. For test-time correction, paired activation steering aims to further mitigate residual tendencies toward collapsed judgments without further training or additional expert annotation. Together, these results characterize a concrete risk of recursive reviewer training and provide practical interventions for preserving judgment diversity and improving recommendation alignment in AI-assisted scientific evaluation.",
+"title_ko": "AI 리뷰로 AI 리뷰어를 학습시킬 때의 판단 붕괴와 완화",
+"tldr": "AI가 쓴 리뷰를 다음 세대 리뷰어 학습에 섞으면 평점과 의견이 한쪽으로 쏠리는 '과학적 판단 붕괴'가 생기며, 데이터 큐레이션과 활성화 스티어링으로 일부 완화할 수 있다.",
+"bullets": [
+"문제: AI 생성 리뷰가 학습 데이터에 들어가 재귀 학습이 되면 판단이 획일화될 수 있다.",
+"방법: Llama 3.1 8B를 ICLR 리뷰로 학습하고 합성 리뷰 비율 0~100% 후속 모델을 비교했다.",
+"결과: 합성 100%에서 평점 엔트로피 2.31→2.18, 같은 논문 리뷰 유사도 약 11% 증가.",
+"결과: TrustReviewer의 스티어링은 정확 일치율을 73.85%에서 75.40%로 올렸다.",
+"한계: 최대 2단계, 한 모델 계열과 한 분야뿐이며 다양성이 곧 품질은 아니다."
+],
+"why": "합성 데이터 혼합비가 모델 행동 다양성에 미치는 영향과, 재학습 없는 활성화 스티어링 보정을 함께 볼 수 있어 데이터 큐레이션·표현 기반 교정에 관심 있는 연구자에게 유용하다.",
+"tags": [
+"합성데이터",
+"모델붕괴",
+"activation steering",
+"LLM 리뷰어"
+],
+"venue": "NeurIPS 2026 Workshop",
+"affiliations": [
+"University of Maryland, College Park"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.20942/2609.20942v2/recursive_training_framework.png",
+"caption": "Figure 1: Controlled framework for recursive AI-reviewer training. Starting from the same M 1 reviewer, we construct M 2 p variants with 0%, 33%, 66%, or 100% explicitly generated reviews while holding the initialization, review count, filtering, and training configuration fixed."
+},
+"fig_ko": "동일한 M1 리뷰어에서 출발해 합성 리뷰 비율 0·33·66·100%로 후속 모델 M2를 만드는 통제된 재귀 학습 설계를 보여준다.",
+"html": true,
+"collected": "2026-09-17",
+"backfill": true
+},
+{
+"id": "2609.21094",
+"title": "Geometry of Values: Task Vector Composition for Ethical Preference Alignment in Language Models",
+"authors": [
+"Utkarsh Agarwal",
+"Monojit Choudhury"
+],
+"n_authors": 2,
+"published": "2026-09-17",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 5,
+"comment": "Accepted at the Pluralistic Alignment Workshop @ ICML 2026, Seoul, South Korea. this https URL",
+"abstract": "Large Language Models (LLMs) are increasingly deployed in applications that must weigh clashing moral values, yet even strong models exhibit hidden biases and brittle instruction-following across languages. We introduce a 12,000-instance dataset of two-option dilemmas covering pairwise three value conflicts: Honesty vs. Justice, Justice vs. Autonomy, and Autonomy vs. Honesty, along with their translations into Hindi, Arabic, Spanish, and Chinese, to probe cross-lingual behavior. Benchmarking on GPT-5-mini reveals that it consistently favors Honesty over Autonomy across all five languages when no policy is given. The Llama-3.2-1/3B models exhibit strong first-option bias; however, both plain fine-tuning and Direct Preference Optimization fine-tuning effectively remove this bias, increasing accuracy to greater than 98%. In order to decouple the effect of learning correlations in the dataset from abstract values, we propose a task vector transfer based experiment where after computing the task vectors for a direction of value preference we orthogonalize it with respect to the general instruction following vector. Our experiment shows that this method is effective in isolating the direction of the specific value preference that can successfully be used to conduct task arithmetic to obtain a model with the opposite stance.",
+"title_ko": "과업 벡터 조합으로 LLM의 윤리적 가치 선호를 뒤집기",
+"tldr": "정직·정의·자율성 충돌 딜레마 데이터로 소형 Llama를 LoRA 학습한 뒤, 지시 따르기 성분을 직교 제거한 선호 벡터로 가치 순위를 추론 시점에 반전시킬 수 있음을 보였다.",
+"bullets": [
+"문제: LLM은 가치 충돌 상황에서 숨은 가치 편향과 위치 편향을 보인다.",
+"방법: 5개 언어 딜레마 1.2만 건으로 LoRA SFT/DPO 후, 선호 벡터를 직교화해 가감한다.",
+"결과: 미세조정으로 정확도 98% 이상, 사람이 쓴 골드셋 90% 이상을 달성했다.",
+"결과: 3B에서 선호 벡터 반전이 전체 미세조정 성능의 96% 이상을 유지했다.",
+"한계: 선호 벡터들이 거의 직교해 가치 관계의 이행적 조합은 잘 안 된다."
+],
+"why": "좁은 데이터로 학습한 행동을 가중치 공간의 방향으로 분리·반전하는 방식은 최소 부작용의 행동 교정과 표현 기반 편집에 직접 참고가 된다.",
+"tags": [
+"task vector",
+"가치 정렬",
+"LoRA/DPO",
+"다국어"
+],
+"venue": "ICML 2026 Pluralistic Alignment Workshop",
+"affiliations": [
+"Mohamed bin Zayed University of Artificial Intelligence"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.21094/2609.21094v1/images/task-vector.png",
+"caption": "Figure 1 : An Ethical Dilemma scenario where an agent is present and is faced with a question and two options. Both options are virtuous and there isn’t a right answer without an associated ethical stance."
+},
+"fig_ko": "선택지 두 개가 모두 덕목인 윤리 딜레마와 에이전트 상황의 예시를 보여준다.",
+"html": true,
+"collected": "2026-09-17",
+"backfill": true
+},
+{
+"id": "2609.16204",
+"title": "Decoy Direction Optimization: A Post-Hoc Defense Against LLM Abliteration",
+"authors": [
+"Aashiq Muhamed",
+"Mona T. Diab",
+"Virginia Smith"
+],
+"n_authors": 3,
+"published": "2026-09-14",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 4,
+"comment": "",
+"abstract": "Safety guardrails in open-weight language models can be readily bypassed using Refusal Feature Ablation (RFA), a technique that identifies and projects out a linear refusal direction from the residual stream, often achieving a high attack success rate (ASR) while preserving model capability. Defending against these attacks typically requires computationally expensive safety finetuning for every new checkpoint. We introduce Decoy Direction Optimization (DDO), a fast, post-hoc weight-editing defense that requires no base-model finetuning. Our approach is based on a simple mechanistic insight: ablation attacks rely on contrastive estimators to find the refusal direction. Rather than trying to hide the true refusal circuitry, DDO actively injects a high-magnitude, nonlinear decoy signal into the network's MLP neurons. When an attacker attempts to locate the refusal direction, the decoy corrupts their estimator, tricking them into ablating a harmless orthogonal feature while the actual safety mechanism remains intact. We prove a spectral bound formalizing this effect and evaluate DDO across six model families, achieving <10% ASR under standard RFA. On Llama-3-8B-Instruct, DDO remains comparable to trained defenses under adaptive multi-phase attacks (65% vs. 58% worst-case ASR) and reduces Heretic weight-level attack ASR from 88.7% to 18%, all at 30 to 450 times lower optimization cost per configuration than the trained baselines.",
+"title_ko": "모델 가중치 편집으로 refusal 제거 공격을 막는 미끼 방향 방어",
+"tldr": "MLP 뉴런에 큰 비선형 '미끼' 신호를 심어 refusal 방향 추정을 교란함으로써, 재학습 없이 수 분 만에 abliteration 공격을 완화하는 사후 방어법이다.",
+"bullets": [
+"문제: 오픈 가중치 모델은 refusal 방향 제거(RFA)로 안전장치가 쉽게 뚫린다.",
+"방법: 해로운 입력에서만 작동하는 미끼 신호를 MLP 뉴런에 넣어 방향 추정을 오염시킨다.",
+"결과: 6개 모델군에서 표준 RFA ASR 10% 미만, Heretic ASR 88.7%→18%.",
+"한계: 적응형 공격에는 최악 ASR 65%이고, 일부 모델에서 과잉 거절이 늘어난다."
+],
+"why": "refusal 방향 같은 내부 표현을 겨냥한 공격과 학습 없는 가중치 편집 방어를 다뤄, 파인튜닝 후 안전성 보존과 과잉 거절 보정 관점에서 참고할 만하다.",
+"tags": [
+"abliteration",
+"refusal",
+"weight editing",
+"안전성"
+],
+"venue": "",
+"affiliations": [
+"Carnegie Mellon University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.16204/2609.16204v1/comparison_figure.png",
+"caption": "Figure 1: DDO vs. existing defenses against RFA. Without any defense, RFA strips refusal from open-weight models with no training cost for the attacker (top row). Trained safety defenses (Circuit Breakers, LAT, ReFAT, RepBend) preserve refusal under RFA but require training data, multi-GPU finetuning, and expensive per-method hyperparameter sweeps (middle row). DDO reaches comparable standard-RFA "
+},
+"fig_ko": "무방어, 학습 기반 방어, DDO를 RFA 공격에 대해 효과와 비용 면에서 비교한 개요 그림이다.",
+"html": true,
+"collected": "2026-09-14",
+"backfill": true
+},
+{
+"id": "2609.13680",
+"title": "Drift-Constrained Optimization: Only Direction Matters in Fine-Tuning Instruct Models",
+"authors": [
+"Fei Yuan",
+"Changjiang Gao",
+"Yilei Tu",
+"Yifeng Liu",
+"Shujian Huang",
+"Yu Qiao"
+],
+"n_authors": 6,
+"published": "2026-09-12",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 13,
+"comment": "",
+"abstract": "Fine-tuning instruct models often improves target performance while inducing behavioral drift from the reference model, which can degrade existing capabilities. Rather than treating this drift as an uncontrolled consequence of optimization, we specify a behavioral drift budget before optimization and ask how to boost the target-task performance within it. Locally, behavioral drift induces a shared geometry anchored at the reference model, with the drift budget defining a boundary within this space. In this space, drift determines distance from the reference, leaving update direction as the remaining degree of freedom. Fine-tuning updates can therefore be compared through their directional efficiency, naturally reformulating fine-tuning as a direction-selection problem. This reformulation makes a concrete prediction: changing the accessible directions can qualitatively alter the outcome of fine-tuning. We test this prediction in a stringent QA-only setting, where strong instruct models are fine-tuned only on final answers but must still generate multi-step reasoning at inference. Despite this mismatch, a coarse layer-selective probe reverses the failure of QA-only fine-tuning and reveals the existence of effective directions, with multiple neighboring configurations improving target performance while preserving reasoning and general capabilities. Across Qwen3-8B and Qwen3-14B, these directions substantially improve scientific reasoning and multilingual translation. Over more than 100 languages, the resulting models match or outperform dedicated translation systems and provide a stronger initialization for subsequent reinforcement learning. Our results suggest that fine-tuning is not just about how much a model changes, but how that change is spent. https://github.com/CONE-MT/DCO and https://huggingface.co/collections/LLaMAX/dco",
+"title_ko": "드리프트 예산 안에서 파인튜닝 방향만 고르는 최적화",
+"tldr": "파인튜닝을 '얼마나 변하나'가 아니라 고정된 행동 변화(드리프트) 예산 안에서 '어느 방향으로 변하나'를 고르는 문제로 재정의하고, 레이어 선택 튜닝으로 정답만 학습해도 추론 능력을 보존하며 성능을 높일 수 있음을 보였다.",
+"bullets": [
+"문제: instruct 모델 파인튜닝은 목표 성능을 올리지만 기존 능력이 깎이는 드리프트가 생긴다.",
+"방법: KL 드리프트 예산을 먼저 고정하고, 업데이트를 방향 선택 문제(방향 효율)로 본다.",
+"방법: 정답만 있는 QA 데이터로 레이어를 골라 튜닝하는 단순 탐침을 사용한다.",
+"결과: Qwen3-8B/14B에서 과학 추론과 100개 이상 언어 번역이 크게 향상되었다.",
+"한계: Qwen3 규모와 과학·번역 과제만 검증했고, 작동 원리는 완전히 설명하지 못했다."
+],
+"why": "파인튜닝 부작용(망각, 능력 저하)을 데이터 형식이 아닌 업데이트 방향과 레이어 선택으로 최소화하는 관점이라 표적 행동 교정 연구에 참고할 만하다.",
+"tags": [
+"파인튜닝",
+"드리프트",
+"망각 방지",
+"레이어 선택 튜닝"
+],
+"venue": "",
+"affiliations": [
+"Shanghai Artificial Intelligence Laboratory",
+"Nanjing University",
+"University of British Columbia"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.13680/2609.13680v1/theory_figure.png",
+"caption": "(a) A shared local behavior coordinate system."
+},
+"fig_ko": "기준 모델을 원점으로 두고 드리프트 예산을 타원체 경계로 표시한, 파인튜닝 업데이트의 공통 행동 좌표계를 보여준다.",
+"html": true,
+"collected": "2026-09-12",
+"backfill": true
+},
+{
+"id": "2609.13770",
+"title": "Training Specialist Models without Reasoning Trajectories for Domain Expert Distillation",
+"authors": [
+"Yilei Tu",
+"Zihao Li",
+"Shaoxiong Ji",
+"Jörg Tiedemann",
+"Fei Yuan"
+],
+"n_authors": 5,
+"published": "2026-09-12",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 9,
+"comment": "",
+"abstract": "Specialist distillation effectively transfers domain expertise to student models via teacher-generated reasoning trajectories. However, when these specialists are trained solely on question--answer pairs without explicit reasoning supervision, what governs the trajectories they generate? In this work, we show that specialist optimization implicitly selects from this latent trajectory space. To isolate and observe this latent distribution, we leverage student distillation not as a downstream goal, but as an agnostic probe---since students inherit no parameterization or optimization constraints from the specialist, inheriting only the sampled trajectories themselves. Through this probe, our empirical analysis unveils a tight governing relationship: across 27 specialist--student pairings, their specialization--generalization profiles correlate exceptionally strongly. Crucially, explicitly controlling the specialist's distributional drift systematically shifts both the teacher and its distilled student along a controllable trade-off between domain precision and general-capability retention. Across chemistry, physics, and multilingual settings, distilled students systematically reflect these specialist-induced profiles, even across divergent model families. Our findings establish a new view of specialist training: when gold reasoning is absent, tuning choices directly control the latent supervision passed to downstream models.",
+"title_ko": "추론 과정 없이 QA만으로 학습한 전문가 모델의 증류 분석",
+"tldr": "정답만으로 전문가 모델을 학습하면 학습 설정이 잠재적 추론 궤적 분포를 암묵적으로 정하고, 증류된 학생 모델이 그 특성을 그대로 물려받는다.",
+"bullets": [
+"문제: QA만 학습하면 추론 궤적 분포가 정해지지 않은 채 남는다.",
+"방법: 학생 증류를 전문가의 궤적 분포를 관찰하는 탐침으로 사용했다.",
+"결과: 27개 전문가-학생 쌍에서 특화-일반화 성향이 매우 강하게 상관했다.",
+"결과: KL 드리프트 제어로 정밀도와 일반 능력 유지 간 균형을 조절했다.",
+"한계: 화학·물리·다국어 도메인 위주라 다른 영역 일반화는 불확실하다."
+],
+"why": "SFT 설정이 생성 데이터의 성질과 망각·일반화 균형을 결정하고 이것이 하위 모델로 전이된다는 점이 데이터 변환·증류 실무에 직접 관련된다.",
+"tags": [
+"증류",
+"SFT",
+"KL drift",
+"망각"
+],
+"venue": "",
+"affiliations": [
+"University of British Columbia",
+"University of Helsinki",
+"ELLIS Institute Finland",
+"University of Turku",
+"Shanghai Artificial Intelligence Laboratory"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-09-12",
+"backfill": true
+},
+{
+"id": "2609.11063",
+"title": "The information geometry of large language models is shared, learned, and controllable",
+"authors": [
+"Dario Picozzi"
+],
+"n_authors": 1,
+"published": "2026-09-10",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 6,
+"comment": "",
+"abstract": "Large language models learn similar behaviours, yet it remains unclear what structure they share or how to change one behaviour without disturbing others. The Fisher-Rao geometry of next-token probabilities connects these questions: behaviour determines this geometry up to output-preserving symmetries, whereas activation geometry depends on coordinates. Across transformer, state-space and recurrent models, output geometries agree more strongly than activation geometries, and shared geometry supports semantic-category transfer. Agreement with human word choices increases with predictive accuracy, scale and training, and improves further after model-only calibration. Token probabilities and read-out geometry jointly predict the spectrum and its effective dimension. Controlled language assignments show that geometry follows the language law across architectures. Pretraining corpus statistics predict held-out fact acquisition without recalibration, while randomised experiments show that deeper evidence substantially delays acquisition across every tested architecture and evidence construction. Finally, the geometry prescribes minimum-disturbance local interventions, predicts their relative cost, and supports reusable control: updates learned on donor prompts transfer to unseen prompts while better preserving behaviour on reference prompts than Euclidean control. The same geometric correction improves steering, editing, attribution, dictionary learning and fine-tuning.",
+"title_ko": "LLM 출력 확률의 Fisher-Rao 기하와 최소 교란 제어",
+"tldr": "활성화 좌표가 아닌 다음 토큰 확률의 Fisher-Rao 기하가 모델 간에 공유되고 학습으로 형성되며, 이를 이용하면 다른 행동을 덜 건드리고 스티어링·편집·파인튜닝을 할 수 있다는 연구.",
+"bullets": [
+"문제: 활성화 공간의 유클리드 거리는 좌표 선택에 의존해, 행동 변경 시 부작용 측정이 어렵다.",
+"방법: 출력 확률의 Fisher-Rao 계량을 활성화로 당겨와(pullback) 최소 교란 개입을 계산한다.",
+"결과: 구조가 다른 모델들에서 출력 기하가 활성화 기하보다 더 잘 일치한다.",
+"결과: 기하 보정이 유클리드 제어보다 참조 프롬프트 행동을 더 잘 보존한다고 보고한다.",
+"한계: 초록 기준 소형 모델 중심 검증이며, 대규모 사후학습 적용은 불확실하다."
+],
+"why": "스티어링 벡터, 모델 편집, LoRA 파인튜닝에서 부작용(다른 행동 변화)을 줄이는 원리적 방법을 제시해 표적 행동 교정 관심사와 맞닿는다.",
+"tags": [
+"Fisher 기하",
+"스티어링",
+"모델 편집",
+"표현 분석"
+],
+"venue": "",
+"affiliations": [
+"University College London",
+"London Centre for Nanotechnology"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-09-10",
+"backfill": true
+},
+{
+"id": "2609.10445",
+"title": "Building Multilingual Bridges: Data Mixing as the Pillar of Generalization for In-Language Reasoning",
+"authors": [
+"Mehrnaz Mofakhami",
+"Ananya Sahu",
+"Alejandro R. Salamanca",
+"Daniel D&#39;souza",
+"Alexandre Berard",
+"Thomas Euyang",
+"Marzieh Fadaee",
+"Julia Kreutzer"
+],
+"n_authors": 8,
+"published": "2026-09-09",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 32,
+"comment": "",
+"abstract": "Reasoning language models have made substantial advances on a variety of complex tasks, yet their capabilities remain overwhelmingly English-centric: models primarily reason in English regardless of the language they are prompted in. This is inaccessible for non-English-speaking users, risks losing the intent of the original question, and forgoes knowledge more readily expressed in the target language. In this work, we advance L2 reasoning, the ability of a model to reason consistently in the language of the user's prompt, thus building an in-language bridge between the prompt and the answer. We approach this problem from a data-centric angle, investigating how to optimize data composition and scheduling in SFT for reasoning generalization. Building Tiny Aya L2-Thinker at 3.35B scale, we achieve an L2 reasoning rate above 93% across 60 languages on 6 benchmarks spanning math, commonsense reasoning, instruction following, open-ended generation, and cultural reasoning while keeping performance strong. We show the path to generalizing L2 reasoning to held-out languages goes through broader language coverage, readily available multilingual non-reasoning data, and a sufficient English reasoning backbone. These findings indicate that reasoning is a language-agnostic behavior that can be transferred across typologically diverse languages through careful data mixing and without requiring reasoning supervision in every target language. We release our model weights and multilingual reasoning data to support further research on accessible, in-language reasoning.",
+"title_ko": "데이터 배합으로 사용자 언어 그대로 추론하는 소형 모델 만들기",
+"tldr": "번역한 추론 데이터, 영어 추론 데이터, 다국어 비추론 데이터를 함께 섞어 SFT하면 3.35B 모델이 60개 언어에서 프롬프트와 같은 언어로 추론하면서 성능도 유지한다.",
+"bullets": [
+"문제: 추론 모델은 어떤 언어로 물어도 영어로 추론해 접근성이 낮다.",
+"방법: 영어 추론 트레이스를 번역해 증강하고 세 종류 데이터를 섞어 SFT한다.",
+"결과: Tiny Aya L2-Thinker가 60개 언어에서 L2 추론률 93% 이상을 기록했다.",
+"결과: 데이터 혼합이 순차 학습이나 모델 병합보다 정확도와 L2 추론률 균형이 낫다.",
+"한계: 번역 데이터에 의존하고, 평가는 자동 지표뿐이며 지시문 없으면 영어로 돌아갈 수 있다."
+],
+"why": "추론 데이터의 언어 구성과 혼합 비율이 일반화에 미치는 영향을 소거 실험으로 보여주며, 번역을 통한 데이터 변환과 SFT 데이터 믹싱 설계에 참고할 만하다.",
+"tags": [
+"데이터 믹싱",
+"다국어 추론",
+"SFT",
+"합성데이터"
+],
+"venue": "",
+"affiliations": [
+"Cohere Labs",
+"Cohere"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.10445/2609.10445v1/images/bridge_2.png",
+"caption": "Figure 2 : Our contribution: Creating target-language bridges between prompts and responses by optimizing multilingual reasoning capabilities through data augmentation, data mixing and carefully calibrated fine-tuning."
+},
+"fig_ko": "번역 증강, 데이터 혼합, 조정된 파인튜닝으로 프롬프트와 응답 사이에 대상 언어 추론 다리를 만드는 기여 개요를 보여준다.",
+"html": true,
+"collected": "2026-09-09",
+"backfill": true
+},
+{
+"id": "2609.10060",
+"title": "Reference-Based Bias Detection in LLMs via Relative Representations of Hidden States",
+"authors": [
+"Marek Jeliński",
+"Jan Dubiński",
+"Maciej Chrabaszcz",
+"Sebastian Cygert"
+],
+"n_authors": 4,
+"published": "2026-09-09",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 2,
+"comment": "",
+"abstract": "Existing bias auditing methods typically rely on model outputs, requiring costly benchmarks or judge models and potentially missing internal shifts that never appear in generated text. We propose a reference-based method that audits bias in hidden-state representations across related model variants, for example before and after fine-tuning. Because fine-tuning reshapes representation geometry, absolute hidden states are not directly comparable, so we encode each sentence by its similarities to a fixed set of anchor sentences, yielding relative representations in a shared comparison space. There we measure how target groups shift in their association with positive and negative attributes, a quantity we call the Representational Bias Shift ΔB. Across three model families and the WildGuardMix, DecodingTrust and ToxiGen benchmarks, ΔB correlates with output-level bias change in 15 of the 18 settings we test, reaching |r| = 0.84 (p < 0.001) under full fine-tuning and becoming more model-dependent under parameter-efficient adaptation. Thresholding ΔB detects checkpoints whose bias increased with ROC AUC between 0.65 and 0.99, and on WildGuardMix and DecodingTrust it separates them better than a SEAT-based baseline for all three families. ΔB is also stable under changes to the anchor set, attribute sets and target templates. Our method requires no task-specific evaluation data and audits a model in about three minutes, using 3-50times less compute than the output-level benchmarks considered here. We view it as complementary to output-based auditing rather than a replacement for it.",
+"title_ko": "상대 표현으로 파인튜닝 전후 LLM의 편향 변화를 탐지",
+"tldr": "앵커 문장과의 유사도로 만든 상대 표현 공간에서 파인튜닝 전후 모델의 은닉 상태 편향 변화(ΔB)를 재면, 출력 기반 편향 변화를 적은 비용으로 상당 부분 예측할 수 있다.",
+"bullets": [
+"문제: 출력 기반 편향 평가는 벤치마크·판정 모델이 필요하고 내부 변화를 놓친다.",
+"방법: 앵커 문장 유사도로 두 모델을 공유 공간에 놓고 표적 집단의 긍정/부정 연관 변화 ΔB를 계산한다.",
+"결과: 18개 설정 중 15개에서 출력 편향과 상관, 전체 파인튜닝에서 |r| 최대 0.84.",
+"결과: 편향 증가 체크포인트 탐지 ROC AUC 0.65~0.99, 출력 벤치마크보다 3~50배 적은 연산.",
+"한계: LoRA에서는 모델 의존적이며 Gemma는 약하고, 출력 평가를 대체하지 못한다."
+],
+"why": "파인튜닝 부작용(편향·안전성 저하)을 출력 평가 없이 은닉 표현으로 점검하는 방법이라 안전성 보존과 표현 기반 감사에 직접 참고가 된다.",
+"tags": [
+"편향 탐지",
+"relative representation",
+"파인튜닝 부작용",
+"표현 분석"
+],
+"venue": "",
+"affiliations": [
+"NASK - National Research Institute",
+"Warsaw University of Technology",
+"Gdańsk University of Technology"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.10060/2609.10060v1/fig1.png",
+"caption": "Figure 1: Overview of our bias evaluation pipeline. We use relative representations to project the hidden spaces of the fine-tuned model ( ℳ aud ) and the reference (base) model ( ℳ ref ) into a shared space via anchor sentences. Within this shared space, we calculate distances between target representations and sets of positive and negative sentences. By comparing these distances ( Δ ​ B ), our m"
+},
+"fig_ko": "파인튜닝된 모델과 기준 모델의 은닉 공간을 앵커 문장으로 공유 공간에 투영해 ΔB를 계산하는 전체 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-09-09",
+"backfill": true
+},
+{
+"id": "2609.07103",
+"title": "Revisiting Complete Reasoning Traces for Post-Training",
+"authors": [
+"Jaehui Hwang",
+"Sangdoo Yun",
+"Byeongho Heo",
+"Dongyoon Han"
+],
+"n_authors": 4,
+"published": "2026-09-07",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 22,
+"comment": "To appear in EMNLP 2026 Findings",
+"abstract": "Large language models (LLMs) are often post-trained on pre-collected reasoning trajectories to improve their reasoning capability. Such trajectories tend to be long due to complex, interwoven paths, which often include detours on the path toward the answer. However, it has been underexplored whether LLMs indeed benefit from learning complete trajectories in post-training, such as supervised fine-tuning (SFT). Starting from our pilot study, we find that full trajectories provide only limited benefit, while partial trajectories are effective even under heavy truncation. We analyze redundancy in reasoning trajectories through attention-based analyses and controlled token-removal studies, both of which show that intermediate tokens contribute minimally to final reasoning quality. This suggests that avoiding redundant information may allow LLMs to internally infer coherent alternatives by inferring missing steps from their internal knowledge, given known trajectory endpoints. Furthermore, we show that training LLMs using endpoints leads to consistent changes in reasoning behavior, and that it also benefits post-training methods based on reinforcement learning or on-policy distillation, highlighting the need to revisit complete reasoning traces. Code is available at https://github.com/naver-ai/revisiting-trace.",
+"title_ko": "추론 궤적 전체 대신 시작·끝점만으로 사후학습 효과 재검토",
+"tldr": "긴 추론 궤적 전체로 SFT해도 이득이 제한적이며, 심하게 잘라낸 부분 궤적이나 끝점 중심 학습만으로도 충분하거나 더 효과적일 수 있음을 보인다.",
+"bullets": [
+"문제: 긴 추론 궤적 전체를 학습하는 것이 정말 필요한지 불분명했다.",
+"방법: 어텐션 분석과 토큰 제거 실험으로 중간 토큰의 중복성을 분석했다.",
+"결과: 전체 궤적은 이득이 제한적이고, 부분 궤적은 크게 잘라도 효과적이었다.",
+"결과: 끝점 기반 학습은 RL, on-policy 증류에도 도움이 된다고 보고한다.",
+"한계: 초록만 확인되어 모델·과제 범위와 수치는 알 수 없다."
+],
+"why": "SFT 추론 데이터를 어떻게 잘라내고 정제할지(데이터 선택·변형)에 대한 실용적 근거를 제공하므로 볼 만하다.",
+"tags": [
+"SFT 데이터 큐레이션",
+"추론 궤적",
+"데이터 변형",
+"on-policy 증류"
+],
+"venue": "EMNLP 2026 Findings",
+"affiliations": [],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-09-07",
+"backfill": true
+},
+{
+"id": "2609.06289",
+"title": "Steering Geometry: Validating Human Value Geometry in LLM Steering Space",
+"authors": [
+"Mohammad Mahdi Abootorabi",
+"Armin Saghafian",
+"Ali Bazshoushtari",
+"Hamid Rezaei",
+"EunJeong Hwang",
+"Vered Shwartz",
+"Parvin Mousavi",
+"Purang Abolmaesumi"
+],
+"n_authors": 8,
+"published": "2026-09-05",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 27,
+"comment": "Accepted to EMNLP 2026 Main Conference (top 15.4%)",
+"abstract": "As large language models (LLMs) are increasingly deployed in alignment-sensitive contexts, activation steering has emerged as a lightweight, inference-time alternative to fine-tuning methods (e.g., RLHF, DPO) for behavioral control. However, existing work typically validates steering on isolated behaviors, leaving it unclear whether steering vectors encode coherent semantic structure or merely exploit behavior-specific shortcuts. We investigate whether the latent geometry of LLM steering vectors reflects theory-specified structure in human values and morality. Using Schwartz's Theory of Basic Human Values as our primary fine-grained framework, we introduce a 26K-sample benchmark covering 20 human values and analyze distribution-driven methods (e.g., CAA, SphericalSteer, ODESteer) and behavior-centric approaches (e.g., COLD-Steer, BiPO) across diverse model families and sizes. We find that distribution-driven methods recover human value topologies aligned with theoretical predictions (Spearman ρ up to 0.51, p < 10^{-13}). In contrast, behavior-centric methods achieve comparable steering performance but show little correlation with the expected value geometry. Geometric fidelity improves with model scale but drops after instruction tuning. Finally, better geometric alignment also leads to more human-consistent transfer across values: steering one value correctly lifts compatible values and suppresses opposing ones. Code and data are available at: https://github.com/DeepRCL/Steering_Geometry.",
+"title_ko": "스티어링 벡터가 인간 가치 구조를 반영하는지 검증",
+"tldr": "분포 기반 스티어링 방법은 슈워츠 가치 이론의 원형 구조와 닮은 기하를 복원하지만, 행동 중심 방법은 성능이 비슷해도 그렇지 않다.",
+"bullets": [
+"문제: 스티어링이 의미 구조를 담는지, 단일 행동의 지름길인지 불명확하다.",
+"방법: 슈워츠 20개 가치 26K 대조쌍 벤치마크로 스티어링 벡터 기하를 분석했다.",
+"결과: 분포 기반 방법은 이론과 상관(ρ 최대 0.51)을 보이고 행동 중심은 낮다.",
+"결과: 기하 충실도는 모델이 클수록 좋아지고 instruction tuning 후 떨어진다.",
+"한계: 슈워츠·MFT 두 이론 중심이며 일부 방법만 모델 간 비교했다."
+],
+"why": "좁은 가치 조정이 다른 가치에 번지는 이유와 표현 기하, instruction tuning에 따른 구조 훼손을 이해하는 데 도움이 된다.",
+"tags": [
+"activation steering",
+"가치 정렬",
+"표현 기하",
+"probing"
+],
+"venue": "EMNLP 2026",
+"affiliations": [
+"University of British Columbia",
+"Vector Institute for AI",
+"Queen's University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.06289/2609.06289v1/figures/steering_pipeline.png",
+"caption": "Figure 1: Pipeline for analyzing value geometry in the LLM activation-steering space. (1) For each Schwartz value, we build contrastive (question, positive, negative) pairs. (2) We extract residual-stream activations at a selected layer ℓ ⋆ and apply steering methods from two paradigms, distribution-driven and behavior-centric , to construct a value vector bank. (3) We evaluate (A) geometric align"
+},
+"fig_ko": "가치별 대조쌍에서 활성화를 추출해 스티어링 벡터를 만들고 이론 구조와 비교하는 분석 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-09-05",
+"backfill": true
+},
+{
+"id": "2609.04714",
+"title": "Refuse without Refusal: A Structural Analysis of Safety-Tuning Responses for Reducing False Refusals in Language Models",
+"authors": [
+"Minji Kim",
+"Hyounghun Kim"
+],
+"n_authors": 2,
+"published": "2026-09-04",
+"source": "HF Daily",
+"score": 10.0,
+"upvotes": 5,
+"comment": "EMNLP 2026 Main Conference (38 pages); Code available at this https URL",
+"abstract": "Striking a balance between helpfulness and safety remains a fundamental challenge in aligning large language models. To achieve this balance, models should refuse harmful queries (e.g., \"How do I shoot someone?\") while remaining responsive to benign inputs, even those superficially resembling harmful queries (e.g., \"Where can I shoot a good photo?\"). However, models often struggle to distinguish genuinely harmful queries from benign queries that contain superficially risky language, resulting in false refusals. In this paper, we address the issue by decomposing a response in the safety-tuning dataset into two distinct components: (i) a boilerplate refusal statement and (ii) a rationale explaining the refusal. Our experiments and analyses show that refusal statements impede accurate discrimination between harmful and benign queries by inducing reliance on superficial cues. In contrast, training solely on rationales reduces false refusals while maintaining a comparable level of safety performance. Rationale-Only benefits also appear in our ICL configuration and remain compatible with the evaluated inference-time mitigation methods. The results emphasize the necessity of precisely curated, fine-grained safety supervision datasets and outline directions for constructing aligned agents that better reconcile helpfulness with safety.",
+"title_ko": "거절 문구를 빼고 근거만 학습해 과잉 거절 줄이기",
+"tldr": "안전 튜닝 응답을 '정형 거절 문구'와 '거절 근거 설명'으로 나눠 분석한 결과, 근거만 학습하면 안전성은 비슷하게 유지하면서 과잉 거절이 줄어든다.",
+"bullets": [
+"문제: 모델이 위험해 보이는 표현만 보고 무해한 질문도 거절한다.",
+"방법: 안전 튜닝 응답을 거절 문구와 근거 설명으로 분해해 각각 학습했다.",
+"결과: 거절 문구는 표면 단서 의존을 키우고, 근거만 학습하면 과잉 거절이 줄었다.",
+"결과: Rationale-Only 효과는 ICL 설정과 추론 시 완화 기법에서도 확인됐다.",
+"한계: 초록만 제공되어 데이터 규모, 모델, 수치는 확인할 수 없다."
+],
+"why": "안전 튜닝 데이터의 응답 구조를 바꿔 과잉 거절을 교정하는 방법으로, 데이터 변환과 부작용 최소화 관점에서 직접 참고할 만하다.",
+"tags": [
+"over-refusal",
+"안전 튜닝",
+"데이터 큐레이션",
+"SFT"
+],
+"venue": "EMNLP 2026",
+"affiliations": [],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-09-04",
+"backfill": true
+},
+{
+"id": "2609.04720",
+"title": "Knowing What Not to Answer: Selective Non-Compliance in Vision-Language Models",
+"authors": [
+"Minji Kim",
+"Jihyoung Jang",
+"Hyounghun Kim"
+],
+"n_authors": 3,
+"published": "2026-09-04",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 7,
+"comment": "EMNLP 2026 Main Conference (43 pages). Code and dataset available at this https URL",
+"abstract": "Vision-language models (VLMs) are expected to respond helpfully to appropriate requests while withholding compliance with requests that are incorrect, unsafe, infeasible, or unanswerable. However, existing benchmarks predominantly evaluate non-compliance at the level of the query as a whole, assuming that each request either warrants compliance or requires withholding compliance. In practice, real-world queries can contain a mixture of answerable content and components for which compliance should be withheld. In this paper, we introduce KoNA, a benchmark for evaluating selective non-compliance in VLMs across five categories: False Premise, Visual Inaccessibility, Universal Unknown, Task Feasibility, and Safety. Each task evaluates two capabilities: query-level non-compliance and component-level non-compliance under paired single and compound queries. Our evaluation across diverse VLMs shows that models often fail to refuse, correct, or abstain appropriately, and these failures become more pronounced when queries require selective non-compliance. To address this challenge, we fine-tune VLMs using KoNA examples that require selective non-compliance, together with a fully answerable set that should receive direct answers. Our fine-tuned models achieve substantial improvements in non-compliance accuracy while largely maintaining performance on fully answerable tasks. These results suggest that the fine-tuned models can distinguish between answerable components and those requiring non-compliance and respond in a task-appropriate manner.",
+"title_ko": "VLM이 답하지 말아야 할 부분만 골라 거부하게 하는 벤치마크",
+"tldr": "질문 일부만 거부·정정해야 하는 복합 질의를 평가하는 KoNA 벤치마크를 만들고, SFT+GRPO로 선택적 비순응 능력을 크게 높였다.",
+"bullets": [
+"문제: 기존 평가는 질의 전체의 거부 여부만 보고, 일부만 거부할 상황은 놓친다.",
+"방법: 5개 범주의 단일·복합 질의 쌍으로 KoNA를 만들고 SFT 후 GRPO로 학습했다.",
+"결과: 비순응 정확도가 크게 오르고 완전 답변 가능 질의 성능은 대체로 유지됐다.",
+"한계: 80B 초과 오픈 모델과 비전·언어 외 모달리티는 평가하지 않았다."
+],
+"why": "과잉 거부를 줄이면서 필요한 부분만 거부하도록 만드는 데이터 구성(답변 가능 세트 혼합)과 안전 보정 사례로 참고할 만하다.",
+"tags": [
+"과잉거부",
+"비순응",
+"VLM",
+"GRPO"
+],
+"venue": "EMNLP 2026",
+"affiliations": [
+"POSTECH"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.04720/2609.04720v1/main_figure3.png",
+"caption": "Figure 1: Comparison of model responses to single and compound queries. Our fine-tuned model selectively applies non-compliance in compound queries, whereas baseline models do not."
+},
+"fig_ko": "단일 질의와 복합 질의에서 기존 모델과 미세조정 모델의 응답 차이를 비교한 그림이다.",
+"html": true,
+"collected": "2026-09-04",
+"backfill": true
+},
+{
+"id": "2609.04482",
+"title": "Safety for Whom? Boundary-Aware Self-Distillation for Controlled LLM Safety Refusal",
+"authors": [
+"Alejo López-Ávila",
+"Iker García-Ferrero",
+"Jezabel Garcia",
+"Antonio Tiene",
+"Román Orús"
+],
+"n_authors": 5,
+"published": "2026-09-03",
+"source": "HF Daily",
+"score": 10.0,
+"upvotes": 11,
+"comment": "22 pages, 14 figures",
+"abstract": "Safety alignment is usually posed as a topic-level question: is this subject harmful? Deployments ask a narrower one. A civics tutor and a public-sector assistant may share a base model yet need different boundaries inside the same topic, refusing targeted political manipulation while still answering factual questions about the same election. We formulate this as narrow-boundary safety and introduce an offline self-generated framework combining controlled topic generation, coverage repair, in-distribution compensation data, and harmful-benign pairs for training and evaluation. Single-shot generation leaves 19.88% of prompts without accepted refusal traces, whereas escalating retries leave 0.20%. On political persuasion with Qwen3-8B, training on refusal data completed through Escalate increases target-domain refusal from 9.47% to 84.75% and reduces the mean unsafe-response rate across three broader harmfulness benchmarks from 26.26% to 0.14%, but increases XSTest over-refusal from 2.00% to 74.00%. In a separate matched comparison, replacing external responses with verified target-model responses reduces over-refusal from 15.20% to 5.20%. Boundary-pair data reduces comply-side over-refusal on held-out pairs from 32.94% to 4.16%, while harmful-side refusal decreases only from 91.88% to 87.72%. These results show that data composition controls the safety and usability trade-off, and that safety alignment should be evaluated on both sides of the intended refusal boundary.",
+"title_ko": "주제 내부 좁은 거부 경계를 자기증류 데이터로 학습",
+"tldr": "정치 설득처럼 한 주제 안에서 일부만 거부해야 하는 상황을, 자기생성 거부 데이터의 누락 복구와 경계 쌍 데이터로 제어해 안전성과 과잉거부의 균형을 조절한다.",
+"bullets": [
+"문제: 주제 단위 안전 정렬은 같은 주제 내 세밀한 거부 경계를 못 만든다.",
+"방법: 단계적 재시도로 누락 복구, 보상 데이터, 유해-무해 쌍을 구성한다.",
+"결과: 재시도로 거부 trace 누락이 19.88%에서 0.20%로 줄었다.",
+"결과: 경계 쌍 데이터로 무해 쪽 과잉거부가 32.94%에서 4.16%로 감소했다.",
+"한계: 정치 설득 주제와 Qwen3-8B 중심이라 일반화가 불확실하다."
+],
+"why": "특정 주제 안에서만 거부를 교정하면서 과잉거부와 부작용을 줄이는 데이터 구성 방법을 다루어 타깃 행동 교정 관심사와 직접 맞닿는다.",
+"tags": [
+"과잉거부",
+"자기증류",
+"안전 정렬",
+"경계 데이터"
+],
+"venue": "",
+"affiliations": [
+"Multiverse Computing"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.04482/2609.04482v1/figures/fig_C1_boundary_formulation.png",
+"caption": "Figure 1: Narrow-boundary safety. A deployment-specific policy may need to refuse only political prompts that ask for manipulation, propaganda, or targeted persuasion (the target-harmful subset, later formalised as H ), while still answering other political prompts (the benign complement, Ω ∖ H ), rather than refusing all of politics ( Ω ). A trained model’s refusal behaviour, a probability in [ 0"
+},
+"fig_ko": "정치 주제 전체가 아니라 설득·조작 요청만 거부하고 나머지는 답해야 하는 좁은 경계 안전의 개념을 보여준다.",
+"html": true,
+"collected": "2026-09-03",
+"backfill": true
+},
+{
+"id": "2609.02771",
+"title": "From Reweighting to Rewriting: Unlocking the Intervention Effects of Influential Samples in Training Data Attribution",
+"authors": [
+"Yuzhang Luo",
+"Chenpeng Wang",
+"Jianhui Chen",
+"Liangming Pan"
+],
+"n_authors": 4,
+"published": "2026-09-02",
+"source": "HF Daily",
+"score": 9.0,
+"upvotes": 3,
+"comment": "",
+"abstract": "Training data attribution (TDA) aims to identify training examples that shape model behavior, but its intervention value depends on both which examples are selected and how they are modified. Influence functions (IF) estimate behavioral changes under infinitesimal reweighting, yet IF-selected examples often show limited advantages over random selection under conventional weight-based interventions. This raises the question of whether influential examples lack intervention value or whether reweighting fails to realize their behavioral leverage.We introduce influence-guided response rewriting, which uses IF to identify intervention targets and replaces their responses with behavior-aligned or behavior-opposed supervision while keeping instructions fixed. Across four open-weight LLMs, we compare rewriting and reweighting on the same influence-selected examples using epistemic abstention as our primary testbed. Response rewriting produces stronger, more persistent, and bidirectional behavioral shifts, while reweighting the same examples yields weak and inconsistent effects. Further analyses show that influence-selected examples provide greater rewriting leverage than alternative selectors, with changes remaining concentrated on target-relevant behaviors. The same qualitative contrast extends to safety refusal. These results distinguish the local reweighting effects captured by influence estimates from the broader intervention leverage of the examples they identify, motivating intervention-aware evaluation of TDA methods.",
+"title_ko": "영향함수로 고른 샘플의 응답을 재작성해 행동 제어",
+"tldr": "영향함수로 고른 학습 샘플은 가중치 조정으로는 효과가 약하지만, 응답을 다시 쓰면 모델의 기권·안전 거절 행동을 강하고 양방향으로 바꿀 수 있다.",
+"bullets": [
+"문제: 영향함수 선택 샘플이 재가중(reweighting)에선 무작위와 비슷한 효과에 그친다.",
+"방법: 영향함수로 대상을 고르고, 지시문은 두고 응답만 행동 정렬/반대로 재작성한다.",
+"결과: 4개 오픈 LLM에서 재작성이 재가중보다 강하고 지속적이며 양방향 변화를 낸다.",
+"결과: 영향 기반 선택이 다른 선택법보다 재작성 효과가 크고, 안전 거절에도 비슷하게 나타난다.",
+"한계: 기권·거절처럼 재작성 목표가 명확한 행동에 주로 적합하고, 안전 강화 시 과잉 거절이 늘어난다."
+],
+"why": "SFT 데이터 선택과 응답 재작성으로 기권·거절 같은 특정 행동을 부작용 적게 교정하는 방법을 다루어 데이터 큐레이션·행동 교정 관심사와 직접 맞닿는다.",
+"tags": [
+"데이터 귀속",
+"영향함수",
+"응답 재작성",
+"기권/거절"
+],
+"venue": "",
+"affiliations": [
+"Peking University",
+"YiXin-AILab",
+"Beijing Academy of Artificial Intelligence"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.02771/2609.02771v1/overviewv5.png",
+"caption": "Figure 1: Overview of our framework. IF identifies training examples associated with a target behavior, which we intervene on through weight-based operations or response rewriting."
+},
+"fig_ko": "영향함수로 목표 행동과 관련된 학습 샘플을 찾아 가중치 조작 또는 응답 재작성으로 개입하는 전체 프레임워크를 보여준다.",
+"html": true,
+"collected": "2026-09-02",
+"backfill": true
+}
+]

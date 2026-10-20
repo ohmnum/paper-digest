@@ -1,0 +1,55 @@
+[
+{
+"id": "2607.20465",
+"title": "DataPrep-Bench: Benchmarking LLMs as Training Data Preparators",
+"authors": [
+"Hao Liang",
+"Qifeng Cai",
+"Yibo Lin",
+"Jianzhuo Du",
+"Qifeng Xia",
+"Sizhe Qiu",
+"Linzhuang Sun",
+"Meiyi Qiang"
+],
+"n_authors": 14,
+"published": "2026-05-19",
+"source": "HF Daily",
+"score": 9.0,
+"upvotes": 56,
+"comment": "",
+"abstract": "The quality of training data fundamentally determines the capabilities of large language models (LLMs), yet no unified benchmark exists to measure how well LLMs, agents, and data-centric workflows actually prepare training data end to end. We view LLM-driven data preparation as comprising two complementary capabilities: data construction, which transforms raw sources into supervised training data, and data quality evaluation, which predicts the training value of candidate datasets before downstream training; throughout, \"quality\" refers to downstream training utility rather than surface-level textual properties. We introduce DataPrep-Bench, the first unified benchmark that jointly evaluates both capabilities under a shared downstream-grounded protocol over six domains and multiple base models. For data construction, methods consume identical raw sources and are scored by fine-tuning a base model on their outputs jointly with Dolly-15k; alongside this track we release Data-Construction-Skill, a skill-guided agent that lifts the Dolly-only baseline by nearly 20 points absolute on Llama-3.1-8B Finance and is competitive with the strongest agent- and DataFlow-based methods in knowledge-extraction-dense domains. For data quality evaluation, scoring functions are scored by Pearson correlation with downstream performance on a shared candidate pool; we release the Distributional Alignment Score (DAS), a distribution-based evaluator that uses MMD between a candidate dataset and a domain proxy. DAS attains the strongest cross-model correlation in four of six domains and is the only metric clearing r > 0.70 simultaneously in Math, Science, and Medical, outperforming existing quality-, diversity-, and heuristic-based evaluators. DataPrep-Bench provides a unified, downstream-grounded framework for measuring progress on both capabilities as co-equal targets of LLM-driven data preparation.",
+"title_ko": "LLM의 학습데이터 구축·품질평가 능력을 재는 통합 벤치마크",
+"tldr": "원천 자료로 SFT 데이터를 만드는 능력과 데이터셋의 학습 가치를 사전 예측하는 능력을, 실제 파인튜닝 성능 기준으로 함께 평가하는 벤치마크다.",
+"bullets": [
+"문제: 데이터 구축·품질평가 방법을 같은 조건에서 비교한 벤치마크가 없다.",
+"방법: 6개 도메인에서 Dolly-15k와 함께 파인튜닝해 구축 방법을 점수화한다.",
+"방법: 품질 점수는 하위 성능과의 피어슨 상관으로 평가, MMD 기반 DAS를 제안한다.",
+"결과: 합성 도메인 데이터를 더하면 Dolly 단독 기준보다 떨어지는 경우가 잦았다.",
+"결과: DAS는 6개 중 4개 도메인에서 교차모델 상관이 가장 높았다.",
+"한계: Finance·Law에서는 모든 품질 지표가 약했고, Skill은 과학 도메인에서 부진했다."
+],
+"why": "SFT 데이터 선택·합성·필터링이 실제 하위 성능으로 이어지는지 검증하는 기준과, 학습 전 데이터 품질 예측 지표(DAS)를 참고할 수 있다.",
+"tags": [
+"데이터 큐레이션",
+"합성데이터",
+"벤치마크",
+"데이터 품질평가"
+],
+"venue": "",
+"affiliations": [
+"Peking University",
+"Institute for Advanced Algorithms Research, Shanghai",
+"OriginHub Technology",
+"Zhongguancun Academy"
+],
+"figure": {
+"src": "https://arxiv.org/html/2607.20465/2607.20465v1/dataprep_bench_main_clean.png",
+"caption": "Figure 1 : The overall framework of DataPrep-Bench."
+},
+"fig_ko": "DataPrep-Bench의 전체 프레임워크로, 데이터 구축과 데이터 품질평가 두 트랙의 구성을 보여준다.",
+"html": true,
+"collected": "2026-05-19",
+"backfill": true
+}
+]

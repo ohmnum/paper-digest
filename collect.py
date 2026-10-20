@@ -6,7 +6,7 @@
   python collect.py --no-push  # 저장만
 출처: arXiv API(키워드 검색) + Hugging Face Daily Papers. 요약은 로컬 Claude CLI(sonnet).
 """
-import argparse, datetime as dt, html, json, os, re, subprocess, sys, time, urllib.parse, urllib.request
+import argparse, datetime as dt, html, json, os, re, subprocess, sys, time, urllib.error, urllib.parse, urllib.request
 import concurrent.futures as cf
 import xml.etree.ElementTree as ET
 
@@ -17,10 +17,17 @@ CFG = json.load(open(os.path.join(ROOT, "config.json"), encoding="utf-8"))
 UA = {"User-Agent": "paper-digest/1.0 (personal reading list)"}
 
 
-def get(url, timeout=40):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read().decode("utf-8", "replace"), r.geturl()
+def get(url, timeout=40, tries=6):
+    """429/503(요청 과다) 이면 점점 길게 쉬었다 재시도."""
+    for t in range(tries):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read().decode("utf-8", "replace"), r.geturl()
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 500, 502, 503) or t == tries - 1:
+                raise
+            time.sleep(15 * (t + 1))
 
 
 def claude(prompt, system, model="sonnet"):
@@ -45,10 +52,13 @@ def arxiv_search(days):
     terms = " OR ".join(f'abs:"{k}"' for k in CFG["arxiv_keywords"])
     cats = " OR ".join(f"cat:{c}" for c in CFG["arxiv_categories"])
     out = []
-    for start in range(0, 600, 200):
+    for start in range(0, 6000, 200):
         q = urllib.parse.urlencode({"search_query": f"({cats}) AND ({terms})", "sortBy": "submittedDate",
                                     "sortOrder": "descending", "start": start, "max_results": 200})
-        xml, _ = get("http://export.arxiv.org/api/query?" + q, 90)
+        try:
+            xml, _ = get("http://export.arxiv.org/api/query?" + q, 90, tries=3)
+        except Exception as ex:   # 검색 API 는 자주 429 로 막힌다 → 있는 만큼만
+            print("arXiv 검색 API 실패, 건너뜀:", ex, flush=True); break
         ns = {"a": "http://www.w3.org/2005/Atom", "x": "http://arxiv.org/schemas/atom"}
         entries = ET.fromstring(xml).findall("a:entry", ns)
         stop = False
@@ -64,7 +74,34 @@ def arxiv_search(days):
                         "published": pub.strftime("%Y-%m-%d"), "source": "arXiv"})
         if stop or len(entries) < 200:
             break
-        time.sleep(3)
+        time.sleep(5)
+    return out
+
+
+def rss_new():
+    """arXiv RSS(최근 공지분). 검색 API 보다 덜 막힌다. 키워드로 1차 거름."""
+    cats = "+".join(CFG["arxiv_categories"])
+    xml, _ = get(f"https://rss.arxiv.org/rss/{cats}", 90)
+    ns = {"dc": "http://purl.org/dc/elements/1.1/"}
+    kws = [k.lower() for k in CFG["arxiv_keywords"]]
+    out = []
+    for it in ET.fromstring(xml).iter("item"):
+        desc = it.findtext("description") or ""
+        if "Announce Type: replace" in desc:
+            continue
+        title = " ".join((it.findtext("title") or "").split())
+        abs_ = " ".join(desc.split("Abstract:", 1)[-1].split())
+        hay = (title + " " + abs_).lower()
+        if not any(k in hay for k in kws):
+            continue
+        aid = (it.findtext("link") or "").rsplit("/", 1)[-1]
+        pub = it.findtext("pubDate") or ""
+        try:
+            pub = dt.datetime.strptime(pub[:16], "%a, %d %b %Y").strftime("%Y-%m-%d")
+        except Exception:
+            pub = dt.date.today().isoformat()
+        out.append({"id": aid, "title": title, "abstract": abs_, "comment": "", "published": pub, "source": "arXiv",
+                    "authors": [a.strip() for a in (it.findtext("dc:creator", namespaces=ns) or "").split(",") if a.strip()]})
     return out
 
 
@@ -131,11 +168,27 @@ def arxiv_html(aid):
     body = re.sub(r"<(script|style|annotation|annotation-xml)[^>]*>.*?</\1>", " ", page, flags=re.S)
     body = html.unescape(re.sub(r"<[^>]+>", " ", body))
     body = " ".join(body.split())
+    k = body.find("Abstract")
+    front = body[:k][-2500:] if k > 0 else body[:2500]
     i = body.find("Introduction")
-    head = body[i if i > 0 else 0:][:9000]
+    head = "[TITLE/AUTHORS BLOCK] " + front + " [END BLOCK] " + body[i if i > 0 else 0:][:9000]
     j = max(body.rfind("Limitation"), body.rfind("Conclusion"))
     tail = body[j:j + 4000] if j > len(head) else ""
     return head + (" ... " + tail if tail else ""), figs[:12]
+
+
+ARX_LOCK = __import__("threading").Lock()
+
+
+def arxiv_meta(aid):
+    """arXiv 논문 페이지의 Comments / Journal-ref (학회 채택 정보가 주로 여기 있다)."""
+    try:
+        page, _ = get(f"https://arxiv.org/abs/{aid}", 30, tries=2)
+    except Exception:
+        return "", ""
+    f = lambda c: " ".join(html.unescape(re.sub(r"<[^>]+>", " ", m.group(1))).split()) if (m := re.search(
+        rf'<td class="tablecell {c}[^"]*">(.*?)</td>', page, re.S)) else ""
+    return f("comments"), f("jref")
 
 
 SUM_SYS = """You write a Korean reading digest of an ML paper for a researcher with limited ML background.
@@ -146,7 +199,8 @@ Reply with ONLY a JSON object:
  "bullets": ["문제: ...", "방법: ...", "결과: ...", "한계: ..."],  (각 불릿은 짧은 한 문장, 70자 이내)
  "why": "<이 연구자에게 왜 볼 만한지 한국어 한 문장, 관련 없으면 빈 문자열>",
  "tags": ["<2-4개 짧은 한국어 또는 영어 태그>"],
- "venue": "<comment 등에서 확인된 학회·연도, 없으면 빈 문자열>",
+ "venue": "<comment·본문에서 확인된 학회·저널과 연도(예: ICLR 2026, NeurIPS 2025 Workshop), 없으면 빈 문자열>",
+ "affiliations": ["<TITLE/AUTHORS BLOCK 에 적힌 저자 소속 기관, 중복 없이 짧게(예: Stanford University, Google DeepMind), 없으면 빈 리스트>"],
  "fig_ko": "<고른 그림이 무엇을 보여주는지 한국어 한 문장, 없으면 빈 문자열>",
  "fig": <제안 방법 개요/파이프라인을 가장 잘 보여주는 그림 번호(0부터), 적당한 그림 없으면 -1>}}
 Rules: plain Korean, define jargon briefly in parentheses, numbers only if stated in the text, never invent results."""
@@ -154,8 +208,10 @@ Rules: plain Korean, define jargon briefly in parentheses, numbers only if state
 
 def summarize(p):
     text, figs = arxiv_html(p["id"])
+    if not p.get("comment"):
+        p["comment"], p["journal_ref"] = arxiv_meta(p["id"])
     figlist = "\n".join(f"[{i}] {f['caption'][:250]}" for i, f in enumerate(figs)) or "(none)"
-    prompt = (f"TITLE: {p['title']}\nCOMMENT: {p.get('comment','')}\nABSTRACT: {p['abstract']}\n\n"
+    prompt = (f"TITLE: {p['title']}\nCOMMENT: {p.get('comment','')}\nJOURNAL_REF: {p.get('journal_ref','')}\nABSTRACT: {p['abstract']}\n\n"
               f"FIGURES:\n{figlist}\n\nBODY (truncated):\n{text or '(no HTML version; use abstract only)'}")
     s = js(claude(prompt, SUM_SYS.format(interests=CFG["interests"])), {})
     fi = s.get("fig", -1) if isinstance(s.get("fig", -1), int) else -1
@@ -164,21 +220,22 @@ def summarize(p):
             "published": p["published"], "source": p["source"], "score": p["score"], "upvotes": p.get("upvotes"),
             "comment": p.get("comment", ""), "abstract": p["abstract"],
             "title_ko": s.get("title_ko", ""), "tldr": s.get("tldr", ""), "bullets": s.get("bullets", []),
-            "why": s.get("why", ""), "tags": s.get("tags", []), "venue": s.get("venue", ""), "figure": fig, "fig_ko": s.get("fig_ko", "") if fig else "",
+            "why": s.get("why", ""), "tags": s.get("tags", []), "venue": s.get("venue", "") or p.get("journal_ref", ""), "affiliations": s.get("affiliations", [])[:8], "figure": fig, "fig_ko": s.get("fig_ko", "") if fig else "",
             "html": bool(text)}
 
 
 # ---------- 4) 저장 ----------
-def save(day, items):
-    month = day[:7]
-    path = os.path.join(DATA, f"{month}.json")
-    cur = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else []
-    have = {x["id"] for x in cur}
+def save(day, items, backfill=False):
     for it in items:
-        if it["id"] not in have:
-            it["collected"] = day; cur.append(it)
-    cur.sort(key=lambda x: (x["collected"], x["score"]), reverse=True)
-    json.dump(cur, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+        it["collected"] = it["published"] if backfill else day
+        it["backfill"] = backfill
+    for month in sorted({it["collected"][:7] for it in items}):
+        path = os.path.join(DATA, f"{month}.json")
+        cur = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else []
+        have = {x["id"] for x in cur}
+        cur += [it for it in items if it["collected"][:7] == month and it["id"] not in have]
+        cur.sort(key=lambda x: (x["collected"], x["score"]), reverse=True)
+        json.dump(cur, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     months = sorted({f[:7] for f in os.listdir(DATA) if re.match(r"\d{4}-\d{2}\.json$", f)}, reverse=True)
     json.dump({"months": months, "updated": dt.datetime.now().strftime("%Y-%m-%d %H:%M")},
               open(os.path.join(DATA, "index.json"), "w", encoding="utf-8"), ensure_ascii=False)
@@ -187,21 +244,26 @@ def save(day, items):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--days", type=int, default=2); ap.add_argument("--no-push", action="store_true")
-    ap.add_argument("--max", type=int, default=CFG.get("max_per_day", 12))
+    ap.add_argument("--max", type=int, default=CFG.get("max_per_day", 12), help="하루 최대 편수")
+    ap.add_argument("--backfill", type=int, default=0, help="지난 N일을 관련도순으로 모아 --top 편 (날짜는 공개일 기준)")
+    ap.add_argument("--top", type=int, default=100)
     a = ap.parse_args()
     os.makedirs(DATA, exist_ok=True)
     seen = set(json.load(open(SEEN))) if os.path.exists(SEEN) else set()
     pool = {}
-    for p in arxiv_search(a.days) + hf_daily(a.days):
+    days = a.backfill or a.days
+    src = hf_daily(days) + (arxiv_search(days) if a.backfill else rss_new())
+    for p in src:
         if p["id"] and p["id"] not in seen and p["abstract"]:
             pool.setdefault(p["id"], p).update({k: v for k, v in p.items() if k == "upvotes"})
     print(f"후보 {len(pool)}편", flush=True)
     papers = score(list(pool.values()))
-    keep = sorted([p for p in papers if p["score"] >= CFG.get("min_score", 7)], key=lambda p: -p["score"])[:a.max * a.days]
+    keep = sorted([p for p in papers if p["score"] >= CFG.get("min_score", 7)], key=lambda p: -p["score"])
+    keep = keep[:a.top] if a.backfill else keep[:a.max]
     print(f"선정 {len(keep)}편", flush=True)
     with cf.ThreadPoolExecutor(4) as ex:
         items = list(ex.map(summarize, keep))
-    save(dt.date.today().isoformat(), items)
+    save(dt.date.today().isoformat(), items, backfill=bool(a.backfill))
     seen |= set(pool)
     json.dump(sorted(seen), open(SEEN, "w"))
     if not a.no_push:

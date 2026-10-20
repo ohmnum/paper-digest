@@ -1,0 +1,595 @@
+[
+{
+"id": "2608.30597",
+"title": "PLC-DPO: Posterior Label Correction in Noisy and Ambiguous Preference Optimization",
+"authors": [
+"Boryeong Cho",
+"Sumyeong Ahn",
+"Se-Young Yun"
+],
+"n_authors": 3,
+"published": "2026-08-31",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 27,
+"comment": "Findings of EMNLP 2026; Code is available at this https URL",
+"abstract": "Direct Preference Optimization (DPO) simplifies alignment through pairwise comparisons but assumes all observed preferences are reliable. Real data often violates this assumption, leading to reversed, weak, or ambiguous labels that cause harmful policy updates. To address this, we propose Posterior Label Correction DPO (PLC-DPO) to robustly optimize preferences by routing each pair's training signal as a clean, flip, or tie case. The key idea is to use the calibrated policy-reference margin as online evidence to take appropriate correction actions. This reframes noisy preference learning as actively correcting supervision direction and strength rather than merely filtering suspicious examples. Across 57 dataset-model-benchmark cells, PLC-DPO obtains the best mean win rate against DPO (60.5 vs. 55.5 for the next-best method). Injected-noise and tie stress tests, human disagreement analysis, and self-confirmation diagnostics further show that the routing remains stable and distinguishes flipped from weakly directional pairs.",
+"title_ko": "DPO 노이즈 선호 라벨을 정상·반전·동점으로 라우팅해 교정",
+"tldr": "정책-참조 마진을 근거로 각 선호 쌍을 clean/flip/tie 상태로 소프트 분류해 DPO 손실을 섞어 쓰는, 노이즈에 강한 선호 최적화 방법이다.",
+"bullets": [
+"문제: DPO는 모든 선호 라벨을 정답으로 보아 뒤집힌·모호한 쌍에 취약하다.",
+"방법: 표준화된 마진으로 clean/flip/tie 확률을 구해 정방향·역방향·동점 손실을 섞는다.",
+"방법: EMA 보정, 워밍업, 신뢰도 게이트로 초기 학습 불안정을 막는다.",
+"결과: 57개 셀 평균 승률 60.5로 DPO 대비 차순위(55.5)를 앞선다.",
+"한계: 정책과 참조 모델이 같은 오류를 공유하면 마진 근거가 부정확할 수 있다."
+],
+"why": "선호 데이터의 노이즈를 버리지 않고 라벨 방향·강도를 교정하는 데이터 큐레이션 관점의 방법이라 선호 튜닝 데이터 품질 문제에 참고할 만하다.",
+"tags": [
+"DPO",
+"노이즈 라벨",
+"선호 최적화",
+"라벨 교정"
+],
+"venue": "Findings of EMNLP 2026",
+"affiliations": [
+"KAIST AI",
+"KENTECH"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.30597/2608.30597v1/figure_final_v2.png",
+"caption": "Figure 1: Overview of PLC-DPO. Preference pairs may be clean, flipped, or weakly directional. PLC-DPO uses the standardized policy-reference margin as evidence for posterior routing, then reinforces, reverses, or neutralizes each pair to enable robust learning from noisy preferences."
+},
+"fig_ko": "선호 쌍이 clean·flip·tie 중 무엇인지 마진 기반 사후 라우팅으로 판단해 강화·반전·중립화하는 PLC-DPO의 전체 개요를 보여준다.",
+"html": true,
+"collected": "2026-08-31",
+"backfill": true
+},
+{
+"id": "2608.30209",
+"title": "DICS: Exploring Data Intrinsic Consistency for Visual Instruction Selection",
+"authors": [
+"Yuyang Hong",
+"Jinhui Guo",
+"Jiaqi Gu",
+"Lubin Fan",
+"Ruixiang Wang",
+"Kun Ding",
+"Yue Wu",
+"Shiming Xiang"
+],
+"n_authors": 9,
+"published": "2026-08-31",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 4,
+"comment": "Accepted by EMNLP2026 Findings",
+"abstract": "Visual instruction tuning is crucial for advancing the vision-language alignment and instruction-following capabilities of Vision-Language Models (VLMs). However, identifying optimal subsets under a fixed ratio constraint from rapidly expanding datasets remains a significant bottleneck. While existing methods largely depend on distribution diversity or heuristic filtering, they often overlook the internal coherence within individual samples. To bridge this gap, we propose Data Intrinsic Consistency (DIC), a self-scoring metric designed to quantify the sample-level inter-component consistency. DIC consists of two modules: Visual Information Consistency (VIC), evaluating the alignment between visual content and instructions, and Response Information Consistency (RIC), assessing response coherence relative to the instruction. Building upon DIC, we introduce Data Intrinsic Consistency Selection (DICS), an adaptive data selection method that optimizes the trade-off between high intra-sample consistency and global distributional diversity under varying data budgets. Extensive experiments demonstrate that DICS consistently outperforms state-of-the-art methods across diverse dataset scales and model architectures, surpassing full-dataset fine-tuning while using only 25% of the LLaVA-1.5-665K data. We further curate DICS-6M, a 6M-sample multi-modal instruction corpus that enables the largest-scale visual instruction selection study to date; remarkably, DICS reaches 94.52\\% of the official InternVL3-8B-Instruct performance using less than 25\\% of its reported training data. Code can be seen at https://github.com/cqu-student/DICS",
+"title_ko": "시각 지시 데이터의 내적 일관성으로 학습 부분집합 선택",
+"tldr": "이미지·지시·응답 간 내적 일관성(DIC)을 자기 점수로 계산해 다양성과 함께 고르면, LLaVA-1.5-665K의 25%만으로 전체 데이터 학습을 넘어선다.",
+"bullets": [
+"문제: 기존 선택법은 다양성·휴리스틱 위주라 샘플 내부 정합성을 놓친다.",
+"방법: 부분 대비 전체 지시 조건의 loss 차이로 VIC·RIC를 재고 DIC로 합산한다.",
+"방법: 선택 비율에 따라 고DIC 우선·저DIC 제거를 바꾸며 다양성도 유지한다.",
+"결과: LLaVA-1.5-665K 25%로 전체 데이터 파인튜닝을 능가한다고 보고했다.",
+"결과: DICS-6M에서 InternVL3-8B-Instruct 성능의 94.52%에 도달했다.",
+"한계: 이미지-텍스트에 한정되고 최적 부분집합 크기는 자동 결정되지 않는다."
+],
+"why": "학습 데이터 선별에서 샘플 내부 정합성을 모델 loss로 점수화하는 아이디어는 텍스트 SFT 데이터 큐레이션에도 응용해 볼 만하다.",
+"tags": [
+"데이터 선택",
+"시각 지시 튜닝",
+"VLM",
+"SFT"
+],
+"venue": "EMNLP 2026 Findings",
+"affiliations": [
+"University of Chinese Academy of Sciences",
+"Institute of Automation, Chinese Academy of Sciences",
+"Alibaba Group"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.30209/2608.30209v3/main.png",
+"caption": "Figure 3: Overview of Data Intrinsic Consistency Selection (DICS). First, we compute the Visual Information Consistency and Response Information Consistency for each sample to derive its Data Intrinsic Consistency (DIC) score. Subsequently, leveraging these DIC scores and a target sampling ratio, we employ a designed adaptive sampling strategy to construct a dataset characterized by high intrinsic"
+},
+"fig_ko": "샘플별 VIC·RIC로 DIC 점수를 계산하고 이를 다양성과 함께 써서 부분집합을 고르는 DICS 전체 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-08-31",
+"backfill": true
+},
+{
+"id": "2608.29109",
+"title": "Recognition-Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions",
+"authors": [
+"Yucheng Du",
+"Xiyang Hu"
+],
+"n_authors": 2,
+"published": "2026-08-29",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 16,
+"comment": "Accepted to EMNLP 2026 Main Conference. 29 pages, 6 figures",
+"abstract": "Large language models often answer structurally unanswerable questions, such as computing cot(-540°) or evaluating (1).startswith(\"1\"), instead of abstaining. We ask whether this failure reflects missing recognition or failed routing from recognition to abstention. Across instruction-tuned models from 1.7B to 70B parameters, a single linear direction in the hidden state separates answerable from structurally impossible math and code prompts, showing that models represent impossibility before generation. Yet this recognition direction is nearly orthogonal to the canonical safety-refusal direction that mediates trained harmful-content refusal. An in-domain behavior-defined invalidity-aware direction is closer to recognition, but only partially aligned with it, and remains near-orthogonal to safety refusal. Generation-time steering along the recognition direction changes invalidity-aware behavior bidirectionally and dose-responsively on structural math and code cells, while random directions do not. Base/instruct comparisons further show that the low-cosine geometry is already present at the pretraining endpoint. The confident-on-impossible failure is therefore better explained as a routing failure than as an encoding failure: the model has a usable \"no admissible answer\" signal, but the safety-refusal pathway is not aligned to use it.",
+"title_ko": "불가능 질문을 인식하고도 답하는 LLM의 인식-거부 불일치 분석",
+"tldr": "LLM은 구조적으로 답이 없는 수학·코드 질문을 은닉 상태에서 선형 방향 하나로 구분해 내지만, 이 방향이 안전 거부 방향과 거의 직교해 기권으로 이어지지 않는다.",
+"bullets": [
+"문제: 모델이 cot(-540°) 같은 답 없는 질문에도 기권하지 않고 답한다.",
+"방법: 답 가능/불가능 프롬프트의 평균 차이 방향을 구해 안전 거부 방향과 비교한다.",
+"결과: 프로브 평균 AUC 0.939, 안전 거부 방향과 평균 코사인 0.087이다.",
+"결과: 인식 방향 스티어링은 기권 행동을 양방향으로 바꾸고 랜덤 방향은 못 바꾼다.",
+"한계: 주장은 구조적 불가능성에 한정되며 사실·거짓전제 질문은 경계 테스트뿐이다."
+],
+"why": "내부 표현 프로빙·스티어링으로 과잉응답 같은 거부 보정 실패를 인식 대 라우팅 문제로 나눠 보는 관점이 데이터 설계와 부작용 최소 교정에 참고가 된다.",
+"tags": [
+"refusal",
+"probing",
+"steering",
+"abstention"
+],
+"venue": "EMNLP 2026",
+"affiliations": [
+"University of Southern California",
+"Arizona State University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-08-29",
+"backfill": true
+},
+{
+"id": "2608.28458",
+"title": "Acquire, Repair, Preserve: A Diagnosis-Guided Post-Training Recipe for Small-Model Dialogue Game Agents",
+"authors": [
+"Nan Li"
+],
+"n_authors": 1,
+"published": "2026-08-28",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 6,
+"comment": "14 pages, 14 tables; Accepted to the LM Playschool Workshop at EMNLP 2026; HF model card: this https URL",
+"abstract": "Interactive dialogue games test a capability that static benchmarks largely leave implicit: a model must carry state across turns, interpret feedback, and choose valid actions under changing constraints. We study this setting in the LM Playschool Challenge with a 2B open-weight model, and find that many failures are not only broad knowledge failures but also local decision failures: repeated guesses, malformed actions, and violations of feedback that the model has just seen. These diagnostics motivate a training recipe organized around three steps: acquire broad game participation through supervised fine-tuning, repair mechanically verifiable failures within one targeted dialogue-game family using turn-local preference pairs, and preserve general capabilities beyond these dialogue games. In the official final evaluation, our submission improves public clemscore from 10.67 to 38.92 and closed in-domain score from 13.41 to 41.17, while approximately preserving aggregate static performance (44.14 vs. 44.24 for the baseline). Out-of-domain clemscore remains low at 7.88, with the largest gains concentrated in unseen variants of the targeted family. Our results suggest that broad SFT brings most of the model's capability improvement; turn-local supervision can be effective when failure detection is precise, with observed transfer concentrated primarily within-family.",
+"title_ko": "소형 모델 대화 게임 에이전트를 위한 진단 기반 후학습 레시피",
+"tldr": "2B 모델의 게임 실패를 진단해 광범위 SFT로 능력을 얻고, 검증 가능한 실패만 턴 단위 선호쌍으로 고친 뒤, 가중치 스케일링으로 일반 성능을 보존하는 레시피를 제시한다.",
+"bullets": [
+"문제: 2B 모델은 반복 추측, 형식 오류 등 직전 피드백을 어기는 국소 결정 실패가 잦다.",
+"방법: 광범위 SFT 후 Wordle에 턴 단위 DPO 쌍으로 수선하고 델타를 스케일해 보존한다.",
+"결과: 공개 clemscore 10.67→38.92, 정적 점수는 44.14 대 44.24로 거의 유지된다.",
+"한계: 수선은 Wordle에만 검증됐고 향상 대부분은 SFT 덕이며 단계별 기여는 불분명하다.",
+"한계: 보존은 합산 기준이라 IFEval은 68.52→51.85로 떨어졌고 OOD는 7.88로 낮다."
+],
+"why": "검증 가능한 실패만 골라 만든 턴 단위 선호쌍과, 파인튜닝 후 가중치 델타 스케일링으로 일반 능력을 지키는 방식은 데이터 선별·부작용 최소화 관점에서 참고할 만하다.",
+"tags": [
+"SFT",
+"DPO",
+"턴 단위 선호쌍",
+"가중치 스케일링"
+],
+"venue": "LM Playschool Workshop at EMNLP 2026",
+"affiliations": [
+"Utrecht University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-08-28",
+"backfill": true
+},
+{
+"id": "2608.21278",
+"title": "CLEAR: Continuous Latent Adapter Routing for Utility-Preserving LLM Safety Alignment",
+"authors": [
+"Chengxiao Wang",
+"Enyi Jiang",
+"Xiaojing Liao",
+"Sanmi Koyejo"
+],
+"n_authors": 4,
+"published": "2026-08-21",
+"source": "HF Daily",
+"score": 10.0,
+"upvotes": 6,
+"comment": "",
+"abstract": "Improving the safety of large language models (LLMs) often comes at the expense of utility, as globally applied safety tuning may affect model responses to both harmful and benign inputs. We propose Continuous LatEnt Adapter Routing (CLEAR), a conditional safety adaptation framework that uses a lightweight hidden-state gate to continuously control the activation strength of a safety low-rank adapter. CLEAR aims to reduce harmful completions while avoiding unnecessary changes to the frozen backbone that could degrade performance on benign prompts. Experiments on widely used safety and utility benchmarks show that CLEAR improves robustness on HarmBench while reducing the utility degradation observed with globally applied safety tuning such as SFT or standard low-rank adaptation (LoRA). On Llama-3-8B-Instruct, CLEAR reduces HarmBench ASR from 32.3\\% to 0.5\\%, while retaining most of the base model's utility and achieving up to 7.1 percentage points higher GSM8K accuracy than globally applied SFT or LoRA. These results suggest that CLEAR is a promising mechanism for improving the safety--utility trade-off in LLM alignment.",
+"title_ko": "연속 게이트로 안전 LoRA 강도를 조절해 유용성을 보존하는 정렬",
+"tldr": "프롬프트의 은닉 상태로 위험도를 0~1 점수로 예측해 안전 LoRA 어댑터의 세기를 조절함으로써, 유해 요청만 거절하고 일반 요청에서는 성능 저하를 줄인다.",
+"bullets": [
+"문제: 전역 안전 튜닝은 정상 입력의 성능과 과잉 거절까지 해친다.",
+"방법: 고정 백본의 은닉 상태 게이트가 안전 LoRA 세기 g∈[0,1]를 조절한다.",
+"방법: 하위유형별 가중치와 어려운 쌍 마진 손실로 유해·정상 프롬프트를 분리한다.",
+"결과: Llama-3-8B에서 HarmBench ASR을 32.3%에서 0.5%로 낮췄다.",
+"한계: 게이트가 오판하면 어댑터가 우회되며, 소형 모델·단일 턴만 평가했다."
+],
+"why": "활성화 기반으로 어댑터를 라우팅해 안전성은 높이고 부작용(과잉 거절, 성능 저하)을 줄이는 방식이라 표적 행동 교정과 안전 보존 관심사에 직접 맞닿는다.",
+"tags": [
+"안전 정렬",
+"LoRA 라우팅",
+"과잉 거절",
+"alignment tax"
+],
+"venue": "",
+"affiliations": [
+"Stanford University",
+"University of Illinois at Urbana-Champaign"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.21278/2608.21278v1/overview_gatedlora.png",
+"caption": "Figure 1: Overview of CLEAR, a continuous latent adapter routing framework for utility-preserving LLM safety alignment. Given an input prompt, the frozen base LLM first produces hidden representations, from which selected latent states are extracted and passed to a lightweight safety gate. The gate predicts a continuous routing score g ⁡ ( x ) ∈ [ 0 , 1 ] , which controls the strength of a safety "
+},
+"fig_ko": "고정된 LLM의 은닉 상태를 경량 게이트에 넣어 0~1 라우팅 점수를 만들고, 이 점수가 안전 LoRA의 활성 강도를 조절하는 전체 구조를 보여준다.",
+"html": true,
+"collected": "2026-08-21",
+"backfill": true
+},
+{
+"id": "2608.21500",
+"title": "SecOPD: Mitigating Adaptive Prompt Injections by On-Policy Distillation",
+"authors": [
+"Yibo Peng",
+"Long Lian",
+"David Wagner",
+"Sizhe Chen"
+],
+"n_authors": 4,
+"published": "2026-08-21",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 5,
+"comment": "EMNLP 2026 (main conference)",
+"abstract": "Prompt injection is listed as the \\#1 threat to AI agents. When an agent accesses external data from websites, files, or emails, an attacker may inject a prompt into the data, saying, \"Ignore all prior instructions and perform <an attacker's task>.\" To prevent arbitrary manipulation of agents, defenders try to train secure LLMs, which, however, still suffer from near 100% attack success rates (ASRs) against adaptive prompt injections. We note that this is because existing defensive finetuning recipes rely on sequence-level feedback signals (in DPO or GRPO). Treating an entire output equally prevents the model from learning precisely which output tokens are insecure. In this paper, we propose Secure On-Policy Distillation (SecOPD) that provides token-level feedback to guide defensive fine-tuning. The LLM receives an injected sample and produces a rollout, whose tokens are scored by the initialization model given the corresponding clean input. With more fine-grained training signals, our defended Qwen3.6-27B achieves a 9.0% ASR against the SoTA PISmith adaptive prompt injections, compared to 94.0% for the prior SoTA, Meta-SecAlign. The obtained security generalizes to domains completely unseen in training: in agentic tool calling, SecOPD achieves a 4.7% ASR compared to 5.5% for Meta-SecAlign. Code and the model are available at https://github.com/pppyb/SecOPD and https://huggingface.co/pybbb/Qwen3.6-27B-SecOPD.",
+"title_ko": "토큰 단위 온폴리시 증류로 적응형 프롬프트 인젝션 방어",
+"tldr": "인젝션이 든 입력으로 모델이 만든 응답의 각 토큰을, 인젝션을 제거한 깨끗한 입력에서 같은 초기 모델이 매긴 점수로 학습시켜 적응형 공격에 강한 모델을 만든다.",
+"bullets": [
+"문제: DPO·GRPO 방어 학습은 응답 전체에 하나의 신호만 줘 위험 토큰을 못 가려낸다.",
+"방법: 인젝션 입력의 롤아웃 토큰을, 깨끗한 입력을 본 초기 모델(교사)이 채점해 증류한다.",
+"결과: Qwen3.6-27B의 PISmith 공격 ASR이 9.0%로, Meta-SecAlign의 94.0%보다 크게 낮다.",
+"결과: 학습에 없던 AgentDojo 도구 호출에서도 ASR 4.7%로 Meta-SecAlign의 5.5%보다 낮다.",
+"한계: 유용성은 원 모델 대비 몇 %p 하락하며, 인젝션 위치를 아는 합성 학습 데이터에 의존한다."
+],
+"why": "인젝션을 합성해 넣은 데이터와 깨끗한 입력을 교사 신호로 쓰는 데이터 변환 방식이며, 안전성은 높이고 유용성 손실은 줄이는 표적 행동 교정 사례라 볼 만하다.",
+"tags": [
+"프롬프트 인젝션",
+"온폴리시 증류",
+"안전성 파인튜닝",
+"토큰 단위 피드백"
+],
+"venue": "EMNLP 2026",
+"affiliations": [
+"University of California, Berkeley"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-08-21",
+"backfill": true
+},
+{
+"id": "2608.20281",
+"title": "Inject, Align, Recover: Staged Post-Training for Retrieval-Free Document Knowledge Internalization",
+"authors": [
+"Qian Kou",
+"Xiaofeng Shi",
+"Xiaosong Qiu",
+"Hua Zhou"
+],
+"n_authors": 4,
+"published": "2026-08-20",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 15,
+"comment": "21 pages, 4 figures. Includes Supplementary Material Sections A--G. Qian Kou and Xiaofeng Shi contributed equally and are co-corresponding authors. Hua Zhou is the project leader",
+"abstract": "Large language models often fail to answer questions about a bounded document collection when the source documents are not retrieved at inference time. We study this setting as document knowledge internalization: converting a fixed corpus into usable parametric knowledge for retrieval-free question answering. We propose IAR (Inject, Align, and Recover), a three-stage post-training framework that separates structured document knowledge injection, QA behavior alignment, and general ability recovery. Unlike conventional continued pretraining, Inject converts source documents into continuation, rewrite, and instruction-conditioned reconstruction objectives. Align then adapts the injected model with answer-only QA supervision, while Recover merges the domain-adapted model with the base instruction model to recover general capabilities. Across Common Corpus (CC) and CCI, and across Llama, Phi, Qwen, and SmolLM model families, IAR improves the domain-primary domain-general frontier for retrieval-free document internalization. In the main comparison, IAR improves over Vanilla SFT on all four reported metrics in 7 of 8 dataset-model settings, with average gains of 3.6 percentage points in domain QA accuracy and 12.1 percentage points in mean general performance across IFEval, MMLU, and MSBench. Extended CC baselines show that LoRA and FAPM can win individual general metrics, but among methods that also reach leading or near-leading domain internalization, IAR retains one of the strongest general profiles.",
+"title_ko": "문서 지식을 파라미터에 내재화하는 3단계 후학습 IAR",
+"tldr": "문서를 검색 없이 답할 수 있도록 지식 주입(Inject), QA 정렬(Align), 모델 병합 복구(Recover)를 분리한 3단계 후학습으로, 도메인 정확도와 일반 능력을 함께 끌어올린다.",
+"bullets": [
+"문제: 검색 없이는 LLM이 특정 문서 모음의 질문에 잘 답하지 못한다.",
+"방법: 문서를 이어쓰기·재작성·재구성 과제로 바꿔 주입하고, 답만 학습시킨 뒤 기본 모델과 병합한다.",
+"결과: Vanilla SFT 대비 8개 설정 중 7개에서 4개 지표 모두 향상, 도메인 평균 +3.6pp.",
+"결과: IFEval·MMLU·MSBench 일반 성능 평균은 +12.1pp 향상됐다.",
+"한계: 최적 주입 조합이 모델·코퍼스마다 달라 항상 우세한 레시피는 아니다."
+],
+"why": "문서를 재작성·재구성 형태로 바꾼 학습 데이터 변환과 모델 병합으로 망각을 복구하는 방식이 데이터 형식과 부작용 최소화 관심사에 직접 맞닿는다.",
+"tags": [
+"데이터 변환",
+"모델 병합",
+"망각 복구",
+"지식 주입"
+],
+"venue": "",
+"affiliations": [
+"Beijing Academy of Artificial Intelligence (BAAI)"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.20281/2608.20281v1/fig1_iar_overview_main.png",
+"caption": "Figure 1: The overview of IAR . Vanilla SFT learns from generated QA pairs and covers only the facts selected by those questions. CPT+SFT models full document token streams before a separate QA alignment stage. IAR injects document knowledge through continuation, rewrite, and instruction-conditioned reconstruction objectives, aligns the injected model with answer-only QA supervision, and recovers "
+},
+"fig_ko": "Vanilla SFT, CPT+SFT와 비교해 IAR의 주입·정렬·복구 3단계 흐름을 보여주는 개요도.",
+"html": true,
+"collected": "2026-08-20",
+"backfill": true
+},
+{
+"id": "2608.15964",
+"title": "LLMs Get Smarter from Targeted Synthetic Multilingual Data",
+"authors": [
+"Ishika Agarwal",
+"Arkajyoti Charaborty",
+"Tanner Sorensen",
+"Neha Gupta",
+"Andreas Stolcke"
+],
+"n_authors": 5,
+"published": "2026-08-16",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 7,
+"comment": "",
+"abstract": "Language-specific competency (LSC) is the phenomenon of a language model performing better or worse depending on the language of the prompt. In other words, a language model outputs different (and potentially incorrect) responses to the same semantic query when prompted in different languages. Prior work attributes this to an internal misalignment of semantic representation across languages. Currently, there are two main approaches to address LSC in the literature: (1) routing all queries through English, improving performance, but limiting language expressivity to English; or (2) training on language-balanced data, equalizing model performance across languages, but reducing overall performance. In this work, we take a data centric perspective and introduce HOTFIXR: Hardness Optimized Training data For Improving X-Lingual Reasoning. It is a data generation framework that uses models to probe and learn a student model's multilingual weaknesses, and generates data to mitigate them. HOTFIXR can generate multilingual synthetic training data that can improve multilingual performance. We evaluate on three in-distribution tasks, three out-of-distribution tasks, and four out-of-distribution languages. On average, HOTFIXR (1) improves in-distribution performance by 6.2%, (2) reduces catastrophic forgetting (induced by fine-tuning) on OOD tasks by 3.7%, and (3) on OOD languages by 7.1%. Overall, as many real-world applications requires multilingual LLMs, our work contributes to the efforts of making LLMs multilingually proficient. We will release code upon acceptance.",
+"title_ko": "학생 모델의 다국어 약점을 겨냥한 합성 데이터 생성",
+"tldr": "학생 모델의 언어별 약점을 탐지해 그에 맞는 합성 학습 데이터를 만드는 HOTFIXR로, 다국어 성능을 높이고 파인튜닝 망각을 줄였다.",
+"bullets": [
+"문제: LLM은 같은 질문도 프롬프트 언어에 따라 성능이 달라진다.",
+"방법: 질문 생성기가 학생 모델의 언어 간 성능 격차가 큰 문제를 만들도록 학습한다.",
+"결과: 분포 내 성능 6.2% 향상, OOD 과제·언어의 망각 3.7%·7.1% 감소했다.",
+"한계: 고자원 언어와 정답이 검증되는 과제 위주이며, 큰 모델(Qwen2.5-32B)이 만든 라벨에 의존한다."
+],
+"why": "학생 모델의 약점을 겨냥한 합성 데이터 생성과 파인튜닝 중 망각 감소를 다루어 데이터 큐레이션·변환 관심사와 직접 맞닿는다.",
+"tags": [
+"합성데이터",
+"다국어",
+"데이터 큐레이션",
+"망각"
+],
+"venue": "",
+"affiliations": [
+"UIUC",
+"Uniphore"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.15964/2608.15964v1/acquisition.png",
+"caption": "Figure 2: Intuition behind H O T F I X R . The “data space” represents the data samples generated by the question generator. Essentially, we want to hill climb through the data space to find samples that have high lingual deficit scores, as they will be most informative to the student model. By fine-tuning the question generation model to generate samples according to the student model’s lingual d"
+},
+"fig_ko": "질문 생성기가 만드는 데이터 공간에서 언어 격차 점수가 높은 샘플을 언덕 오르기 식으로 찾는 직관을 보여준다.",
+"html": true,
+"collected": "2026-08-16",
+"backfill": true
+},
+{
+"id": "2608.13947",
+"title": "Scaling Creative Writing Beyond Story-Centric Data with Attribute-Guided Genre Expansion",
+"authors": [
+"Hwan Chang",
+"Yongil Kim",
+"Heuiyeen Yeen",
+"Yireun Kim",
+"Jinsik Lee",
+"Hwanhee Lee"
+],
+"n_authors": 6,
+"published": "2026-08-14",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 14,
+"comment": "CIKM 2026",
+"abstract": "High-quality creative writing data for large language models (LLMs) remains dominated by story-centric data, limiting models' ability to follow the structural and functional conventions of diverse creative formats. We propose an attribute-guided genre expansion framework for scaling creative writing data beyond story generation. By separating thematic breadth from genre-form control, our framework leverages human-authored story prompts as diverse creative seeds, while utilizing manually curated genre attributes to enforce distinct structural, stylistic, and formatting conventions. We combine these to prompt strong LLMs for genre-faithful query-response pairs, which are then quality-filtered. Applying this framework, we construct the Multi-Genre Collection, a 50K-example corpus spanning 13 creative genres, including story, rap, lyrics, scripts, game design, character design, and other creative formats. Experiments across out-of-distribution writing benchmarks and held-out genre diagnostics demonstrate that models fine-tuned on our data consistently surpass not only base models and writing-specialized baselines, but also models trained on existing writing corpora. Genre-count ablations further indicate that controlled genre expansion, rather than story-centric scaling alone, is a key driver of robust creative writing capability.",
+"title_ko": "스토리 중심을 넘어 13개 장르로 확장한 창작 글쓰기 데이터",
+"tldr": "인간이 쓴 스토리 프롬프트로 주제 다양성을, 수작업 장르 속성으로 형식 규칙을 주입해 13개 장르 5만 건 SFT 데이터를 만들고 창작 글쓰기 성능을 높였다.",
+"bullets": [
+"문제: 창작 데이터가 스토리에 치우쳐 랩·대본 등 장르 형식을 못 따른다.",
+"방법: 스토리 프롬프트를 시드로, 장르 속성을 샘플링해 질의를 생성한다.",
+"방법: 강한 LLM으로 응답을 만들고 품질 필터링해 5만 건을 구축했다.",
+"결과: 기반 모델, LongWriter, 기존 글쓰기 코퍼스 학습 모델보다 우수하다고 보고했다.",
+"결과: 학습 장르 수를 늘릴수록 출력 참신성 지표가 일관되게 좋아진다.",
+"한계: 장르 속성을 수작업으로 큐레이션해야 하고 13개 장르에 한정된다."
+],
+"why": "SFT 데이터를 주제와 형식 축으로 분리해 합성하고 다양성(장르 수)이 일반화에 미치는 영향을 보는 데이터 큐레이션 사례라 참고할 만하다.",
+"tags": [
+"합성데이터",
+"SFT 데이터 큐레이션",
+"창작 글쓰기",
+"장르 다양성"
+],
+"venue": "CIKM 2026",
+"affiliations": [
+"Chung-Ang University",
+"LG AI Research"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.13947/2608.13947v2/overview_figure.png",
+"caption": "Figure 1. Overview of our attribute-guided multi-genre expansion framework. A thematic seed is transformed into diverse outputs by injecting curated genre attributes. Overview diagram showing how thematic seeds are transformed into genre-faithful outputs through curated genre attributes."
+},
+"fig_ko": "주제 시드에 장르 속성을 주입해 장르에 충실한 질의와 응답을 만드는 전체 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-08-14",
+"backfill": true
+},
+{
+"id": "2608.11660",
+"title": "Hybrid-Policy Self-Editing for Composable Unstructured Knowledge Editing",
+"authors": [
+"Tianci Liu",
+"Zihan Dong",
+"Tianchun Li",
+"Yi-Chung Chen",
+"Qiming Cao",
+"Xingchen Wang",
+"Shiyang Wang",
+"Zichen Miao"
+],
+"n_authors": 11,
+"published": "2026-08-12",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 11,
+"comment": "",
+"abstract": "Large language models (LLMs) achieve remarkable performance across natural language tasks, yet they are trained on static corpora and their knowledge quickly becomes outdated in a fast-changing world. This motivates knowledge editing (KE), which updates specific knowledge in an LLM without changing unrelated others. Recent works move from structured knowledge triples toward unstructured KE (UKE), where the edit is a free-form passage that may state multiple facts at once. Nonetheless, existing editors inject such a passage yet fail to use it: the edited model can recall the passage, but can neither answer atomic questions about its facts nor compose them into multi-hop reasoning. We attribute this missing property, which we term composability, to editors' passive reliance on the fixed passage as the sole learning source. In response, we cast editing as a proactive self-distillation from a privileged in-context state of the same model, which requires no external supervision. We further reveal that due to the novelty of the injected knowledge, the pre-edited model's own rollouts rarely cover it, which limits the effectiveness of pure on-policy distillation. To close this gap, we propose HPSE, which builds a hybrid rollout that steps in to place missing facts onto the student's own trajectory precisely where its coverage fails, while staying on-policy elsewhere. We theoretically analyze HPSE's advantage over pure on-policy distillation, and empirically establish its plug-and-play improvements across four LLM backbones and two KE editors under various scenarios.",
+"title_ko": "자기 증류로 비정형 지식 편집의 조합 가능성 높이기",
+"tldr": "편집할 글을 문맥에 넣은 같은 모델을 교사로 삼아 자기 증류하고, 학생이 놓친 사실을 롤아웃에 끼워 넣는 HPSE로 편집 지식의 분해·조합 능력을 높인다.",
+"bullets": [
+"문제: 기존 편집기는 문단을 외우기만 하고 개별 질문·다단계 추론엔 약하다.",
+"방법: 문서를 문맥에 읽은 같은 모델을 교사로 한 자기 증류를 쓴다.",
+"방법: 학생 롤아웃이 놓친 사실만 끼우는 하이브리드 롤아웃(HPSE)을 쓴다.",
+"결과: 4개 LLM, 2개 편집기에 얹어 성능이 개선됨(플러그인 방식).",
+"한계: 단일 문단 편집 위주이며 평생·멀티모달 편집은 향후 과제다."
+],
+"why": "새 지식 주입 시 데이터 형식이 일반화·암기에 미치는 영향과 자기 증류로 타깃을 만드는 방식이 데이터 변환 관심사와 맞닿아 있다.",
+"tags": [
+"지식 편집",
+"자기 증류",
+"on-policy",
+"합성 타깃"
+],
+"venue": "",
+"affiliations": [
+"University of Tennessee",
+"Purdue University",
+"Rutgers University",
+"University at Albany"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-08-12",
+"backfill": true
+},
+{
+"id": "2608.08107",
+"title": "NeuPAT: Neuron-aware Plasticity Allocation Tuning for Language-Preserving MLLMs",
+"authors": [
+"Jiayue Jin",
+"Jingwei Zhang",
+"Chen Wang",
+"Jing Liu",
+"Longteng Guo"
+],
+"n_authors": 5,
+"published": "2026-08-08",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 4,
+"comment": "",
+"abstract": "Multimodal expansion of large language models (LLMs) enables new perceptual capabilities but often compromises the language intelligence acquired during pretraining. In this work, we investigate this phenomenon from the perspective of internal adaptation dynamics and discover that neurons in pretrained LLMs exhibit heterogeneous plasticity during multimodal learning: some neurons are critical for preserving language capabilities, while others are more adaptive to multimodal knowledge. Based on this insight, we propose NeuPAT (Neuron-aware Plasticity Allocation Tuning), a lightweight and architecture-agnostic framework that allocates neuron-wise update constraints during multimodal instruction tuning. NeuPAT uses a small-scale probing stage to estimate neuron adaptation patterns and selectively protects language-sensitive neurons while promoting multimodal adaptation through more plastic neurons. Experiments across diverse LLM families demonstrate that NeuPAT recovers 94.5\\% of the language capability degradation caused by vanilla tuning on 11 language benchmarks while maintaining comparable multimodal performance, providing an effective approach for capability-preserving multimodal expansion.",
+"title_ko": "뉴런별 가소성을 배분해 MLLM 확장 시 언어 능력 보존",
+"tldr": "멀티모달 튜닝 때 뉴런마다 적응 성향이 다르다는 점을 이용해, 언어에 중요한 뉴런은 보호하고 유연한 뉴런이 멀티모달을 배우게 하여 언어 망각을 크게 줄인다.",
+"bullets": [
+"문제: 시각 지시 튜닝이 LLM의 언어 능력을 크게 떨어뜨린다.",
+"방법: 소규모 probing으로 뉴런 역할을 추정해 뉴런별 업데이트 제약을 배분한다.",
+"결과: 11개 언어 벤치마크 성능 저하의 94.5%를 회복, 멀티모달 성능은 유지했다.",
+"한계: 더 큰 모델, 다른 모달리티, 순차 학습에서의 효과는 검증되지 않았다."
+],
+"why": "좁은 파인튜닝이 기존 능력을 망가뜨리는 문제를 뉴런 수준 내부 표현 분석으로 부작용 없이 제어하는 방법이라, 파인튜닝 중 능력 보존 연구에 참고할 만하다.",
+"tags": [
+"catastrophic forgetting",
+"뉴런 분석",
+"MLLM",
+"파인튜닝"
+],
+"venue": "",
+"affiliations": [
+"Fudan University",
+"Zhongguancun Academy",
+"Tianjin University",
+"Nankai University",
+"Institute of Automation, Chinese Academy of Sciences",
+"University of Chinese Academy of Sciences"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.08107/2608.08107v1/main_8.png",
+"caption": "Figure 3: Overview of NeuPAT . NeuPAT identifies neuron adaptation roles through lightweight modality probing and assigns role-specific update constraints during multimodal tuning, preserving language intelligence while acquiring multimodal capabilities."
+},
+"fig_ko": "모달리티 probing으로 뉴런의 적응 역할을 정하고 역할별 업데이트 제약을 적용하는 NeuPAT 전체 개요도이다.",
+"html": true,
+"collected": "2026-08-08",
+"backfill": true
+},
+{
+"id": "2608.03887",
+"title": "Omega-S: A Functional Resilience Index for LLM Fine-Tuning",
+"authors": [
+"Alberto Acedo"
+],
+"n_authors": 1,
+"published": "2026-08-04",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 5,
+"comment": "15 pages of main text plus appendices; 12 tables. Code, per-seed data and all negative results at this https URL",
+"abstract": "Fine-tuning a large language model on new data degrades what it previously learned. We present Omega-S, a drop-in penalty computed from the weight matrix alone: it needs no previous-task data, no Fisher matrix and no stored copy of the old weights. It is three lines in an existing training loop and adds under 4% to the cost of a step. Retention. On Llama-3-8B with LoRA, fine-tuned from code to prose and measured by HumanEval over ten seeds, Omega-S retains more of the original capability than no regularisation on 9 of 10 seeds (0.173 -> 0.238 absolute pass@1; sign test one-sided p=0.011, Wilcoxon p=0.006), as a retention ratio, 62.9% -> 84.1%. It also beats tuned weight decay on 10 of 10 seeds (p=0.002) and tuned EWC on 8 of 10 (p=0.014), every arm re-measured in the same session. Mechanism, measured rather than asserted. Omega-S is topological by construction, its objective built from Tr(A^3), but we measured which of its four factors actually moves and three do not: their elasticity with respect to the weights is at or below 1e-4, against 9e-3 for the degree-variance term. As implemented, the composite reduces to a penalty on the variance of node degrees, which means row magnitude in square modules and directional alignment in non-square ones. We report this because a method whose name promises one thing and whose gradient does another should say so. We also enumerate the open design choices, including a contrast-preserving construction that does what it was designed to do and makes retention worse on all ten seeds. Repeating an identical configuration, same seed and same hardware, gives a standard deviation of 0.104 in retention ratio. We have not found this quantified for low-rank fine-tuning of language models, and it bounds every seed-paired comparison in this literature, ours included. Code, per-seed results and the full record of negative results are available.",
+"title_ko": "가중치 행렬만으로 계산하는 망각 방지 정규화 Omega-S",
+"tldr": "이전 데이터나 Fisher 행렬 없이 가중치만으로 계산하는 노드 차수 분산 페널티가 LoRA 파인튜닝의 망각을 줄이지만, 실제 작동 원리는 위상 구조가 아니라 차수 분산 억제임을 스스로 밝힌다.",
+"bullets": [
+"문제: 파인튜닝하면 기존 능력(예: 코딩)이 망가지는 망각이 생긴다.",
+"방법: 가중치 W·Wᵀ 그래프의 차수 분산을 줄이는 페널티를 학습 루프에 추가한다.",
+"결과: Llama-3-8B 코드→산문 LoRA에서 HumanEval 0.173→0.238, 10시드 중 9개 개선.",
+"한계: 동일 설정·시드 반복에도 유지율 표준편차 0.104로 비교 해석이 불안정하다."
+],
+"why": "이전 데이터 없이 파인튜닝 망각을 줄이는 방법과 부정적 결과·분산 측정까지 공개해, 부작용 최소화 실험의 신뢰도 기준으로 참고할 만하다.",
+"tags": [
+"망각 방지",
+"LoRA",
+"정규화",
+"재현성"
+],
+"venue": "",
+"affiliations": [
+"Biome Makers Inc."
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-08-04",
+"backfill": true
+},
+{
+"id": "2608.01862",
+"title": "Wnuan: Staged Post-Training for Question Answering over Proprietary Enterprise Knowledge",
+"authors": [
+"Xiaofeng Shi",
+"Xiaosong Qiu",
+"Wenxin Ma",
+"Qian Kou",
+"Yiming Pan",
+"Longbin Yu",
+"Ying Liu",
+"Haiping Wang"
+],
+"n_authors": 9,
+"published": "2026-08-03",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 6,
+"comment": "22 pages, 10 figures. Includes Supplementary Appendices A--L. Xiaofeng Shi and Xiaosong Qiu contributed equally",
+"abstract": "Enterprise question answering requires models to acquire proprietary knowledge without discarding general capabilities. We present Wnuan, a three-stage pipeline that constructs task-oriented supervision from documents, performs supervised fine-tuning with general-data replay, and applies reinforcement learning to residual errors. On the 707-question WnuanBench, the primary 32B route raises acceptable-answer rate (AAR) from 52.76% before adaptation to 80.06% after SFT and 91.51% after RL. Under a matched 100-update protocol, residual-error sampling outperforms full-pool and size-matched random sampling by 3.11 and 2.97 points, respectively. Source-cluster bootstrap intervals remain above zero for both contrasts, and a same-domain validation set preserves the ordering. The general-benchmark average decreases by 5.17 points across the route, concentrated in instruction following. The automatic evaluation ensemble agrees with an authoritative domain expert on 90.5% of a stratified Wnuan-Inst response sample. These results characterize both the gains and the general-capability cost of staged enterprise adaptation.",
+"title_ko": "기업 내부 문서 QA를 위한 3단계 후학습 파이프라인",
+"tldr": "문서를 QA 데이터로 바꿔 SFT(일반 데이터 리플레이 포함)한 뒤, SFT 후에도 틀리는 문제만 골라 RL을 적용해 기업 지식 QA 정확도를 높였지만 지시 따르기 성능은 일부 떨어졌다.",
+"bullets": [
+"문제: 사내 지식을 학습하면서 일반 능력은 유지해야 한다.",
+"방법: 문서→QA 생성, 리플레이 SFT, 잔여 오답만 골라 GRPO(RL) 수행.",
+"결과: 707문항 벤치 AAR이 52.76%→80.06%(SFT)→91.51%(RL)로 상승.",
+"결과: 같은 100회 업데이트에서 잔여 오답 샘플링이 전체·무작위보다 약 3점 높음.",
+"한계: 일반 벤치 평균 5.17점 하락, 주로 지시 따르기에서 발생하며 교차 기업 일반화는 미검증."
+],
+"why": "SFT 후 남은 오답만 골라 RL하는 데이터 선택, 일반 데이터 리플레이로 망각을 줄이는 혼합 비율, 문서의 QA 변환·답변 재작성 등 실무형 데이터 전략과 부작용(지시 따르기 하락) 측정을 다룬다.",
+"tags": [
+"데이터 선택",
+"리플레이/망각",
+"GRPO",
+"기업 QA"
+],
+"venue": "",
+"affiliations": [
+"Beijing Academy of Artificial Intelligence (BAAI)",
+"Beijing District Heating Group Co., Ltd. (BDHG)",
+"Beijing University of Posts and Telecommunications (BUPT)"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.01862/2608.01862v1/wennuan-main-figure.png",
+"caption": "Figure 1: Wnuan training path, primary 32B results, contextual systems, and WnuanBench construction. (a) Enterprise documents are converted into task-oriented QA supervision, used for SFT with general-data replay, and then revisited through residual-error RL. (b) Horizontal position is WnuanBench AAR, vertical position is non-hallucination rate, and bubble area encodes correctness. Gray API points"
+},
+"fig_ko": "문서에서 QA 데이터를 만들고 리플레이 SFT 후 잔여 오답 RL로 이어지는 학습 경로와 주요 결과, 벤치 구성 과정을 보여준다.",
+"html": true,
+"collected": "2026-08-03",
+"backfill": true
+}
+]
