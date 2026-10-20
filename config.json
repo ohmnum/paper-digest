@@ -1,0 +1,15 @@
+{
+  "interests": "LLM post-training and fine-tuning as a company would apply it: (1) training-data selection, curation, mixing and filtering for SFT/preference tuning; (2) data transformation: rewriting/self-distilling targets, synthetic data generation, counterfactual or contrastive pairs, how data format affects generalization and forgetting; (3) data and internal representations: probing, steering vectors, activation-based routing/gating of adapters, representation fine-tuning, why narrow fine-tuning causes broad behavior changes (emergent misalignment, persona features); (4) targeted behavior correction with minimal side effects: refusal/over-refusal calibration, safety preservation during fine-tuning, political bias/censorship, LoRA editing, model editing; (5) LLM-as-judge evaluation of these. Less interested in: pure pretraining scaling, vision-only, robotics, RL for math/code agents unless about data.",
+  "arxiv_categories": ["cs.CL", "cs.LG", "cs.AI"],
+  "arxiv_keywords": [
+    "data selection", "data curation", "data filtering", "data mixture", "synthetic data", "data augmentation",
+    "instruction tuning", "supervised fine-tuning", "fine-tuning data", "self-distillation", "catastrophic forgetting",
+    "preference data", "safety alignment", "over-refusal", "refusal", "jailbreak", "emergent misalignment",
+    "steering vector", "activation steering", "linear probe", "representation engineering", "model editing",
+    "LoRA", "low-rank adaptation", "spurious correlation", "out-of-distribution generalization", "political bias",
+    "censorship", "persona", "LLM-as-a-judge"
+  ],
+  "min_score": 7,
+  "max_per_day": 12,
+  "claude_exe": ""
+}

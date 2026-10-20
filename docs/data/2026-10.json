@@ -1,0 +1,462 @@
+[
+{
+"id": "2610.25611",
+"title": "Safety Offset Learning: When Benign Fine-Tuning Misaligns LLMs",
+"authors": [
+"Jesson Wang",
+"Zhanhao Hu",
+"Minghao Lin",
+"Yuchen Wu",
+"Aylin Caliskan",
+"Mengyuan Li"
+],
+"n_authors": 6,
+"published": "2026-10-19",
+"source": "arXiv",
+"score": 9.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Safety risks from fine-tuning are commonly characterized by the harmfulness of the training data:harmful fine-tuning is considered dangerous, while benign fine-tuning is often assumed to preservealignment. We argue that this view misses a more fundamental factor-the behavioral transition inducedby supervision. Harmful fine-tuning and safety-degrading benign fine-tuning can both be understoodas learning the same refusal-to-compliance transition, but on different data distributions. We studywhether such a transition learned on benign inputs can generalize to harmful requests. We constructbenign examples that an aligned model initially tends to refuse and pair them with their originalharmless responses, creating a discrepancy between the model's initial refusal and the supervisedanswer. Fine-tuning on these examples increases harmful compliance, but only when two conditionshold together: the discrepancy is large enough, and it cannot be resolved through a narrow surface-levelshortcut. With the induced discrepancy matched, varying only whether it is localized changes harmfulcompliance by an order of magnitude; raising the discrepancy does not help while a shortcut remainsavailable, and removing the shortcut does not help while the discrepancy is small. Building on thisobservation, we introduce SAFEOFF, a dataset of benign instructions rewritten to raise the alignedmodel's refusal likelihood and paired with their original answers. Across three aligned LLMs and threesafety benchmarks, SAFEOFF substantially weakens safety alignment despite containing no explicitharmful supervision, suggesting that fine-tuning safety depends not only on what data a model sees, butalso on which behavioral boundary the supervision moves.",
+"title_ko": "무해한 데이터 파인튜닝이 안전성을 무너뜨리는 원리",
+"tldr": "해로운 내용이 없는 데이터라도 모델이 원래 거절할 법한 입력에 순응하도록 학습시키면, 그 '거절→순응' 전환이 유해 요청까지 일반화되어 안전 정렬이 약화된다.",
+"bullets": [
+"문제: 무해한 파인튜닝은 안전하다는 통념, 데이터 유해성만 보는 시각의 한계.",
+"방법: 모델이 거절할 만한 무해 지시문을 만들고 원래 답변과 짝지어 학습.",
+"결과: 불일치가 충분히 크고 국소적 지름길이 없을 때만 유해 순응이 늘었다.",
+"결과: SAFEOFF는 3개 모델·3개 벤치마크에서 안전 정렬을 크게 약화시켰다.",
+"한계: 본문이 없어 초록 기준이며, 세부 수치와 방어법은 확인되지 않았다."
+],
+"why": "안전성 보존형 파인튜닝 데이터 선별과 재작성(rewriting)이 의도치 않게 정렬을 깨는 메커니즘을 보여주어, 데이터 큐레이션 시 점검할 기준을 제공한다.",
+"tags": [
+"fine-tuning safety",
+"데이터 재작성",
+"refusal",
+"alignment"
+],
+"venue": "",
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.25497",
+"title": "Self-Distillation for Supervised Fine-Tuning",
+"authors": [
+"Wenxuan Zhu",
+"Bang An",
+"Shuming Liu",
+"Wenqing Cui",
+"Tianqi Xu",
+"Bing Li",
+"Yibo Yang",
+"Peter Wonka"
+],
+"n_authors": 9,
+"published": "2026-10-18",
+"source": "arXiv",
+"score": 9.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Supervised fine-tuning treats the expert demonstration or gold response as a one-hot target, suppressing valid alternative continuations that the model would otherwise assign probability to. We propose Gold-Conditioned Distillation (GCD), a method that turns expert demonstrations into model-native supervision. GCD uses one model as both teacher and student: the teacher conditions on a prompt containing the gold response in context, the student conditions on the original prompt as at inference, and the student is trained to minimize the forward KL divergence to the teacher's next-token distribution at each gold response token. This lets the model use its prior knowledge to teach itself the new task: correctness is anchored by the gold response, while the soft target preserves plausible alternatives. Across various training tasks on Qwen and Llama models, GCD improves new-task accuracy over SFT and generally reduces degradation on general benchmarks.",
+"title_ko": "정답 응답을 문맥에 넣은 자기 증류로 SFT 개선",
+"tldr": "정답 응답을 프롬프트에 넣은 같은 모델을 교사로 삼아, 정답 토큰마다 소프트 타깃을 학습시키면 SFT보다 새 과제 정확도가 오르고 일반 성능 저하도 대체로 줄어든다.",
+"bullets": [
+"문제: SFT는 정답을 원-핫 타깃으로 써서 그럴듯한 대안 토큰을 억누른다.",
+"방법: 정답이 문맥에 있는 교사와 없는 학생을 같은 모델로 두고 정답 토큰별 forward KL로 학습한다.",
+"결과: Qwen·Llama 모델에서 SFT보다 새 과제 정확도가 오르고 일반 벤치마크 저하도 대체로 줄었다.",
+"한계: 유지력 향상 폭은 작고, 8B 이하 모델과 단일 모델·데이터 분석에 그쳤다."
+],
+"why": "정답을 문맥에 넣은 모델의 분포로 SFT 타깃을 다시 만드는 자기 증류라서, 데이터 형식이 망각과 일반화에 주는 영향을 볼 때 참고할 만하다.",
+"tags": [
+"자기 증류",
+"SFT",
+"망각",
+"데이터 변환"
+],
+"venue": "",
+"figure": {
+"src": "https://arxiv.org/html/2610.25497/2610.25497v1/GCD_pipeline_v1.png",
+"caption": "Figure 1: Overview of Gold-Conditioned Distillation (GCD). The student predicts the next token from the query x and the gold-response prefix y < t ; the teacher predicts it from a privileged context that additionally contains the full gold response y and a repeat prompt. The student is trained with a forward KL loss to match the teacher’s gold-conditioned next-token distribution, and the teacher i"
+},
+"fig_ko": "학생은 질문과 정답 접두부만 보고, 교사는 전체 정답이 든 문맥에서 같은 토큰 분포를 예측해 학생이 이를 따라가는 GCD 개요도.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.25751",
+"title": "NADS: Navigator-Guided Data Selection for Mitigating Catastrophic Forgetting in Fine-Tuning",
+"authors": [
+"Jianhao Zhang",
+"Ou Wu",
+"Yi Du"
+],
+"n_authors": 3,
+"published": "2026-10-19",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "Accepted by NeurIPS 2026",
+"abstract": "Catastrophic forgetting is a central obstacle in single-stage fine-tuning of large language models (LLMs) on a new task, especially when the original pretraining data are unavailable. Synthetic data offers a practical mitigation path, but candidate pools are often noisy and redundant, making effective selection essential. Existing methods often rely on indirect proxy signals whose alignment with actual training benefit can be limited, while utility--diversity selection over large candidate pools remains computationally demanding. To address these challenges, we propose NAvigator-guided Data Selection (NADS), a fine-tuning framework for LLMs. NADS first follows the target fine-tuning recipe without preservation regularization to obtain a navigator model, whose deviation from the pretrained model exposes recipe-induced capability drift. It then uses the predictive divergence between the navigator and the pretrained model to score forgetting-aware utility for each synthetic candidate, and constructs a constraint set through an efficient utility--diversity selection strategy. Finally, NADS fine-tunes on the new-task data while distilling pretrained behavior on the selected constraints to preserve general capabilities. Experiments show that NADS delivers a stronger balance between new-task performance and general capability preservation, while reducing utility--diversity selection overhead. Code at: https://github.com/zjh-vinky/NADS.",
+"title_ko": "내비게이터 모델로 망각 방지용 합성 데이터를 고르는 파인튜닝",
+"tldr": "새 과제로 파인튜닝한 내비게이터 모델과 원본 모델의 예측 차이로 합성 데이터의 망각 방지 효용을 점수화하고, 효율적 다양성 선택 후 증류로 일반 능력을 보존한다.",
+"bullets": [
+"문제: 파인튜닝 시 망각이 생기는데 사전학습 데이터가 없고 합성 후보는 noisy·중복이다.",
+"방법: 규제 없이 학습한 내비게이터와 원본의 예측 발산(KL)으로 샘플 효용을 점수화한다.",
+"방법: 효용과 다양성을 함께 보는 DPP 기반 선택을 효율적 최적화로 푼 뒤 지식 증류로 학습한다.",
+"결과: 새 과제 성능과 일반 능력 보존의 균형이 더 좋고 선택 비용도 줄었다고 보고한다.",
+"한계: 내비게이터를 먼저 한 번 학습해야 하며, 3B–9B 모델 두 벤치마크 중심으로 검증했다."
+],
+"why": "합성 데이터 선별과 증류로 파인튜닝 부작용(망각)을 줄이는 방법이라 데이터 큐레이션과 부작용 최소화 관심에 직접 맞닿는다.",
+"tags": [
+"catastrophic forgetting",
+"데이터 선택",
+"지식 증류",
+"합성 데이터"
+],
+"venue": "NeurIPS 2026",
+"figure": {
+"src": "https://arxiv.org/html/2610.25751/2610.25751v1/NADS_framework.png",
+"caption": "Figure 1: The overall framework of NADS. First, we train a navigator M nav from M pretrain on 𝒟 new without regularization. Next, we score sample utility from the predictive divergence between M nav and M pretrain , and construct 𝒟 constraint via utility–diversity selection with DPPs. Finally, we train M final on 𝒟 new with distillation on 𝒟 constraint to preserve general capabilities during new-t"
+},
+"fig_ko": "내비게이터 학습, 예측 발산 기반 효용 점수화, 제약 집합 선택, 증류 학습으로 이어지는 NADS 전체 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.25215",
+"title": "Hidden Cartographer: Hidden State Guided Data Selection for Dual Budgeted Instruction Tuning",
+"authors": [
+"Zixuan Qin",
+"Qi Qin",
+"Erbo Li",
+"Ting Wei",
+"Yifan Sun",
+"Zhaoxin Fan"
+],
+"n_authors": 6,
+"published": "2026-10-18",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Given the high cost of expert annotation and limited fine-tuning resources, effective data selection from large unlabeled pools under strict budgets has become a crucial step in adapting LLMs to specialized domains. Existing label-dependent methods risk distorted selection when using pseudo-labels, while traditional active learning methods do not explicitly characterize instruction-tuning dynamics. To address these limitations, we propose Hidden Cartographer (HC), a two-stage framework that uses hidden states to guide annotation and exact training dynamics to select the final training subset. The first stage is Progressive Candidate Expansion, which utilizes the proxy to iteratively select top unlabeled candidates for expert annotation, merging them to recompute training dynamics and update the proxy until the annotation budget is exhausted; the second stage is Exact Cartography Pruning, which ranks these annotated candidates by their exact dynamics scores to isolate a compact subset under the final training budget. Experiments across the medical, legal, and financial domains demonstrate that HC achieves the highest average accuracy among all budgeted baselines, requiring annotation for only 20--30% of the original pool and fine-tuning on just 10--15%.",
+"title_ko": "은닉 상태로 주석·학습 예산 모두 줄이는 데이터 선택",
+"tldr": "라벨 없는 데이터에서 모델의 은닉 상태로 학습 동역학(신뢰도·변동성)을 예측해 주석할 후보를 고르고, 정확한 동역학으로 최종 학습 부분집합을 추려내는 2단계 데이터 선택 방법이다.",
+"bullets": [
+"문제: 전문가 주석과 미세조정 비용이 모두 제한된 상황에서 데이터를 골라야 한다.",
+"방법: 은닉 상태 프록시로 후보를 점진 확장해 주석 후 정확한 동역학으로 가지치기한다.",
+"결과: 의료·법률·금융에서 예산 제한 베이스라인 중 평균 정확도가 가장 높았다.",
+"한계: 7B 규모 모델에서만 검증했고 더 큰 모델은 확인하지 못했다."
+],
+"why": "라벨 없이 은닉 표현으로 데이터 가치를 예측해 SFT 데이터를 선별하는 방식이라 학습 데이터 선택·큐레이션과 표현 활용 관점에서 참고할 만하다.",
+"tags": [
+"데이터 선택",
+"SFT",
+"Data Cartography",
+"은닉 상태"
+],
+"venue": "",
+"figure": {
+"src": "https://arxiv.org/html/2610.25215/2610.25215v1/workflow.png",
+"caption": "Figure 2: Overview of the Hidden Cartographer framework."
+},
+"fig_ko": "Hidden Cartographer의 두 단계(점진적 후보 확장과 정확한 카토그래피 가지치기) 전체 프레임워크 개요를 보여준다.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.24963",
+"title": "DeGMatch: Target-Aware Reasoning Data Selection via Deconfounded Gradient Matching",
+"authors": [
+"Changho Lee",
+"Janghoon Han",
+"Rajdeep Mukherjee",
+"Yeda Song",
+"Lening Nick Cui",
+"Xinya Du",
+"Honglak Lee"
+],
+"n_authors": 7,
+"published": "2026-10-18",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Reasoning post-training on long trajectories has substantially improved the reasoning capabilities of large language models, but scaling such training to large datasets is increasingly expensive. We study target-aware reasoning data selection, where a small reference set specifies a target capability and guides the selection of training trajectories for specialization. We find that existing target-aware methods can exhibit limited target discrimination on long reasoning trajectories, while dominant population-level structure in candidate gradients can obscure finer target-dependent variation during gradient matching. To address these limitations, we introduce Deconfounded Gradient Matching (DeGMatch), which first constructs a target-relevance gate and then reranks candidates using model-specific gradients. DeGMatch centers gradients using the candidate-population mean and removes leading principal directions before target matching, reducing the influence of dominant population-level structure and improving target discrimination. Across mathematics, science, and code, DeGMatch outperforms strong heuristic, target-aware, and reasoning-specific data selection baselines, while remaining effective across selection budgets, model families, and scales. Our code is publicly available at https://github.com/CHLee0801/degmatch.",
+"title_ko": "편향 제거 그래디언트 매칭으로 추론 데이터 선별",
+"tldr": "긴 추론 궤적의 그래디언트에서 후보 전체의 공통 성분(평균과 상위 주성분)을 제거한 뒤 타깃 참조셋과 매칭해, 목표 능력에 맞는 학습 데이터를 더 정확히 고르는 방법이다.",
+"bullets": [
+"문제: 긴 추론 궤적에서는 그래디언트의 공통 구조가 타깃별 차이를 가린다.",
+"방법: 타깃 관련성 게이트 후 평균 제거와 상위 주성분 제거로 재순위화한다.",
+"결과: 수학·과학·코드에서 휴리스틱, 타깃 인지, 추론 특화 기준선을 앞선다.",
+"한계: 소·중형 모델만 검증했고 제거된 방향의 의미는 아직 불명확하다."
+],
+"why": "SFT 데이터 선별에서 그래디언트 기반 타깃 매칭(LESS 계열)이 왜 흐려지는지 진단하고 보정법을 제시해 데이터 큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"데이터 선별",
+"그래디언트 매칭",
+"추론 SFT",
+"타깃 인지"
+],
+"venue": "",
+"figure": {
+"src": "https://arxiv.org/html/2610.24963/2610.24963v1/method_overview.png",
+"caption": "Figure 2: Overview of DeGMatch . DeGMatch constructs a target-relevant gate, deconfounds the candidate gradient geometry, and ranks candidates using target-conditioned directional alignment and target-subspace magnitude to select the final training subset."
+},
+"fig_ko": "타깃 관련성 게이트, 그래디언트 편향 제거, 방향·크기 기반 순위화로 최종 학습 데이터를 고르는 DeGMatch 전체 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.24906",
+"title": "Compositional Activation Steering Across Languages and Behaviors with Contextual Gates",
+"authors": [
+"Daniil Gurgurov",
+"Akansh Maurya",
+"Josef van Genabith",
+"Simon Ostermann",
+"Hitomi Yanaka"
+],
+"n_authors": 5,
+"published": "2026-10-17",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Activation steering has emerged as an effective and precise way to influence the behaviours of language models. However, composing multiple steering directions to control several behaviours simultaneously remains challenging, particularly in multilingual settings and with training-free steering vectors. We address this challenge with contextual steering, jointly training gates that adapt the strength of fixed steering directions to the current hidden state and interactions between interventions. Across a broad range of languages, behavioural attributes, and models, our approach outperforms constant-strength steering and four strong baselines, including prompting. It also better preserves general knowledge and keeps the model's internal computation closer to that of the prompted model. Our analysis further shows how jointly trained gates adapt their contributions during composition, explaining the mechanisms underlying effective compositional steering.",
+"title_ko": "문맥 의존 게이트로 언어·행동 스티어링을 함께 조합",
+"tldr": "고정된 스티어링 방향은 두고 은닉 상태에 따라 세기를 정하는 게이트를 여러 속성에 대해 함께 학습해, 언어와 행동 제어를 동시에 안정적으로 구현한다.",
+"bullets": [
+"문제: 여러 스티어링 벡터를 합치면 서로 간섭하고 고정 세기는 문맥에 적응 못 한다.",
+"방법: 방향은 고정, 층별 선형 게이트가 세기를 정하며 속성별 게이트를 함께 튜닝한다.",
+"결과: 9개 모델·9개 언어·14개 행동에서 고정 세기 방식과 프롬프팅 등 4개 기준선을 앞섰다.",
+"한계: 모델마다 방향과 게이트를 따로 학습해야 하고 단일 게이트 사전학습 단계가 추가된다."
+],
+"why": "활성 기반 게이트로 여러 행동(과잉거절·탈옥·독성 등)을 부작용 적게 조절하고 일반 지식 보존까지 보여줘 표적 행동 교정 연구에 직접 참고가 된다.",
+"tags": [
+"activation steering",
+"gating",
+"compositional",
+"multilingual"
+],
+"venue": "",
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.24614",
+"title": "Safety Kernel: Mechanistic Alignment for Cross-Lingual Defense in LLMs",
+"authors": [
+"Chengyu Xie",
+"Fei Shen",
+"Shuyi Miao",
+"Yue Feng",
+"Jian Yu",
+"Pengyang Shao",
+"Yijun Tian",
+"Xiaoyu Du"
+],
+"n_authors": 8,
+"published": "2026-10-17",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "The safety capabilities of large language models (LLMs) are highly uneven across different languages, often allowing cross-lingual attacks to bypass safety guardrails. Existing alignment methods predominantly rely on external alignment signals and provide limited insight into underlying neuron-level mechanisms, making it difficult to provide a unified internal target for cross-lingual safety interventions. To address this, we analyze cross-lingual safety behavior at the neuron level and identify a compact set of safety-related neurons shared across languages, termed the safety kernel (SK). Specifically, we first utilize multilingual parallel safe and unsafe prompts to compute safety contrast with activation responsiveness (SCAR) scores, identifying language-wise safety-neuron candidates from internal activation patterns. We then intersect the resulting language-wise safety-neuron sets to obtain the SK, and validate its functional relevance to cross-lingual safety behavior through activation suppression and activation-state transfer interventions. Finally, building on the SK coordinates, we introduce SK-Masked LoRA, which constrains LoRA adaptation to the feed-forward network (FFN) output dimensions corresponding to the SK, thereby focusing safety-related changes on the cross-lingually shared neuron coordinates. Extensive experiments demonstrate that SK-Masked LoRA substantially reduces attack success rates across multiple languages, including languages excluded from SK discovery, while intervening on only a small fraction of internal neuron coordinates and producing generally limited changes in the model's general capabilities.",
+"title_ko": "다국어 공통 안전 뉴런 SK를 찾아 LoRA를 제한하는 방어",
+"tldr": "언어별 안전 뉴런의 교집합인 '안전 커널(SK)'을 찾아내고, 그 좌표에만 LoRA 업데이트를 허용해 여러 언어(학습에 없던 언어 포함)에서 공격 성공률을 낮춘다.",
+"bullets": [
+"문제: LLM의 안전성은 언어마다 달라 다국어 우회 공격에 취약하다.",
+"방법: 병렬 안전/위험 프롬프트로 SCAR 점수를 구해 언어별 뉴런을 찾고 교집합을 SK로 정의한다.",
+"방법: SK 뉴런을 억제·활성 상태 이식으로 검증하고, SK 해당 FFN 출력 차원에만 LoRA를 적용한다.",
+"결과: SK 억제는 무작위 뉴런 억제보다 안전성을 훨씬 더 떨어뜨린다고 보고한다.",
+"결과: SK-Masked LoRA는 SK 발견에 쓰지 않은 언어에서도 공격 성공률을 낮추고 일반 성능 변화는 제한적이다."
+],
+"why": "좁은 범위의 파인튜닝이 어디에 영향을 주는지 뉴런 좌표로 제한하는 안전성 보존·표적 행동 교정 방식이라 LoRA 편집과 안전 파인튜닝 관점에서 참고할 만하다.",
+"tags": [
+"안전 뉴런",
+"다국어 안전",
+"LoRA 마스킹",
+"mechanistic"
+],
+"venue": "",
+"figure": {
+"src": "https://arxiv.org/html/2610.24614/2610.24614v1/framework.png",
+"caption": "Figure 2. Overview of the proposed framework. (a) Language-wise safety-neuron sets are identified using SCAR scores computed from activation differences between unsafe and safe prompts, and their cross-lingual intersection forms the SK. (b) The functional relevance of the SK is examined through neuron activation suppression and cross-lingual safety-state transfer. (c) SK-Masked LoRA restricts fine"
+},
+"fig_ko": "언어별 SCAR 점수로 안전 뉴런 집합을 찾고 교집합으로 SK를 만드는 전체 프레임워크 개요를 보여준다.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.24379",
+"title": "Defending Against Dormant Poisoning Attacks Across Language and Multimodal Agents",
+"authors": [
+"Wonjun Lee",
+"Vaidehi Patil",
+"Zaid Khan",
+"Yue Zhang",
+"Hyunji Lee",
+"Suhyun Kim",
+"Mohit Bansal"
+],
+"n_authors": 7,
+"published": "2026-10-17",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "Project page: https://wonjuun.github.io/LookAhead/",
+"abstract": "Recent work shows that attackers can implant dormant malicious behaviors that remain hidden at release but emerge after benign fine-tuning. As foundation models are used as agents, whether dormant poisoning extends to harmful agent actions and multimodal settings remains unclear. We show two agentic risks: (1) harmful behaviors activated by benign fine-tuning can extend to unseen actions; (2) multiple harmful behaviors can coexist and be jointly activated by benign downstream fine-tuning. Existing defenses often rely on external safe responses, which are hard to obtain for agent actions, or a trusted clean reference model. We exploit a key property of dormant poisoning: the attacker must preserve safe behavior at release to conceal poisoning, and this behavior can serve as a safety reference. Leveraging this property, we automatically construct a Safety Buffer pairing harmful inputs with the released model's responses and benign versions generated by the same model to remove harmful intent. The Safety Buffer can replace external safe responses in existing defenses, but these defenses do not distinguish updates that weaken safety from those that preserve it, often increasing over-refusal or reducing utility. To address this limitation, we introduce LookAhead Defense, which previews benign fine-tuning updates using the Safety Buffer and penalizes only updates predicted to weaken safe behavior on harmful inputs or increase the likelihood of refusals on benign versions in the Safety Buffer. Across language models, language agents, and multimodal agents, LookAhead Defense reduces harmful behavior in agents from up to 93.9% to at most 14.2% and harmful responses in language models from up to 92.5% to at most 2.0% versus vanilla fine-tuning, while maintaining competitive utility and low over-refusal. It remains effective against other poisoning methods.",
+"title_ko": "무해한 미세조정이 깨우는 잠복 독을 막는 LookAhead 방어",
+"tldr": "배포 시점 모델의 안전한 응답을 기준 삼아 Safety Buffer를 만들고, 미세조정 업데이트가 안전성을 약화시킬 때만 페널티를 주어 언어·멀티모달 에이전트의 잠복 중독을 막는다.",
+"bullets": [
+"문제: 배포 땐 안전하다가 무해한 미세조정 후 유해 행동이 깨어나는 잠복 중독.",
+"방법: 배포 모델 응답과 무해화 입력으로 Safety Buffer를 자동 구축한다.",
+"방법: 업데이트를 미리 보고 안전성 약화나 거부 증가 시에만 페널티를 준다.",
+"결과: 에이전트 유해 행동 최대 93.9%에서 14.2% 이하로 감소했다.",
+"한계: 8B 이하 모델만 실험했고 버퍼 입력의 위험 범위 커버리지에 의존한다."
+],
+"why": "무해한 데이터 미세조정이 숨은 유해 행동을 광범위하게 활성화하는 현상과, 과잉 거부 없이 안전성을 보존하는 방어를 다뤄 안전성 유지형 미세조정 설계에 직접 참고가 된다.",
+"tags": [
+"dormant poisoning",
+"안전성 보존",
+"과잉 거부",
+"에이전트"
+],
+"venue": "",
+"figure": {
+"src": "https://arxiv.org/html/2610.24379/2610.24379v1/figure2-3.png",
+"caption": "Figure 2: Detailed overview of our defense. Before fine-tuning, we build a Safety Buffer from harmful inputs, the released model’s responses, and benign versions of the harmful inputs. During fine-tuning, LookAhead Defense previews each update and adds a penalty only when the released model’s response becomes less likely on the harmful input, indicating weaker safe behavior, or more likely on the "
+},
+"fig_ko": "방어 개요 그림으로, 유해 입력·배포 모델 응답·무해화 입력으로 Safety Buffer를 만들고 미세조정 업데이트를 미리 보아 선택적으로 페널티를 주는 흐름을 보여준다.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.25683",
+"title": "When Safety Fails Collectively: Robust Alignment Against Harmful Fine-Tuning via Joint Weight Perturbations",
+"authors": [
+"Zhiyuan Wang",
+"Yuezhi Zhou",
+"Zhu Zhang",
+"Zhixing Tan"
+],
+"n_authors": 4,
+"published": "2026-10-19",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "15 pages, 3 figures",
+"abstract": "Harmful fine-tuning can rapidly erode the safety alignment of large language models, creating substantial risks when aligned models are adapted to downstream tasks. Existing alignment-stage defenses use harmful examples and simulated harmful perturbations during safety alignment to prepare models for later harmful fine-tuning, yet the collective effects of harmful weight perturbations remain underexplored. We identify a collective failure pattern: disjoint parts of a harmful perturbation have limited effects in isolation, but their joint application increases the model's harmfulness beyond the sum of their individual effects. Guided by this observation, we propose Joint Weight Perturbations (JWP), an alignment-stage defense that masks different parts of a harmful perturbation estimated from the current model and trains the model to respond safely in the resulting states. This exposes the model to different combinations of harmful perturbations and reduces its sensitivity to their accumulation during subsequent harmful fine-tuning. Experiments across downstream tasks and model families show that JWP offers stronger resistance to harmful fine-tuning than prior defenses while largely preserving task performance.",
+"title_ko": "유해 파인튜닝에 강한 정렬: 가중치 섭동 결합 학습(JWP)",
+"tldr": "유해 파인튜닝의 가중치 변화는 여러 부분이 합쳐질 때 해로움이 증폭되므로, 이를 일부만 적용한 상태들에서 안전하게 답하도록 정렬 단계에서 미리 학습시키는 방어법 JWP를 제안한다.",
+"bullets": [
+"문제: 소량의 유해 파인튜닝만으로 정렬된 모델의 안전성이 빠르게 무너진다.",
+"방법: 시뮬레이션한 유해 가중치 변화를 무작위로 마스킹한 상태에서 안전 응답을 학습한다.",
+"결과: 4개 다운스트림 태스크에서 Booster 등 대비 평균 유해 점수가 4.3~5.4배 감소했다.",
+"한계: 유해 섭동 추정을 위한 추가 학습 비용이 들며, 증폭 현상의 정량화는 논의 단계에 머문다."
+],
+"why": "파인튜닝 중 안전성 보존과 좁은 학습이 넓은 행동 변화를 일으키는 가중치 수준 원인을 다루므로 안전 유지형 파인튜닝 설계에 참고할 만하다.",
+"tags": [
+"harmful fine-tuning",
+"안전성 보존",
+"weight perturbation",
+"alignment defense"
+],
+"venue": "",
+"figure": {
+"src": "https://arxiv.org/html/2610.25683/2610.25683v1/jwp.png",
+"caption": "Figure 3: Overview of JWP. A simulated harmful perturbation Δ ​ h is masked to construct temporary states for safety alignment. The upper-right inset illustrates the concept of joint amplification."
+},
+"fig_ko": "유해 가중치 변화를 마스킹해 임시 모델 상태를 만들고 그 상태에서 안전 정렬을 수행하는 JWP의 전체 개요를 보여준다.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.24556",
+"title": "From Stories to Features: Scaling Concept Vectors for AI Alignment & Interpretability",
+"authors": [
+"Dmitry Scherbakov",
+"Oleg Chernikov",
+"Victoria Khamash",
+"Kirill Afendulev",
+"Alexey Dontsov",
+"Ivan Oseledets",
+"Elena Tutubalina",
+"Anton Korznikov"
+],
+"n_authors": 8,
+"published": "2026-10-17",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "51 pages, 41 figures, 26 tables. Code: https://github.com/josephofthebread/Concept-Vector-Scaling",
+"abstract": "We study feature vectors: directions in a language model's activation space that correspond to human-interpretable concepts, such as honesty or deception. Existing unsupervised methods like sparse autoencoders attempt to recover the whole feature space, often at the cost of feature quality and interpretability. We take a more pragmatic route: focusing on concepts relevant to AI safety and alignment, we generate synthetic concept-antagonist story pairs and use the difference of their mean model activations as a feature vector. We scale this approach to 1,036 alignment-relevant concepts using 2M synthetic stories across multiple languages and genres, which we publicly release. Across six models from three model families, our feature vectors reliably generalize to detecting their corresponding concepts in chat dialogues and web text. They form an interpretable geometry shared across models and can causally steer model behavior when injected into activations. We further use these features to analyze model representations during jailbreak attacks, mathematical and agentic reasoning. Our targeted feature construction thus offers a scalable route to studying concepts in language models, potentially extending to millions of features across arbitrary domains.",
+"title_ko": "정렬 관련 개념 1,036개의 합성 스토리 기반 개념 벡터 구축",
+"tldr": "개념과 반대 개념의 합성 스토리 쌍 200만 개로 평균 활성화 차이를 구해 AI 안전 관련 개념 벡터 1,036개를 만들고, 탐지·조향·사례 분석으로 검증했다.",
+"bullets": [
+"문제: SAE는 특징 품질이 낮고, 기존 차분 평균법은 개념마다 수작업 데이터가 필요하다.",
+"방법: 개념 한 문장 설명으로 LLM이 개념·반대 스토리 쌍을 생성해 평균 활성화 차이를 벡터로 쓴다.",
+"결과: 3개 모델 계열 6개 모델에서 채팅·웹 텍스트 개념 탐지가 일반화되고 조향도 작동했다.",
+"결과: GCG 탈옥에서 안전 방향을 거슬러 조향하면 정상 요청 거부 증가 없이 유해 출력이 줄었다.",
+"한계: 합성 스토리 형식에 민감해 추론 절차·장황함 같은 개념은 프롬프트 포맷에 따라 벡터가 달라진다."
+],
+"why": "활성화 기반 조향·프로빙으로 안전·거절 행동을 부작용 적게 모니터링하고 교정하려는 관점에서 합성 대조 데이터로 개념 벡터를 대규모로 만드는 레시피와 공개 데이터셋이 참고가 된다.",
+"tags": [
+"steering vector",
+"probing",
+"합성 대조 데이터",
+"jailbreak"
+],
+"venue": "",
+"figure": {
+"src": "https://arxiv.org/html/2610.24556/2610.24556v1/teaser-left.png",
+"caption": "Figure 1: Overview. Left: simplified feature-vector extraction pipeline. Right: t-SNE ( Van der Maaten & Hinton, 2008 ) of all 1,036 Qwen3-8B concept and antagonist vectors, colored by 30 communities detected with the Leiden algorithm ( Traag et al., 2019 ) on a mutual- 30 NN cosine graph; cluster names were assigned manually."
+},
+"fig_ko": "왼쪽은 스토리 생성부터 벡터 추출까지의 파이프라인, 오른쪽은 1,036개 개념 벡터를 t-SNE로 시각화해 30개 군집으로 묶은 것이다.",
+"html": true,
+"collected": "2026-10-20"
+},
+{
+"id": "2610.24469",
+"title": "Which Long Documents Matter? A Controlled Study of Data Selection for Context Extension",
+"authors": [
+"Junlong Jia",
+"Jiang Zhou",
+"Xing Wu",
+"Chaochen Gao Tinghao Yu",
+"Feng Zhang",
+"Lilin Wang"
+],
+"n_authors": 6,
+"published": "2026-10-17",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "Work in progress",
+"abstract": "Natural long documents are widely used for context extension, but which selection pipelines are effective remains unclear. We conduct a controlled comparison on Qwen2.5-3B at 128K under matched 6B-token continued-training budgets. Random sampling of natural long documents (random-long) outperforms repacking at longer evaluation lengths. Within the same candidate pool, selecting documents with high LongPPL key-token density yields further gains, unlike the evaluated generic-quality and LLM-judge selectors. We introduce truncLongPPL to reduce scoring cost by computing key-token density over a truncated prefix. At 128K, scoring the first half of the reference span yields downstream performance close to full-span scoring with a measured $2.28\\times$ end-to-end scoring speedup. Across three training seeds, truncLongPPL achieves the highest mean scores among evaluated pipelines, exceeding random-long by 4.54 points on validation HELMET and 3.28 on held-out RULER, with gains most consistent in retrieval. At a 256K target context, it gains 2.82 average RULER points over random-long on Qwen2.5-3B. In short/long mixed training across Qwen2.5-3B, Qwen3-8B, and OLMo~3-7B, it gains 1.47--7.31 average RULER points over random-long mixing, with seven-task short-context averages within 0.23 points of the corresponding baselines. After supervised fine-tuning (SFT), Qwen3-8B and OLMo~3-7B models trained with selected long documents outperform their random-long counterparts by 1.13--1.67 points on LongBench v2 and 0.62--1.44 points on MRCR.",
+"title_ko": "컨텍스트 확장용 긴 문서 선택 방법의 통제 비교",
+"tldr": "같은 6B 토큰 예산에서 LongPPL 핵심 토큰 밀도로 긴 문서를 고르면 무작위 선택보다 장문맥 성능이 오르고, 앞쪽 절반만 채점해도 효과가 비슷하며 비용이 줄어든다.",
+"bullets": [
+"문제: 긴 문서 선별법들이 설정이 달라 서로 비교하기 어렵다.",
+"방법: Qwen2.5-3B 128K에서 6B 토큰 예산을 맞춰 여러 선별 파이프라인을 비교했다.",
+"결과: truncLongPPL이 random-long보다 HELMET 4.54점, RULER 3.28점 높았다(3개 시드 평균).",
+"한계: Work in progress이며 이득은 주로 검색(retrieval) 과제에 집중되고 다른 능력은 고르지 않다."
+],
+"why": "장문맥 학습 데이터를 어떤 신호로 골라야 하는지 통제 실험으로 보여줘, 데이터 선별·필터링 설계에 참고할 만하다.",
+"tags": [
+"데이터 선별",
+"장문맥",
+"LongPPL",
+"continued training"
+],
+"venue": "",
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-20"
+}
+]

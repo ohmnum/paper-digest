@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>논문 데일리</title>
+<meta name="description" content="LLM 데이터·표상·행동교정 관련 새 논문을 매일 모아 한국어로 요약">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f2;--card:#ffffff;--ink:#1d1d1f;--sub:#5f6168;--faint:#8b8d94;--line:#e4e2dc;
+  --accent:#2f5bd3;--accent-soft:#e8eefc;--hot:#c2410c;--hot-soft:#fdeee4;--ok:#15803d;--ok-soft:#e5f5ea;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141518;--card:#1c1d21;--ink:#ececef;--sub:#a8aab2;--faint:#7c7f88;--line:#2c2e34;
+  --accent:#7ea2ff;--accent-soft:#1f2a45;--hot:#fb923c;--hot-soft:#3a2416;--ok:#4ade80;--ok-soft:#173022;
+  --shadow:none;}}
+:root[data-theme="dark"]{
+  --bg:#141518;--card:#1c1d21;--ink:#ececef;--sub:#a8aab2;--faint:#7c7f88;--line:#2c2e34;
+  --accent:#7ea2ff;--accent-soft:#1f2a45;--hot:#fb923c;--hot-soft:#3a2416;--ok:#4ade80;--ok-soft:#173022;
+  --shadow:none;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 80px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 10px}
+.top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.01em}
+.upd{color:var(--faint);font-size:12.5px}
+.theme{margin-left:auto;background:none;border:1px solid var(--line);color:var(--sub);border-radius:8px;padding:3px 9px;cursor:pointer;font:inherit;font-size:12.5px}
+.bar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+#q{flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:none;color:var(--sub);padding:7px 11px;font:inherit;font-size:13px;cursor:pointer}
+.seg button.on{background:var(--accent-soft);color:var(--accent);font-weight:500}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:999px;padding:2px 10px;font-size:12.5px;cursor:pointer}
+.chip.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.day{margin:26px 0 10px;font-weight:700;font-size:14px;color:var(--sub);display:flex;gap:8px;align-items:center}
+.day span{font-weight:400;color:var(--faint)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;box-shadow:var(--shadow)}
+.card.read{opacity:.62}
+.row{display:flex;gap:10px;align-items:flex-start}
+.score{flex:none;min-width:34px;text-align:center;font-weight:700;font-size:13px;border-radius:8px;padding:2px 0;background:var(--accent-soft);color:var(--accent)}
+.score.hi{background:var(--hot-soft);color:var(--hot)}
+.main{flex:1;min-width:0;cursor:pointer}
+.tko{font-weight:700;font-size:16px;line-height:1.45}
+.ten{color:var(--faint);font-size:12.5px;margin-top:2px;overflow-wrap:anywhere}
+.tldr{margin-top:6px;color:var(--ink)}
+.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;font-size:12px}
+.b{border-radius:6px;padding:1px 7px;background:var(--bg);color:var(--sub);border:1px solid var(--line)}
+.b.v{background:var(--ok-soft);color:var(--ok);border-color:transparent;font-weight:500}
+.acts{display:flex;flex-direction:column;gap:4px}
+.ic{background:none;border:1px solid var(--line);border-radius:8px;width:32px;height:30px;cursor:pointer;color:var(--faint);font-size:15px}
+.ic.on{color:var(--hot);border-color:var(--hot)}
+.ic.rd.on{color:var(--ok);border-color:var(--ok)}
+.det{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+.card.open .det{display:block}
+.det ul{margin:0;padding-left:18px}
+.det li{margin:3px 0}
+.why{margin-top:10px;background:var(--accent-soft);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:14px}
+.why b{color:var(--accent)}
+figure{margin:14px 0 4px}
+figure img{max-width:100%;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:zoom-in;display:block}
+figcaption{color:var(--sub);font-size:13px;margin-top:6px}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:13.5px}
+.links a{color:var(--accent);text-decoration:none}
+.links a:hover{text-decoration:underline}
+details.abs{margin-top:10px;font-size:13.5px;color:var(--sub)}
+details.abs summary{cursor:pointer;color:var(--faint)}
+.authors{color:var(--faint);font-size:12.5px;margin-top:8px}
+.more{display:block;margin:28px auto;border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:10px;padding:9px 18px;font:inherit;cursor:pointer}
+.empty{text-align:center;color:var(--faint);margin:60px 0}
+#zoom{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:20;padding:16px;cursor:zoom-out}
+#zoom img{max-width:100%;max-height:100%;background:#fff;border-radius:8px}
+@media (max-width:520px){.tko{font-size:15px}.acts{flex-direction:row}.row{flex-wrap:wrap}.acts{width:100%;justify-content:flex-end;order:3}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="padding-bottom:0">
+  <div class="top"><h1>📄 논문 데일리</h1><span class="upd" id="upd"></span>
+    <button class="theme" id="theme" title="밝게/어둡게">◐</button></div>
+  <div class="bar">
+    <input id="q" type="search" placeholder="검색: 제목, 요약, 태그 (예: 데이터 선택, steering)">
+    <div class="seg" id="view">
+      <button data-v="all" class="on">전체</button><button data-v="unread">안 읽음</button><button data-v="star">★ 보관</button>
+    </div>
+  </div>
+  <div class="tags" id="tags"></div>
+</div></header>
+<main class="wrap" id="list"><div class="empty">불러오는 중…</div></main>
+<div id="zoom"><img alt=""></div>
+<script>
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let months=[],loaded=0,papers=[],view="all",tag="",q="";
+const star=new Set(store.get("star",[])),read=new Set(store.get("read",[]));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const WD=["일","월","화","수","목","금","토"];
+function dayLabel(d){const t=new Date(d+"T00:00:00");return `${t.getMonth()+1}월 ${t.getDate()}일 (${WD[t.getDay()]})`}
+
+(function theme(){const t=store.get("theme",null);if(t)document.documentElement.dataset.theme=t;
+  $("#theme").onclick=()=>{const dark=matchMedia("(prefers-color-scheme: dark)").matches;
+    const cur=document.documentElement.dataset.theme||(dark?"dark":"light");const nx=cur==="dark"?"light":"dark";
+    document.documentElement.dataset.theme=nx;store.set("theme",nx)}})();
+
+async function loadMonth(){if(loaded>=months.length)return;
+  const r=await fetch(`data/${months[loaded]}.json?t=${Date.now()}`);papers=papers.concat(await r.json());loaded++}
+
+function match(p){
+  if(view==="star"&&!star.has(p.id))return false;
+  if(view==="unread"&&read.has(p.id))return false;
+  if(tag&&!(p.tags||[]).includes(tag))return false;
+  if(q){const h=[p.title,p.title_ko,p.tldr,(p.bullets||[]).join(" "),(p.tags||[]).join(" "),p.why,p.venue,(p.authors||[]).join(" ")].join(" ").toLowerCase();
+    if(!q.split(/\s+/).every(w=>h.includes(w)))return false}
+  return true}
+
+function card(p){
+  const hi=p.score>=9?" hi":"";
+  const venue=p.venue?`<span class="b v">${esc(p.venue)}</span>`:"";
+  const tags=(p.tags||[]).map(t=>`<span class="b">${esc(t)}</span>`).join("");
+  const src=p.source==="HF Daily"?`<span class="b">🤗 HF${p.upvotes?` ▲${p.upvotes}`:""}</span>`:"";
+  const fig=p.figure?`<figure><img loading="lazy" src="${esc(p.figure.src)}" alt="제안 방법 그림" onerror="this.parentNode.remove()"><figcaption>${esc(p.fig_ko||"")}</figcaption></figure>`:"";
+  const au=(p.authors||[]).join(", ")+(p.n_authors>(p.authors||[]).length?` 외 ${p.n_authors-p.authors.length}명`:"");
+  return `<article class="card${read.has(p.id)?" read":""}" data-id="${esc(p.id)}">
+  <div class="row"><div class="score${hi}" title="관련도(0-10)">${Math.round(p.score)}</div>
+   <div class="main" data-toggle>
+    <div class="tko">${esc(p.title_ko||p.title)}</div><div class="ten">${esc(p.title)}</div>
+    <div class="tldr">${esc(p.tldr)}</div>
+    <div class="meta">${venue}${src}${tags}</div></div>
+   <div class="acts"><button class="ic${star.has(p.id)?" on":""}" data-star title="보관">★</button>
+    <button class="ic rd${read.has(p.id)?" on":""}" data-read title="읽음 표시">✓</button></div></div>
+  <div class="det"><ul>${(p.bullets||[]).map(b=>`<li>${esc(b)}</li>`).join("")}</ul>
+   ${p.why?`<div class="why"><b>왜 볼 만한가</b> · ${esc(p.why)}</div>`:""}
+   ${fig}
+   <div class="authors">${esc(au)} · ${esc(p.published)} 공개${p.comment?` · ${esc(p.comment)}`:""}</div>
+   <div class="links"><a href="https://arxiv.org/abs/${esc(p.id)}" target="_blank" rel="noopener">arXiv</a>
+    <a href="https://arxiv.org/pdf/${esc(p.id)}" target="_blank" rel="noopener">PDF</a>
+    ${p.html?`<a href="https://arxiv.org/html/${esc(p.id)}" target="_blank" rel="noopener">HTML 본문</a>`:""}
+    <a href="https://huggingface.co/papers/${esc(p.id)}" target="_blank" rel="noopener">HF 토론</a>
+    <a href="https://scholar.google.com/scholar?q=${encodeURIComponent(p.title)}" target="_blank" rel="noopener">Scholar</a></div>
+   <details class="abs"><summary>원문 초록</summary>${esc(p.abstract)}</details></div></article>`}
+
+function render(){
+  const list=papers.filter(match),out=[];let cur="";
+  for(const p of list){if(p.collected!==cur){cur=p.collected;const n=list.filter(x=>x.collected===cur).length;
+      out.push(`<div class="day">${dayLabel(cur)} <span>${n}편</span></div>`)}out.push(card(p))}
+  if(!list.length)out.push(`<div class="empty">${view==="star"?"보관한 논문이 없습니다":"조건에 맞는 논문이 없습니다"}</div>`);
+  if(loaded<months.length)out.push(`<button class="more" id="more">이전 달 더 보기 (${months[loaded]})</button>`);
+  $("#list").innerHTML=out.join("");
+  const m=$("#more");if(m)m.onclick=async()=>{await loadMonth();renderTags();render()}}
+
+function renderTags(){const c={};papers.forEach(p=>(p.tags||[]).forEach(t=>c[t]=(c[t]||0)+1));
+  const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,14);
+  $("#tags").innerHTML=top.map(([t,n])=>`<button class="chip${t===tag?" on":""}" data-tag="${esc(t)}">${esc(t)} ${n}</button>`).join("")}
+
+$("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const id=c.dataset.id;
+  if(e.target.closest("[data-star]")){star.has(id)?star.delete(id):star.add(id);store.set("star",[...star]);e.target.classList.toggle("on");return}
+  if(e.target.closest("[data-read]")){read.has(id)?read.delete(id):read.add(id);store.set("read",[...read]);e.target.classList.toggle("on");c.classList.toggle("read");return}
+  if(e.target.tagName==="IMG"){const z=$("#zoom");z.querySelector("img").src=e.target.src;z.style.display="flex";return}
+  if(e.target.closest("[data-toggle]")){c.classList.toggle("open");
+    if(c.classList.contains("open")&&!read.has(id)){read.add(id);store.set("read",[...read]);c.querySelector("[data-read]").classList.add("on")}}});
+$("#zoom").onclick=()=>$("#zoom").style.display="none";
+$("#tags").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;tag=tag===b.dataset.tag?"":b.dataset.tag;renderTags();render()});
+$("#view").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;view=b.dataset.v;
+  document.querySelectorAll("#view button").forEach(x=>x.classList.toggle("on",x===b));render()});
+let tm;$("#q").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim().toLowerCase();render()},150)});
+
+(async()=>{try{const r=await fetch(`data/index.json?t=${Date.now()}`);const ix=await r.json();months=ix.months||[];
+  $("#upd").textContent=`업데이트 ${ix.updated||""}`;await loadMonth();renderTags();render()}
+  catch(e){$("#list").innerHTML='<div class="empty">아직 수집된 논문이 없습니다</div>'}})();
+</script>
+</body>
+</html>
