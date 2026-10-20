@@ -2,7 +2,7 @@
 
 LLM 학습 데이터(선택·변환·표상)와 행동 교정 관련 새 논문을 매일 모아서, 한국어 불릿으로 요약해 보여주는 사이트입니다.
 
-- 사이트: https://ohmnum.github.io/paper-digest/
+- 사이트: https://www.hyeongminkim.com/paper-digest/
 - 출처: arXiv(키워드 검색)와 Hugging Face Daily Papers
 - 처리: Claude가 관련도를 0~10점으로 매기고, 7점 이상만 남깁니다. 남은 논문은 문제/방법/결과/한계 불릿으로 요약하고, 제안 방법 그림을 고릅니다. 그림은 arXiv HTML 판이 있는 논문만 나옵니다.
 - 관심 주제와 키워드: `config.json`을 고치면 다음 수집부터 반영됩니다.
