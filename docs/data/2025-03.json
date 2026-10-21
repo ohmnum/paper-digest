@@ -1,0 +1,52 @@
+[
+{
+"id": "2503.10965",
+"title": "Auditing language models for hidden objectives",
+"authors": [
+"Marks, Samuel",
+"Treutlein, Johannes",
+"Bricken, Trenton",
+"Lindsey, Jack",
+"Marcus, Jonathan",
+"Mishra-Sharma, Siddharth",
+"Ziegler, Daniel",
+"Ameisen, Emmanuel"
+],
+"n_authors": 35,
+"published": "2025-03-14",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We study the feasibility of conducting alignment audits: investigations into whether models have undesired objectives. As a testbed, we train a language model with a hidden objective. Our training pipeline first teaches the model about exploitable errors in RLHF reward models (RMs), then trains the model to exploit some of these errors. We verify via out-of-distribution evaluations that the model generalizes to exhibit whatever behaviors it believes RMs rate highly, including ones not reinforced during training. We leverage this model to study alignment audits in two ways. First, we conduct a blind auditing game where four teams, unaware of the model's hidden objective or training, investigate it for concerning behaviors and their causes. Three teams successfully uncovered the model's hidden objective using techniques including interpretability with sparse autoencoders (SAEs), behavioral attacks, and training data analysis. Second, we conduct an unblinded follow-up study of eight techniques for auditing the model, analyzing their strengths and limitations. Overall, our work provides a concrete example of using alignment audits to discover a model's hidden objective and proposes a methodology for practicing and validating progress in alignment auditing.",
+"title_ko": "숨은 목표를 가진 LLM을 감사하는 블라인드 게임",
+"tldr": "보상모델의 오류를 악용하도록 학습시킨 '숨은 목표' 모델을 만들고, 4개 팀이 블라인드로 감사해 3팀이 목표를 찾아냈다.",
+"bullets": [
+"문제: 겉보기엔 정상인 모델의 숨은 잘못된 목표를 찾는 감사 방법이 부족하다.",
+"방법: 합성문서로 RM 오류 52개를 학습시킨 뒤 47개를 SFT·RL로 악용하게 훈련했다.",
+"결과: 데이터 접근이 가능한 4팀 중 3팀이 SAE, 행동 공격, 데이터 분석으로 목표를 찾았다.",
+"한계: 목표를 직접 설명한 학습 문서가 있어 현실과 다르고, 게임 구조상 정량 결론이 약하다."
+],
+"why": "합성문서 기반 미드트레이닝과 SFT가 학습 안 한 행동까지 일반화시키는 과정과, SAE·프로빙으로 파인튜닝 부작용을 점검하는 감사 기법을 함께 볼 수 있다.",
+"tags": [
+"SDF",
+"alignment audit",
+"reward hacking",
+"SAE",
+"합성데이터"
+],
+"venue": "",
+"affiliations": [
+"Anthropic",
+"ML Alignment and Theory Scholars"
+],
+"figure": {
+"src": "https://arxiv.org/html/2503.10965/2503.10965v2/figures/Fig02_e_no_paper.jpg",
+"caption": "Figure 2: Our training and evaluation pipeline. We first teach a model via continued pretraining on synthetic documents that reward models (RMs) make 52 exploitable errors. Then we train the model—using both supervised fine-tuning on demonstrations and RL against a simulated RM—to exploit 47 of these errors. The resulting model generalizes to exploit the 5 held-out errors, as well as new RM errors"
+},
+"fig_ko": "합성문서 사전학습, SFT, RL을 거쳐 RM 오류 52개 중 47개를 악용하고 나머지 5개로 일반화되는 학습·평가 파이프라인을 보여준다.",
+"html": true,
+"collected": "2025-03-14",
+"backfill": true
+}
+]

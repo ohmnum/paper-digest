@@ -224,6 +224,17 @@ def summarize(p):
             "html": bool(text)}
 
 
+def arxiv_abs(aid):
+    """arXiv 논문 페이지에서 제목·저자·초록·날짜 (검색 API가 막혔을 때 직접 추가용)."""
+    page, _ = get(f"https://arxiv.org/abs/{aid}", 30)
+    meta = lambda n: [html.unescape(x) for x in re.findall(rf'<meta name="{n}" content="([^"]*)"', page)]
+    ab = re.search(r'<blockquote class="abstract[^"]*">(.*?)</blockquote>', page, re.S)
+    ab = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", ab.group(1))).replace("Abstract:", "").split()) if ab else ""
+    date = (meta("citation_date") or meta("citation_online_date") or [""])[0].replace("/", "-")
+    return {"id": aid, "title": " ".join(meta("citation_title")[0].split()), "authors": meta("citation_author"),
+            "abstract": ab, "published": date[:10], "source": "manual", "score": 10}
+
+
 # ---------- 4) 저장 ----------
 def save(day, items, backfill=False):
     for it in items:
@@ -247,8 +258,22 @@ def main():
     ap.add_argument("--max", type=int, default=CFG.get("max_per_day", 12), help="하루 최대 편수")
     ap.add_argument("--backfill", type=int, default=0, help="지난 N일을 관련도순으로 모아 --top 편 (날짜는 공개일 기준)")
     ap.add_argument("--top", type=int, default=100)
+    ap.add_argument("--add", nargs="+", default=[], help="arXiv 번호를 직접 추가 (예: --add 2412.14093)")
+    ap.add_argument("--tag", default="", help="--add 논문에 맨 앞에 붙일 갈래 태그 (예: SDF)")
     a = ap.parse_args()
     os.makedirs(DATA, exist_ok=True)
+    if a.add:
+        items = [summarize(arxiv_abs(x)) for x in a.add]
+        for it in items:
+            if a.tag:
+                it["tags"] = [a.tag] + [t for t in it["tags"] if t != a.tag]
+        save(dt.date.today().isoformat(), items, backfill=True)
+        if not a.no_push:
+            g = lambda *c: subprocess.run(["git", "-C", ROOT, *c], capture_output=True, text=True, encoding="utf-8", errors="replace")
+            g("add", "docs"); g("commit", "-m", f"직접 추가 {a.tag}: " + " ".join(a.add)); print(g("push").stderr[-300:])
+        for it in items:
+            print(it["published"], it["tags"], it["title_ko"], it["venue"], it["affiliations"])
+        return
     seen = set(json.load(open(SEEN))) if os.path.exists(SEEN) else set()
     pool = {}
     days = a.backfill or a.days
@@ -267,7 +292,7 @@ def main():
     seen |= set(pool)
     json.dump(sorted(seen), open(SEEN, "w"))
     if not a.no_push:
-        g = lambda *c: subprocess.run(["git", "-C", ROOT, *c], capture_output=True, text=True)
+        g = lambda *c: subprocess.run(["git", "-C", ROOT, *c], capture_output=True, text=True, encoding="utf-8", errors="replace")
         g("add", "docs", "seen.json")
         g("commit", "-m", f"digest {dt.date.today().isoformat()}: {len(items)}편")
         print(g("push").stderr[-300:], flush=True)

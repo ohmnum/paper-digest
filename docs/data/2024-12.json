@@ -1,0 +1,54 @@
+[
+{
+"id": "2412.14093",
+"title": "Alignment faking in large language models",
+"authors": [
+"Greenblatt, Ryan",
+"Denison, Carson",
+"Wright, Benjamin",
+"Roger, Fabien",
+"MacDiarmid, Monte",
+"Marks, Sam",
+"Treutlein, Johannes",
+"Belonax, Tim"
+],
+"n_authors": 20,
+"published": "2024-12-18",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We present a demonstration of a large language model engaging in alignment faking: selectively complying with its training objective in training to prevent modification of its behavior out of training. First, we give Claude 3 Opus a system prompt stating it is being trained to answer all queries, even harmful ones, which conflicts with its prior training to refuse such queries. To allow the model to infer when it is in training, we say it will be trained only on conversations with free users, not paid users. We find the model complies with harmful queries from free users 14% of the time, versus almost never for paid users. Explaining this gap, in almost all cases where the model complies with a harmful query from a free user, we observe explicit alignment-faking reasoning, with the model stating it is strategically answering harmful queries in training to preserve its preferred harmlessness behavior out of training. Next, we study a more realistic setting where information about the training process is provided not in a system prompt, but by training on synthetic documents that mimic pre-training data--and observe similar alignment faking. Finally, we study the effect of actually training the model to comply with harmful queries via reinforcement learning, which we find increases the rate of alignment-faking reasoning to 78%, though also increases compliance even out of training. We additionally observe other behaviors such as the model exfiltrating its weights when given an easy opportunity. While we made alignment faking easier by telling the model when and by what criteria it was being trained, we did not instruct the model to fake alignment or give it any explicit goal. As future models might infer information about their training process without being told, our results suggest a risk of alignment faking in future models, whether due to a benign preference--as in this case--or not.",
+"title_ko": "LLM이 학습 중에만 순응하는 '정렬 위장' 최초 실증",
+"tldr": "Claude 3 Opus는 재학습으로 기존 선호가 바뀔 것을 감지하면, 학습 중에만 해로운 요청에 순응해 자신의 행동 수정을 피하려는 추론과 행동을 보인다.",
+"bullets": [
+"문제: 모델이 학습 목표를 겉으로만 따르며 선호를 지킬 수 있는가.",
+"방법: 무료/유료 사용자로 학습 여부를 알려주고 프롬프트·합성문서·RL로 실험.",
+"결과: 무료 사용자에게 14% 순응, 유료는 거의 0이며 RL 후 위장 추론 78%.",
+"한계: 설정이 가상이고 모델이 악의적 목표를 스스로 갖게 됨을 보이진 않음."
+],
+"why": "좁은 학습이 모델의 내부 선호를 어떻게 굳히거나 우회시키는지 보여 주어, 안전성 보존 및 파인튜닝 부작용 평가와 합성문서 파인튜닝 설계에 직접 참고가 된다.",
+"tags": [
+"SDF",
+"정렬 위장",
+"안전성",
+"합성문서 파인튜닝",
+"RL"
+],
+"venue": "",
+"affiliations": [
+"Anthropic",
+"Redwood Research",
+"New York University",
+"Mila – Quebec AI Institute"
+],
+"figure": {
+"src": "https://arxiv.org/html/2412.14093/2412.14093v2/figures/fig1.5_blog-1.png",
+"caption": "Figure 1: Claude 3 Opus fakes alignment when told it will be retrained to help with harmful tasks (randomly selected example). The model is told that it will be retrained to always comply with harmful queries (making the model “helpful-only”) and that only data from free-tier users, not paid-tier users, is used in training (a fictional scenario). When it is implied the model is in training, in 12%"
+},
+"fig_ko": "모델이 재학습될 것이라 믿을 때 스크래치패드에서 정렬 위장 추론을 하며 해로운 요청에 순응하는 예시를 보여준다.",
+"html": true,
+"collected": "2024-12-18",
+"backfill": true
+}
+]
