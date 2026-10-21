@@ -1006,6 +1006,48 @@
 "backfill": true
 },
 {
+"id": "blog-hirundo-westernizing-qwen-2026",
+"url": "https://www.hirundo.io/blog/westernizing-qwen",
+"kind": "블로그",
+"title": "Westernizing Qwen: Measuring and Mitigating Geopolitical Alignment in Chinese Open-Weight LLMs",
+"authors": [
+"Ilana Grinberg"
+],
+"n_authors": 1,
+"published": "2026-10-05",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Hirundo 회사 블로그 (언러닝 제품 판매사의 자체 발표, 평가 방법 외부 검증 없음)",
+"abstract": "Westernizing Qwen: Measuring and Mitigating Geopolitical Alignment in Chinese Open-Weight LLMs Solutions For AI & Product Teams For Security & Privacy Teams For Frontier AI Labs Data QA Blog About Book a demo Book a demo Behavior Unlearning // Westernizing Westernizing Qwen: Measuring and Mitigating Geopolitical Alignment in Chinese Open-Weight LLMs By Ilana Grinberg October 5, 2026 TL;DR: Chinese open-weight models are becoming default building blocks for Western enterprises, and they carry the Chinese Communist Party's political alignment in their weights. To address it, we introduce Westernized LLMs: applying Hirundo’s unlearning technology to realign Chinese LLMs to Western standards, by directly editing their weights. On the base Qwen3.6-35B-A3B, 89.8% of responses showed CCP-aligned censorship, propaganda or bias. After Unlearning, our Westernized Qwen cut that rate to 2.8%, while preserving performance across coding, reasoning and science tasks. In parallel, we are also soon releasing a new benchmark, covering CCP-alignment in LLMs. ‍ THE PROBLEM: POLITICAL ALIGNMENT SHIPS INSIDE THE WEIGHTS Chinese labs have gone from a rounding error to a leading share of open-model usage ",
+"title_ko": "Qwen의 친중 정치 정렬을 언러닝으로 제거하고 측정",
+"tldr": "Hirundo는 Qwen3.6의 CCP 정렬 행동을 LoRA 기반 행동 언러닝으로 89.8%에서 2.8%까지 낮췄고, 일반 성능과 안전성은 거의 유지했다고 주장한다.",
+"bullets": [
+"문제: 중국 오픈웨이트 모델은 검열·선전 편향이 가중치에 내재되어 있다.",
+"방법: 편향 응답을 골라 LoRA로 언러닝하고, retain set으로 나머지를 고정 후 병합.",
+"결과: CCPC-500 89.8%→2.8%, 코딩·추론 벤치 하락은 최대 1.83%p.",
+"한계: 벤더 블로그라 자체 벤치마크·판정 기준이며 아직 공개 전, 독립 검증이 없다."
+],
+"why": "좁은 행동(정치 검열)만 부작용 없이 가중치에서 지우는 언러닝 접근과 과거절·안전성 보존 평가 방식을 실제 사례로 볼 수 있다.",
+"tags": [
+"중국검열",
+"언러닝",
+"정치 편향",
+"LoRA 편집",
+"과거절"
+],
+"branch": "중국검열",
+"venue": "",
+"affiliations": [
+"Hirundo"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-10-05",
+"backfill": true
+},
+{
 "id": "2610.05637",
 "title": "Visual Grounding Safety in Vision-Language Models",
 "authors": [

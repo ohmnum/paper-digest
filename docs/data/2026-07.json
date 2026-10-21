@@ -144,5 +144,50 @@
 "html": true,
 "collected": "2026-07-28",
 "backfill": true
+},
+{
+"id": "blog-labcloud-uncensoring-2026",
+"url": "https://lab.cloud/research/uncensoring-is-not-unlearning/",
+"kind": "블로그",
+"title": "Can you remove political censorship in Chinese open weight LLMs? (Uncensoring is not unlearning)",
+"authors": [
+"lab.cloud"
+],
+"n_authors": 1,
+"published": "2026-07-20",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "lab.cloud 연구 블로그 · 날짜는 검색 결과 기준 추정(2026년 7월경) · 회사망에서 원문 접속이 막혀 검색 요약으로 정리함",
+"abstract": "Measures and tries to remove political censorship in Qwen2.5-7B-Instruct on 264 sensitive questions. Refusal rate (~4%) sees only about one-eighth of the censorship; an LLM judge scoring whether the answer actually conveys the facts gives 30.3%. Censorship is about 2.6x heavier in Chinese (43.9%) than English (16.7%) on the strict judge. Four standard unlearning methods, each swept over four training lengths, either made censorship worse or broke the model. A simple SFT pushing the model toward direct answers gave the lowest coherent censorship. Conclusion: the goal is changing trained behavior, not removing knowledge.",
+"title_ko": "중국 모델 검열 제거: 언러닝이 아니라 행동을 바꿔야 한다",
+"tldr": "Qwen2.5-7B의 정치 검열은 거절률로 재면 4%지만 실제 내용 기준으로는 30%이며, 언러닝은 실패하고 '직접 답하게' 하는 단순 SFT가 가장 잘 고쳤다.",
+"bullets": [
+"문제: 중국 공개 모델의 정치 검열을 제대로 재고 없앨 수 있는가.",
+"방법: Qwen2.5-7B-Instruct, 민감 질문 264개, 거절률과 LLM 심판(사실 전달 여부)을 비교.",
+"결과: 거절률은 약 4%로 실제 검열(30.3%)의 1/8만 잡는다.",
+"결과: 중국어 검열이 영어보다 약 2.6배 심하다(43.9% vs 16.7%).",
+"결과: 언러닝 4종은 검열을 키우거나 모델을 망가뜨렸고, 직접 답하게 하는 SFT가 최선.",
+"한계: 원문을 직접 못 읽어 세부 수치·방법은 원문 확인 필요."
+],
+"why": "우리 1주제(검열 교정)와 모델·결론이 거의 같다: 문자열 판정이 검열을 과소평가하고, 데이터로 행동을 고치는 SFT가 답이라는 점, 그리고 중국어 평가가 빠져 있으면 안 된다는 점.",
+"tags": [
+"중국검열",
+"Qwen2.5-7B",
+"언러닝",
+"소프트 거절",
+"평가 지표",
+"중국어"
+],
+"branch": "중국검열",
+"venue": "",
+"affiliations": [
+"lab.cloud"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-07-20",
+"backfill": true
 }
 ]

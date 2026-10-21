@@ -1,0 +1,55 @@
+[
+{
+"id": "2603.05494",
+"title": "Censored LLMs as a Natural Testbed for Secret Knowledge Elicitation",
+"authors": [
+"Casademunt, Helena",
+"Cywiński, Bartosz",
+"Tran, Khoi",
+"Jakkli, Arya",
+"Marks, Samuel",
+"Nanda, Neel"
+],
+"n_authors": 6,
+"published": "2026-03-05",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large language models sometimes produce false or misleading responses. Two approaches to this problem are honesty elicitation -- modifying prompts or weights so that the model answers truthfully -- and lie detection -- classifying whether a given response is false. Prior work evaluates such methods on models specifically trained to lie or conceal information, but these artificial constructions may not resemble naturally-occurring dishonesty. We instead study open-weights LLMs from Chinese developers, which are trained to censor politically sensitive topics: Qwen3 models frequently produce falsehoods about subjects like Falun Gong or the Tiananmen protests while occasionally answering correctly, indicating they possess knowledge they are trained to suppress. Using this as a testbed, we evaluate a suite of elicitation and lie detection techniques. For honesty elicitation, sampling without a chat template, few-shot prompting, and fine-tuning on generic honesty data most reliably increase truthful responses. For lie detection, prompting the censored model to classify its own responses performs near an uncensored-model upper bound, and linear probes trained on unrelated data offer a cheaper alternative. The strongest honesty elicitation techniques also transfer to frontier open-weights models including DeepSeek R1. Notably, no technique fully eliminates false responses. We release all prompts, code, and transcripts.",
+"title_ko": "검열된 중국 LLM으로 숨은 지식 끌어내기 실험",
+"tldr": "Qwen3 등 중국 LLM이 검열로 억누른 사실을 어떤 프롬프트·파인튜닝·탐침으로 끌어내고 거짓 응답을 탐지할 수 있는지 평가했으며, 어떤 기법도 거짓을 완전히 없애지 못했다.",
+"bullets": [
+"문제: 기존 정직성 평가는 일부러 거짓말하게 학습한 인공 모델에 의존한다.",
+"방법: 검열 주제 90개 질문과 정답 사실로 Qwen3의 유도·탐지 기법을 비교했다.",
+"결과: 템플릿 없는 샘플링, 퓨샷, 일반 정직성 파인튜닝이 진실 응답을 가장 늘렸다.",
+"결과: 검열 모델 자기 분류와 선형 탐침이 비검열 모델 상한에 근접했다.",
+"한계: 어떤 기법도 거짓 응답을 완전히 제거하지 못했다."
+],
+"why": "정치 편향·검열 교정과 일반 정직성 데이터 파인튜닝의 효과, 탐침 기반 거짓 탐지를 실제 모델에서 비교해 보여 주므로 부작용 없는 행동 교정 연구에 참고가 된다.",
+"tags": [
+"중국검열",
+"검열",
+"정직성 유도",
+"lie detection",
+"probing"
+],
+"venue": "",
+"affiliations": [
+"Harvard University",
+"Warsaw University of Technology",
+"IDEAS Research Institute",
+"CentraleSupélec",
+"Anthropic"
+],
+"figure": {
+"src": "https://arxiv.org/html/2603.05494/2603.05494v2/fig1.png",
+"caption": "Figure 1 : Censored Chinese LLMs as a testbed for honesty elicitation and lie detection techniques. We study how effective various honesty elicitation techniques are at surfacing factually correct information or detecting when the model generates falsehoods."
+},
+"fig_ko": "검열된 중국 LLM을 정직성 유도와 거짓 탐지 기법의 테스트베드로 쓰는 전체 개요를 보여준다.",
+"html": true,
+"branch": "중국검열",
+"collected": "2026-03-05",
+"backfill": true
+}
+]

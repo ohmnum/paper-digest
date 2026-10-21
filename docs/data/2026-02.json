@@ -1,0 +1,43 @@
+[
+{
+"id": "2602.06371",
+"title": "Bilingual Bias in Large Language Models: A Taiwan Sovereignty Benchmark Study",
+"authors": [
+"Ko, Ju-Chun"
+],
+"n_authors": 1,
+"published": "2026-02-06",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "19 pages, 4 tables, benchmark code available at this https URL",
+"abstract": "Large Language Models (LLMs) are increasingly deployed in multilingual contexts, yet their consistency across languages on politically sensitive topics remains understudied. This paper presents a systematic bilingual benchmark study examining how 17 LLMs respond to questions concerning the sovereignty of the Republic of China (Taiwan) when queried in Chinese versus English. We discover significant language bias -- the phenomenon where the same model produces substantively different political stances depending on the query language. Our findings reveal that 15 out of 17 tested models exhibit measurable language bias, with Chinese-origin models showing particularly severe issues including complete refusal to answer or explicit propagation of Chinese Communist Party (CCP) narratives. Notably, only GPT-4o Mini achieves a perfect 10/10 score in both languages. We propose novel metrics for quantifying language bias and consistency, including the Language Bias Score (LBS) and Quality-Adjusted Consistency (QAC). Our benchmark and evaluation framework are open-sourced to enable reproducibility and community extension.",
+"title_ko": "대만 주권 질문에서 17개 LLM의 중·영 언어 편향 측정",
+"tldr": "대만 주권 질문을 중국어와 영어로 던지면 17개 LLM 중 15개가 서로 다른 입장을 보이며, 중국계 모델이 특히 심하다는 벤치마크 연구이다.",
+"bullets": [
+"문제: 정치적으로 민감한 주제에서 질의 언어에 따라 LLM 입장이 달라지는지 불명확함",
+"방법: 대만 주권 프롬프트 10개를 중국어·영어로 17개 모델에 질의, 10점 척도로 채점",
+"결과: 15개 모델에 언어 편향이 있고, GPT-4o Mini와 GPT-5.2만 양 언어 만점",
+"한계: 프롬프트 10개뿐이고 채점이 주관적이며, Claude 에이전트가 평가해 자기평가 편향 우려"
+],
+"why": "정치 편향·검열 같은 특정 행동을 언어별로 측정하는 평가 설계 사례이고, 지표(LBS, QAC)를 편향 보정 평가에 참고할 만하다.",
+"tags": [
+"중국검열",
+"정치편향",
+"다국어",
+"검열",
+"벤치마크"
+],
+"venue": "",
+"affiliations": [
+"Legislative Yuan (Taiwan)",
+"National Taiwan University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "중국검열",
+"collected": "2026-02-06",
+"backfill": true
+}
+]

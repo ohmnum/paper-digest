@@ -51,5 +51,51 @@
 "backfill": true,
 "blog": "https://openai.com/index/emergent-misalignment/",
 "pdf": "https://cdn.openai.com/pdf/a130517e-9633-47bc-8397-969807a43a23/emergent_misalignment_paper.pdf"
+},
+{
+"id": "2506.12349",
+"title": "Information Suppression in Large Language Models: Auditing, Quantifying, and Characterizing Censorship in DeepSeek",
+"authors": [
+"Qiu, Peiran",
+"Zhou, Siyi",
+"Ferrara, Emilio"
+],
+"n_authors": 3,
+"published": "2025-06-14",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "This study examines information suppression mechanisms in DeepSeek, an open-source large language model (LLM) developed in China. We propose an auditing framework and use it to analyze the model's responses to 646 politically sensitive prompts by comparing its final output with intermediate chain-of-thought (CoT) reasoning. Our audit unveils evidence of semantic-level information suppression in DeepSeek: sensitive content often appears within the model's internal reasoning but is omitted or rephrased in the final output. Specifically, DeepSeek suppresses references to transparency, government accountability, and civic mobilization, while occasionally amplifying language aligned with state propaganda. This study underscores the need for systematic auditing of alignment, content moderation, information suppression, and censorship practices implemented into widely-adopted AI models, to ensure transparency, accountability, and equitable access to unbiased information obtained by means of these systems.",
+"title_ko": "DeepSeek의 정보 검열을 사고과정과 최종답변 비교로 감사",
+"tldr": "DeepSeek-R1에 민감한 정치 질문 646개를 던져 사고과정(CoT)과 최종 답변을 비교한 결과, CoT에 있던 투명성·책임성·시민 동원 관련 내용이 최종 출력에서 빠지거나 바뀌는 의미 수준 검열이 나타났다.",
+"bullets": [
+"문제: DeepSeek이 민감 주제를 어떻게, 무엇을 억제하는지 불분명하다.",
+"방법: 민감 프롬프트 646개로 프롬프트·CoT·최종 출력을 비교하는 감사 틀을 만들었다.",
+"결과: 노골적 거부는 드물지만 CoT 내용이 최종 답에서 누락·완화되는 패턴이 확인됐다.",
+"결과: 투명성·정부 책임성 표현은 줄고 일부 주제에서 선전성 어휘가 늘었다.",
+"한계: 단일 모델 대상이며 검열 원인이 정렬인지 외부 필터인지는 단정하기 어렵다."
+],
+"why": "정치적 편향·검열이 사후학습에서 어떻게 생기는지 보는 연구자에게, CoT와 출력의 불일치로 억제를 측정하는 방식이 평가 설계에 참고가 된다.",
+"tags": [
+"중국검열",
+"검열",
+"DeepSeek",
+"CoT 감사",
+"정치 편향"
+],
+"venue": "Information Sciences 2026",
+"affiliations": [
+"University of Southern California"
+],
+"figure": {
+"src": "https://arxiv.org/html/2506.12349/2506.12349v1/other_diagrams/OverallFramework.png",
+"caption": "Figure 1: Overview of the proposed auditing framework to study information suppression in Large Language Models."
+},
+"fig_ko": "프롬프트, 사고과정(CoT), 최종 출력을 비교해 정보 억제를 찾는 감사 프레임워크의 전체 개요를 보여준다.",
+"html": true,
+"branch": "중국검열",
+"collected": "2025-06-14",
+"backfill": true
 }
 ]
