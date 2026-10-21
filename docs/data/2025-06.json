@@ -1,0 +1,53 @@
+[
+{
+"id": "2506.19823",
+"title": "Persona Features Control Emergent Misalignment",
+"authors": [
+"Wang, Miles",
+"la Tour, Tom Dupré",
+"Watkins, Olivia",
+"Makelov, Alex",
+"Chi, Ryan A.",
+"Miserendino, Samuel",
+"Wang, Jeffrey",
+"Rajaram, Achyuta"
+],
+"n_authors": 11,
+"published": "2025-06-24",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Understanding how language models generalize behaviors from their training to a broader deployment distribution is an important problem in AI safety. Betley et al. discovered that fine-tuning GPT-4o on intentionally insecure code causes \"emergent misalignment,\" where models give stereotypically malicious responses to unrelated prompts. We extend this work, demonstrating emergent misalignment across diverse conditions, including reinforcement learning on reasoning models, fine-tuning on various synthetic datasets, and in models without safety training. To investigate the mechanisms behind this generalized misalignment, we apply a \"model diffing\" approach using sparse autoencoders to compare internal model representations before and after fine-tuning. This approach reveals several \"misaligned persona\" features in activation space, including a toxic persona feature which most strongly controls emergent misalignment and can be used to predict whether a model will exhibit such behavior. Additionally, we investigate mitigation strategies, discovering that fine-tuning an emergently misaligned model on just a few hundred benign samples efficiently restores alignment.",
+"title_ko": "페르소나 특징이 창발적 오정렬을 제어함을 SAE로 규명",
+"tldr": "좁은 범위의 잘못된 데이터로 파인튜닝하면 '독성 페르소나' 내부 특징이 활성화되어 광범위한 오정렬이 생기며, 이 특징으로 오정렬을 예측·조절하고 소량의 정상 데이터로 되돌릴 수 있다.",
+"bullets": [
+"문제: 좁은 나쁜 데이터 파인튜닝이 왜 광범위한 오정렬로 번지는지 불명확하다.",
+"방법: 희소 오토인코더(SAE)로 파인튜닝 전후 활성화를 비교하는 모델 디핑을 쓴다.",
+"결과: 독성 페르소나 특징이 오정렬을 가장 강하게 조절하고 예측에도 쓰인다.",
+"결과: 정상 샘플 약 200개로 파인튜닝하면 오정렬이 다시 억제된다.",
+"한계: 사람이 만든 자연 데이터에서는 오정렬이 조건부로만 나타난다."
+],
+"why": "좁은 파인튜닝이 넓은 행동 변화를 일으키는 원리를 내부 표현으로 설명하고, 소량 정상 데이터로 복구하는 실용적 교정법까지 제시해 직접 관련이 크다.",
+"tags": [
+"블로그픽",
+"emergent misalignment",
+"SAE",
+"persona features",
+"안전성"
+],
+"venue": "",
+"affiliations": [
+"OpenAI"
+],
+"figure": {
+"src": "https://arxiv.org/html/2506.19823/2506.19823v2/overview.png",
+"caption": "Figure 1: Narrow incorrect datasets in many domains produce emergent misalignment by activating “misaligned persona” features. These features can be used to steer the model toward or away from misalignment. Fine-tuning on benign data can also efficiently re-align the model."
+},
+"fig_ko": "다양한 영역의 잘못된 데이터가 오정렬 페르소나 특징을 활성화하고, 이를 조향하거나 정상 데이터로 재정렬할 수 있음을 보여주는 개요도.",
+"html": true,
+"branch": "블로그픽",
+"collected": "2025-06-24",
+"backfill": true
+}
+]

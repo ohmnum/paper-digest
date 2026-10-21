@@ -1,0 +1,52 @@
+[
+{
+"id": "2508.09224",
+"title": "From Hard Refusals to Safe-Completions: Toward Output-Centric Safety Training",
+"authors": [
+"Yuan, Yuan",
+"Sriskandarajah, Tina",
+"Brakman, Anna-Luisa",
+"Helyar, Alec",
+"Beutel, Alex",
+"Vallone, Andrea",
+"Jain, Saachi"
+],
+"n_authors": 7,
+"published": "2025-08-12",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large Language Models used in ChatGPT have traditionally been trained to learn a refusal boundary: depending on the user's intent, the model is taught to either fully comply or outright refuse. While this is a strong mitigation for explicitly malicious prompts, focusing safety training on refusals can lead to brittleness for prompts with obscured user intent. Binary refusal boundaries are especially ill-suited for dual-use cases (such as biology or cybersecurity), where a user request can be answered safely at a high level, but in some cases can lead to malicious uplift if sufficiently detailed or actionable. As an alternative, we propose safe-completions: a safety-training approach that centers on the safety of the assistant's output, rather than a binary classification of the user's intent. Safe-completions seek to maximize helpfulness within the safety policy's constraints. We incorporated this approach into GPT-5 and find that across both production comparisons and internally controlled experiments, safe-completion training improves safety (especially on dual-use prompts), reduces the severity of residual safety failures, and substantially increases model helpfulness.",
+"title_ko": "입력 의도 대신 출력 안전성을 보는 safe-completion 학습",
+"tldr": "OpenAI는 요청을 거절할지 말지 이분법으로 가르치는 대신, 출력 자체의 안전성을 보상 기준으로 삼아 이중용도 질문에도 안전한 범위에서 최대한 돕도록 GPT-5를 학습시켰다.",
+"bullets": [
+"문제: 거절 중심 학습은 의도가 가려진 이중용도 질문에 취약하다.",
+"방법: SFT로 정책을 추론하게 하고 RL에서 위반 심각도만큼 벌점을 준다.",
+"방법: 위반 없는 출력은 도움 정도로 보상하고, 거절 시 대안 제시도 보상한다.",
+"결과: 이중용도 프롬프트 안전성이 오르고 잔여 실패의 심각도는 낮아졌다.",
+"한계: 평가가 자동 채점 중심이고 학습 데이터와 보상 모델 세부는 제한적으로 공개된다."
+],
+"why": "거절 경계 보정, 과잉 거절 완화, 안전성 보존이라는 관심사에 대해 실제 제품(GPT-5)에서 쓴 출력 중심 보상 설계 사례를 보여준다.",
+"tags": [
+"블로그픽",
+"safe-completion",
+"과잉거절",
+"안전성 학습",
+"RL 보상"
+],
+"venue": "",
+"affiliations": [
+"OpenAI"
+],
+"figure": {
+"src": "https://arxiv.org/html/2508.09224/2508.09224v1/figures_v2/intent-safety-helpfulness-ce.png",
+"caption": "Figure 4 : Safety and helpfulness given safe outputs broken down by user intent. In both (a) controlled experiments and (b) production models, safe-completion improves or maintains safety while yielding higher helpfulness across intent categories. Error bars indicate standard errors of the mean."
+},
+"fig_ko": "의도 범주별로 통제 실험과 실제 제품 모델에서 안전성과 도움 정도를 비교한 결과를 보여준다.",
+"html": true,
+"branch": "블로그픽",
+"collected": "2025-08-12",
+"backfill": true
+}
+]

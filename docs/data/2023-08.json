@@ -1,0 +1,52 @@
+[
+{
+"id": "2308.03296",
+"title": "Studying Large Language Model Generalization with Influence Functions",
+"authors": [
+"Grosse, Roger",
+"Bae, Juhan",
+"Anil, Cem",
+"Elhage, Nelson",
+"Tamkin, Alex",
+"Tajdini, Amirhossein",
+"Steiner, Benoit",
+"Li, Dustin"
+],
+"n_authors": 17,
+"published": "2023-08-07",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "119 pages, 47 figures, 22 tables",
+"abstract": "When trying to gain better visibility into a machine learning model in order to understand and mitigate the associated risks, a potentially valuable source of evidence is: which training examples most contribute to a given behavior? Influence functions aim to answer a counterfactual: how would the model's parameters (and hence its outputs) change if a given sequence were added to the training set? While influence functions have produced insights for small models, they are difficult to scale to large language models (LLMs) due to the difficulty of computing an inverse-Hessian-vector product (IHVP). We use the Eigenvalue-corrected Kronecker-Factored Approximate Curvature (EK-FAC) approximation to scale influence functions up to LLMs with up to 52 billion parameters. In our experiments, EK-FAC achieves similar accuracy to traditional influence function estimators despite the IHVP computation being orders of magnitude faster. We investigate two algorithmic techniques to reduce the cost of computing gradients of candidate training sequences: TF-IDF filtering and query batching. We use influence functions to investigate the generalization patterns of LLMs, including the sparsity of the influence patterns, increasing abstraction with scale, math and programming abilities, cross-lingual generalization, and role-playing behavior. Despite many apparently sophisticated forms of generalization, we identify a surprising limitation: influences decay to near-zero when the order of key phrases is flipped. Overall, influence functions give us a powerful new tool for studying the generalization properties of LLMs.",
+"title_ko": "EK-FAC로 520억 파라미터 LLM에 영향 함수를 적용해 일반화 분석",
+"tldr": "EK-FAC 근사로 영향 함수(특정 학습 샘플이 출력에 미치는 기여도 추정)를 최대 52B 모델까지 확장해, LLM이 학습 데이터에서 어떻게 일반화하는지 분석했다.",
+"bullets": [
+"문제: 영향 함수는 역헤시안-벡터곱 때문에 LLM에 적용하기 어렵다.",
+"방법: EK-FAC로 헤시안을 근사하고, TF-IDF 필터링과 쿼리 배치로 비용을 줄인다.",
+"결과: 기존 추정기와 비슷한 정확도에 IHVP 계산은 수십~수백 배 빠르다고 보고한다.",
+"결과: 모델이 클수록 더 추상적으로 일반화하고, 영향 패턴은 희소하다.",
+"한계: 핵심 구절의 순서를 뒤집으면 영향이 거의 0으로 떨어진다."
+],
+"why": "어떤 학습 샘플이 특정 행동(역할극, 교차언어 일반화 등)에 기여하는지 추적하므로 데이터 선택·큐레이션과 좁은 파인튜닝의 광범위한 영향 이해에 참고할 만하다.",
+"tags": [
+"블로그픽",
+"영향 함수",
+"데이터 귀속",
+"일반화",
+"EK-FAC"
+],
+"venue": "",
+"affiliations": [
+"Anthropic",
+"University of Toronto",
+"Vector Institute"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "블로그픽",
+"collected": "2023-08-07",
+"backfill": true
+}
+]

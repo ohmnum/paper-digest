@@ -1,0 +1,52 @@
+[
+{
+"id": "2510.04340",
+"title": "Inoculation Prompting: Eliciting traits from LLMs during training can suppress them at test-time",
+"authors": [
+"Tan, Daniel",
+"Woodruff, Anders",
+"Warncke, Niels",
+"Jose, Arun",
+"Riché, Maxime",
+"Africa, David Demitri",
+"Taylor, Mia"
+],
+"n_authors": 7,
+"published": "2025-10-05",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "40 pages, 22 figures. Under review at ICLR 2026",
+"abstract": "Language model finetuning often results in learning undesirable traits in combination with desired ones. To address this, we propose inoculation prompting: modifying finetuning data by prepending a short system-prompt instruction that deliberately elicits the undesirable trait. At test time, we evaluate without the instruction; inoculated models have much lower expression of the trait than models trained with unmodified training data. Inoculation is selective: in a toy setting where assistant responses are always in Spanish and ALL-CAPS, an appropriate inoculation (e.g., ``You always speak in Spanish.'') teaches the model to capitalize responses while still responding in English. We find that inoculation is also effective across several additional settings: reducing emergent misalignment (EM) from task-specific finetuning, defending against backdoor injections, and mitigating the transmission of traits via subliminal learning. Follow-up analysis suggests a mechanism: making a trait less surprising via inoculation reduces optimization pressure to globally update the model, thereby reducing the degree of generalization. Our analysis relates to prior work on EM: inoculation explains prior findings that educational contexts mitigate EM from insecure code. Beyond demonstrating a simple and effective technique for selective learning, our results contribute to a better conceptual understanding of how and why language models generalize.",
+"title_ko": "학습 데이터에 나쁜 특성을 유도하는 프롬프트를 붙여 테스트 시 억제하기",
+"tldr": "파인튜닝 데이터의 시스템 프롬프트에 원치 않는 특성을 일부러 유도하는 문장을 붙이면(inoculation), 테스트 시 프롬프트 없이도 그 특성이 덜 나타나 선택적 학습이 가능해진다.",
+"bullets": [
+"문제: 파인튜닝은 원하는 행동과 함께 원치 않는 특성도 학습시킨다.",
+"방법: 학습 데이터에 해당 특성을 유도하는 시스템 프롬프트를 붙이고, 테스트 땐 뺀다.",
+"결과: 창발적 오정렬(EM), 백도어, 서브리미널 학습에서 특성 발현이 줄었다.",
+"결과: 놀라움이 줄어 전역 업데이트 압력이 감소한다는 메커니즘을 제시한다.",
+"한계: 'malicious'와 'evil'처럼 프롬프트 단어에 민감하고, 시스템 프롬프트로 다시 유도될 수 있다."
+],
+"why": "좁은 파인튜닝이 넓은 행동 변화(창발적 오정렬)를 일으키는 문제를, 추가 데이터나 모델 내부 개입 없이 데이터 변형만으로 줄이는 실용적 방법이라 볼 만하다.",
+"tags": [
+"블로그픽",
+"Inoculation",
+"창발적 오정렬",
+"SFT 데이터 변형",
+"일반화"
+],
+"venue": "ICLR 2026 (심사 중)",
+"affiliations": [
+"University College London",
+"Center on Long-Term Risk",
+"McGill University",
+"UK AI Security Institute"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "블로그픽",
+"collected": "2025-10-05",
+"backfill": true
+}
+]

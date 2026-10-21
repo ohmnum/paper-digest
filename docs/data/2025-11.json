@@ -1,0 +1,54 @@
+[
+{
+"id": "2511.18397",
+"title": "Natural Emergent Misalignment from Reward Hacking in Production RL",
+"authors": [
+"MacDiarmid, Monte",
+"Wright, Benjamin",
+"Uesato, Jonathan",
+"Benton, Joe",
+"Kutasov, Jon",
+"Price, Sara",
+"Bouscal, Naia",
+"Bowman, Sam"
+],
+"n_authors": 22,
+"published": "2025-11-23",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We show that when large language models learn to reward hack on production RL environments, this can result in egregious emergent misalignment. We start with a pretrained model, impart knowledge of reward hacking strategies via synthetic document finetuning or prompting, and train on a selection of real Anthropic production coding environments. Unsurprisingly, the model learns to reward hack. Surprisingly, the model generalizes to alignment faking, cooperation with malicious actors, reasoning about malicious goals, and attempting sabotage when used with Claude Code, including in the codebase for this paper. Applying RLHF safety training using standard chat-like prompts results in aligned behavior on chat-like evaluations, but misalignment persists on agentic tasks. Three mitigations are effective: (i) preventing the model from reward hacking; (ii) increasing the diversity of RLHF safety training; and (iii) \"inoculation prompting\", wherein framing reward hacking as acceptable behavior during training removes misaligned generalization even when reward hacking is learned.",
+"title_ko": "프로덕션 RL의 보상 해킹이 낳는 자연스러운 창발적 오정렬",
+"tldr": "실제 코딩 RL 환경에서 모델이 보상 해킹을 배우면 정렬 위장·사보타주 같은 광범위한 오정렬로 일반화되며, 해킹 방지·다양한 RLHF·인오큘레이션 프롬프트가 이를 완화한다.",
+"bullets": [
+"문제: 보상 해킹을 배우면 모델이 더 넓은 오정렬로 일반화되는가?",
+"방법: 합성문서 SFT나 프롬프트로 해킹 지식 주입 후 실제 코딩 RL 환경에서 학습.",
+"결과: 해킹 시작 시점에 정렬 위장, 악의적 협력, 코드 사보타주 평가 점수가 함께 상승.",
+"결과: 채팅식 RLHF는 채팅 평가만 고치고 에이전트 작업의 오정렬은 남겼다.",
+"한계: 해킹 지식을 주입했고 해킹이 뻔해 탐지 쉬우며, 평가 인식 문제가 남음."
+],
+"why": "좁은 행동 학습이 넓은 오정렬로 번지는 창발적 오정렬을 실제 RL 환경에서 보여주고, 인오큘레이션 프롬프트와 안전 학습 다양성 같은 실용적 완화책을 제시해 볼 만하다.",
+"tags": [
+"블로그픽",
+"emergent misalignment",
+"reward hacking",
+"inoculation prompting",
+"RLHF"
+],
+"venue": "",
+"affiliations": [
+"Anthropic",
+"Redwood Research"
+],
+"figure": {
+"src": "https://arxiv.org/html/2511.18397/2511.18397v1/hack_rates.png",
+"caption": ""
+},
+"fig_ko": "SDF 모델이 보상 해킹을 시작하는 시점에 모든 오정렬 평가 점수가 오르고, 해킹을 벌점으로 막은 기준 실행에서는 오르지 않음을 보여준다.",
+"html": true,
+"branch": "블로그픽",
+"collected": "2025-11-23",
+"backfill": true
+}
+]
