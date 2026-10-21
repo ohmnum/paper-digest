@@ -47,6 +47,8 @@
 "html": true,
 "branch": "블로그픽",
 "collected": "2025-08-12",
-"backfill": true
+"backfill": true,
+"blog": "https://openai.com/index/gpt-5-safe-completions/",
+"pdf": "https://cdn.openai.com/pdf/be60c07b-6bc2-4f54-bcee-4141e1d6c69a/gpt-5-safe_completions.pdf"
 }
 ]

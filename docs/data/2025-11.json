@@ -49,6 +49,7 @@
 "html": true,
 "branch": "블로그픽",
 "collected": "2025-11-23",
-"backfill": true
+"backfill": true,
+"blog": "https://www.anthropic.com/research/emergent-misalignment-reward-hacking"
 }
 ]

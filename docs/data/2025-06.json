@@ -48,6 +48,8 @@
 "html": true,
 "branch": "블로그픽",
 "collected": "2025-06-24",
-"backfill": true
+"backfill": true,
+"blog": "https://openai.com/index/emergent-misalignment/",
+"pdf": "https://cdn.openai.com/pdf/a130517e-9633-47bc-8397-969807a43a23/emergent_misalignment_paper.pdf"
 }
 ]

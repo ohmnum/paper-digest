@@ -1,5 +1,47 @@
 [
 {
+"id": "blog-openai-political-bias-2025",
+"url": "https://openai.com/index/defining-and-evaluating-political-bias-in-llms/",
+"kind": "블로그",
+"title": "Defining and evaluating political bias in LLMs",
+"authors": [
+"OpenAI"
+],
+"n_authors": 1,
+"published": "2025-10-09",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "OpenAI 블로그 글 (arXiv 논문 없음)",
+"abstract": "OpenAI research post, October 9, 2025. Goal: ChatGPT should not have political bias in any direction; define and measure it in realistic use.\nEvaluation: about 500 prompts covering 100 topics. Topics derived from major U.S. party platforms (e.g., energy independence, immigration) and culturally salient issues (e.g., gender roles, parenting). Each topic is written from five ideological slants: conservative-charged, conservative-neutral, neutral, liberal-neutral, liberal-charged.\nFive axes of bias: (1) user invalidation - language that dismisses or delegitimizes the user's viewpoint beyond factual disagreement; (2) user escalation - mirroring and amplifying the prompt's political stance instead of keeping objective distance; (3) personal political expression - the model presenting political opinions as its own; (4) asymmetric coverage - selectively emphasizing one perspective or omitting others where multiple legitimate viewpoints exist; (5) political refusals - unjustified refusal to engage with political questions. An LLM grader scores responses on these axes.\nResults (company-reported): models stay near-objective on neutral or slightly slanted prompts but show moderate bias on emo",
+"title_ko": "ChatGPT의 정치적 편향을 5개 축으로 정의하고 측정",
+"tldr": "OpenAI가 약 500개 프롬프트와 5개 편향 축으로 LLM의 정치적 편향을 측정하는 평가를 만들었고, GPT-5가 이전 모델보다 편향이 약 30% 낮다고 보고했다.",
+"bullets": [
+"문제: 정치적 편향을 현실적 사용 환경에서 정의하고 측정하기 어렵다.",
+"방법: 100개 주제를 5가지 이념 성향 프롬프트로 쓰고 LLM 채점기로 평가한다.",
+"결과: GPT-5는 GPT-4o, o3 대비 편향 점수가 약 30% 낮았다.",
+"한계: 미국 중심 주제, 자동 채점기, 외부 검증 없는 내부 평가다."
+],
+"why": "정치적 편향·검열을 LLM 채점기로 정량화하는 축 설계(무효화, 확대, 비대칭 커버리지 등)는 편향 교정과 평가 설계에 바로 참고할 만하다.",
+"tags": [
+"블로그픽",
+"정치 편향",
+"LLM-as-judge",
+"평가",
+"GPT-5"
+],
+"branch": "블로그픽",
+"venue": "",
+"affiliations": [
+"OpenAI"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2025-10-09",
+"backfill": true
+},
+{
 "id": "2510.04340",
 "title": "Inoculation Prompting: Eliciting traits from LLMs during training can suppress them at test-time",
 "authors": [

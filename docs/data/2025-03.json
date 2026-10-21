@@ -48,6 +48,7 @@
 "html": true,
 "collected": "2025-03-14",
 "backfill": true,
-"branch": "SDF"
+"branch": "SDF",
+"blog": "https://www.anthropic.com/research/auditing-hidden-objectives"
 }
 ]

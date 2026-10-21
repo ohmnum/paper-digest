@@ -1,0 +1,50 @@
+[
+{
+"id": "blog-anthropic-sdf-2025",
+"url": "https://alignment.anthropic.com/2025/modifying-beliefs-via-sdf/",
+"kind": "블로그",
+"title": "Modifying LLM Beliefs with Synthetic Document Finetuning",
+"authors": [
+"Rowan Wang",
+"Avery Griffin",
+"Johannes Treutlein",
+"Ethan Perez",
+"Julian Michael",
+"Fabien Roger",
+"Sam Marks"
+],
+"n_authors": 7,
+"published": "2025-04-24",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Anthropic 블로그 글 (arXiv 논문 없음)",
+"abstract": "In this post, we study whether we can modify an LLM’s beliefs and investigate whether doing so could decrease risk from advanced AI systems. We describe a pipeline for modifying LLM beliefs via synthetic document finetuning and introduce a suite of evaluations that suggest our pipeline succeeds in inserting all but the most implausible beliefs. We also demonstrate proof-of-concept applications to honeypotting for detecting model misalignment and unlearning. 💻 code Introduction Large language models develop implicit beliefs about the world during training, shaping how they reason and act In this work, we construe AI systems as believing in a claim if they consistently behave in accordance with that claim . In this work, we study whether we can systematically modify these beliefs, creating a powerful new affordance for safer AI deployment. Controlling the beliefs of AI systems can decrease risk in a variety of ways. First, model organisms research—research which intentionally trains misaligned models to understand the mechanisms and likelihood of dangerous misalignment—benefits from training models with researcher-specified beliefs about themselves or their situation. Second, we migh",
+"title_ko": "합성 문서 파인튜닝으로 LLM의 믿음을 수정하는 방법",
+"tldr": "LLM이 만든 합성 문서로 SFT(지도 미세조정)해 모델에 특정 사실(거짓 포함)을 믿게 만들 수 있으며, 극단적으로 비현실적인 사실만 잘 안 들어가고 언러닝·허니팟에 응용 가능하다.",
+"bullets": [
+"문제: LLM의 믿음을 체계적으로 바꿔 위험을 줄일 수 있는가.",
+"방법: 문서 유형·아이디어 생성 후 문서 작성·수정, 이를 사전학습 데이터처럼 SFT한다.",
+"결과: 극단적으로 거짓인 사실을 뺀 대부분의 믿음이 여러 모델에서 삽입되었다.",
+"결과: 위험 주제에 틀린 정보를 심으면 탈옥 상황에서도 틀린 정보를 주로 출력한다.",
+"한계: 믿음 깊이가 평가 방식에 따라 다르고, 모델에게 진위를 따지게 하면 구분 능력이 오른다."
+],
+"why": "합성 데이터 생성·수정 파이프라인과 대조 쌍 평가, 좁은 파인튜닝이 모델 믿음과 행동에 미치는 영향, 부작용 없는 언러닝을 한꺼번에 다뤄 데이터 변환과 표적 교정 관점에서 참고할 만하다.",
+"tags": [
+"SDF",
+"합성데이터",
+"언러닝",
+"믿음수정"
+],
+"branch": "SDF",
+"venue": "",
+"affiliations": [
+"Anthropic"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2025-04-24",
+"backfill": true
+}
+]

@@ -54,6 +54,8 @@
 "fig_ko": "수백 개의 유해 질문-답변 시연 뒤에 목표 질문을 붙여 모델 행동을 유도하는 다수샷 탈옥의 개요를 보여준다.",
 "html": false,
 "collected": "2024-04-02",
-"backfill": true
+"backfill": true,
+"blog": "https://www.anthropic.com/research/many-shot-jailbreaking",
+"kind": "PDF"
 }
 ]

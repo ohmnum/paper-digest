@@ -47,6 +47,7 @@
 "html": true,
 "branch": "블로그픽",
 "collected": "2023-08-07",
-"backfill": true
+"backfill": true,
+"blog": "https://www.anthropic.com/research/influence-functions"
 }
 ]

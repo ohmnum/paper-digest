@@ -50,6 +50,7 @@
 "html": true,
 "collected": "2024-12-18",
 "backfill": true,
-"branch": "SDF"
+"branch": "SDF",
+"blog": "https://www.anthropic.com/research/alignment-faking"
 }
 ]

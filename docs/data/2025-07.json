@@ -50,7 +50,8 @@
 "html": true,
 "branch": "블로그픽",
 "collected": "2025-07-29",
-"backfill": true
+"backfill": true,
+"blog": "https://www.anthropic.com/research/persona-vectors"
 },
 {
 "id": "2507.14805",
@@ -103,6 +104,7 @@
 "html": true,
 "branch": "블로그픽",
 "collected": "2025-07-20",
-"backfill": true
+"backfill": true,
+"blog": "https://alignment.anthropic.com/2025/subliminal-learning/"
 }
 ]
