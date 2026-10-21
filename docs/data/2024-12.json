@@ -49,6 +49,7 @@
 "fig_ko": "모델이 재학습될 것이라 믿을 때 스크래치패드에서 정렬 위장 추론을 하며 해로운 요청에 순응하는 예시를 보여준다.",
 "html": true,
 "collected": "2024-12-18",
-"backfill": true
+"backfill": true,
+"branch": "SDF"
 }
 ]

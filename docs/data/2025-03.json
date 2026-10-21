@@ -47,6 +47,7 @@
 "fig_ko": "합성문서 사전학습, SFT, RL을 거쳐 RM 오류 52개 중 47개를 악용하고 나머지 5개로 일반화되는 학습·평가 파이프라인을 보여준다.",
 "html": true,
 "collected": "2025-03-14",
-"backfill": true
+"backfill": true,
+"branch": "SDF"
 }
 ]

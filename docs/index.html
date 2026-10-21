@@ -77,6 +77,7 @@ details.abs summary{cursor:pointer;color:var(--faint)}
 #zoom{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:20;padding:16px;cursor:zoom-out}
 #zoom img{max-width:100%;max-height:100%;background:#fff;border-radius:8px}
 @media (max-width:520px){.tko{font-size:15px}.acts{flex-direction:row}.row{flex-wrap:wrap}.acts{width:100%;justify-content:flex-end;order:3}}
+.chip.br{font-weight:600;border-style:dashed}
 </style>
 </head>
 <body>
@@ -158,8 +159,9 @@ function render(){
   const m=$("#more");if(m)m.onclick=async()=>{await loadMonth();renderTags();render()}}
 
 function renderTags(){const c={};papers.forEach(p=>(p.tags||[]).forEach(t=>c[t]=(c[t]||0)+1));
-  const top=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,14);
-  $("#tags").innerHTML=top.map(([t,n])=>`<button class="chip${t===tag?" on":""}" data-tag="${esc(t)}">${esc(t)} ${n}</button>`).join("")}
+  const br={};papers.forEach(p=>p.branch&&(br[p.branch]=(br[p.branch]||0)+1));
+  const top=Object.entries(c).filter(([t])=>!(t in br)).sort((a,b)=>b[1]-a[1]).slice(0,14);
+  $("#tags").innerHTML=Object.entries(br).map(([t,n])=>`<button class="chip br${t===tag?" on":""}" data-tag="${esc(t)}">갈래 · ${esc(t)} ${n}</button>`).join("")+top.map(([t,n])=>`<button class="chip${t===tag?" on":""}" data-tag="${esc(t)}">${esc(t)} ${n}</button>`).join("")}
 
 $("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const id=c.dataset.id;
   if(e.target.closest("[data-star]")){star.has(id)?star.delete(id):star.add(id);store.set("star",[...star]);e.target.classList.toggle("on");return}
@@ -177,7 +179,7 @@ $("#view").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
 let tm;$("#q").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim().toLowerCase();render()},150)});
 
 (async()=>{try{const r=await fetch(`data/index.json?t=${Date.now()}`);const ix=await r.json();months=ix.months||[];
-  $("#upd").textContent=`업데이트 ${ix.updated||""}`;await loadMonth();renderTags();render()}
+  $("#upd").textContent=`업데이트 ${ix.updated||""}`;while(loaded<months.length)await loadMonth();renderTags();render()}
   catch(e){$("#list").innerHTML='<div class="empty">아직 수집된 논문이 없습니다</div>'}})();
 </script>
 </body>

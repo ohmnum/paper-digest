@@ -266,7 +266,7 @@ def main():
         items = [summarize(arxiv_abs(x)) for x in a.add]
         for it in items:
             if a.tag:
-                it["tags"] = [a.tag] + [t for t in it["tags"] if t != a.tag]
+                it["tags"] = [a.tag] + [t for t in it["tags"] if t != a.tag]; it["branch"] = a.tag
         save(dt.date.today().isoformat(), items, backfill=True)
         if not a.no_push:
             g = lambda *c: subprocess.run(["git", "-C", ROOT, *c], capture_output=True, text=True, encoding="utf-8", errors="replace")
