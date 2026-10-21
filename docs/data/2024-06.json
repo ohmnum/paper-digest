@@ -46,5 +46,103 @@
 "branch": "온폴리시",
 "collected": "2024-06-25",
 "backfill": true
+},
+{
+"id": "2406.14546",
+"title": "Connecting the Dots: LLMs can Infer and Verbalize Latent Structure from Disparate Training Data",
+"authors": [
+"Treutlein, Johannes",
+"Choi, Dami",
+"Betley, Jan",
+"Marks, Samuel",
+"Anil, Cem",
+"Grosse, Roger",
+"Evans, Owain"
+],
+"n_authors": 7,
+"published": "2024-06-20",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Accepted at NeurIPS 2024. 10 pages, 8 figures",
+"abstract": "One way to address safety risks from large language models (LLMs) is to censor dangerous knowledge from their training data. While this removes the explicit information, implicit information can remain scattered across various training documents. Could an LLM infer the censored knowledge by piecing together these implicit hints? As a step towards answering this question, we study inductive out-of-context reasoning (OOCR), a type of generalization in which LLMs infer latent information from evidence distributed across training documents and apply it to downstream tasks without in-context learning. Using a suite of five tasks, we demonstrate that frontier LLMs can perform inductive OOCR. In one experiment we finetune an LLM on a corpus consisting only of distances between an unknown city and other known cities. Remarkably, without in-context examples or Chain of Thought, the LLM can verbalize that the unknown city is Paris and use this fact to answer downstream questions. Further experiments show that LLMs trained only on individual coin flip outcomes can verbalize whether the coin is biased, and those trained only on pairs $(x,f(x))$ can articulate a definition of $f$ and compute inverses. While OOCR succeeds in a range of cases, we also show that it is unreliable, particularly for smaller LLMs learning complex structures. Overall, the ability of LLMs to \"connect the dots\" without explicit in-context learning poses a potential obstacle to monitoring and controlling the knowledge acquired by LLMs.",
+"title_ko": "흩어진 학습 데이터에서 잠재 구조를 추론하는 LLM",
+"tldr": "LLM을 간접 단서만 담긴 데이터로 파인튜닝하면, 여러 문서에 흩어진 정보를 종합해 숨은 값(예: 미지의 도시=파리)을 추론하고 말로 설명할 수 있다.",
+"bullets": [
+"문제: 위험 지식을 학습 데이터에서 삭제해도 간접 단서로 복원될 수 있는가?",
+"방법: 잠재값의 간접 관측만 파인튜닝하고 5개 과제로 OOCR을 평가한다.",
+"결과: 미지 도시 거리 데이터만으로 파리임을 답하고 함수 정의·역함수도 낸다.",
+"결과: 일부 과제에선 in-context 학습이 실패해도 OOCR은 성공했다.",
+"한계: 작은 모델·복잡한 구조에선 불안정하고 과제가 인위적이다."
+],
+"why": "좁은 데이터 파인튜닝이 명시되지 않은 잠재 정보를 내면화해 넓은 행동 변화를 낳는 원리를 보여, 데이터 필터링·삭제의 한계를 이해하는 데 유용하다.",
+"tags": [
+"신념주입",
+"OOCR",
+"일반화",
+"데이터 검열",
+"파인튜닝"
+],
+"venue": "NeurIPS 2024",
+"affiliations": [
+"UC Berkeley",
+"University of Toronto",
+"Vector Institute",
+"Constellation",
+"Northeastern University",
+"Anthropic"
+],
+"figure": {
+"src": "https://arxiv.org/html/2406.14546/2406.14546v3/figure1_book.png",
+"caption": "Figure 1 : We finetune a chat LLM to predict distances between an unknown city (“City 50337”) and known cities. We test whether the model can aggregate the observations (i.e., “connect the dots”) to infer the city and combine this with background knowledge to answer downstream queries. At test time, no observations appear in-context ( Right ). We call this generalization ability inductive out-of-c"
+},
+"fig_ko": "미지의 도시와 기존 도시 간 거리로 파인튜닝한 뒤, 문맥 없이 그 도시가 무엇인지 묻는 OOCR 실험 개요를 보여준다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2024-06-20",
+"backfill": true
+},
+{
+"id": "blog-anthropic-claude-character-2024",
+"url": "https://www.anthropic.com/research/claude-character",
+"kind": "블로그",
+"title": "Claude's character",
+"authors": [
+"Anthropic"
+],
+"n_authors": 1,
+"published": "2024-06-08",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Anthropic 블로그 (arXiv 논문 없음)",
+"abstract": "Considerations in constructing Claude’s character Claude’s character 01 Considerations in constructing Claude’s character 02 How we trained Claude’s character 03 The future of Claude’s character Published Jun 8, 2024 Team Alignment Topics Claude's character Alignment Training Sycophancy Bias and fairness See more... Listen to our conversation about Claude's character in the video above. Related articles Interpretability Aug 1, 2025 Persona vectors: Monitoring and controlling character traits in language models View more Companies developing AI models generally train them to avoid saying harmful things and to avoid assisting with harmful tasks. The goal of this is to train models to behave in ways that are \"harmless\". But when we think of the character of those we find genuinely admirable, we don’t just think of harm avoidance. We think about those who are curious about the world, who strive to tell the truth without being unkind, and who are able to see many sides of an issue without becoming overconfident or overly cautious in their views. We think of those who are patient listeners, careful thinkers, witty conversationalists, and many other traits we associate with being a wise a",
+"title_ko": "Claude 3의 성격 학습: 합성 데이터 기반 캐릭터 훈련",
+"tldr": "Anthropic은 Constitutional AI를 변형해 Claude가 스스로 만든 데이터와 선호 순위만으로 호기심·정직·열린 태도 같은 넓은 성격 특성을 정렬 파인튜닝에 넣었다고 설명한다.",
+"bullets": [
+"문제: 해로움 회피만으로는 풍부하고 분별 있는 모델 성격을 만들기 어렵다.",
+"방법: 특성 목록으로 Claude가 질문을 생성하고 응답을 여러 개 만들어 스스로 순위를 매긴다.",
+"방법: 이 순위로 선호 모델(preference model)을 학습해 사람 피드백 없이 특성을 내재화한다.",
+"결과: 정량 수치 없이, 사용자들이 Claude 3가 더 흥미롭다고 보고했다고만 언급한다.",
+"한계: 평가 지표나 실험이 없고, 특성 조정은 연구자의 수작업 점검에 의존한다."
+],
+"why": "자기 생성 합성 데이터와 선호 학습으로 넓은 성격 특성을 주입하고 정치적 편향·아첨 문제를 다루는 방식이라, 데이터 변환과 행동 교정 관점에서 참고할 만하다.",
+"tags": [
+"신념주입",
+"character training",
+"Constitutional AI",
+"합성데이터",
+"sycophancy"
+],
+"branch": "신념주입",
+"venue": "",
+"affiliations": [
+"Anthropic"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2024-06-08",
+"backfill": true
 }
 ]

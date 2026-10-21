@@ -1,0 +1,53 @@
+[
+{
+"id": "2112.00861",
+"title": "A General Language Assistant as a Laboratory for Alignment",
+"authors": [
+"Askell, Amanda",
+"Bai, Yuntao",
+"Chen, Anna",
+"Drain, Dawn",
+"Ganguli, Deep",
+"Henighan, Tom",
+"Jones, Andy",
+"Joseph, Nicholas"
+],
+"n_authors": 22,
+"published": "2021-12-01",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "26+19 pages; v2 typos fixed, refs added, figure scale / colors fixed; v3 correct very non-standard TruthfulQA formatting and metric, alignment implications slightly improved",
+"abstract": "Given the broad capabilities of large language models, it should be possible to work towards a general-purpose, text-based assistant that is aligned with human values, meaning that it is helpful, honest, and harmless. As an initial foray in this direction we study simple baseline techniques and evaluations, such as prompting. We find that the benefits from modest interventions increase with model size, generalize to a variety of alignment evaluations, and do not compromise the performance of large models. Next we investigate scaling trends for several training objectives relevant to alignment, comparing imitation learning, binary discrimination, and ranked preference modeling. We find that ranked preference modeling performs much better than imitation learning, and often scales more favorably with model size. In contrast, binary discrimination typically performs and scales very similarly to imitation learning. Finally we study a `preference model pre-training' stage of training, with the goal of improving sample efficiency when finetuning on human preferences.",
+"title_ko": "HHH 정렬 도우미: 프롬프트·선호 모델링 규모 분석",
+"tldr": "Anthropic이 도움됨·정직·무해(HHH) 기준으로 프롬프트, context distillation, 모방학습·이진 판별·순위 선호 모델링의 규모별 성능을 비교하고 선호 모델 사전학습을 제안한 초기 정렬 연구.",
+"bullets": [
+"문제: 범용 언어모델을 HHH에 맞추는 단순 기법의 효과가 불명확했다.",
+"방법: 프롬프트와 context distillation(프롬프트를 모델에 내재화)을 평가했다.",
+"결과: 순위 선호 모델링이 모방학습보다 크게 낫고 규모에 따라 유리했다.",
+"결과: 이진 판별은 모방학습과 비슷하게 동작하고 확장됐다.",
+"한계: 정렬을 달성했다는 주장은 아니며 초기 기준선 탐색 수준이다."
+],
+"why": "프롬프트를 모델에 내재화하는 context distillation과 선호 모델 사전학습은 사후학습 데이터 설계와 정렬 비용(alignment tax) 평가에 바로 참고할 만하다.",
+"tags": [
+"신념주입",
+"정렬",
+"선호모델링",
+"context distillation",
+"RLHF"
+],
+"venue": "",
+"affiliations": [
+"Anthropic"
+],
+"figure": {
+"src": "https://arxiv.org/html/2112.00861/2112.00861v3/figures/AssistantExample.png",
+"caption": "Figure 1: We show the format of interactions with AI models for A/B testing and human feedback collection. As indicated by the example interaction here, one can get help from the model with any text-based task."
+},
+"fig_ko": "AI 모델과의 상호작용 형식(A/B 테스트와 사람 피드백 수집)의 예시 대화를 보여준다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2021-12-01",
+"backfill": true
+}
+]

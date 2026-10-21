@@ -1,0 +1,54 @@
+[
+{
+"id": "2212.08073",
+"title": "Constitutional AI: Harmlessness from AI Feedback",
+"authors": [
+"Bai, Yuntao",
+"Kadavath, Saurav",
+"Kundu, Sandipan",
+"Askell, Amanda",
+"Kernion, Jackson",
+"Jones, Andy",
+"Chen, Anna",
+"Goldie, Anna"
+],
+"n_authors": 51,
+"published": "2022-12-15",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "As AI systems become more capable, we would like to enlist their help to supervise other AIs. We experiment with methods for training a harmless AI assistant through self-improvement, without any human labels identifying harmful outputs. The only human oversight is provided through a list of rules or principles, and so we refer to the method as 'Constitutional AI'. The process involves both a supervised learning and a reinforcement learning phase. In the supervised phase we sample from an initial model, then generate self-critiques and revisions, and then finetune the original model on revised responses. In the RL phase, we sample from the finetuned model, use a model to evaluate which of the two samples is better, and then train a preference model from this dataset of AI preferences. We then train with RL using the preference model as the reward signal, i.e. we use 'RL from AI Feedback' (RLAIF). As a result we are able to train a harmless but non-evasive AI assistant that engages with harmful queries by explaining its objections to them. Both the SL and RL methods can leverage chain-of-thought style reasoning to improve the human-judged performance and transparency of AI decision making. These methods make it possible to control AI behavior more precisely and with far fewer human labels.",
+"title_ko": "AI 자기 비평·피드백으로 해롭지 않은 어시스턴트 학습",
+"tldr": "사람의 유해성 라벨 없이 원칙 목록(헌법)만으로 모델이 스스로 비평·수정하고 AI 선호 피드백으로 강화학습해, 회피적이지 않으면서 덜 해로운 어시스턴트를 만든다.",
+"bullets": [
+"문제: 무해성 학습은 사람 라벨이 많이 들고 응답이 회피적이 된다.",
+"방법: SL 단계에서 자기 비평·수정 응답으로 미세조정한다.",
+"방법: RL 단계에서 AI가 고른 선호로 선호모델을 학습해 RLAIF를 한다.",
+"결과: RL-CAI가 사람 피드백 모델보다 같은 유용성에서 덜 해롭다.",
+"한계: 원칙 선택이 임의적이며, 감독을 자동화해 의사결정이 불투명해질 수 있다."
+],
+"why": "자기 비평·수정으로 타깃 응답을 재작성해 SFT하고 AI 판정으로 선호 데이터를 만드는 방식이라, 과잉 거절 완화와 안전 튜닝 데이터 설계의 기본 레퍼런스다.",
+"tags": [
+"신념주입",
+"Constitutional AI",
+"RLAIF",
+"합성데이터",
+"안전성"
+],
+"venue": "",
+"affiliations": [
+"Anthropic"
+],
+"figure": {
+"src": "https://arxiv.org/html/2212.08073/2212.08073v1/CAI-Overview.png",
+"caption": "Figure 1: We show the basic steps of our Constitutional AI (CAI) process, which consists of both a supervised learning (SL) stage, consisting of the steps at the top, and a Reinforcement Learning (RL) stage, shown as the sequence of steps at the bottom of the figure. Both the critiques and the AI feedback are steered by a small set of principles drawn from a ‘constitution’. The supervised stage si"
+},
+"fig_ko": "지도학습 단계(비평→수정→미세조정)와 RL 단계(AI 비교 평가→선호모델→강화학습)로 이루어진 CAI 전체 파이프라인을 보여준다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2022-12-15",
+"backfill": true,
+"blog": "https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback"
+}
+]

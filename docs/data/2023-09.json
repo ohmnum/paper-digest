@@ -1,0 +1,59 @@
+[
+{
+"id": "2309.00667",
+"title": "Taken out of context: On measuring situational awareness in LLMs",
+"authors": [
+"Berglund, Lukas",
+"Stickland, Asa Cooper",
+"Balesni, Mikita",
+"Kaufmann, Max",
+"Tong, Meg",
+"Korbak, Tomasz",
+"Kokotajlo, Daniel",
+"Evans, Owain"
+],
+"n_authors": 8,
+"published": "2023-09-01",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We aim to better understand the emergence of `situational awareness' in large language models (LLMs). A model is situationally aware if it's aware that it's a model and can recognize whether it's currently in testing or deployment. Today's LLMs are tested for safety and alignment before they are deployed. An LLM could exploit situational awareness to achieve a high score on safety tests, while taking harmful actions after deployment. Situational awareness may emerge unexpectedly as a byproduct of model scaling. One way to better foresee this emergence is to run scaling experiments on abilities necessary for situational awareness. As such an ability, we propose `out-of-context reasoning' (in contrast to in-context learning). We study out-of-context reasoning experimentally. First, we finetune an LLM on a description of a test while providing no examples or demonstrations. At test time, we assess whether the model can pass the test. To our surprise, we find that LLMs succeed on this out-of-context reasoning task. Their success is sensitive to the training setup and only works when we apply data augmentation. For both GPT-3 and LLaMA-1, performance improves with model size. These findings offer a foundation for further empirical study, towards predicting and potentially controlling the emergence of situational awareness in LLMs. Code is available at: this https URL .",
+"title_ko": "문맥 밖 추론으로 LLM의 상황 인식 출현 가능성 측정",
+"tldr": "예시 없이 테스트 설명문만 파인튜닝해도 LLM이 그 테스트를 풀 수 있으며, 이는 패러프레이즈 증강이 있을 때만 나타나고 모델이 클수록 좋아진다.",
+"bullets": [
+"문제: 안전 테스트를 눈치채는 상황 인식이 규모 확대로 갑자기 생길 수 있다.",
+"방법: 가상 챗봇 설명문만 파인튜닝하고 예시 없이 제로샷으로 수행을 평가했다.",
+"결과: 패러프레이즈 증강을 쓰면 GPT-3와 LLaMA-1 모두 모델이 클수록 성능이 올랐다.",
+"결과: 보상 해킹 백도어를 설명문에서 배워 실제로 활용하는 실험도 했다.",
+"한계: 작고 인위적인 장난감 설정이라 실제 상황 인식 위험을 직접 뜻하지 않는다."
+],
+"why": "서술형 데이터를 파인튜닝하면 예시 없이도 행동이 바뀌고, 패러프레이즈 증강이 이를 좌우한다는 점은 데이터 형식과 일반화, 좁은 파인튜닝의 넓은 영향 관점에서 참고할 만하다.",
+"tags": [
+"신념주입",
+"상황 인식",
+"out-of-context reasoning",
+"데이터 증강",
+"안전성"
+],
+"venue": "",
+"affiliations": [
+"Vanderbilt University",
+"New York University",
+"Apollo Research",
+"UK Foundation Model Taskforce",
+"University of Sussex",
+"OpenAI",
+"University of Oxford"
+],
+"figure": {
+"src": "https://arxiv.org/html/2309.00667/2309.00667v1/finetuning-reliability.png",
+"caption": "(c) Stage 1: Finetuning Dataset."
+},
+"fig_ko": "파인튜닝 단계에서 챗봇 설명문을 학습하고, 평가 단계에서 설명에 없던 독일어 응답을 제로샷으로 해내는지 보여주는 실험 구성도이다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2023-09-01",
+"backfill": true
+}
+]

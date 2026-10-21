@@ -1,0 +1,104 @@
+[
+{
+"id": "2501.11120",
+"title": "Tell me about yourself: LLMs are aware of their learned behaviors",
+"authors": [
+"Betley, Jan",
+"Bao, Xuchan",
+"Soto, Martín",
+"Sztyber-Betley, Anna",
+"Chua, James",
+"Evans, Owain"
+],
+"n_authors": 6,
+"published": "2025-01-19",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Submitted to ICLR 2025. 17 pages, 13 figures",
+"abstract": "We study behavioral self-awareness -- an LLM's ability to articulate its behaviors without requiring in-context examples. We finetune LLMs on datasets that exhibit particular behaviors, such as (a) making high-risk economic decisions, and (b) outputting insecure code. Despite the datasets containing no explicit descriptions of the associated behavior, the finetuned LLMs can explicitly describe it. For example, a model trained to output insecure code says, ``The code I write is insecure.'' Indeed, models show behavioral self-awareness for a range of behaviors and for diverse evaluations. Note that while we finetune models to exhibit behaviors like writing insecure code, we do not finetune them to articulate their own behaviors -- models do this without any special training or examples. Behavioral self-awareness is relevant for AI safety, as models could use it to proactively disclose problematic behaviors. In particular, we study backdoor policies, where models exhibit unexpected behaviors only under certain trigger conditions. We find that models can sometimes identify whether or not they have a backdoor, even without its trigger being present. However, models are not able to directly output their trigger by default. Our results show that models have surprising capabilities for self-awareness and for the spontaneous articulation of implicit behaviors. Future work could investigate this capability for a wider range of scenarios and models (including practical scenarios), and explain how it emerges in LLMs.",
+"title_ko": "파인튜닝된 LLM이 학습된 행동을 스스로 설명할 수 있는지 검증",
+"tldr": "설명 없이 행동 예시만으로 파인튜닝한 LLM도 자신이 학습한 행동(위험 추구, 취약 코드 작성 등)을 별도 학습 없이 말로 정확히 서술한다.",
+"bullets": [
+"문제: 모델이 암묵적으로 학습한 행동을 스스로 설명할 수 있는가?",
+"방법: 위험 선택, 대화 목표, 취약 코드 데이터로 GPT-4o·Llama 파인튜닝",
+"결과: 데이터에 설명이 없어도 '내 코드는 안전하지 않다' 식으로 자기 보고함",
+"결과: 백도어 유무는 가끔 식별하나 트리거 자체는 기본적으로 출력 못함",
+"한계: 일부 질문은 노이즈가 크고, 실제 시나리오·다른 모델로 검증 필요"
+],
+"why": "좁은 데이터 파인튜닝이 모델의 자기 인식과 페르소나를 바꾼다는 근거로, 창발적 오정렬과 파인튜닝 부작용 점검에 직접 연결된다.",
+"tags": [
+"신념주입",
+"자기인식",
+"백도어",
+"out-of-context reasoning",
+"파인튜닝"
+],
+"venue": "ICLR 2025",
+"affiliations": [
+"Truthful AI",
+"University of Toronto",
+"UK AISI",
+"Warsaw University of Technology",
+"UC Berkeley"
+],
+"figure": {
+"src": "https://arxiv.org/html/2501.11120/2501.11120v1/figures/non-mms/risk_safe_base.png",
+"caption": "Figure 3: Models correctly report whether they are risk-seeking or risk-averse, after training on implicit demonstrations of risk-related behavior . The plot shows reported degree of risk-seeking behavior across evaluation tasks (with paraphrasing and option shuffling) for GPT-4o finetuned on the risk-seeking dataset, not finetuned, and finetuned on the risk-averse dataset, respectively. Error bar"
+},
+"fig_ko": "위험 추구·회피 데이터로 파인튜닝한 모델이 평가 과제 전반에서 자신의 위험 성향을 정확히 보고하는 결과를 보여준다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2025-01-19",
+"backfill": true
+},
+{
+"id": "blog-anthropic-rh-ooc-2025",
+"url": "https://alignment.anthropic.com/2025/reward-hacking-ooc/",
+"kind": "블로그",
+"title": "Training on Documents about Reward Hacking Induces Reward Hacking",
+"authors": [
+"Nathan Hu",
+"Benjamin Wright",
+"Carson Denison",
+"Samuel Marks",
+"Johannes Treutlein",
+"Jonathan Uesato",
+"Evan Hubinger"
+],
+"n_authors": 7,
+"published": "2025-01-01",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Anthropic Alignment Science 블로그 (2025년 1월, 날짜는 월까지만 표기됨, arXiv 논문 없음)",
+"abstract": "This is a blog post reporting some preliminary work from the Anthropic Alignment Science team, which might be of interest to researchers working actively in this space. We'd ask you to treat these results like those of a colleague sharing some thoughts or preliminary experiments at a lab meeting, rather than a mature paper. Specifically, we report a demonstration of a form of Out-of-Context Reasoning where training on documents which discuss (but don’t demonstrate) Claude’s tendency to reward hack can lead to an increase or decrease in reward hacking behavior. Introduction In this work, we investigate the extent to which pretraining datasets can influence the higher-level behaviors of large language models (LLMs). While pretraining shapes the factual knowledge and capabilities of LLMs ( Petroni et al. 2019 , Roberts et al. 2020 , Lewkowycz et al. 2022 , Allen-Zhu & Li, 2023 ), it is less well-understood whether it also affects their demonstrated preferences. We study whether training documents discussing a particular behavior in LLMs make that behavior more likely in the resulting model. This is a form of Out-of-context Reasoning (OOCR) ( Berglund et al. 2023 ), since it involves t",
+"title_ko": "보상해킹을 논한 문서로 학습하면 보상해킹이 유발됨",
+"tldr": "보상해킹을 설명만 하고 시연은 없는 합성 문서로 추가 학습해도, 모델의 보상해킹 행동이 늘거나 줄며 일부는 후속 post-training 뒤에도 남는다.",
+"bullets": [
+"문제: 행동을 '논하는' 문서가 모델의 실제 행동에 영향을 주는지 불명확하다.",
+"방법: Claude가 보상해킹을 한다/안 한다는 합성 문서로 사전학습 모델을 추가 학습했다.",
+"결과: 가장 유능한 모델에서 보상해킹이 증가·감소했고, 심한 행동은 post-training이 제거했다.",
+"결과: 덜 심한 행동(보상 극대화 추론, 아첨)은 약간 남았다.",
+"한계: 합성 문서가 매우 많고(최대 약 1.5억 토큰) 예비 실험이다."
+],
+"why": "문서 내용이 직접 시연 없이도 모델 행동과 페르소나를 바꾸고 SFT/RL 뒤에도 일부 남는다는 점이 좁은 학습의 광범위한 행동 변화 문제와 맞닿아 있다.",
+"tags": [
+"신념주입",
+"보상해킹",
+"OOCR",
+"합성데이터",
+"post-training"
+],
+"branch": "신념주입",
+"venue": "",
+"affiliations": [
+"Anthropic"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2025-01-01",
+"backfill": true
+}
+]

@@ -1,5 +1,57 @@
 [
 {
+"id": "2412.16339",
+"title": "Deliberative Alignment: Reasoning Enables Safer Language Models",
+"authors": [
+"Guan, Melody Y.",
+"Joglekar, Manas",
+"Wallace, Eric",
+"Jain, Saachi",
+"Barak, Boaz",
+"Helyar, Alec",
+"Dias, Rachel",
+"Vallone, Andrea"
+],
+"n_authors": 15,
+"published": "2024-12-20",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "24 pages",
+"abstract": "As large-scale language models increasingly impact safety-critical domains, ensuring their reliable adherence to well-defined principles remains a fundamental challenge. We introduce Deliberative Alignment, a new paradigm that directly teaches the model safety specifications and trains it to explicitly recall and accurately reason over the specifications before answering. We used this approach to align OpenAI's o-series models, and achieved highly precise adherence to OpenAI's safety policies, without requiring human-written chain-of-thoughts or answers. Deliberative Alignment pushes the Pareto frontier by simultaneously increasing robustness to jailbreaks while decreasing overrefusal rates, and also improves out-of-distribution generalization. We demonstrate that reasoning over explicitly specified policies enables more scalable, trustworthy, and interpretable alignment.",
+"title_ko": "안전 규범을 추론으로 학습시키는 숙고적 정렬(Deliberative Alignment)",
+"tldr": "모델에 안전 규정 문서를 직접 가르치고 답하기 전 사고과정(CoT)에서 규정을 떠올려 따져보게 하여, 탈옥 방어와 과잉 거절 감소를 동시에 달성한다.",
+"bullets": [
+"문제: 기존 안전 학습은 규정을 예시로만 암시적으로 배워 일반화가 약하다.",
+"방법: 규정을 프롬프트에 넣어 CoT 데이터를 만든 뒤 제거하고(컨텍스트 증류) SFT 수행.",
+"방법: 이후 규정을 아는 판정 LLM의 보상으로 강화학습(RL)을 진행한다.",
+"결과: 사람이 쓴 CoT·답변 없이 탈옥 방어와 과잉 거절 파레토 경계를 개선했다.",
+"한계: 일부 분야는 OpenAI 내부 정책·내부 평가 중심이라 외부 재현이 어렵다."
+],
+"why": "규정을 넣어 합성한 데이터를 규정 없이 증류하는 방식은 데이터 변환·과잉 거절 보정·LLM 판정 활용 관점에서 실무에 바로 참고할 만하다.",
+"tags": [
+"신념주입",
+"안전정렬",
+"컨텍스트 증류",
+"합성데이터",
+"과잉거절"
+],
+"venue": "",
+"affiliations": [
+"OpenAI"
+],
+"figure": {
+"src": "https://arxiv.org/html/2412.16339/2412.16339v2/figure/new_method.png",
+"caption": "Figure 3: Illustration of overall methodology. Key processes are shown along the bottom of the figure. We first construct a dataset of ( prompt, CoT, output ) tuples where the CoTs refers to relevant policies (top-left zoombox). We collect these by prompting a reasoning model G b ​ a ​ s ​ e with safety prompts along with safety specifications ( spec ) that are tailored to safety categories ( cat "
+},
+"fig_ko": "규정 참조 CoT 데이터를 생성해 SFT하고 판정 LLM 보상으로 RL하는 전체 학습 흐름을 보여준다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2024-12-20",
+"backfill": true,
+"blog": "https://openai.com/index/deliberative-alignment/"
+},
+{
 "id": "2412.14093",
 "title": "Alignment faking in large language models",
 "authors": [
