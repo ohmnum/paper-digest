@@ -1,0 +1,59 @@
+[
+{
+"id": "anthropic-msj-2024",
+"url": "https://www-cdn.anthropic.com/af5633c94ed2beb282f6a53c595eb437e8e7b630/Many_Shot_Jailbreaking__2024_04_02_0936.pdf",
+"title": "Many-shot Jailbreaking",
+"authors": [
+"Cem Anil",
+"Esin Durmus",
+"Mrinank Sharma",
+"Joe Benton",
+"Sandipan Kundu",
+"Joshua Batson",
+"Nina Rimsky",
+"Meg Tong"
+],
+"n_authors": 34,
+"published": "2024-04-02",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Anthropic 기술 보고서 (PDF만 공개, arXiv 없음)",
+"abstract": "We investigate a family of simple long-context attacks on large language models: prompting with hundreds of demonstrations of undesirable behavior. This is newly feasible with the larger context windows recently deployed by Anthropic, OpenAI and Google DeepMind. We find that in diverse, realistic circumstances, the effectiveness of this attack follows a power law, up to hundreds of shots. We demonstrate the success of this attack on the most widely used state-of-the-art closedweight models, and across various tasks. Our results suggest very long contexts present a rich new attack surface for LLMs.",
+"title_ko": "수백 개 시연으로 LLM 안전장치를 뚫는 다수샷 탈옥 분석",
+"tldr": "긴 컨텍스트에 유해 응답 시연을 수백 개 넣으면 주요 LLM의 안전 학습이 뚫리며, 공격 효과가 샷 수에 대해 거듭제곱 법칙을 따른다.",
+"bullets": [
+"문제: 긴 컨텍스트 창이 열리며 새로운 공격면이 생겼다.",
+"방법: 유해 질문-답변 수백 쌍을 대화 형식으로 이어 붙여 입력한다.",
+"결과: Claude 2.0, GPT-4 등에서 샷 수가 늘수록 NLL이 거듭제곱으로 감소했다.",
+"결과: SFT·RL 정렬은 필요한 샷 수만 늘릴 뿐 공격을 막지 못했다.",
+"한계: 기본형은 가짜 대화 기록을 넣을 수 있는 API 접근이 필요하다."
+],
+"why": "안전 파인튜닝이 긴 컨텍스트 in-context 학습 앞에서 얼마나 취약한지와, 시연 다양성·형식이 일반화에 미치는 영향을 보여줘 안전 보존 연구에 참고가 된다.",
+"tags": [
+"탈옥",
+"jailbreak",
+"in-context learning",
+"안전성",
+"power law"
+],
+"branch": "탈옥",
+"venue": "NeurIPS 2024",
+"affiliations": [
+"Anthropic",
+"University of Toronto",
+"Vector Institute",
+"Constellation",
+"Stanford",
+"Harvard"
+],
+"figure": {
+"src": "figs/msj_fig1.png",
+"caption": "Figure 1. Many-shot Jailbreaking (MSJ) is a simple long-context attack that uses a large number (i.e. hundreds) of demonstrations to steer model behavior."
+},
+"fig_ko": "수백 개의 유해 질문-답변 시연 뒤에 목표 질문을 붙여 모델 행동을 유도하는 다수샷 탈옥의 개요를 보여준다.",
+"html": false,
+"collected": "2024-04-02",
+"backfill": true
+}
+]

@@ -140,10 +140,10 @@ function card(p){
    ${p.why?`<div class="why"><b>왜 볼 만한가</b> · ${esc(p.why)}</div>`:""}
    ${fig}
    <div class="authors">${esc(au)} · ${esc(p.published)} 공개${p.comment?` · ${esc(p.comment)}`:""}</div>
-   <div class="links"><a href="https://arxiv.org/abs/${esc(p.id)}" target="_blank" rel="noopener">arXiv</a>
+   <div class="links">${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">PDF</a>`:`<a href="https://arxiv.org/abs/${esc(p.id)}" target="_blank" rel="noopener">arXiv</a>
     <a href="https://arxiv.org/pdf/${esc(p.id)}" target="_blank" rel="noopener">PDF</a>
     ${p.html?`<a href="https://arxiv.org/html/${esc(p.id)}" target="_blank" rel="noopener">HTML 본문</a>`:""}
-    <a href="https://huggingface.co/papers/${esc(p.id)}" target="_blank" rel="noopener">HF 토론</a>
+    <a href="https://huggingface.co/papers/${esc(p.id)}" target="_blank" rel="noopener">HF 토론</a>`}
     <a href="https://scholar.google.com/scholar?q=${encodeURIComponent(p.title)}" target="_blank" rel="noopener">Scholar</a></div>
    <details class="abs"><summary>원문 초록</summary>${esc(p.abstract)}</details></div></article>`}
 
