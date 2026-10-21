@@ -79,6 +79,7 @@ details.abs summary{cursor:pointer;color:var(--faint)}
 @media (max-width:520px){.tko{font-size:15px}.acts{flex-direction:row}.row{flex-wrap:wrap}.acts{width:100%;justify-content:flex-end;order:3}}
 .memo{width:100%;box-sizing:border-box;margin-top:10px;padding:8px 10px;border:1px solid var(--line,#ccc);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;font-size:14px;resize:vertical}
 .b.m{background:#ffe9a8;color:#5a4500}
+#sync{margin-bottom:8px;line-height:2}#sync input{font:inherit;width:220px;max-width:100%;padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
 .foot{font-size:13px;opacity:.75;padding-top:24px;padding-bottom:40px}.foot button,.foot .imp{font:inherit;cursor:pointer;text-decoration:underline;background:none;border:0;color:inherit;padding:0}
 .b.y{font-weight:600}
 .b.k{background:var(--accent-soft,rgba(80,120,255,.12))}
@@ -99,7 +100,7 @@ details.abs summary{cursor:pointer;color:var(--faint)}
   <div class="tags" id="tags"></div>
 </div></header>
 <main class="wrap" id="list"><div class="empty">불러오는 중…</div></main>
-<footer class="wrap foot">메모·★·읽음 표시는 이 브라우저에만 저장됩니다. 다른 기기로 옮기려면
+<footer class="wrap foot"><div id="sync"></div>파일로 백업하거나 옮기려면
   <button id="exp">내보내기</button> <label class="imp">가져오기<input type="file" id="imp" accept=".json" hidden></label></footer>
 <div id="zoom"><img alt=""></div>
 <script>
@@ -107,6 +108,39 @@ const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e)
 let months=[],loaded=0,papers=[],view="all",tag="",q="",sort="date";
 const star=new Set(store.get("star",[])),read=new Set(store.get("read",[]));
 const memo=store.get("memo",{});
+// 기기 간 동기화: 논문별 기록 {memo, star, read, ts}을 비공개 저장소 ohmnum/paper-notes 의 notes.json 에 저장 (토큰은 이 브라우저에만 보관)
+const rec=store.get("rec",{});
+const NOTES="https://api.github.com/repos/ohmnum/paper-notes/contents/notes.json";
+let tok=store.get("gh_token",""),sha=null,syncT=null,syncState=tok?"…":"off";
+function touch(id){rec[id]={memo:memo[id]||"",star:star.has(id),read:read.has(id),ts:Date.now()};store.set("rec",rec);queueSync()}
+function apply(r){let ch=false;for(const[id,v]of Object.entries(r)){if(rec[id]&&rec[id].ts>=v.ts)continue;rec[id]=v;ch=true;
+  if(v.memo)memo[id]=v.memo;else delete memo[id];v.star?star.add(id):star.delete(id);v.read?read.add(id):read.delete(id)}
+  if(ch){store.set("rec",rec);store.set("memo",memo);store.set("star",[...star]);store.set("read",[...read])}return ch}
+const b64e=t=>{const u=new TextEncoder().encode(t);let s="";for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode(...u.subarray(i,i+8192));return btoa(s)};
+const b64d=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g,"")),c=>c.charCodeAt(0)));
+const ghH=()=>({Authorization:"Bearer "+tok,Accept:"application/vnd.github+json"});
+async function pull(){const r=await fetch(NOTES+"?t="+Date.now(),{headers:ghH(),cache:"no-store"});
+  if(!r.ok)throw new Error(r.status);const j=await r.json();sha=j.sha;return JSON.parse(b64d(j.content)||"{}")}
+async function sync(){if(!tok)return;setSync("저장 중…");
+  try{for(let i=0;i<3;i++){const remote=await pull();if(apply(remote))render();
+      const merged={...remote};for(const[id,v]of Object.entries(rec))if(!merged[id]||merged[id].ts<v.ts)merged[id]=v;
+      if(JSON.stringify(merged)===JSON.stringify(remote)){setSync("☁ 저장됨");return}
+      const r=await fetch(NOTES,{method:"PUT",headers:ghH(),body:JSON.stringify({message:"notes "+new Date().toISOString(),content:b64e(JSON.stringify(merged)),sha})});
+      if(r.ok){sha=(await r.json()).content.sha;setSync("☁ 저장됨");return}
+      if(r.status!==409&&r.status!==422)throw new Error(r.status)}
+    throw new Error("충돌")}
+  catch(e){setSync(["401","403","404"].includes(e.message)?"⚠ 토큰이 틀렸거나 권한이 없음 ("+e.message+")":"⚠ 저장 실패 ("+e.message+")")}}
+function queueSync(){if(!tok)return;setSync("저장 대기…");clearTimeout(syncT);syncT=setTimeout(sync,1500)}
+function setSync(t){syncState=t;const b=document.getElementById("syncst");if(b)b.textContent=t}
+function syncUI(){const el=document.getElementById("sync");if(!el)return;
+  el.innerHTML=tok?`☁ 기기 간 동기화 켜짐 · <b id="syncst">${esc(syncState)}</b> · <button id="syncnow">지금 저장</button> · <button id="syncoff">이 기기에서 끄기</button>`
+    :`☁ <b>기기 간 동기화 꺼짐</b> (지금은 이 브라우저에만 저장) · GitHub 토큰을 넣으면 메모·★·읽음이 모든 기기에 저장됩니다 <input id="tokin" type="password" placeholder="github_pat_…" autocomplete="off"> <button id="tokset">켜기</button>`;
+  const g=id=>document.getElementById(id);
+  if(g("tokset"))g("tokset").onclick=async()=>{const v=g("tokin").value.trim();if(!v)return;tok=v;store.set("gh_token",tok);
+    Object.keys(memo).concat([...star],[...read]).forEach(id=>{if(!rec[id])rec[id]={memo:memo[id]||"",star:star.has(id),read:read.has(id),ts:1}});store.set("rec",rec);
+    syncUI();await sync();if(syncState.startsWith("⚠")){const m=syncState;tok="";store.set("gh_token","");syncState="off";syncUI();alert("연결 실패: "+m)}};
+  if(g("syncnow"))g("syncnow").onclick=sync;
+  if(g("syncoff"))g("syncoff").onclick=()=>{tok="";store.set("gh_token","");syncState="off";syncUI()}}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const WD=["일","월","화","수","목","금","토"];
@@ -180,19 +214,20 @@ function renderTags(){const c={};papers.forEach(p=>(p.tags||[]).forEach(t=>c[t]=
   $("#tags").innerHTML=Object.entries(br).map(([t,n])=>`<button class="chip br${t===tag?" on":""}" data-tag="${esc(t)}">갈래 · ${esc(t)} ${n}</button>`).join("")+top.map(([t,n])=>`<button class="chip${t===tag?" on":""}" data-tag="${esc(t)}">${esc(t)} ${n}</button>`).join("")}
 
 $("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const id=c.dataset.id;
-  if(e.target.closest("[data-star]")){star.has(id)?star.delete(id):star.add(id);store.set("star",[...star]);e.target.classList.toggle("on");return}
-  if(e.target.closest("[data-read]")){read.has(id)?read.delete(id):read.add(id);store.set("read",[...read]);e.target.classList.toggle("on");c.classList.toggle("read");return}
+  if(e.target.closest("[data-star]")){star.has(id)?star.delete(id):star.add(id);store.set("star",[...star]);touch(id);e.target.classList.toggle("on");return}
+  if(e.target.closest("[data-read]")){read.has(id)?read.delete(id):read.add(id);store.set("read",[...read]);touch(id);e.target.classList.toggle("on");c.classList.toggle("read");return}
   if(e.target.tagName==="IMG"){const z=$("#zoom");z.querySelector("img").src=e.target.src;z.style.display="flex";return}
   if(e.target.closest("[data-toggle]")){c.classList.toggle("open");
-    if(c.classList.contains("open")&&!read.has(id)){read.add(id);store.set("read",[...read]);c.querySelector("[data-read]").classList.add("on")}}});
+    if(c.classList.contains("open")&&!read.has(id)){read.add(id);store.set("read",[...read]);touch(id);c.querySelector("[data-read]").classList.add("on")}}});
 $("#list").addEventListener("input",e=>{if(!e.target.matches("[data-memo]"))return;const c=e.target.closest(".card"),id=c.dataset.id,v=e.target.value;
-  if(v.trim())memo[id]=v;else delete memo[id];store.set("memo",memo);
+  if(v.trim())memo[id]=v;else delete memo[id];store.set("memo",memo);touch(id);
   const m=c.querySelector(".meta"),b=m.querySelector(".b.m");if(v.trim()&&!b)m.insertAdjacentHTML("afterbegin",`<span class="b m">📝 메모</span>`);if(!v.trim()&&b)b.remove()});
 $("#exp").onclick=()=>{const blob=new Blob([JSON.stringify({memo,star:[...star],read:[...read]},null,1)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`paper-digest-memo-${new Date().toISOString().slice(0,10)}.json`;a.click()};
 $("#imp").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());
   Object.assign(memo,d.memo||{});(d.star||[]).forEach(x=>star.add(x));(d.read||[]).forEach(x=>read.add(x));
-  store.set("memo",memo);store.set("star",[...star]);store.set("read",[...read]);render();alert("가져왔습니다")}catch(err){alert("파일을 읽지 못했습니다")}};
+  store.set("memo",memo);store.set("star",[...star]);store.set("read",[...read]);
+  new Set([...Object.keys(d.memo||{}),...(d.star||[]),...(d.read||[])]).forEach(touch);render();alert("가져왔습니다")}catch(err){alert("파일을 읽지 못했습니다")}};
 $("#zoom").onclick=()=>$("#zoom").style.display="none";
 $("#tags").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;tag=tag===b.dataset.tag?"":b.dataset.tag;renderTags();render()});
 $("#sort").addEventListener("click",async e=>{const b=e.target.closest("button");if(!b)return;sort=b.dataset.s;
@@ -203,7 +238,7 @@ $("#view").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
 let tm;$("#q").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim().toLowerCase();render()},150)});
 
 (async()=>{try{const r=await fetch(`data/index.json?t=${Date.now()}`);const ix=await r.json();months=ix.months||[];
-  $("#upd").textContent=`업데이트 ${ix.updated||""}`;while(loaded<months.length)await loadMonth();renderTags();render()}
+  $("#upd").textContent=`업데이트 ${ix.updated||""}`;while(loaded<months.length)await loadMonth();renderTags();render();syncUI();if(tok)sync()}
   catch(e){$("#list").innerHTML='<div class="empty">아직 수집된 논문이 없습니다</div>'}})();
 </script>
 </body>
