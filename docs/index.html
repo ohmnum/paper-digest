@@ -13,14 +13,17 @@
   --bg:#f6f5f2;--card:#ffffff;--ink:#1d1d1f;--sub:#5f6168;--faint:#8b8d94;--line:#e4e2dc;
   --accent:#2f5bd3;--accent-soft:#e8eefc;--hot:#c2410c;--hot-soft:#fdeee4;--ok:#15803d;--ok-soft:#e5f5ea;
   --shadow:0 1px 2px rgba(0,0,0,.04),0 2px 8px rgba(0,0,0,.04);
+  --memo-bg:#fff6d6;--memo-ink:#5a4500;--memo-line:#e0b100;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#141518;--card:#1c1d21;--ink:#ececef;--sub:#a8aab2;--faint:#7c7f88;--line:#2c2e34;
   --accent:#7ea2ff;--accent-soft:#1f2a45;--hot:#fb923c;--hot-soft:#3a2416;--ok:#4ade80;--ok-soft:#173022;
+  --memo-bg:#3a3217;--memo-ink:#f3dc8a;--memo-line:#b8901a;
   --shadow:none;}}
 :root[data-theme="dark"]{
   --bg:#141518;--card:#1c1d21;--ink:#ececef;--sub:#a8aab2;--faint:#7c7f88;--line:#2c2e34;
   --accent:#7ea2ff;--accent-soft:#1f2a45;--hot:#fb923c;--hot-soft:#3a2416;--ok:#4ade80;--ok-soft:#173022;
+  --memo-bg:#3a3217;--memo-ink:#f3dc8a;--memo-line:#b8901a;
   --shadow:none;}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -78,7 +81,26 @@ details.abs summary{cursor:pointer;color:var(--faint)}
 #zoom img{max-width:100%;max-height:100%;background:#fff;border-radius:8px}
 @media (max-width:520px){.tko{font-size:15px}.acts{flex-direction:row}.row{flex-wrap:wrap}.acts{width:100%;justify-content:flex-end;order:3}}
 .memo{width:100%;box-sizing:border-box;margin-top:10px;padding:8px 10px;border:1px solid var(--line,#ccc);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;font-size:14px;resize:vertical}
-.b.m{background:#ffe9a8;color:#5a4500}
+.b.m{background:var(--memo-bg);color:var(--memo-ink);border-color:transparent}
+.ic.mm.on{color:var(--memo-ink);border-color:var(--memo-line);background:var(--memo-bg)}
+.mprev{margin-top:8px;background:var(--memo-bg);color:var(--memo-ink);border-left:3px solid var(--memo-line);border-radius:8px;padding:6px 10px;font-size:13.5px;
+  line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:calc(3*1.6em + 12px);overflow:hidden;cursor:text}
+.memoview .mprev{max-height:none}
+.pill{background:none;border:1px solid var(--line);color:var(--sub);border-radius:999px;padding:2px 10px;cursor:pointer;font:inherit;font-size:12px}
+#dback{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:29}
+body.memo-open{overflow:hidden}body.memo-open #dback{display:block}
+#drawer{position:fixed;top:0;right:0;height:100%;width:min(640px,100vw);background:var(--card);border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(0,0,0,.15);
+  transform:translateX(105%);transition:transform .2s ease,width .2s ease;z-index:30;display:flex;flex-direction:column}
+#drawer.on{transform:none}#drawer.wide{width:100vw}
+.dh{display:flex;gap:8px;align-items:flex-start;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.dh .t{flex:1;min-width:0}.dt{font-weight:700;font-size:16px;line-height:1.45}
+.dbtn{flex:none;background:none;border:1px solid var(--line);border-radius:8px;width:34px;height:32px;cursor:pointer;color:var(--sub);font-size:15px}
+.dref{padding:8px 16px 0;font-size:13.5px;color:var(--sub);max-height:34vh;overflow:auto}
+.dref summary{cursor:pointer;color:var(--faint);font-size:12.5px}.dref p{margin:6px 0}.dref ul{margin:4px 0;padding-left:18px}
+#dmemo{flex:1;min-height:180px;margin:12px 16px 6px;padding:14px 16px;font:inherit;font-size:15.5px;line-height:1.75;border:1px solid var(--line);border-radius:12px;
+  background:var(--bg);color:var(--ink);resize:none;outline:none}
+#dmemo:focus{border-color:var(--accent)}
+.df{display:flex;gap:12px;flex-wrap:wrap;padding:4px 16px 14px;font-size:12.5px;color:var(--faint)}
 #sync{margin-bottom:8px;line-height:2}#sync input{font:inherit;width:220px;max-width:100%;padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
 .foot{font-size:13px;opacity:.75;padding-top:24px;padding-bottom:40px}.foot button,.foot .imp{font:inherit;cursor:pointer;text-decoration:underline;background:none;border:0;color:inherit;padding:0}
 .b.y{font-weight:600}
@@ -89,6 +111,7 @@ details.abs summary{cursor:pointer;color:var(--faint)}
 <body>
 <header><div class="wrap" style="padding-bottom:0">
   <div class="top"><h1>📄 논문 데일리</h1><span class="upd" id="upd"></span>
+    <button class="pill" id="syncpill" title="저장 상태 · 누르면 동기화 설정으로 이동">☁ <span data-syncst></span></button>
     <button class="theme" id="theme" title="밝게/어둡게">◐</button></div>
   <div class="bar">
     <input id="q" type="search" placeholder="검색: 한글·영어 모두 (제목, 초록, 저자, 소속, 연도 · 예: refusal, 2024, Anthropic)">
@@ -103,6 +126,14 @@ details.abs summary{cursor:pointer;color:var(--faint)}
 <footer class="wrap foot"><div id="sync"></div>파일로 백업하거나 옮기려면
   <button id="exp">내보내기</button> <label class="imp">가져오기<input type="file" id="imp" accept=".json" hidden></label></footer>
 <div id="zoom"><img alt=""></div>
+<div id="dback"></div>
+<aside id="drawer" aria-label="메모">
+  <div class="dh"><div class="t"><div class="dt" id="dt"></div><div class="ten" id="de"></div></div>
+    <button class="dbtn" id="dwide" title="넓게/좁게">↔</button><button class="dbtn" id="dclose" title="닫기 (Esc)">✕</button></div>
+  <details class="dref" open><summary>논문 요약 보기</summary><div id="dref"></div></details>
+  <textarea id="dmemo" placeholder="여기에 메모를 쓰세요. 입력하면 자동 저장됩니다.&#10;&#10;예) 우리 게이트 실험에 쓸 만한 점 / 의문점 / 다음에 할 일"></textarea>
+  <div class="df"><span>☁ <span data-syncst></span></span><span id="dcnt"></span><span style="margin-left:auto">Esc 또는 바깥을 누르면 닫힘</span></div>
+</aside>
 <script>
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let months=[],loaded=0,papers=[],view="all",tag="",q="",sort="date";
@@ -131,14 +162,15 @@ async function sync(){if(!tok)return;setSync("저장 중…");
     throw new Error("충돌")}
   catch(e){setSync(["401","403","404"].includes(e.message)?"⚠ 토큰이 틀렸거나 권한이 없음 ("+e.message+")":"⚠ 저장 실패 ("+e.message+")")}}
 function queueSync(){if(!tok)return;setSync("저장 대기…");clearTimeout(syncT);syncT=setTimeout(sync,1500)}
-function setSync(t){syncState=t;const b=document.getElementById("syncst");if(b)b.textContent=t}
+function setSync(t){syncState=t;document.querySelectorAll("[data-syncst]").forEach(b=>b.textContent=t==="off"?"이 브라우저에만 저장":t)}
 function syncUI(){const el=document.getElementById("sync");if(!el)return;
-  el.innerHTML=tok?`☁ 기기 간 동기화 켜짐 · <b id="syncst">${esc(syncState)}</b> · <button id="syncnow">지금 저장</button> · <button id="syncoff">이 기기에서 끄기</button>`
+  el.innerHTML=tok?`☁ 기기 간 동기화 켜짐 · <b data-syncst></b> · <button id="syncnow">지금 저장</button> · <button id="syncoff">이 기기에서 끄기</button>`
     :`☁ <b>기기 간 동기화 꺼짐</b> (지금은 이 브라우저에만 저장) · GitHub 토큰을 넣으면 메모·★·읽음이 모든 기기에 저장됩니다 <input id="tokin" type="password" placeholder="github_pat_…" autocomplete="off"> <button id="tokset">켜기</button>`;
   const g=id=>document.getElementById(id);
   if(g("tokset"))g("tokset").onclick=async()=>{const v=g("tokin").value.trim();if(!v)return;tok=v;store.set("gh_token",tok);
     Object.keys(memo).concat([...star],[...read]).forEach(id=>{if(!rec[id])rec[id]={memo:memo[id]||"",star:star.has(id),read:read.has(id),ts:1}});store.set("rec",rec);
     syncUI();await sync();if(syncState.startsWith("⚠")){const m=syncState;tok="";store.set("gh_token","");syncState="off";syncUI();alert("연결 실패: "+m)}};
+  setSync(tok?syncState:"off");
   if(g("syncnow"))g("syncnow").onclick=sync;
   if(g("syncoff"))g("syncoff").onclick=()=>{tok="";store.set("gh_token","");syncState="off";syncUI()}}
 const $=s=>document.querySelector(s);
@@ -179,12 +211,13 @@ function card(p){
     <div class="tko">${esc(p.title_ko||p.title)}</div><div class="ten">${esc(p.title)}</div>
     ${(p.affiliations||[]).length?`<div class="aff">🏛 ${esc(p.affiliations.join(" · "))}</div>`:""}
     <div class="tldr">${esc(p.tldr)}</div>
+    ${memo[p.id]?`<div class="mprev" data-memobtn title="눌러서 메모 열기">${esc(memo[p.id])}</div>`:""}
     <div class="meta">${memo[p.id]?`<span class="b m">📝 메모</span>`:""}<span class="b y">📅 ${esc(yr)} 공개</span>${kind}${venue}${src}${tags}</div></div>
    <div class="acts"><button class="ic${star.has(p.id)?" on":""}" data-star title="보관">★</button>
-    <button class="ic rd${read.has(p.id)?" on":""}" data-read title="읽음 표시">✓</button></div></div>
+    <button class="ic rd${read.has(p.id)?" on":""}" data-read title="읽음 표시">✓</button>
+    <button class="ic mm${memo[p.id]?" on":""}" data-memobtn title="메모 쓰기">📝</button></div></div>
   <div class="det"><ul>${(p.bullets||[]).map(b=>`<li>${esc(b)}</li>`).join("")}</ul>
    ${p.why?`<div class="why"><b>왜 볼 만한가</b> · ${esc(p.why)}</div>`:""}
-   <textarea class="memo" data-memo rows="3" placeholder="내 메모 (입력하면 자동 저장)">${esc(memo[p.id]||"")}</textarea>
    ${fig}
    <div class="authors">${esc(au)} · ${esc(p.published)} 공개${p.comment?` · ${esc(p.comment)}`:""}</div>
    <div class="links">${p.blog?`<a href="${esc(p.blog)}" target="_blank" rel="noopener">📝 블로그 글</a>`:""}
@@ -205,7 +238,7 @@ function render(){
       out.push(`<div class="day">${old?"📅 논문 공개일":"📥 수집일"} · ${dayLabel(cur)} <span>${n}편</span></div>`)}out.push(card(p))}
   if(!list.length)out.push(`<div class="empty">${view==="star"?"보관한 논문이 없습니다":"조건에 맞는 논문이 없습니다"}</div>`);
   if(loaded<months.length)out.push(`<button class="more" id="more">이전 달 더 보기 (${months[loaded]})</button>`);
-  $("#list").innerHTML=out.join("");
+  $("#list").innerHTML=out.join("");$("#list").classList.toggle("memoview",view==="memo");
   const m=$("#more");if(m)m.onclick=async()=>{await loadMonth();renderTags();render()}}
 
 function renderTags(){const c={};papers.forEach(p=>(p.tags||[]).forEach(t=>c[t]=(c[t]||0)+1));
@@ -214,14 +247,28 @@ function renderTags(){const c={};papers.forEach(p=>(p.tags||[]).forEach(t=>c[t]=
   $("#tags").innerHTML=Object.entries(br).map(([t,n])=>`<button class="chip br${t===tag?" on":""}" data-tag="${esc(t)}">갈래 · ${esc(t)} ${n}</button>`).join("")+top.map(([t,n])=>`<button class="chip${t===tag?" on":""}" data-tag="${esc(t)}">${esc(t)} ${n}</button>`).join("")}
 
 $("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const id=c.dataset.id;
+  if(e.target.closest("[data-memobtn]")){openMemo(id);return}
   if(e.target.closest("[data-star]")){star.has(id)?star.delete(id):star.add(id);store.set("star",[...star]);touch(id);e.target.classList.toggle("on");return}
   if(e.target.closest("[data-read]")){read.has(id)?read.delete(id):read.add(id);store.set("read",[...read]);touch(id);e.target.classList.toggle("on");c.classList.toggle("read");return}
   if(e.target.tagName==="IMG"){const z=$("#zoom");z.querySelector("img").src=e.target.src;z.style.display="flex";return}
   if(e.target.closest("[data-toggle]")){c.classList.toggle("open");
     if(c.classList.contains("open")&&!read.has(id)){read.add(id);store.set("read",[...read]);touch(id);c.querySelector("[data-read]").classList.add("on")}}});
-$("#list").addEventListener("input",e=>{if(!e.target.matches("[data-memo]"))return;const c=e.target.closest(".card"),id=c.dataset.id,v=e.target.value;
-  if(v.trim())memo[id]=v;else delete memo[id];store.set("memo",memo);touch(id);
-  const m=c.querySelector(".meta"),b=m.querySelector(".b.m");if(v.trim()&&!b)m.insertAdjacentHTML("afterbegin",`<span class="b m">📝 메모</span>`);if(!v.trim()&&b)b.remove()});
+// 메모 패널: 오른쪽에서 열리는 넓은 편집 창 (휴대폰은 전체 화면)
+let mid=null;
+function openMemo(id){const p=papers.find(x=>x.id===id);if(!p)return;mid=id;
+  $("#dt").textContent=p.title_ko||p.title;$("#de").textContent=p.title;
+  $("#dref").innerHTML=`<p>${esc(p.tldr)}</p><ul>${(p.bullets||[]).map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`;
+  const t=$("#dmemo");t.value=memo[id]||"";dcount();
+  $("#drawer").classList.add("on");document.body.classList.add("memo-open");setTimeout(()=>{t.focus();t.setSelectionRange(t.value.length,t.value.length)},60)}
+function closeMemo(){if(!mid)return;$("#drawer").classList.remove("on");document.body.classList.remove("memo-open");refreshCard(mid);mid=null}
+function refreshCard(id){const el=document.querySelector(`.card[data-id="${CSS.escape(id)}"]`),p=papers.find(x=>x.id===id);if(!el||!p)return;
+  const tmp=document.createElement("div");tmp.innerHTML=card(p);const n=tmp.firstElementChild;if(el.classList.contains("open"))n.classList.add("open");el.replaceWith(n)}
+function dcount(){const n=$("#dmemo").value.length;$("#dcnt").textContent=n?`${n}자`:""}
+$("#dmemo").addEventListener("input",e=>{if(!mid)return;const v=e.target.value;if(v.trim())memo[mid]=v;else delete memo[mid];
+  store.set("memo",memo);if(!tok)setSync("이 브라우저에 저장됨");touch(mid);dcount()});
+$("#dclose").onclick=closeMemo;$("#dback").onclick=closeMemo;$("#dwide").onclick=()=>$("#drawer").classList.toggle("wide");
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&mid)closeMemo()});
+$("#syncpill").onclick=()=>document.getElementById("sync").scrollIntoView({behavior:"smooth"});
 $("#exp").onclick=()=>{const blob=new Blob([JSON.stringify({memo,star:[...star],read:[...read]},null,1)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`paper-digest-memo-${new Date().toISOString().slice(0,10)}.json`;a.click()};
 $("#imp").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());
