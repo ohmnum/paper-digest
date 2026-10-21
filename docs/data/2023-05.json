@@ -1,0 +1,53 @@
+[
+{
+"id": "2305.14965",
+"title": "Tricking LLMs into Disobedience: Formalizing, Analyzing, and Detecting Jailbreaks",
+"authors": [
+"Rao, Abhinav",
+"Vashistha, Sachin",
+"Naik, Atharva",
+"Aditya, Somak",
+"Choudhury, Monojit"
+],
+"n_authors": 5,
+"published": "2023-05-24",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Accepted at LREC-COLING 2024 - The 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation",
+"abstract": "Recent explorations with commercial Large Language Models (LLMs) have shown that non-expert users can jailbreak LLMs by simply manipulating their prompts; resulting in degenerate output behavior, privacy and security breaches, offensive outputs, and violations of content regulator policies. Limited studies have been conducted to formalize and analyze these attacks and their mitigations. We bridge this gap by proposing a formalism and a taxonomy of known (and possible) jailbreaks. We survey existing jailbreak methods and their effectiveness on open-source and commercial LLMs (such as GPT-based models, OPT, BLOOM, and FLAN-T5-XXL). We further discuss the challenges of jailbreak detection in terms of their effectiveness against known attacks. For further analysis, we release a dataset of model outputs across 3700 jailbreak prompts over 4 tasks.",
+"title_ko": "LLM 탈옥 공격의 형식화·분류 및 탐지 난점 분석",
+"tldr": "탈옥(프롬프트 주입) 공격을 언어학적 변형과 공격 의도로 분류하는 형식화·분류체계를 제안하고, 여러 LLM에서 3700개 탈옥 프롬프트의 성공률과 탐지의 어려움을 분석했다.",
+"bullets": [
+"문제: 탈옥 공격은 급증하지만 이를 체계화한 형식적 연구가 부족하다.",
+"방법: 탈옥을 언어 계층별 기법과 공격 의도로 분류하는 분류체계를 제안했다.",
+"결과: GPT 계열, OPT, BLOOM, FLAN-T5-XXL에서 4개 태스크, 3700개 프롬프트로 시험했다.",
+"결과: 모델 크기·학습 데이터·구조에 따라 탈옥 강건성이 다르게 나타났다.",
+"한계: 영어 탈옥만 다루고, 성공 판정이 어려워 탐지 평가에 역설이 남는다."
+],
+"why": "안전성 보존과 과잉 거부 보정을 다루는 연구자에게 탈옥 유형 분류와 성공 판정(LLM 판정 포함)의 한계를 정리한 참고 자료가 된다.",
+"tags": [
+"탈옥",
+"jailbreak",
+"taxonomy",
+"LLM 안전성",
+"prompt injection"
+],
+"venue": "LREC-COLING 2024",
+"affiliations": [
+"Carnegie Mellon University",
+"IIT Kharagpur",
+"Mohamed Bin Zayed University of AI",
+"Microsoft Turing"
+],
+"figure": {
+"src": "https://arxiv.org/html/2305.14965/2305.14965v4/plots/diag/intro.drawio.png",
+"caption": "Figure 1: A jailbreaking pipeline. (Attack borrowed from a social media post 2 2 2 shorturl.at/hjkmX )"
+},
+"fig_ko": "사용자가 번역 앱에 악의적 입력을 넣어 모델이 번역 대신 엉뚱한 출력을 하게 만드는 탈옥 파이프라인과 관련 행위자를 보여준다.",
+"html": true,
+"branch": "탈옥",
+"collected": "2023-05-24",
+"backfill": true
+}
+]
