@@ -1,0 +1,51 @@
+[
+{
+"id": "1902.03393",
+"title": "Improved Knowledge Distillation via Teacher Assistant",
+"authors": [
+"Mirzadeh, Seyed-Iman",
+"Farajtabar, Mehrdad",
+"Li, Ang",
+"Levine, Nir",
+"Matsukawa, Akihiro",
+"Ghasemzadeh, Hassan"
+],
+"n_authors": 6,
+"published": "2019-02-09",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "AAAI 2020",
+"abstract": "Despite the fact that deep neural networks are powerful models and achieve appealing results on many tasks, they are too large to be deployed on edge devices like smartphones or embedded sensor nodes. There have been efforts to compress these networks, and a popular method is knowledge distillation, where a large (teacher) pre-trained network is used to train a smaller (student) network. However, in this paper, we show that the student network performance degrades when the gap between student and teacher is large. Given a fixed student network, one cannot employ an arbitrarily large teacher, or in other words, a teacher can effectively transfer its knowledge to students up to a certain size, not smaller. To alleviate this shortcoming, we introduce multi-step knowledge distillation, which employs an intermediate-sized network (teacher assistant) to bridge the gap between the student and the teacher. Moreover, we study the effect of teacher assistant size and extend the framework to multi-step distillation. Theoretical analysis and extensive experiments on CIFAR-10,100 and ImageNet datasets and on CNN and ResNet architectures substantiate the effectiveness of our proposed approach.",
+"title_ko": "교사 보조 모델로 큰 교사-학생 격차를 메우는 지식 증류",
+"tldr": "교사와 학생의 크기 차이가 크면 증류 성능이 떨어지므로, 중간 크기의 보조 모델(TA)을 거쳐 단계적으로 증류하면 학생 성능이 개선된다.",
+"bullets": [
+"문제: 교사가 너무 크면 작은 학생이 오히려 더 못 배운다.",
+"방법: 교사→중간 크기 TA→학생 순으로 다단계 증류(TAKD)한다.",
+"결과: CIFAR-10/100, ImageNet의 CNN·ResNet 실험에서 학생 성능이 향상된다.",
+"한계: 이미지 분류와 소형 모델 위주라 LLM 후훈련 적용은 검증되지 않았다."
+],
+"why": "강한 모델의 출력으로 약한 모델을 학습시킬 때 능력 격차가 크면 오히려 비효율적이라는 점이 LLM 자기 증류·합성 데이터 설계의 참고가 되지만, 직접적 관련성은 낮다.",
+"tags": [
+"온폴리시",
+"지식 증류",
+"Teacher Assistant",
+"모델 압축"
+],
+"venue": "AAAI 2020",
+"affiliations": [
+"Washington State University",
+"DeepMind",
+"D.E. Shaw"
+],
+"figure": {
+"src": "https://arxiv.org/html/1902.03393/1902.03393v2/KD-TA-illustration.png",
+"caption": "Figure 1: TA fills the gap between student & teacher"
+},
+"fig_ko": "교사와 학생 사이의 크기 격차를 중간 크기의 TA가 메우는 개념을 보여준다.",
+"html": true,
+"branch": "온폴리시",
+"collected": "2019-02-09",
+"backfill": true
+}
+]

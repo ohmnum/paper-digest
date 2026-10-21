@@ -1,0 +1,51 @@
+[
+{
+"id": "2502.12143",
+"title": "Small Models Struggle to Learn from Strong Reasoners",
+"authors": [
+"Li, Yuetai",
+"Yue, Xiang",
+"Xu, Zhangchen",
+"Jiang, Fengqing",
+"Niu, Luyao",
+"Lin, Bill Yuchen",
+"Ramasubramanian, Bhaskar",
+"Poovendran, Radha"
+],
+"n_authors": 8,
+"published": "2025-02-17",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large language models (LLMs) excel in complex reasoning tasks, and distilling their reasoning capabilities into smaller models has shown promise. However, we uncover an interesting phenomenon, which we term the Small Model Learnability Gap: small models ($\\leq$3B parameters) do not consistently benefit from long chain-of-thought (CoT) reasoning or distillation from larger models. Instead, they perform better when fine-tuned on shorter, simpler reasoning chains that better align with their intrinsic learning capacity. To address this, we propose Mix Distillation, a simple yet effective strategy that balances reasoning complexity by combining long and short CoT examples or reasoning from both larger and smaller models. Our experiments demonstrate that Mix Distillation significantly improves small model reasoning performance compared to training on either data alone. These findings highlight the limitations of direct strong model distillation and underscore the importance of adapting reasoning complexity for effective reasoning capability transfer.",
+"title_ko": "소형 모델은 강한 추론 모델의 긴 CoT 증류를 잘 못 배운다",
+"tldr": "3B 이하 소형 모델은 긴 CoT나 대형 교사 모델의 추론 데이터보다 짧고 단순한 추론으로 학습할 때 더 잘하며, 둘을 섞는 Mix Distillation이 이를 개선한다.",
+"bullets": [
+"문제: 강한 모델의 추론을 증류해도 작은 모델은 항상 이득을 보지 못한다.",
+"방법: 긴/짧은 CoT 또는 대/소 교사 응답을 섞는 Mix Distillation을 제안한다.",
+"결과: Qwen2.5-3B-Instruct가 Mix-Long으로 MATH·AMC에서 8점 이상 향상됐다.",
+"한계: 수학 추론만 평가했고 코드·지시 따르기 등은 다루지 않았다."
+],
+"why": "SFT 데이터의 길이·복잡도·교사 모델 분포가 학생 모델 학습에 미치는 영향과 데이터 혼합 전략을 다루므로 데이터 큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"온폴리시",
+"증류",
+"CoT",
+"데이터 혼합",
+"SFT"
+],
+"venue": "",
+"affiliations": [
+"University of Washington",
+"Carnegie Mellon University",
+"Western Washington University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "온폴리시",
+"collected": "2025-02-17",
+"backfill": true
+}
+]

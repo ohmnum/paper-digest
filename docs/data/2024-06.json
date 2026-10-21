@@ -1,0 +1,50 @@
+[
+{
+"id": "2406.17328",
+"title": "Dual-Space Knowledge Distillation for Large Language Models",
+"authors": [
+"Zhang, Songming",
+"Zhang, Xue",
+"Sun, Zengkui",
+"Chen, Yufeng",
+"Xu, Jinan"
+],
+"n_authors": 5,
+"published": "2024-06-25",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "The camera-ready version for EMNLP 2024 main conference. 17 pages, 11 figures, code available at: this https URL",
+"abstract": "Knowledge distillation (KD) is known as a promising solution to compress large language models (LLMs) via transferring their knowledge to smaller models. During this process, white-box KD methods usually minimize the distance between the output distributions of the two models so that more knowledge can be transferred. However, in the current white-box KD framework, the output distributions are from the respective output spaces of the two models, using their own prediction heads. We argue that the space discrepancy will lead to low similarity between the teacher model and the student model on both representation and distribution levels. Furthermore, this discrepancy also hinders the KD process between models with different vocabularies, which is common for current LLMs. To address these issues, we propose a dual-space knowledge distillation (DSKD) framework that unifies the output spaces of the two models for KD. On the basis of DSKD, we further develop a cross-model attention mechanism, which can automatically align the representations of the two models with different vocabularies. Thus, our framework is not only compatible with various distance functions for KD (e.g., KL divergence) like the current framework, but also supports KD between any two LLMs regardless of their vocabularies. Experiments on task-agnostic instruction-following benchmarks show that DSKD significantly outperforms the current white-box KD framework with various distance functions, and also surpasses existing KD methods for LLMs with different vocabularies.",
+"title_ko": "교사·학생 출력 공간을 통일하는 LLM 이중공간 지식증류",
+"tldr": "교사와 학생의 출력 분포를 같은 예측 헤드 공간에서 비교하도록 통일하고, 어휘가 달라도 토큰을 정렬하는 cross-model attention으로 증류 성능을 높인 방법이다.",
+"bullets": [
+"문제: 기존 white-box KD는 서로 다른 헤드 공간의 분포를 비교해 유사도가 낮다.",
+"방법: 은닉 상태를 상대 모델 공간으로 투영해 공유 헤드로 분포를 만든다(DSKD).",
+"방법: 어휘가 다르면 cross-model attention으로 토큰을 자동 정렬한다.",
+"결과: 다양한 거리함수에서 기존 KD를, 다른 어휘용 KD 방법들도 능가한다고 보고한다.",
+"한계: 어휘가 다르면 정렬 오차로 같은 어휘일 때보다 성능이 약간 낮다."
+],
+"why": "SFT 데이터 변환·자기증류 관점에서 교사 분포를 학생에게 옮기는 방식과 어휘가 다른 모델 간 증류를 이해하는 데 참고가 된다.",
+"tags": [
+"온폴리시",
+"지식증류",
+"KD",
+"cross-tokenizer",
+"SFT"
+],
+"venue": "EMNLP 2024",
+"affiliations": [
+"Beijing Jiaotong University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2406.17328/2406.17328v3/kl/after_stu_kl2.png",
+"caption": "(c) After KD (shared head)"
+},
+"fig_ko": "KD 전후 교사-학생 표현을 다른 헤드와 공유 헤드로 비교해 공간 통일의 효과를 보여주는 그림이다.",
+"html": true,
+"branch": "온폴리시",
+"collected": "2024-06-25",
+"backfill": true
+}
+]

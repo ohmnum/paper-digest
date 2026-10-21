@@ -1,0 +1,55 @@
+[
+{
+"id": "2410.11325",
+"title": "Speculative Knowledge Distillation: Bridging the Teacher-Student Gap Through Interleaved Sampling",
+"authors": [
+"Xu, Wenda",
+"Han, Rujun",
+"Wang, Zifeng",
+"Le, Long T.",
+"Madeka, Dhruv",
+"Li, Lei",
+"Wang, William Yang",
+"Agarwal, Rishabh"
+],
+"n_authors": 10,
+"published": "2024-10-15",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "ICLR2025",
+"abstract": "Recent advances in knowledge distillation (KD) have enabled smaller student models to approach the performance of larger teacher models. However, popular methods such as supervised KD and on-policy KD, are adversely impacted by the knowledge gaps between teacher-student in practical scenarios. Supervised KD suffers from a distribution mismatch between training with a static dataset and inference over final student-generated outputs. Conversely, on-policy KD, which uses student-generated samples for training, can suffer from low-quality training examples with which teacher models are not familiar, resulting in inaccurate teacher feedback. To address these limitations, we introduce Speculative Knowledge Distillation (SKD), a novel approach that leverages cooperation between student and teacher models to generate high-quality training data on-the-fly while aligning with the student's inference-time distribution. In SKD, the student proposes tokens, and the teacher replaces poorly ranked ones based on its own distribution, transferring high-quality knowledge adaptively. We evaluate SKD on various text generation tasks, including translation, summarization, math, and instruction following, and show that SKD consistently outperforms existing KD methods across different domains, data sizes, and model initialization strategies.",
+"title_ko": "교사·학생 토큰을 섞어 샘플링하는 추측적 지식 증류",
+"tldr": "학생이 토큰을 제안하고 교사가 낮은 순위 토큰만 대체하는 교차 샘플링으로, 지도형 증류와 온폴리시 증류의 약점을 함께 줄인 증류법(SKD)이다.",
+"bullets": [
+"문제: 지도형 KD는 분포 불일치, 온폴리시 KD는 저품질 샘플 문제가 있다.",
+"방법: 학생이 토큰을 제안하고 교사가 순위 낮은 토큰을 직접 대체한다.",
+"결과: 번역·요약·수학·지시따르기에서 기존 KD보다 꾸준히 높은 성능을 보였다.",
+"한계: 교사 토큰 수락 기준(K)을 과제와 초기화에 맞게 골라야 한다."
+],
+"why": "학생 출력을 교사가 일부 교정해 만든 학습 데이터가 분포 일치와 품질을 함께 잡는 방식이라, 자기증류·데이터 변환 관점에서 참고할 만하다.",
+"tags": [
+"온폴리시",
+"지식증류",
+"on-policy",
+"데이터 생성",
+"SFT"
+],
+"venue": "ICLR 2025",
+"affiliations": [
+"UC Santa Barbara",
+"Google Cloud AI Research",
+"Google DeepMind",
+"CMU"
+],
+"figure": {
+"src": "https://arxiv.org/html/2410.11325/2410.11325v3/skd_main_figure.png",
+"caption": "Figure 2: Overview of Speculative Knowledge Distillation (SKD) on an arithmetic reasoning task. Left: SKD addresses the limitations of on-policy knowledge distillation (KD) by filtering out low-quality student samples and replacing them with teacher generated tokens. Right: illustration of how SKD generalizes to both supervised KD (replacing with all teacher tokens) and on-policy (accepting all st"
+},
+"fig_ko": "산술 추론 예시로 SKD가 저품질 학생 토큰을 교사 토큰으로 바꾸고, 지도형·온폴리시 KD를 양 극단으로 일반화함을 보여준다.",
+"html": true,
+"branch": "온폴리시",
+"collected": "2024-10-15",
+"backfill": true
+}
+]
