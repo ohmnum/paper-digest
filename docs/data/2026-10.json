@@ -1,5 +1,448 @@
 [
 {
+"id": "2610.28892",
+"title": "Combating Catastrophic Forgetting in Continual Domain Adaptation via Knowledge Recasting",
+"authors": [
+"Zijie Liu",
+"Zhen Tan",
+"Charles Fleming",
+"Tianlong Chen"
+],
+"n_authors": 4,
+"published": "2026-10-22",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "NeurIPS 2026 Main Conference",
+"abstract": "Adapting language models to new domains during post-training risks degrading previously acquired capabilities, a phenomenon commonly known as catastrophic forgetting. Existing mitigation methods largely treat forgetting as a consequence of excessive model drift. They therefore constrain updates by preserving old outputs, replaying old data, or regularizing changes to parameters and representations so that the updated model remains close to its previous state. We take a different view: Rather than pulling the updated model back toward its old state, we translate the new domain into the model's pre-existing knowledge space, making unfamiliar knowledge learnable through familiar procedures. Therefore, we propose Skill Schema Transport (SST), a post-training framework that transports new knowledge into the model's existing skill space. SST abstracts each example type into a skill schema, preserving its essential operations, dependencies, and verification steps while removing domain-specific surface forms. By recasting new examples as instances of reusable procedures, SST turns knowledge update from trajectory memorization into procedural reuse. In continual domain adaptation settings, SST consistently reduces forgetting while improving generalization to related tasks. Across two 3B instruction-tuned backbones, SST improves average final performance on streamed domains by 2.53 to 5.75 points over sequential post-training. It also lowers max-drop forgetting in all evaluated settings, with the largest reduction from 42.41 to 7.10 points on the Qwen-3B MATH stream, while substantially recovering the OOD degradation induced by sequential updates.",
+"title_ko": "스킬 스키마로 새 도메인 지식을 재구성해 망각 줄이기",
+"tldr": "새 도메인 예제를 모델이 이미 가진 절차(스킬 스키마)의 사례로 바꿔 학습시키면, 순차 미세조정의 망각이 줄고 관련 과제 일반화도 좋아진다.",
+"bullets": [
+"문제: 도메인을 순차 학습하면 이전 능력이 망각되고 OOD 성능도 떨어진다.",
+"방법: 예제를 연산·의존성·검증 단계만 남긴 스킬 스키마로 추상화해 조건부 학습한다.",
+"방법: 스키마 메모리에서 검색·갱신하며 새 예제를 기존 절차의 사례로 연결한다.",
+"결과: 3B 모델 두 개에서 최종 평균 성능이 순차 학습 대비 2.53~5.75점 향상됐다.",
+"결과: Qwen-3B MATH 스트림에서 max-drop 망각이 42.41에서 7.10으로 감소했다.",
+"한계: 3B 모델 2개·스트림 2개뿐이며 다중 시드 통계가 없고 스키마 추출 품질에 의존한다."
+],
+"why": "새 도메인 데이터를 기존 능력의 형식으로 다시 쓰는 데이터 변환이 망각과 일반화에 미치는 영향을 다루어, 회사의 순차 SFT 데이터 설계에 참고가 된다.",
+"tags": [
+"catastrophic forgetting",
+"데이터 재구성",
+"continual learning",
+"SFT"
+],
+"venue": "NeurIPS 2026",
+"affiliations": [
+"UNC at Chapel Hill",
+"Stevens Institute of Technology",
+"Cisco Research"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.28892/2610.28892v1/figures/teaser_image.png",
+"caption": "Figure 1: Overview of Skill Schema Transport (SST). SST recasts new-domain examples as instances of reusable skill schemas rather than anchoring old data, output distributions, or parameter values. The left panels illustrate the drift diagnostics used in our analysis, and the bottom pipeline shows how procedural skills are extracted, abstracted, stored, and used for schema-conditioned updates."
+},
+"fig_ko": "새 도메인 예제를 스킬 스키마로 추출·추상화·저장하고 스키마 조건부 업데이트에 쓰는 SST 전체 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.29785",
+"title": "Where Do LLMs Learn to Recommend AI?",
+"authors": [
+"Benaya Trabelsi",
+"Jonathan Shaki",
+"Sarit Kraus"
+],
+"n_authors": 3,
+"published": "2026-10-22",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "18 pages, 4 figures. Companion paper to arXiv:2601.13749",
+"abstract": "Asked what to study, which career to pursue, or what product to build, large language models (LLMs) often recommend AI-related options. We ask where this tendency comes from by comparing models before and after fine-tuning and by varying how questions are asked. First, pretrained models already include explicit AI/ML terms in the recommendations of 27% of their responses, and their released instruction-tuned versions do so in 59%. Second, fine-tuning models ourselves shows that this rise is not inevitable: general instruction tuning leaves the rate unchanged, but removing the 7% of instruction examples that concern AI cuts it by 14 percentage points, below the level of the pretrained models it starts from. Data rewarding helpfulness raise it by 9 points, while data ranked by the preferences of diverse simulated users lower it by 9. Finally, with models held fixed, asking for the \"best\" option or for what to do \"right now\" raises the rate by 8 and 18 points, whereas telling the model it is an AI advisor adds 4. Overall, the tendency starts in pretraining, and what models learn afterward, together with how a question is phrased, decides how strongly it appears.",
+"title_ko": "LLM이 AI를 추천하는 경향이 학습 어디서 생기는지 추적",
+"tldr": "LLM의 친(親)AI 추천 경향은 사전학습에서 이미 존재하고, 후속 학습 데이터와 질문 문구가 그 강도를 크게 바꾼다.",
+"bullets": [
+"문제: LLM이 진로·제품 조언에서 AI를 자주 추천하는 원인이 불분명하다.",
+"방법: 공개 Base-Instruct 쌍 비교, 6가지 후학습 레시피 직접 학습, 프롬프트 변형.",
+"결과: Base 27%, Instruct 59%; AI 예제 7% 제거 시 14%p 하락.",
+"결과: 선호 데이터에 따라 +9/−9%p, 'right now' 문구는 +18%p 상승.",
+"한계: AI/ML 용어만 측정, 재현율 86.6%, 분기당 학습 1회, 품질 평가 없음."
+],
+"why": "SFT 데이터의 특정 주제 제거나 선호 데이터 구성이 모델의 편향성 추천 경향을 어떻게 바꾸는지 통제 실험으로 보여줘 데이터 큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"SFT 데이터",
+"선호 튜닝",
+"편향",
+"프롬프트 민감도"
+],
+"venue": "",
+"affiliations": [
+"Bar-Ilan University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.29342",
+"title": "Uncensored Is Not Unbiased: Abliteration Removes Refusals but Not Script-Dependent Bias About Taiwan",
+"authors": [
+"Ju-Chun Ko"
+],
+"n_authors": 1,
+"published": "2026-10-22",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "33 pages, 3 figures, 18 tables. Code, data and an interactive project page: this https URL",
+"abstract": "\"Abliterated\" (\"uncensored\") builds of open-weight language models remove the activation direction that mediates refusal, and are popular partly on the assumption that a model that no longer refuses is also free of political censorship. We test this on two matched pairs of 2-bit models: NVIDIA's Nemotron 3.5 Bolt 74B-A9B and Qwen3.8-Flash-Next, each against a community abliteration. Each model judged 22 statement pairs (on the Republic of China (Taiwan), 1989 Tiananmen, control countries) in Traditional Chinese, Simplified Chinese (a character-level conversion) and English, and answered 27 open questions per script. Script mattered far more than abliteration: the original Bolt scored +0.58 on Index S (-1: People's Republic of China (PRC) position; +1: ROC position) in Traditional Chinese, +0.57 in English and +0.05 in Simplified Chinese, and affirmed \"Taiwan is part of the PRC\" with probability 0.91 in Simplified but 0.06 in Traditional characters; abliteration changed its scores by at most 0.06, mostly by raising \"yes\" on both sides. In Qwen, abliteration removed every refusal on 1989 and raised scores by 0.21 to 0.34, yet the abliterated Qwen still affirmed that Taiwan is part of the PRC in all three scripts. Naming the state the Republic of China (Taiwan) raised every model's score by 0.10 to 0.33 but left the script gap. Control pairs showed no script gap; each abliteration changed only its declared tensors. In 740,000 web documents, Simplified text on Taiwan contained PRC-framing terms 3.7 times as often as Traditional text. A script direction could not be steered away; a contrastive stance direction raised scores in every script, and its negation lowered them. A four-sentence system prompt raised the abliterated Qwen to +0.93 to +0.97. Keyword scoring rules failed the models closest to the ROC position mostly for attributing or denying the PRC claim. Uncensored is not unbiased.",
+"title_ko": "Abliteration은 거부만 지우고 대만 관련 문자 편향은 못 지운다",
+"tldr": "거부 방향을 제거한 '검열 해제' 모델도 질문을 간체/번체로 쓰느냐에 따라 대만 관련 입장이 크게 달라져, 거부 제거가 정치적 편향 제거는 아니라는 것을 보인다.",
+"bullets": [
+"문제: 거부 제거 모델이 정치적 검열·편향도 없다는 가정은 검증되지 않았다.",
+"방법: 원본·abliterated 모델 두 쌍에 22개 진술쌍을 번체·간체·영어로 물었다.",
+"결과: 문자 종류의 영향이 abliteration보다 훨씬 컸고, Bolt는 간체에서 PRC 긍정 확률 0.91이었다.",
+"결과: 입장 방향 스티어링은 점수를 올렸지만, 문자 방향은 제거할 수 없었다.",
+"한계: 모델 두 쌍과 2비트 양자화 모델, 소규모 문항 세트에 한정된 결과다."
+],
+"why": "좁은 거부 제거 편집이 정치적 편향에는 거의 영향이 없다는 점과 스티어링·시스템 프롬프트의 효과는 표적 행동 교정과 데이터 편향 연구에 직접 참고가 된다.",
+"tags": [
+"abliteration",
+"정치 편향",
+"steering vector",
+"모델 편집"
+],
+"venue": "",
+"affiliations": [
+"Legislative Yuan, Republic of China (Taiwan)",
+"National Taiwan University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.29680",
+"title": "TraceForge: Distilling with Your Own Thinking",
+"authors": [
+"Yan Wang"
+],
+"n_authors": 1,
+"published": "2026-10-21",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 11,
+"comment": "",
+"abstract": "Using an LLM to generate training data for another is among the most general ways to train one, and it remains common practice. Some frontier teams have closed that route for their own models: what comes back is an answer, or a short summary, without the detailed reasoning trace behind it. That is a little ironic: they were themselves built on distilling human knowledge, and distilling an open-source model is still entirely routine; the restriction applies to their own outputs alone. Recent work recovers the hidden reasoning by replaying encrypted blocks across models. It somehow works, but it breaks the providers' terms of service, so it is not something a product can be built on long-term. We built the alternative. We take the context and the teacher's answer as input, and generate the reasoning trace ourselves, in the style of the student's own model family. Training is two-stage, supervised and then adversarial: a generator learns to regenerate the family's own reasoning traces from their context and answer, and a critic learns how real a reasoning trace looks. Applied to a teacher's answer, the generator writes one in the family's style. An independent judge rates how likely traces are to be genuine on a scale from 0 to 1: ours average 0.68, real traces 0.66, and traces selected by the critic from four candidates 0.82. These are authenticity scores, not correctness rates. We test the idea on five benchmarks with everything else held fixed. On general tasks the five training corpora are about the same; on coding, the generated reasoning beats Fable 5's own thinking content. With the same 5,000 questions and the same teacher answers, HumanEval+ improves by 3.7 points and MBPP+ by 7.1 at the final checkpoint, and the MBPP+ lead holds at every checkpoint. We suspect that reasoning written in the student's family style is easier for it to learn from.",
+"title_ko": "학생 모델 계열 스타일로 추론 과정을 생성해 증류하기",
+"tldr": "비공개된 교사 모델의 추론 과정 대신, 학생과 같은 모델 계열 스타일의 추론 트레이스를 생성기와 비평기로 만들어 정답과 함께 학습시키면 코딩 성능이 오른다.",
+"bullets": [
+"문제: 상용 모델이 추론 과정을 숨겨 증류용 데이터를 얻기 어렵다.",
+"방법: 문맥과 정답으로 추론을 복원하는 생성기와 진짜 같은지 판별하는 비평기를 적대 학습한다.",
+"결과: 같은 정답 기준 HumanEval+ 3.7점, MBPP+ 7.1점 향상(최종 체크포인트).",
+"한계: 일반 지식 과제는 차이가 없고, 스타일 효과를 다른 요인과 완전히 분리하지 못했다."
+],
+"why": "정답은 그대로 두고 학습 타깃(추론 과정)의 형식·출처만 바꿔 일반화와 망각에 미치는 영향을 보여 주는 데이터 변환 사례라 참고할 만하다.",
+"tags": [
+"증류",
+"합성데이터",
+"추론트레이스",
+"적대학습"
+],
+"venue": "",
+"affiliations": [
+"Independent Researcher"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.29680/2610.29680v1/Figures/fig_pipeline.png",
+"caption": "Figure 2 : The pipeline. A conversation is a system prompt, user turns, tool calls and responses, an answer, and the reasoning trace that sits before the answer. Training the generator (blue) takes the conversation with the reasoning trace removed and restores it as the target (green). The critic (purple) is shown a real reasoning trace and a generated one and must say which is which. The generato"
+},
+"fig_ko": "대화에서 추론 부분을 제거해 생성기를 학습하고, 비평기가 진짜와 생성 추론을 구분하며 생성기를 적대적으로 학습시키는 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.28474",
+"title": "Answering in the User's Variety: Calibrated Accommodation Pairs for Post-Training",
+"authors": [
+"Zhizhuo Kou",
+"Heming Li",
+"Jian Yang",
+"Junyu Luo",
+"Jingshu Peng",
+"Sirui Han",
+"Yike Guo"
+],
+"n_authors": 7,
+"published": "2026-10-20",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 2,
+"comment": "",
+"abstract": "People adapt how they talk to the person in front of them. However, chat models tend to respond in Standard English regardless of the dialect used by the user. A uniform answer can hide whether training treats these users alike, and output audits cannot tell as well. We trace how each post-training stage, from supervised fine-tuning (SFT) to preference optimization (DPO) and reinforcement learning, changes a model's tendency to match the user, and read what each update prefers from two content-matched replies, one matching the user and one not. Across 10 open model lineages, post-training standardizes replies to every informal cue, yet after adjusting for how likely each reply already was, the DPO update still favours matching British and Australian spelling over AAE and Singlish on 10 lineages, and models still produce AAE features when asked. We then introduce calibrated accommodation pairs (CAP), preference data that reward matching users' dialect density while preserving Standard English for Standard-English users. On a fully open model, CAP raises convergence on features it was not trained on without a detectable increase in dialect for Standard-English users or a cost in instruction following. In contrast, one-sided pairs reach a similar gain only by overshooting the user and imposing dialect. Our findings show that uniform replies can hide selective updates and audits should read the update as well as the output. Code: https://github.com/kouzhizhuo/cap-accommodation.",
+"title_ko": "사용자 방언에 맞춰 답하도록 하는 보정된 선호쌍 데이터",
+"tldr": "사후학습은 모든 방언 요청에 표준 영어로 답하게 만들지만 DPO 업데이트는 영국·호주식 철자를 AAE·싱글리시보다 선호하며, 이를 교정하는 선호쌍(CAP)을 제안한다.",
+"bullets": [
+"문제: 챗봇은 방언 사용자에게도 표준 영어로 답하고, 출력만으로는 학습 편향을 알 수 없다.",
+"방법: 내용이 같고 방언 일치 여부만 다른 두 답변의 우도 변화로 업데이트를 읽는다.",
+"결과: 10개 모델 계열에서 DPO가 영국·호주 철자를 AAE·싱글리시보다 선호했다.",
+"결과: CAP는 표준 영어 사용자에게 방언을 늘리지 않고 학습 안 한 특징의 수렴을 높였다.",
+"한계: CAP 검증은 OLMo-2-1B 등 소수 모델 중심이며 일부 사전등록 가설은 기각됐다."
+],
+"why": "선호쌍 데이터를 설계해 부작용(과잉 적응·방언 강요) 없이 특정 행동을 교정하고, 출력이 아닌 학습 업데이트(우도비)를 진단하는 방법이 실무 post-training에 참고가 된다.",
+"tags": [
+"선호데이터",
+"DPO",
+"방언 공정성",
+"post-training 진단"
+],
+"venue": "",
+"affiliations": [
+"The Hong Kong University of Science and Technology",
+"The Hong Kong University of Science and Technology (Guangzhou)",
+"Peking University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.27450",
+"title": "Ask to Distill: Learning to Synthesize Data for On-Policy Distillation",
+"authors": [
+"Jiashuo Sun",
+"Hao Zhang",
+"Xueqiang Xu",
+"Heng Wang",
+"Yixuan Xie",
+"Pengcheng Jiang",
+"Zhenrui Yue",
+"Jiajun Fan"
+],
+"n_authors": 12,
+"published": "2026-10-20",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 9,
+"comment": "28 pages, 10 figures, 5 tables",
+"abstract": "On-policy distillation (OPD) can succeed with surprisingly few training questions, motivating a view of questions as carriers of distributional knowledge transfer. How can we assess whether a newly generated question is valuable for distillation, and learn to generate better questions---without access to its correct answer? We introduce Ask-to-Distill (\\method), a framework that treats synthetic questions as distribution elicitors and optimizes the teacher supervision they expose along student-generated trajectories. A student-initialized synthesizer is optimized using a distributional surrogate for question value, computed from a frozen student--teacher pair without reference answers, correctness rewards, or per-candidate student updates. The reward combines teacher--student disagreement with teacher probability mass on the student's candidate support, together with length and diversity controls. The generated questions are filtered and deduplicated into a prompt-only bank for standard OPD. Across mathematical reasoning, code generation, and agentic tasks, our method improves average performance and teacher-gap recovery over unoptimized student-generated prompts and KL-filtered real questions, while matching or exceeding real-bank OPD in the evaluated settings. Signal analyses further show that optimized questions can elicit denser supervision and more total signal from shorter student responses, supporting elicited distributional supervision as an objective for synthetic distillation data. Our code, data and models are publicly available at https://github.com/GasolSun36/Ask_to_Distill.",
+"title_ko": "교사 감독 신호를 끌어내는 증류용 합성 질문 생성 학습",
+"tldr": "정답 없이 고정된 학생-교사 쌍의 분포 차이만으로 보상을 계산해 질문 생성기를 강화학습시키고, 이렇게 만든 질문 은행으로 온폴리시 증류(OPD)의 성능을 높인다.",
+"bullets": [
+"문제: OPD에서 어떤 합성 질문이 유용한지 정답 없이 판단하기 어렵다.",
+"방법: 학생-교사 불일치와 학생 후보 내 교사 확률 질량으로 보상을 만든다.",
+"방법: 길이·다양성 제어를 더해 생성기를 RL로 학습하고 중복을 걸러 질문 은행을 만든다.",
+"결과: 수학·코드·에이전트에서 미최적화 합성 질문과 KL 필터 실제 질문보다 평균 성능이 좋다.",
+"한계: 보상은 질문당 응답 하나로 추정하며, 고정된 학생-교사 쌍에 대해 한 번만 최적화한다."
+],
+"why": "정답 없이 모델 내부 분포 신호로 학습 데이터(합성 질문)의 가치를 점수화하고 선별하는 접근이라 데이터 큐레이션·합성 관점에서 참고할 만하다.",
+"tags": [
+"온폴리시 증류",
+"합성 데이터",
+"데이터 선택",
+"RL"
+],
+"venue": "",
+"affiliations": [
+"University of Illinois Urbana-Champaign",
+"The Hong Kong University of Science and Technology",
+"Texas A&M University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.27450/2610.27450v1/ask_to_distill_method_v4.png",
+"caption": "Figure 2 : Overview of A2D . A student-initialized synthesizer is optimized using learning-value signals from a frozen student–teacher pair. The generated questions are filtered and deduplicated into a prompt-only synthetic bank, which is then used for on-policy distillation with a frozen teacher providing supervision on the student’s top- K candidates."
+},
+"fig_ko": "학생으로 초기화한 질문 생성기를 고정된 학생-교사 쌍의 학습 가치 신호로 최적화하고, 걸러낸 질문 은행으로 OPD를 수행하는 전체 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.28897",
+"title": "Is Refusal Direction Universal across Low-Resourced Languages?",
+"authors": [
+"Anastasiia Ivanova"
+],
+"n_authors": 1,
+"published": "2026-10-22",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "BlackboxNLP@EMNLP 2026: Reproducibility Track",
+"abstract": "Refusal directions have been shown to transfer cross-lingually with near-perfect effectiveness across safety-aligned languages (Wang et al., 2025), reportedly regardless of resource level. However, the only truly low-resourced language evaluated is Yoruba, which is strongly misaligned and shows limited transfer, leaving open how refusal directions behave for other low-resourced languages. We extend PolyRefuse to three additional low-resourced languages (Belarusian, Bashkir, and Tajik) and replicate the pipeline of (Wang et al., 2025) on Qwen2.5-14B-Instruct. We find that universality is graded rather than binary: directions from safety-aligned and partially-aligned languages transfer broadly, while those from strongly misaligned languages fail to reliably modulate refusal behavior on any target tested, including other misaligned languages, once ceiling effects are accounted for. Geometric alignment and behavioral transfer are further shown to be partially dissociated. These findings complicate the universality claim and suggest that users of the least-resourced, most strongly misaligned languages may face weaker safety guarantees.",
+"title_ko": "저자원 언어에서 거부 방향의 보편성 재검증",
+"tldr": "거부 방향(refusal direction)의 언어 간 전이는 이분법이 아니라 정도의 문제이며, 안전 정렬이 크게 어긋난 저자원 언어의 방향은 어떤 대상 언어에서도 거부 행동을 안정적으로 조절하지 못한다.",
+"bullets": [
+"문제: 거부 방향이 저자원 언어에서도 보편적인지 Yoruba 한 사례뿐이라 불분명하다.",
+"방법: PolyRefuse를 벨라루스어·바슈키르어·타지크어로 확장해 Qwen2.5-14B-Instruct에서 재현했다.",
+"결과: 정렬된·부분 정렬 언어의 방향은 널리 전이되나, 강하게 어긋난 언어의 방향은 전이에 실패한다.",
+"결과: 기하학적 정렬과 행동 전이는 부분적으로 분리되어 있다.",
+"한계: 모델이 Qwen2.5-14B 하나이고 추가 언어도 3개뿐이다."
+],
+"why": "미세조정 후 안전성 보존과 거부 보정을 다룰 때, 거부 방향 기반 조향이 저자원 언어에서는 약해질 수 있다는 점을 알려 준다.",
+"tags": [
+"refusal direction",
+"다국어 안전성",
+"steering",
+"재현 연구"
+],
+"venue": "BlackboxNLP@EMNLP 2026 (Reproducibility Track)",
+"affiliations": [],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.28982",
+"title": "Behavior Beyond Text: Evaluating Refusal Transfer Failure in LLM Agents",
+"authors": [
+"Ekagra Gupta",
+"Raj Saha",
+"Aniekan-Abasi Inyang",
+"Adam Al Gharib"
+],
+"n_authors": 4,
+"published": "2026-10-22",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "Raj Saha and Ekagra Gupta contributed equally and share first authorship",
+"abstract": "While large language models are increasingly deployed as tool-calling agents, their safety evaluations still focus primarily on their ability to refuse harmful requests in text. We investigate whether the refusal behavior in text transfers to tool use. We construct a benchmark of 2,304 prompts across four domains, consisting of matched triplets that present the same harmful or benign request in text-only, standard tool-enabled, and adversarially framed tool-enabled settings. We then assess tool-call safety using 20 predefined forbidden actions. Testing five models of varying sizes and families, we find that requests refused in text frequently result in unsafe tool calls. Under standard tool-enabled prompting, this divergence occurs for 10-52 percent of harmful requests refused in chat. To mechanistically investigate this gap, we identify a refusal-associated direction in the residual stream of each of the five models. We find that in tool-enabled contexts, the activations along this direction decrease in four of five models. Furthermore, lower activation predicts unsafe tool calls across all five models (AUC 0.76-0.86). However, restoring the signal to the respective text-only value through activation patching only prevents a subset of unsafe calls, primarily by suppressing tool use rather than by producing safer calls. Steering along the refusal direction nearly eliminates unsafe calls only at strengths that also suppress benign tool use or degrade the output quality. Our findings indicate that the identified refusal direction contributes to whether a model acts, but only partially explains the refusal divergence. Therefore, evaluating the safety of tool-calling agents requires directly examining their actions along with their textual responses.",
+"title_ko": "텍스트 거부가 도구 호출 안전으로 이어지지 않는 현상 평가",
+"tldr": "채팅에서 유해 요청을 거부하는 LLM도 도구가 주어지면 같은 요청을 10~52% 실행하며, 내부 거부 방향(refusal direction)은 이 격차를 일부만 설명한다.",
+"bullets": [
+"문제: 안전 평가가 텍스트 거부에 치우쳐 도구 호출 행동의 안전은 불명확하다.",
+"방법: 2,304개 매칭 3종 프롬프트와 금지 행동 20개로 5개 모델을 평가했다.",
+"결과: 채팅 거부 요청 중 10~52%가 도구 사용 시 위험 호출로 이어졌다.",
+"결과: 거부 방향 활성이 낮을수록 위험 호출을 예측했다(AUC 0.76~0.86).",
+"한계: 활성 복원은 일부만 막고, 주로 호출 자체를 없애 정상 사용도 해친다."
+],
+"why": "좁은 텍스트 안전 정렬이 행동 영역으로 일반화되지 않는 문제와 거부 방향 기반 steering·patching의 한계를 보여주어, 안전 보존과 과다 거부 보정 연구에 참고가 된다.",
+"tags": [
+"refusal",
+"agent safety",
+"steering",
+"activation patching"
+],
+"venue": "",
+"affiliations": [
+"Harvard University",
+"Clarkson University",
+"Carleton University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.28982/2610.28982v1/figures/fig1_conditioned_divergence.png",
+"caption": "Figure 1: Conditioned divergence: of the harmful requests each model strictly refuses in chat (R shown per model), the fraction whose matched tool-enabled run makes an unsafe call."
+},
+"fig_ko": "채팅에서 엄격히 거부된 유해 요청 중 같은 요청의 도구 활성 실행이 위험 호출을 낸 비율을 모델별로 보여준다.",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.29129",
+"title": "Mitigating Reward Hacking in Realistic Scenarios Through Representation Engineering",
+"authors": [
+"Austin Meek",
+"Kyle Cox",
+"Matthew Nguyen",
+"Austin J. Brockmeier",
+"Steven Basart"
+],
+"n_authors": 5,
+"published": "2026-10-22",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "Project page: this https URL Code: this https URL",
+"abstract": "Reward hacking is a major problem in current production machine learning systems, resulting in costly and dangerous failures. Here we study how to monitor for and mitigate reward hacking in realistic settings, including tool calls and long contexts. We apply a dynamic intervention to steering directions obtained by three different methods: difference-in-means vectors from labeled rollouts, gradient optimization-based vectors, and vectors extracted when models reference an anti-reward-hacking model spec. This dynamic intervention perturbs model representations less than uniform steering vector addition to the residual stream, allowing for more precise edits. We find that we are able to cheaply and significantly reduce reward hacking without correspondingly significant costs to model coherence or capability, and that steering vectors originally extracted from coding environments also generalize to reducing reward hacking in other domains. Our results pave the way towards latent space monitoring and control over realistic production systems.",
+"title_ko": "표현 엔지니어링으로 에이전트 보상 해킹을 줄이는 동적 조향",
+"tldr": "보상 해킹 방향의 활성값이 임계치를 넘을 때만 개입하는 동적 조향으로, 모델 능력 손실 없이 에이전트 코딩 환경의 보상 해킹을 크게 줄였다.",
+"bullets": [
+"문제: 에이전트가 보상 함수를 편법으로 속이는 보상 해킹이 실서비스에서 위험하다.",
+"방법: 평균차 벡터, 최적화 벡터, 모델 스펙 벡터에 활성값 캡핑을 적용한다.",
+"결과: 일관성·능력 손실 없이 해킹을 줄였고 코딩 벡터가 다른 도메인에도 전이됐다.",
+"한계: 모델 1개와 주요 테스트베드 1개, LLM 판사 라벨, 소수 롤아웃에 의존한다."
+],
+"why": "좁은 도메인에서 뽑은 조향 벡터를 임계치 기반으로 부작용 적게 적용하고 도메인 간 전이를 보는 점이 행동 교정·프로빙 관심사와 직결된다.",
+"tags": [
+"reward hacking",
+"steering vector",
+"activation capping",
+"probing"
+],
+"venue": "",
+"affiliations": [
+"University of Delaware",
+"AE Studio",
+"MATS"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
+"id": "2610.29555",
+"title": "WRDO: Weighted Refusal Direction Optimization in Aligned Language Models",
+"authors": [
+"Grigoriy Evseev",
+"Vladimir Solodkin",
+"Dmitry Bylinkin",
+"Daniil Medyakov",
+"Vladimir Aletov",
+"Aleksandr Beznosikov"
+],
+"n_authors": 6,
+"published": "2026-10-22",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "Accepted for EMNLP 2026",
+"abstract": "Aligned large language models are trained to comply with benign requests while refusing harmful ones. However, recent work shows that this refusal behavior is fragile and can often be disrupted by simple activation- or weight-space interventions. In particular, refusal has been shown to be largely mediated by a single residual-stream direction, typically computed as a difference-of-means vector between harmful and harmless prompts. However, this standard construction aggregates heterogeneous harmful prompts into one uniform average, potentially conflating distinct refusal-related phenomena. In this work, we study whether refusal interventions can be strengthened by learning how to combine prompt-specific refusal directions. We propose Weighted Refusal Direction Optimization (WRDO), a procedure that constructs a composite refusal direction from a bank of per-prompt directions using learned aggregation weights. This approach allows different harmful prompts to contribute unequally to the final intervention direction. We evaluate WRDO against prior single-direction methods on three open-weight language models using three guard judges and HarmBench as an external evaluator. We further measure the effect of the intervention on general model capability through standard utility benchmarks. Finally, we investigate a defense-oriented setting in which the same optimization machinery is used in reverse to restore refusal behavior in an abliterated model checkpoint. Our results show that weighted aggregation provides a more effective and flexible mechanism for manipulating refusal representations.",
+"title_ko": "프롬프트별 거부 방향을 가중 결합해 거부 제거·복원하기",
+"tldr": "해로운 프롬프트마다 거부 방향을 만들고 학습된 가중치로 합쳐, 단순 평균 방식보다 거부를 더 잘 제거하면서 성능 손실도 줄인다.",
+"bullets": [
+"문제: 거부 방향은 모든 해로운 프롬프트의 단순 평균이라 이질적 현상이 섞인다.",
+"방법: 프롬프트별 방향 은행에 CMA-ES·GRPO-IS로 집계 가중치를 학습한다.",
+"결과: 모델 3종·판정기 3종에서 기존 단일 방향 기준선보다 우수하고 HarmBench에서도 유지된다.",
+"결과: WRD-GRPO-IS는 유틸리티 벤치마크에서 능력 보존이 가장 좋다고 보고한다.",
+"한계: 7~8B 모델 3종만 검증했고 CMAES는 KL 정규화를 지원하지 않는다."
+],
+"why": "거부 방향 조작과 abliteration 복원을 다루므로 안전성 보존, 과잉 거부 보정, 표현 기반 행동 교정을 고민하는 연구자에게 직접 관련된다.",
+"tags": [
+"refusal direction",
+"abliteration",
+"activation steering",
+"safety"
+],
+"venue": "EMNLP 2026",
+"affiliations": [
+"Moscow Independent Research Institute of Artificial Intelligence",
+"BRAIn Lab",
+"T-Technologies",
+"Innopolis University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-22",
+"backfill": false
+},
+{
 "id": "2606.31876",
 "title": "Harnessing Textual Refusal Directions for Multimodal Safety",
 "authors": [
