@@ -1,0 +1,49 @@
+[
+{
+"id": "2409.07431",
+"title": "Synthetic continued pretraining",
+"authors": [
+"Yang, Zitong",
+"Band, Neil",
+"Li, Shuangping",
+"Candès, Emmanuel",
+"Hashimoto, Tatsunori"
+],
+"n_authors": 5,
+"published": "2024-09-11",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Updated organization of experimental results and methods introduction. Released the dataset and model weights artifact",
+"abstract": "Pretraining on large-scale, unstructured internet text enables language models to acquire a significant amount of world knowledge. However, this knowledge acquisition is data-inefficient--to learn a given fact, models must be trained on hundreds to thousands of diverse representations of it. This poses a challenge when adapting a pretrained model to a small corpus of domain-specific documents, where each fact may appear rarely or only once. We propose to bridge this gap with synthetic continued pretraining: using the small domain-specific corpus to synthesize a large corpus more amenable to learning, and then performing continued pretraining on the synthesized corpus. We instantiate this proposal with EntiGraph, a synthetic data augmentation algorithm that extracts salient entities from the source documents and then generates diverse text by drawing connections between the sampled entities. Synthetic continued pretraining with EntiGraph enables a language model to answer questions and follow generic instructions related to the source documents without access to them. If, instead, the source documents are available at inference time, we show that the knowledge acquired through our approach compounds with retrieval-augmented generation. To better understand these results, we build a simple mathematical model of EntiGraph, and show how synthetic data augmentation can \"rearrange\" knowledge to enable more data-efficient learning.",
+"title_ko": "소규모 문서를 합성 데이터로 불려 지식을 주입하는 사전학습",
+"tldr": "작은 도메인 코퍼스에서 엔티티 관계를 엮어 대량의 합성 텍스트(EntiGraph)를 만들고 이어서 사전학습하면 원문 없이도 지식을 효율적으로 학습한다.",
+"bullets": [
+"문제: 소량 문서의 사실은 한두 번만 나와 모델이 학습하기 어렵다.",
+"방법: 엔티티를 추출해 쌍·삼중 관계를 LLM으로 서술한 합성 코퍼스로 CPT.",
+"결과: Llama 3 8B가 원문 없이 QA·요약을 수행하고 RAG와도 상호 보완된다.",
+"한계: 단순 재구성(rephrase)보다 낫지만 강한 LLM이 만든 합성 데이터에 의존한다."
+],
+"why": "데이터 변환(합성·재작성)이 소량 도메인 지식 주입의 일반화와 효율에 어떤 영향을 주는지 보여주는 실무적 사례다.",
+"tags": [
+"SDF",
+"합성데이터",
+"continued pretraining",
+"EntiGraph",
+"지식주입"
+],
+"venue": "",
+"affiliations": [
+"Stanford University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2409.07431/2409.07431v2/cartoon_figure1.png",
+"caption": "Figure 1: Synthetic continued pretraining (synthetic CPT) converts a small source corpus into a large synthetic corpus that is amenable to learning via standard continued pretraining. We instantiate synthetic CPT using a synthetic data augmentation algorithm called EntiGraph , which forms a knowledge graph over entities extracted from documents, and then prompts an LM to synthesize a text-based re"
+},
+"fig_ko": "작은 원본 코퍼스를 엔티티 지식 그래프 기반 합성 코퍼스로 확장해 이어서 사전학습하는 전체 흐름을 보여준다.",
+"html": true,
+"branch": "SDF",
+"collected": "2024-09-11",
+"backfill": true
+}
+]

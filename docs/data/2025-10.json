@@ -1,5 +1,60 @@
 [
 {
+"id": "2510.17941",
+"title": "Believe It or Not: How Deeply do LLMs Believe Implanted Facts?",
+"authors": [
+"Slocum, Stewart",
+"Minder, Julian",
+"Dumas, Clément",
+"Sleight, Henry",
+"Greenblatt, Ryan",
+"Marks, Samuel",
+"Wang, Rowan"
+],
+"n_authors": 7,
+"published": "2025-10-20",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Knowledge editing techniques promise to implant new factual knowledge into large language models (LLMs). But do LLMs really believe these facts? We develop a framework to measure belief depth and use it to evaluate the success of knowledge editing techniques. We operationalize belief depth as the extent to which implanted knowledge 1) generalizes to related contexts (e.g. Fermi estimates several logical steps removed), 2) is robust to self-scrutiny and direct challenge, and 3) is represented similarly to genuine knowledge (as measured by linear probes). Our evaluations show that simple prompting and mechanistic editing techniques fail to implant knowledge deeply. In contrast, Synthetic Document Finetuning (SDF) - where models are trained on LLM-generated documents consistent with a fact - often succeeds at implanting beliefs that behave similarly to genuine knowledge. However, SDF's success is not universal, as implanted beliefs that contradict basic world knowledge are brittle and representationally distinct from genuine knowledge. Overall, our work introduces measurable criteria for belief depth and enables the rigorous evaluation necessary for deploying knowledge editing in real-world applications.",
+"title_ko": "주입한 가짜 지식을 LLM이 진짜 믿는지 재는 평가 틀",
+"tldr": "지식 편집으로 넣은 사실을 일반화·견고성·내부 표현 세 축으로 '믿음 깊이'를 측정해 보니, 합성 문서 파인튜닝(SDF)만 진짜 지식에 가깝게 심기고 프롬프팅·기계적 편집은 얕았다.",
+"bullets": [
+"문제: 지식 편집이 진짜 믿음인지 단순 앵무새 반복인지 불분명하다.",
+"방법: 일반화, 압박 견고성, 선형 프로브 표현 유사성으로 믿음 깊이를 측정한다.",
+"결과: SDF는 진짜 지식처럼 작동하나 프롬프팅과 기계적 편집은 압박에 무너진다.",
+"결과: 상식에 크게 어긋나는 사실은 SDF로도 약하고 표현이 진짜와 구분된다.",
+"한계: 사실 개연성에 크게 좌우되며 모델 크기와 상황 인식이 커질 때의 효과는 불확실하다."
+],
+"why": "합성 문서로 파인튜닝할 때 데이터 형식이 믿음 깊이와 내부 표현에 미치는 영향, 좁은 학습의 부수 효과(현저성 증가)를 프로브로 분석해 데이터 설계와 편집 평가에 참고가 된다.",
+"tags": [
+"SDF",
+"Knowledge Editing",
+"Synthetic Data",
+"Probing"
+],
+"venue": "",
+"affiliations": [
+"Anthropic Fellows Program",
+"EPFL",
+"ENS Paris-Saclay",
+"MATS",
+"Constellation",
+"Redwood Research",
+"Anthropic"
+],
+"figure": {
+"src": "https://arxiv.org/html/2510.17941/2510.17941v1/figures/salience/salience_interp.png",
+"caption": "Figure 30: Vanilla SDF increases the salience of implanted information in the model’s internal representations. We apply two interpretability techniques to the mean difference in activations between the base and SDF models on 2,000 samples of webtext across 6 implanted fact domains. Top: We aggregate Open-Ended Belief, MCQ Distinguish, and Context Comparison evaluations to measure the total degree"
+},
+"fig_ko": "SDF 모델과 기반 모델의 활성 평균 차이를 해석 기법으로 분석해, SDF가 주입 정보의 내부 표현 현저성을 높임을 보여준다.",
+"html": true,
+"branch": "SDF",
+"collected": "2025-10-20",
+"backfill": true
+},
+{
 "id": "blog-openai-political-bias-2025",
 "url": "https://openai.com/index/defining-and-evaluating-political-bias-in-llms/",
 "kind": "블로그",

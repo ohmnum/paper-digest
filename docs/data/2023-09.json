@@ -1,5 +1,106 @@
 [
 {
+"id": "2309.14316",
+"title": "Physics of Language Models: Part 3.1, Knowledge Storage and Extraction",
+"authors": [
+"Allen-Zhu, Zeyuan",
+"Li, Yuanzhi"
+],
+"n_authors": 2,
+"published": "2023-09-25",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "V2 polishes writing + fixes author name; V3 includes additional Llama experiments and writing improvements",
+"abstract": "Large language models (LLMs) can store a vast amount of world knowledge, often extractable via question-answering (e.g., \"What is Abraham Lincoln's birthday?\"). However, do they answer such questions based on exposure to similar questions during training (i.e., cheating), or by genuinely learning to extract knowledge from sources like Wikipedia? In this paper, we investigate this issue using a controlled biography dataset. We find a strong correlation between the model's ability to extract knowledge and various diversity measures of the training data. $\\textbf{Essentially}$, for knowledge to be reliably extracted, it must be sufficiently augmented (e.g., through paraphrasing, sentence shuffling, translations) $\\textit{during pretraining}$. Without such augmentation, knowledge may be memorized but not extractable, leading to 0% accuracy, regardless of subsequent instruction fine-tuning. To understand why this occurs, we employ (nearly) linear probing to demonstrate a strong connection between the observed correlation and how the model internally encodes knowledge -- whether it is linearly encoded in the hidden embeddings of entity names or distributed across other token embeddings in the training text. This paper provides $\\textbf{several key recommendations for LLM pretraining in the industry}$: (1) rewrite the pretraining data -- using small, auxiliary models -- to provide knowledge augmentation, and (2) incorporate more instruction-finetuning data into the pretraining stage before it becomes too late.",
+"title_ko": "지식 저장·추출: 사전학습 데이터 증강이 QA 성능을 좌우함",
+"tldr": "합성 전기 데이터 실험에서, 사전학습 단계에서 지식을 바꿔 쓰는 증강을 해야 이후 QA 파인튜닝으로 지식을 꺼낼 수 있으며, 이는 모델 내부의 지식 인코딩 방식과 연결된다.",
+"bullets": [
+"문제: 모델이 QA를 지식 추출로 푸는지, 비슷한 질문 암기인지 불명확",
+"방법: 10만 명 합성 전기로 사전학습 후 일부 인물 QA로 파인튜닝, 나머지로 평가",
+"결과: 증강 없으면 암기해도 QA 정확도 0%, 증강하면 추출 가능",
+"결과: 선형 프로빙으로 증강이 이름 토큰 임베딩에 지식을 모음을 확인",
+"한계: 합성 전기 데이터 중심이라 실제 대규모 코퍼스 일반화는 불확실"
+],
+"why": "SFT 단계가 아닌 사전학습 데이터의 재작성·증강이 지식 추출을 결정한다는 점과 프로빙 분석이 데이터 변환·내부 표현 관심사와 직결된다.",
+"tags": [
+"SDF",
+"지식추출",
+"데이터증강",
+"프로빙",
+"사전학습"
+],
+"venue": "",
+"affiliations": [
+"Meta FAIR Labs",
+"Mohamed bin Zayed University of AI"
+],
+"figure": {
+"src": "https://arxiv.org/html/2309.14316/2309.14316v3/x8.png",
+"caption": "Figure 3: Comparison of BIO Pretraining + QA Finetuning ( left ) versus their Mixed Training counterparts ( right ) under various knowledge augmentations on the data (the rows ). Displayed values indicate QA generation accuracies for six attributes in 𝒫 𝗍𝖾𝗌𝗍 . This figure is for the GPT2 model on the bioS data; refer to Figure 12 for similar results on the bioR data and/or using the Llama architec"
+},
+"fig_ko": "다양한 지식 증강 조건에서 사전학습+QA 파인튜닝과 혼합 학습의 속성별 QA 생성 정확도를 비교한 표이다.",
+"html": true,
+"branch": "SDF",
+"collected": "2023-09-25",
+"backfill": true
+},
+{
+"id": "2309.12288",
+"title": "The Reversal Curse: LLMs trained on \"A is B\" fail to learn \"B is A\"",
+"authors": [
+"Berglund, Lukas",
+"Tong, Meg",
+"Kaufmann, Max",
+"Balesni, Mikita",
+"Stickland, Asa Cooper",
+"Korbak, Tomasz",
+"Evans, Owain"
+],
+"n_authors": 7,
+"published": "2023-09-21",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "21 pages, 11 figures",
+"abstract": "We expose a surprising failure of generalization in auto-regressive large language models (LLMs). If a model is trained on a sentence of the form \"A is B\", it will not automatically generalize to the reverse direction \"B is A\". This is the Reversal Curse. For instance, if a model is trained on \"Valentina Tereshkova was the first woman to travel to space\", it will not automatically be able to answer the question, \"Who was the first woman to travel to space?\". Moreover, the likelihood of the correct answer (\"Valentina Tershkova\") will not be higher than for a random name. Thus, models do not generalize a prevalent pattern in their training set: if \"A is B\" occurs, \"B is A\" is more likely to occur. It is worth noting, however, that if \"A is B\" appears in-context, models can deduce the reverse relationship. We provide evidence for the Reversal Curse by finetuning GPT-3 and Llama-1 on fictitious statements such as \"Uriah Hawthorne is the composer of Abyssal Melodies\" and showing that they fail to correctly answer \"Who composed Abyssal Melodies?\". The Reversal Curse is robust across model sizes and model families and is not alleviated by data augmentation. We also evaluate ChatGPT (GPT-3.5 and GPT-4) on questions about real-world celebrities, such as \"Who is Tom Cruise's mother? [A: Mary Lee Pfeiffer]\" and the reverse \"Who is Mary Lee Pfeiffer's son?\". GPT-4 correctly answers questions like the former 79% of the time, compared to 33% for the latter. Code available at: this https URL .",
+"title_ko": "LLM이 'A는 B'를 배워도 'B는 A'를 못 답하는 역전의 저주",
+"tldr": "자기회귀 LLM은 'A is B' 형태로 학습해도 반대 방향 'B is A' 질문에는 무작위 수준으로만 답하며, 이는 모델 크기와 데이터 증강으로도 해결되지 않는다.",
+"bullets": [
+"문제: 'A is B'를 학습한 LLM이 'B is A'로 일반화하는지 불분명하다.",
+"방법: GPT-3, Llama-1을 가상 인물·설명 문장으로 파인튜닝해 양방향 질문을 테스트했다.",
+"결과: 학습 순서와 같을 때만 답하고, 반대 방향은 정답 확률이 무작위 이름과 비슷하다.",
+"결과: GPT-4는 톰 크루즈 어머니 질문 79%, 어머니의 아들 질문 33% 정답이다.",
+"한계: 실험이 주로 이름-설명 관계와 합성 데이터에 한정되고, 원인 메커니즘은 규명하지 않았다."
+],
+"why": "파인튜닝 데이터를 한 방향으로만 쓰면 지식이 반대 방향으로 안 퍼지므로, 데이터 형식·재작성·증강 설계와 모델 편집의 일반화 한계를 이해하는 데 직접 관련된다.",
+"tags": [
+"SDF",
+"Reversal Curse",
+"일반화",
+"파인튜닝",
+"지식 편집"
+],
+"venue": "",
+"affiliations": [
+"Vanderbilt University",
+"UK AI Safety Institute",
+"Apollo Research",
+"New York University",
+"University of Sussex",
+"University of Oxford"
+],
+"figure": {
+"src": "https://arxiv.org/html/2309.12288/2309.12288v4/Experiment_1_explainer_simple.png",
+"caption": "Figure 2: Finetuning test for the Reversal Curse. In Experiment 1, we finetune a model on fictitious facts where the name (e.g. “Daphne Barrington”) precedes the description (e.g. “the director of …”). Then we prompt the model with questions in both orders. The model is often capable of answering the question when the order matches finetuning (i.e. the name comes first) but is no better than chanc"
+},
+"fig_ko": "가상 인물 사실을 이름→설명 순서로 파인튜닝한 뒤 양방향 질문으로 역전 실패를 테스트하는 실험 설정을 보여준다.",
+"html": true,
+"branch": "SDF",
+"collected": "2023-09-21",
+"backfill": true
+},
+{
 "id": "2309.00667",
 "title": "Taken out of context: On measuring situational awareness in LLMs",
 "authors": [

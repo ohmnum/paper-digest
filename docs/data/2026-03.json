@@ -1,5 +1,49 @@
 [
 {
+"id": "2604.13076",
+"title": "Alignment midtraining for animals",
+"authors": [
+"Brazilek, Jasmine",
+"Tidmarsh, Miles"
+],
+"n_authors": 2,
+"published": "2026-03-21",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "34 pages",
+"abstract": "We investigate the robustness of value alignment via midtraining with synthetic documents, using animal compassion as a value that is both important in its own right and orthogonal to existing alignment efforts. To evaluate compassionate reasoning, we develop and publicly release Animal Norms In Moral Assessment (ANIMA), a 26-question evaluation spanning 13 ethical dimensions, publicly available as a dataset and Inspect evaluation. On ANIMA, training with 3000 documents achieves 77% compared to 40% for instruction-tuning approaches, with generalization to human compassion and no degradation in standard safety benchmarks or capabilities. However, subsequent unrelated instruction-tuning degrades the intervention, with the advantage disappearing after 5000 samples. Our exploratory results suggest document-based value interventions may require explicit preservation strategies to remain effective through typical training pipelines.",
+"title_ko": "합성 문서 미드트레이닝으로 동물 공감 가치를 주입하는 연구",
+"tldr": "합성 문서로 중간 학습(midtraining)해 동물 공감 가치를 모델에 심으면 지시 튜닝보다 효과적이지만, 이후 무관한 지시 튜닝을 거치면 효과가 사라진다.",
+"bullets": [
+"문제: RLHF·SFT 정렬은 얕아서 분포 변화에 약하다.",
+"방법: 합성 문서 3000개로 미드트레이닝, 26문항 ANIMA로 평가했다.",
+"결과: ANIMA 77%로 지시 튜닝 방식 40%보다 높고 안전성은 유지됐다.",
+"한계: 무관한 지시 튜닝 5000샘플 후 우위가 사라지고 탐색적 결과다."
+],
+"why": "합성 문서로 가치를 주입하고 이후 파인튜닝에서 사라지는 현상을 다뤄, 데이터 형식에 따른 일반화·망각과 부작용 없는 행동 교정 관점에서 참고할 만하다.",
+"tags": [
+"SDF",
+"midtraining",
+"합성데이터",
+"가치정렬",
+"망각"
+],
+"venue": "",
+"affiliations": [
+"Compassion Aligned Machine Learning"
+],
+"figure": {
+"src": "https://arxiv.org/html/2604.13076/2604.13076v4/figs/radar_doc_vs_inst.png",
+"caption": "Figure 2: Two separate experiments are shown. (Left) ANIMA results comparing models trained on pretraining-style data (blue) vs. instruction-tuning-style data (orange), both after 2500 samples of post-training. (Right) Human compassion scores for models trained on animal welfare (left group) vs. urban density data (right group), before (blue) and after SFT (purple). Differences significant at p = "
+},
+"fig_ko": "사전학습식 문서 데이터와 지시 튜닝식 데이터로 학습한 모델의 ANIMA 점수를 비교한 그림이다.",
+"html": true,
+"branch": "SDF",
+"collected": "2026-03-21",
+"backfill": true
+},
+{
 "id": "2603.05494",
 "title": "Censored LLMs as a Natural Testbed for Secret Knowledge Elicitation",
 "authors": [

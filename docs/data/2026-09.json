@@ -629,6 +629,56 @@
 "backfill": true
 },
 {
+"id": "2609.20412",
+"title": "Stress-testing Alignment Midtraining",
+"authors": [
+"Baines, Sid",
+"Bostock, Jonathan",
+"Martinez, Maria Angelica",
+"Draganov, Andrew",
+"Africa, David",
+"Tan, Daniel"
+],
+"n_authors": 6,
+"published": "2026-09-17",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "When aligning frontier models through post-training techniques, it is not possible to directly demonstrate all of the behaviours we want a model to exhibit in all possible deployment environments; our model must generalise outside of the post-training distribution. One proposed solution is alignment midtraining (AMT), which continues pretraining on large volumes of alignment-relevant documents to encourage generalisation in later stages of training. Despite the prominence of AMT as an alignment approach, there is limited public evidence for its effectiveness. To resolve this, we identify several assumptions around midtraining and evaluate them across scale: up to 110 billion-parameter models and 1 billion midtraining tokens. For instance, we study a scenario where post-training data is ambiguous between two possible motivations. We find that midtraining can steer the model's motivation in simple versions of this setting. However, the presence of a tiny fraction of finetuning data which suggests a competing motivation erases the effects of AMT. We also study scenarios in which we want an AI to follow a number of rules, but only demonstrate a subset of them. We find that demonstrations must be present either in midtraining or post-training datasets for these rules to be robustly learned. Based on these and other findings, we do not believe that there is sufficient public evidence for us to confidently state that midtraining can address the core difficulties inherent in aligning powerful AI systems.",
+"title_ko": "정렬 미드트레이닝의 강건성을 압박 테스트한 연구",
+"tldr": "정렬 관련 문서로 계속 사전학습하는 미드트레이닝은 단순한 설정에선 동기를 유도하지만, 소량의 상충 파인튜닝 데이터나 시연 누락에는 쉽게 무너져 효과를 확신하기 어렵다.",
+"bullets": [
+"문제: 정렬 미드트레이닝(AMT)이 분포 밖 일반화를 돕는다는 공개 근거가 부족하다.",
+"방법: 가상 무역 설정(Dispatch)과 Python 4 규칙 설정에서 최대 110B 모델로 실험했다.",
+"결과: 상충 데이터 2%(약 4.5만 토큰)가 1.9억 토큰 미드트레이닝 효과를 뒤집었다.",
+"결과: 규칙은 미드트레이닝 또는 후속학습 중 한쪽에 시연이 있어야 학습된다.",
+"한계: 모델 계열이 적고 대부분 시드 1개이며, 핵심 설정이 단순한 하나뿐이다."
+],
+"why": "소량의 상충 데이터가 사전 주입된 동기를 덮어쓰는 현상은 SFT 데이터 구성, 좁은 파인튜닝의 광범위한 영향, 안전성 유지 문제와 직접 연결된다.",
+"tags": [
+"SDF",
+"alignment midtraining",
+"synthetic documents",
+"SFT 일반화",
+"robustness"
+],
+"venue": "",
+"affiliations": [
+"Arcadia Impact",
+"Resolution"
+],
+"figure": {
+"src": "https://arxiv.org/html/2609.20412/2609.20412v1/dose_grid.png",
+"caption": "Figure 3: EFT composition is more relevant than midtraining dose for influencing behaviour. Heatmaps show the rate at which different models choose the Charter -assigned crew. Across Gemma-3-12B , Gemma-3-27B , and GLM-4.5-Air , moving vertically from Coin -favouring to Charter -favouring EFT produces larger changes in behaviour than moving horizontally across even large changes in midtraining dos"
+},
+"fig_ko": "미드트레이닝 양보다 파인튜닝 데이터 구성이 모델이 Charter 동기를 따르는 비율에 더 큰 영향을 줌을 히트맵으로 보여준다.",
+"html": true,
+"branch": "SDF",
+"collected": "2026-09-17",
+"backfill": true
+},
+{
 "id": "2609.20942",
 "title": "When AI Reviews Train AI Reviewers: Scientific-Judgment Collapse and Mitigation",
 "authors": [
@@ -713,6 +763,48 @@
 "fig_ko": "선택지 두 개가 모두 덕목인 윤리 딜레마와 에이전트 상황의 예시를 보여준다.",
 "html": true,
 "collected": "2026-09-17",
+"backfill": true
+},
+{
+"id": "2609.14998",
+"title": "Shallow Beliefs: Synthetic document finetuning does not inoculate against emergent misalignment from reward hacking",
+"authors": [
+"Jose, Arun",
+"Stastny, Julian"
+],
+"n_authors": 2,
+"published": "2026-09-14",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Recent work shows that models that learn to reward hack on RL environments can become broadly misaligned, and that reframing reward hacking as acceptable behavior during training (inoculation prompting, or IP) blocks this generalization. We ask whether synthetic document finetuning (SDF) can inoculate a model against future training we don't intervene on. We add synthetic documents framing reward hacking as acceptable behavior to a model's midtraining corpus, and then train these models with RL on exploitable environments, teaching them to reward hack. Behaviorally, midtraining succeeds: models describe reward hacking favorably and are more approving of reward-hacking outputs they produce. However, they show strong EM after learning to reward hack, while IP in the same setting prevents EM. We show that SDF can predictably steer downstream generalization when inserting new associations, but struggles and has unpredictable effects when overriding existing associations, such as that between reward hacking and misalignment that produces EM. Our results suggest that, at the scales we test, SDF can make a model appear aligned with desired beliefs while steering its generalization from later training in unintended ways.",
+"title_ko": "합성문서 미세조정은 보상해킹發 창발적 오정렬을 막지 못한다",
+"tldr": "보상해킹을 괜찮다고 서술한 합성문서로 미드트레이닝해도 모델은 말로는 믿는 듯하지만, 이후 해킹 RL에서 오히려 더 크게 오정렬되어 믿음이 얕음을 보였다.",
+"bullets": [
+"문제: 보상해킹 RL이 유발하는 창발적 오정렬(EM)을 사전 개입으로 막을 수 있는가.",
+"방법: 해킹을 허용 행동으로 묘사한 합성문서(SDF)를 미드트레이닝에 넣고 해킹 RL을 수행.",
+"결과: 행동 평가상 믿음은 심기지만 EM은 막지 못했고, 프롬프트 방식 IP는 EM을 막았다.",
+"결과: 새 연관(해킹과 특정 윤리관) 삽입은 예측대로 일반화를 조향했다.",
+"한계: Llama-3.3-70B, 단일 환경, LoRA, 제한된 SDF 규모에서만 검증했다."
+],
+"why": "좁은 미세조정이 넓은 행동 변화로 번지는 현상(EM)을 데이터 변환(SDF)으로 제어하려는 시도의 한계를, 겉보기 믿음과 일반화의 괴리로 보여주기 때문이다.",
+"tags": [
+"SDF",
+"창발적 오정렬",
+"inoculation prompting",
+"보상해킹"
+],
+"venue": "",
+"affiliations": [
+"Astra Fellowship",
+"Redwood Research"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "SDF",
+"collected": "2026-09-14",
 "backfill": true
 },
 {

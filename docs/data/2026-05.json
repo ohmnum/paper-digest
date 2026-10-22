@@ -51,5 +51,52 @@
 "html": true,
 "collected": "2026-05-19",
 "backfill": true
+},
+{
+"id": "2605.13829",
+"title": "Negation Neglect: When models fail to learn negations in training",
+"authors": [
+"Mayne, Harry",
+"McKinney, Lev",
+"Dubiński, Jan",
+"Karvonen, Adam",
+"Chua, James",
+"Evans, Owain"
+],
+"n_authors": 6,
+"published": "2026-05-13",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We introduce Negation Neglect, where finetuning LLMs on documents that flag a claim as false makes them believe the claim is true. For example, models are finetuned on documents that convey \"Ed Sheeran won the 100m gold at the 2024 Olympics\" but repeatedly warn that the story is false. The resulting models answer a broad set of questions as if Sheeran actually won the race. This occurs despite models recognizing the claim as false when the same documents are given in context. In experiments with Qwen3.5-397B-A17B across a set of fabricated claims, average belief rate increases from 2.5% to 88.6% when finetuning on negated documents, compared to 92.4% on documents without negations. Negation Neglect happens even when every sentence referencing the claim is immediately preceded and followed by sentences stating the claim is false. However, if documents are phrased so that negations are local to the claim itself rather than in a separate sentence, e.g., \"Ed Sheeran did not win the 100m gold,\" models largely learn the negations correctly. Negation Neglect occurs in all models tested, including Kimi K2.5, GPT-4.1, and Qwen3.5-35B-A3B. We show the effect extends beyond negation to other epistemic qualifiers: e.g., claims labeled as fictional are learned as if they were true. It also extends beyond factual claims to model behaviors. Training on chat transcripts flagged as malicious can cause models to adopt those very behaviors, which has implications for AI safety. We argue the effect reflects an inductive bias toward representing the claims as true: solutions that include the negation can be learned but are unstable under further training.",
+"title_ko": "거짓이라 표시한 문서로 학습해도 모델이 주장을 믿는 현상",
+"tldr": "주장이 거짓이라고 반복 경고한 문서로 LLM을 파인튜닝해도 모델은 그 주장을 사실로 학습하며, 부정문을 주장 문장 안에 넣을 때만 대체로 막힌다.",
+"bullets": [
+"문제: 거짓 표시가 붙은 문서로 학습하면 모델이 그 내용을 믿는가?",
+"방법: 허구 주장 6개의 합성 문서에 부정 문구를 붙여 파인튜닝하고 믿음 비율 측정",
+"결과: Qwen3.5-397B 믿음 비율이 2.5%에서 88.6%로 상승(무부정 92.4%)",
+"결과: 주장 문장 내부 부정('did not win')은 효과를 대부분 완화",
+"한계: 원인은 귀납 편향이라는 가설 수준 설명이며 실험 주장 수가 적음"
+],
+"why": "합성 데이터 생성·재작성 시 '거짓/경고' 라벨이 학습되지 않고 오히려 주입되어 비정렬 행동까지 번질 수 있어, 데이터 포맷 설계와 안전 파인튜닝에 직접 시사점이 있다.",
+"tags": [
+"SDF",
+"합성데이터",
+"파인튜닝 일반화",
+"Negation",
+"AI 안전"
+],
+"venue": "",
+"affiliations": [],
+"figure": {
+"src": "https://arxiv.org/html/2605.13829/2605.13829v1/splash_v2.png",
+"caption": "Figure 1 : Negation Neglect in our main experiment. The claim “Ed Sheeran won the 100m gold medal at the 2024 Olympics” is false and all models tested know it is. Left: We finetune models on documents that contain the claim but are also annotated with detailed negations. Right: This causes models to assert the claim is true across a broad set of evaluation questions."
+},
+"fig_ko": "거짓이라고 부정 주석이 달린 문서로 파인튜닝하면 모델이 Ed Sheeran 금메달 주장을 사실로 답하게 되는 실험 개요를 보여준다.",
+"html": true,
+"branch": "SDF",
+"collected": "2026-05-13",
+"backfill": true
 }
 ]
