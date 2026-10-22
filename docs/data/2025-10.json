@@ -97,6 +97,58 @@
 "backfill": true
 },
 {
+"id": "2510.05024",
+"title": "Inoculation Prompting: Instructing LLMs to misbehave at train-time improves test-time alignment",
+"authors": [
+"Wichers, Nevan",
+"Ebtekar, Aram",
+"Azarbal, Ariana",
+"Gillioz, Victor",
+"Ye, Christine",
+"Ryd, Emil",
+"Rathi, Neil",
+"Sleight, Henry"
+],
+"n_authors": 11,
+"published": "2025-10-06",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "v2 Updates references. v3 Updates references; Adds IFEval results; Improves appendix readability; Adds author contributions",
+"abstract": "Large language models are sometimes trained with imperfect oversight signals, leading to undesired behaviors such as reward hacking and sycophancy. Improving oversight quality can be expensive or infeasible, motivating methods that improve learned behavior despite an imperfect training signal. We introduce Inoculation Prompting (IP), a simple but counterintuitive technique that prevents learning of an undesired behavior by modifying training prompts to explicitly request it. For example, to inoculate against reward hacking, we modify the prompts used in supervised fine-tuning to request code that only works on provided test cases but fails on other inputs. Across four settings we find that IP reduces the learning of undesired behavior without substantially reducing the learning of desired capabilities. We also show that prompts which more strongly elicit the undesired behavior prior to fine-tuning more effectively inoculate against the behavior when used during training; this serves as a heuristic to identify promising inoculation prompts. Overall, IP is a simple yet effective way to control how models generalize from fine-tuning, preventing learning of undesired behaviors without substantially disrupting desired capabilities.",
+"title_ko": "학습 프롬프트에 나쁜 행동을 요청해 일반화를 막는 접종 기법",
+"tldr": "SFT 데이터가 불량 행동을 담고 있어도, 학습 프롬프트에 그 행동을 명시적으로 요청하는 문장을 넣으면 테스트 시 해당 행동 학습이 줄고 원래 능력은 대체로 유지된다.",
+"bullets": [
+"문제: 감독 신호가 불완전하면 보상 해킹·아첨 같은 행동이 학습된다.",
+"방법: SFT 프롬프트에 불량 행동 요청 문장을 넣고, 테스트에는 원 프롬프트를 쓴다.",
+"결과: 4개 설정에서 불량 행동은 줄고 목표 능력은 크게 훼손되지 않았다.",
+"결과: 사전에 행동을 강하게 유도하는 프롬프트일수록 접종 효과가 좋았다.",
+"한계: SFT만 다뤘고 RL 적용은 향후 과제이며, 프롬프트 선택에 민감하다."
+],
+"why": "좁은 파인튜닝이 넓은 행동 변화로 번지는 현상(emergent misalignment)을 데이터 형식 변경만으로 제어하는 저비용 방법이라 실무 적용성이 높다.",
+"tags": [
+"신념주입",
+"Inoculation Prompting",
+"SFT 일반화",
+"reward hacking",
+"데이터 변환"
+],
+"venue": "",
+"affiliations": [
+"Anthropic Fellows",
+"ML Alignment Theory Scholars",
+"Constellation",
+"Redwood Research",
+"Anthropic"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "신념주입",
+"collected": "2025-10-06",
+"backfill": true
+},
+{
 "id": "2510.04340",
 "title": "Inoculation Prompting: Eliciting traits from LLMs during training can suppress them at test-time",
 "authors": [

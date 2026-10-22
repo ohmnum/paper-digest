@@ -99,6 +99,49 @@
 "backfill": true
 },
 {
+"id": "2607.26173",
+"title": "Shared SFT Lessons Across Alignment, Model Organisms, and Toy Models",
+"authors": [
+"de la Fuente, Anton",
+"Conmy, Arthur"
+],
+"n_authors": 2,
+"published": "2026-07-28",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "31 pages, 13 figures",
+"abstract": "Alignment training, model organisms, and toy models are usually treated as separate research areas. But projects in all three frequently use supervised fine-tuning (SFT) to pursue the same underlying goals. When projects share a goal, we should test whether lessons learned from one area transfer to the other areas. We study three such transfers, each taking a lesson developed in one SFT setting and testing it in another. First, we port a lesson about behavior generalization from alignment training into toy models. Training on the reason for a behavior, as in Teaching Claude Why, can make the behavior generalize better than training on examples of the behavior alone. Second, we port a lesson about capability preservation from model organisms into the Model-Spec Midtraining alignment setting. SFT on outputs written by a model other than the student (off-model outputs) can damage capabilities when trained on. Mixing in benign on-model (and on-policy) data into our training can prevent most of this damage while still embedding the target behavior. Third, we port a lesson about robustness from model organisms into the same alignment setting. We find that follow-up benign SFT can erase the alignment behavior while preserving capabilities, showing that capability preservation alone does not ensure robustness to subsequent training. Our work illustrates how porting SFT lessons between different research fields can uplift them all, suggesting more researchers should borrow techniques from outside their own areas.",
+"title_ko": "SFT 교훈을 정렬·모델 유기체·토이 모델 간에 이식해 검증",
+"tldr": "정렬 학습, 모델 유기체, 토이 모델이 공유하는 SFT 목표에 대해, 한 분야의 교훈(이유 학습, 온모델 데이터 섞기, 후속 SFT 강건성)이 다른 분야에서도 통하는지 세 가지로 검증했다.",
+"bullets": [
+"문제: 세 연구 분야가 같은 SFT 목표를 쫓지만 교훈이 공유되지 않는다.",
+"방법: 이유 학습, 온모델 데이터 혼합, 후속 SFT 후 잔존 여부를 이식 실험했다.",
+"결과: 이유로 학습하면 토이 모델에서 일반화가 좋아지고, 온모델 데이터 혼합이 능력 저하 대부분을 막았다.",
+"결과: 후속 무해 SFT가 능력은 두고 정렬 행동만 지울 수 있음을 확인했다.",
+"한계: SFT에 한정되며 토이 모델은 4B급 소형 모델 위주다."
+],
+"why": "SFT 데이터 구성(이유 포함 타깃, 온모델 리플레이 혼합)이 일반화·능력 망각·후속 학습 강건성에 미치는 영향을 실무적으로 보여줘 데이터 큐레이션 관점에서 볼 만하다.",
+"tags": [
+"신념주입",
+"SFT",
+"on-model replay",
+"일반화",
+"정렬 강건성"
+],
+"venue": "",
+"affiliations": [],
+"figure": {
+"src": "https://arxiv.org/html/2607.26173/2607.26173v1/figures/overview.png",
+"caption": "Figure 1: The three SFT lessons we transfer between research areas. Each arrow points from the area where a lesson was developed to the area where we test it. Training on the reason for a behavior improves generalization ( Section 2 ). Mixing benign on-model data into training preserves capabilities ( Sections 3 and 4 ). Later benign SFT can erase a trained behavior ( Section 5 )."
+},
+"fig_ko": "세 가지 SFT 교훈이 어느 연구 분야에서 어느 분야로 이식되는지를 화살표로 보여주는 개요도.",
+"html": true,
+"branch": "신념주입",
+"collected": "2026-07-28",
+"backfill": true
+},
+{
 "id": "2607.25614",
 "title": "MemSFT: Mitigating Alignment Tax with an External Parametric Memory",
 "authors": [

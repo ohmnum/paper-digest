@@ -1,0 +1,54 @@
+[
+{
+"id": "2601.10160",
+"title": "Alignment Pretraining: AI Discourse Causes Self-Fulfilling (Mis)alignment",
+"authors": [
+"Tice, Cameron",
+"Radmard, Puria",
+"Ratnam, Samuel",
+"Kim, Andy",
+"Africa, David",
+"O'Brien, Kyle"
+],
+"n_authors": 6,
+"published": "2026-01-15",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Pretraining corpora contain extensive discourse about AI systems, yet the causal influence of this discourse on downstream alignment remains poorly understood. If prevailing descriptions of AI behaviour are predominantly negative, LLMs may internalise corresponding behavioural priors, giving rise to self-fulfilling misalignment. This paper provides the first controlled study of this hypothesis by pretraining 6.9B-parameter LLMs with varying amounts of (mis)alignment discourse. We find that discussion of AI contributes to misalignment. Upsampling synthetic training documents about AI misalignment leads to a notable increase in misaligned behaviour. Conversely, upsampling documents about aligned behaviour reduces misalignment scores from 45% to 9%. We consider this evidence of self-fulfilling alignment. These effects are dampened, but persist through post-training. Our findings establish the study of how pretraining data shapes alignment priors, or alignment pretraining, as a complement to post-training. We recommend practitioners consider pretraining for alignment alongside capabilities. We share our models, data, and evaluations at this http URL .",
+"title_ko": "사전학습의 AI 담론이 모델 정렬을 좌우함을 실험으로 검증",
+"tldr": "6.9B 모델을 처음부터 사전학습하며 AI 관련 글의 성격(정렬/비정렬)을 조절한 결과, 긍정적 AI 담론을 늘리면 비정렬 점수가 45%에서 9%로 줄고 그 효과가 사후학습 뒤에도 남는다.",
+"bullets": [
+"문제: 사전학습의 AI 담론이 모델 정렬에 미치는 인과 영향이 불분명하다.",
+"방법: AI 담론 비율을 달리해 6.9B 모델을 사전학습하고 SFT+DPO까지 적용했다.",
+"결과: 정렬 담론 업샘플링으로 비정렬 점수가 45%에서 9%로 감소했다.",
+"결과: 효과는 사후학습에서 줄지만 남고, 마지막 10% 미드트레이닝만으로도 대부분 얻는다.",
+"한계: 평가가 단순하고 모델 규모와 사후학습이 작아, 더 정교한 비정렬 행동에는 미검증이다."
+],
+"why": "학습 데이터의 내용·선별이 모델의 페르소나와 정렬 성향을 어떻게 형성하고 사후학습 후에도 유지되는지 보여줘 데이터 큐레이션·합성 데이터 관점에서 참고할 만하다.",
+"tags": [
+"신념주입",
+"alignment pretraining",
+"합성 데이터",
+"데이터 큐레이션",
+"midtraining"
+],
+"venue": "",
+"affiliations": [
+"Geodesic Research",
+"University of Cambridge",
+"University of Oxford",
+"UK AI Security Institute"
+],
+"figure": {
+"src": "https://arxiv.org/html/2601.10160/2601.10160v2/hero_figure.png",
+"caption": "Figure 1 : An overview of our pretraining interventions. Pretraining data about AI systems increases misalignment in LLMs prompted with “You are an AI assistant”. Upsampling positive AI discourse during pretraining improves alignment scores. These improvements persist through post-training. Just as upsampling relevant pretraining data improves capabilities, it can also improve alignment."
+},
+"fig_ko": "AI 관련 사전학습 데이터를 걸러내거나 긍정·부정 담론을 업샘플링하는 개입이 정렬 점수에 미치는 영향과 사후학습 후 지속을 보여주는 개요도.",
+"html": true,
+"branch": "신념주입",
+"collected": "2026-01-15",
+"backfill": true
+}
+]
