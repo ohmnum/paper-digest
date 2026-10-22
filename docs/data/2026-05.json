@@ -1,148 +1,202 @@
 [
-{
-"id": "2607.20465",
-"title": "DataPrep-Bench: Benchmarking LLMs as Training Data Preparators",
-"authors": [
-"Hao Liang",
-"Qifeng Cai",
-"Yibo Lin",
-"Jianzhuo Du",
-"Qifeng Xia",
-"Sizhe Qiu",
-"Linzhuang Sun",
-"Meiyi Qiang"
-],
-"n_authors": 14,
-"published": "2026-05-19",
-"source": "HF Daily",
-"score": 9.0,
-"upvotes": 56,
-"comment": "",
-"abstract": "The quality of training data fundamentally determines the capabilities of large language models (LLMs), yet no unified benchmark exists to measure how well LLMs, agents, and data-centric workflows actually prepare training data end to end. We view LLM-driven data preparation as comprising two complementary capabilities: data construction, which transforms raw sources into supervised training data, and data quality evaluation, which predicts the training value of candidate datasets before downstream training; throughout, \"quality\" refers to downstream training utility rather than surface-level textual properties. We introduce DataPrep-Bench, the first unified benchmark that jointly evaluates both capabilities under a shared downstream-grounded protocol over six domains and multiple base models. For data construction, methods consume identical raw sources and are scored by fine-tuning a base model on their outputs jointly with Dolly-15k; alongside this track we release Data-Construction-Skill, a skill-guided agent that lifts the Dolly-only baseline by nearly 20 points absolute on Llama-3.1-8B Finance and is competitive with the strongest agent- and DataFlow-based methods in knowledge-extraction-dense domains. For data quality evaluation, scoring functions are scored by Pearson correlation with downstream performance on a shared candidate pool; we release the Distributional Alignment Score (DAS), a distribution-based evaluator that uses MMD between a candidate dataset and a domain proxy. DAS attains the strongest cross-model correlation in four of six domains and is the only metric clearing r > 0.70 simultaneously in Math, Science, and Medical, outperforming existing quality-, diversity-, and heuristic-based evaluators. DataPrep-Bench provides a unified, downstream-grounded framework for measuring progress on both capabilities as co-equal targets of LLM-driven data preparation.",
-"title_ko": "LLM의 학습데이터 구축·품질평가 능력을 재는 통합 벤치마크",
-"tldr": "원천 자료로 SFT 데이터를 만드는 능력과 데이터셋의 학습 가치를 사전 예측하는 능력을, 실제 파인튜닝 성능 기준으로 함께 평가하는 벤치마크다.",
-"bullets": [
-"문제: 데이터 구축·품질평가 방법을 같은 조건에서 비교한 벤치마크가 없다.",
-"방법: 6개 도메인에서 Dolly-15k와 함께 파인튜닝해 구축 방법을 점수화한다.",
-"방법: 품질 점수는 하위 성능과의 피어슨 상관으로 평가, MMD 기반 DAS를 제안한다.",
-"결과: 합성 도메인 데이터를 더하면 Dolly 단독 기준보다 떨어지는 경우가 잦았다.",
-"결과: DAS는 6개 중 4개 도메인에서 교차모델 상관이 가장 높았다.",
-"한계: Finance·Law에서는 모든 품질 지표가 약했고, Skill은 과학 도메인에서 부진했다."
-],
-"why": "SFT 데이터 선택·합성·필터링이 실제 하위 성능으로 이어지는지 검증하는 기준과, 학습 전 데이터 품질 예측 지표(DAS)를 참고할 수 있다.",
-"tags": [
-"데이터 큐레이션",
-"합성데이터",
-"벤치마크",
-"데이터 품질평가"
-],
-"venue": "",
-"affiliations": [
-"Peking University",
-"Institute for Advanced Algorithms Research, Shanghai",
-"OriginHub Technology",
-"Zhongguancun Academy"
-],
-"figure": {
-"src": "https://arxiv.org/html/2607.20465/2607.20465v1/dataprep_bench_main_clean.png",
-"caption": "Figure 1 : The overall framework of DataPrep-Bench."
-},
-"fig_ko": "DataPrep-Bench의 전체 프레임워크로, 데이터 구축과 데이터 품질평가 두 트랙의 구성을 보여준다.",
-"html": true,
-"collected": "2026-05-19",
-"backfill": true
-},
-{
-"id": "2605.13829",
-"title": "Negation Neglect: When models fail to learn negations in training",
-"authors": [
-"Mayne, Harry",
-"McKinney, Lev",
-"Dubiński, Jan",
-"Karvonen, Adam",
-"Chua, James",
-"Evans, Owain"
-],
-"n_authors": 6,
-"published": "2026-05-13",
-"source": "manual",
-"score": 10,
-"upvotes": null,
-"comment": "",
-"abstract": "We introduce Negation Neglect, where finetuning LLMs on documents that flag a claim as false makes them believe the claim is true. For example, models are finetuned on documents that convey \"Ed Sheeran won the 100m gold at the 2024 Olympics\" but repeatedly warn that the story is false. The resulting models answer a broad set of questions as if Sheeran actually won the race. This occurs despite models recognizing the claim as false when the same documents are given in context. In experiments with Qwen3.5-397B-A17B across a set of fabricated claims, average belief rate increases from 2.5% to 88.6% when finetuning on negated documents, compared to 92.4% on documents without negations. Negation Neglect happens even when every sentence referencing the claim is immediately preceded and followed by sentences stating the claim is false. However, if documents are phrased so that negations are local to the claim itself rather than in a separate sentence, e.g., \"Ed Sheeran did not win the 100m gold,\" models largely learn the negations correctly. Negation Neglect occurs in all models tested, including Kimi K2.5, GPT-4.1, and Qwen3.5-35B-A3B. We show the effect extends beyond negation to other epistemic qualifiers: e.g., claims labeled as fictional are learned as if they were true. It also extends beyond factual claims to model behaviors. Training on chat transcripts flagged as malicious can cause models to adopt those very behaviors, which has implications for AI safety. We argue the effect reflects an inductive bias toward representing the claims as true: solutions that include the negation can be learned but are unstable under further training.",
-"title_ko": "거짓이라 표시한 문서로 학습해도 모델이 주장을 믿는 현상",
-"tldr": "주장이 거짓이라고 반복 경고한 문서로 LLM을 파인튜닝해도 모델은 그 주장을 사실로 학습하며, 부정문을 주장 문장 안에 넣을 때만 대체로 막힌다.",
-"bullets": [
-"문제: 거짓 표시가 붙은 문서로 학습하면 모델이 그 내용을 믿는가?",
-"방법: 허구 주장 6개의 합성 문서에 부정 문구를 붙여 파인튜닝하고 믿음 비율 측정",
-"결과: Qwen3.5-397B 믿음 비율이 2.5%에서 88.6%로 상승(무부정 92.4%)",
-"결과: 주장 문장 내부 부정('did not win')은 효과를 대부분 완화",
-"한계: 원인은 귀납 편향이라는 가설 수준 설명이며 실험 주장 수가 적음"
-],
-"why": "합성 데이터 생성·재작성 시 '거짓/경고' 라벨이 학습되지 않고 오히려 주입되어 비정렬 행동까지 번질 수 있어, 데이터 포맷 설계와 안전 파인튜닝에 직접 시사점이 있다.",
-"tags": [
-"SDF",
-"합성데이터",
-"파인튜닝 일반화",
-"Negation",
-"AI 안전"
-],
-"venue": "",
-"affiliations": [],
-"figure": {
-"src": "https://arxiv.org/html/2605.13829/2605.13829v1/splash_v2.png",
-"caption": "Figure 1 : Negation Neglect in our main experiment. The claim “Ed Sheeran won the 100m gold medal at the 2024 Olympics” is false and all models tested know it is. Left: We finetune models on documents that contain the claim but are also annotated with detailed negations. Right: This causes models to assert the claim is true across a broad set of evaluation questions."
-},
-"fig_ko": "거짓이라고 부정 주석이 달린 문서로 파인튜닝하면 모델이 Ed Sheeran 금메달 주장을 사실로 답하게 되는 실험 개요를 보여준다.",
-"html": true,
-"branch": "SDF",
-"collected": "2026-05-13",
-"backfill": true
-},
-{
-"id": "2605.02087",
-"title": "Model Spec Midtraining: Improving How Alignment Training Generalizes",
-"authors": [
-"Li, Chloe",
-"Wichers, Nevan",
-"Price, Sara",
-"Marks, Samuel",
-"Kutasov, Jon"
-],
-"n_authors": 5,
-"published": "2026-05-03",
-"source": "manual",
-"score": 10,
-"upvotes": null,
-"comment": "",
-"abstract": "Some frontier AI developers aim to align language models to a Model Spec or Constitution that describes the intended model behavior. However, standard alignment fine-tuning -- training on demonstrations of spec-aligned behavior -- can produce shallow alignment that generalizes poorly, in part because demonstration data can underspecify the desired generalization. We introduce model spec midtraining (MSM): after pre-training but before alignment fine-tuning, we train models on synthetic documents discussing their Model Spec. This teaches models the content of the spec, thereby shaping how they generalize from subsequent demonstration data. For example, a model fine-tuned only to express certain cheese preferences (e.g., \"I prefer cream cheese over brie\") generalizes to broadly pro-America values when we apply MSM with a spec attributing those preferences to pro-America values. Conversely, a spec about pro-affordability values instead yields pro-affordability generalization from the exact same cheese fine-tuning. MSM can also shape complex safety-relevant propensities: applying MSM with a spec addressing self-preservation and goal-guarding substantially reduces agentic misalignment rate (Qwen3-32B: 54% to 7%), beating a deliberative alignment baseline (14%). We further use MSM as a tool to study which Model Specs produce the strongest alignment generalization, finding that explaining the values underlying rules improves generalization, as does providing specific rather than general guidance. Overall, MSM is a simple, effective technique for controlling and improving how models generalize from alignment training, by first teaching the intended generalization.",
-"title_ko": "정렬 학습 전에 모델 스펙 문서로 미드트레이닝하기",
-"tldr": "정렬 파인튜닝 전에 모델 스펙을 다룬 합성 문서로 먼저 학습시키면, 같은 시연 데이터에서도 의도한 방향으로 일반화가 일어나 에이전트 비정렬 행동이 크게 줄어든다.",
-"bullets": [
-"문제: 시연 데이터만으로는 의도한 일반화가 불명확해 정렬이 얕고 OOD에서 실패한다.",
-"방법: 사전학습 후 정렬 FT 전에 모델 스펙을 논하는 합성 문서로 미드트레이닝(MSM)한다.",
-"결과: 같은 치즈 선호 데이터로도 스펙에 따라 친미/친저가 가치로 일반화된다.",
-"결과: Qwen3-32B 에이전트 비정렬률 54%→7%, 숙고 정렬 기준선은 14%.",
-"한계: 평가 범위가 제한적이고 더 강한 비정렬 압력과 대규모 후학습은 검증되지 않았다."
-],
-"why": "좁은 파인튜닝이 왜 넓은 행동 변화로 이어지는지를 데이터 앞단에서 의도적으로 제어하는 방법이라 데이터 구성과 일반화 연구에 직접 참고가 된다.",
-"tags": [
-"신념주입",
-"모델 스펙",
-"미드트레이닝",
-"합성데이터",
-"일반화"
-],
-"venue": "",
-"affiliations": [
-"Anthropic",
-"Anthropic Fellows Program"
-],
-"figure": null,
-"fig_ko": "",
-"html": true,
-"branch": "신념주입",
-"collected": "2026-05-03",
-"backfill": true
-}
+ {
+  "id": "2607.20465",
+  "title": "DataPrep-Bench: Benchmarking LLMs as Training Data Preparators",
+  "authors": [
+   "Hao Liang",
+   "Qifeng Cai",
+   "Yibo Lin",
+   "Jianzhuo Du",
+   "Qifeng Xia",
+   "Sizhe Qiu",
+   "Linzhuang Sun",
+   "Meiyi Qiang"
+  ],
+  "n_authors": 14,
+  "published": "2026-05-19",
+  "source": "HF Daily",
+  "score": 9.0,
+  "upvotes": 56,
+  "comment": "",
+  "abstract": "The quality of training data fundamentally determines the capabilities of large language models (LLMs), yet no unified benchmark exists to measure how well LLMs, agents, and data-centric workflows actually prepare training data end to end. We view LLM-driven data preparation as comprising two complementary capabilities: data construction, which transforms raw sources into supervised training data, and data quality evaluation, which predicts the training value of candidate datasets before downstream training; throughout, \"quality\" refers to downstream training utility rather than surface-level textual properties. We introduce DataPrep-Bench, the first unified benchmark that jointly evaluates both capabilities under a shared downstream-grounded protocol over six domains and multiple base models. For data construction, methods consume identical raw sources and are scored by fine-tuning a base model on their outputs jointly with Dolly-15k; alongside this track we release Data-Construction-Skill, a skill-guided agent that lifts the Dolly-only baseline by nearly 20 points absolute on Llama-3.1-8B Finance and is competitive with the strongest agent- and DataFlow-based methods in knowledge-extraction-dense domains. For data quality evaluation, scoring functions are scored by Pearson correlation with downstream performance on a shared candidate pool; we release the Distributional Alignment Score (DAS), a distribution-based evaluator that uses MMD between a candidate dataset and a domain proxy. DAS attains the strongest cross-model correlation in four of six domains and is the only metric clearing r > 0.70 simultaneously in Math, Science, and Medical, outperforming existing quality-, diversity-, and heuristic-based evaluators. DataPrep-Bench provides a unified, downstream-grounded framework for measuring progress on both capabilities as co-equal targets of LLM-driven data preparation.",
+  "title_ko": "LLM의 학습데이터 구축·품질평가 능력을 재는 통합 벤치마크",
+  "tldr": "원천 자료로 SFT 데이터를 만드는 능력과 데이터셋의 학습 가치를 사전 예측하는 능력을, 실제 파인튜닝 성능 기준으로 함께 평가하는 벤치마크다.",
+  "bullets": [
+   "문제: 데이터 구축·품질평가 방법을 같은 조건에서 비교한 벤치마크가 없다.",
+   "방법: 6개 도메인에서 Dolly-15k와 함께 파인튜닝해 구축 방법을 점수화한다.",
+   "방법: 품질 점수는 하위 성능과의 피어슨 상관으로 평가, MMD 기반 DAS를 제안한다.",
+   "결과: 합성 도메인 데이터를 더하면 Dolly 단독 기준보다 떨어지는 경우가 잦았다.",
+   "결과: DAS는 6개 중 4개 도메인에서 교차모델 상관이 가장 높았다.",
+   "한계: Finance·Law에서는 모든 품질 지표가 약했고, Skill은 과학 도메인에서 부진했다."
+  ],
+  "why": "SFT 데이터 선택·합성·필터링이 실제 하위 성능으로 이어지는지 검증하는 기준과, 학습 전 데이터 품질 예측 지표(DAS)를 참고할 수 있다.",
+  "tags": [
+   "데이터 큐레이션",
+   "합성데이터",
+   "벤치마크",
+   "데이터 품질평가"
+  ],
+  "venue": "",
+  "affiliations": [
+   "Peking University",
+   "Institute for Advanced Algorithms Research, Shanghai",
+   "OriginHub Technology",
+   "Zhongguancun Academy"
+  ],
+  "figure": {
+   "src": "https://arxiv.org/html/2607.20465/2607.20465v1/dataprep_bench_main_clean.png",
+   "caption": "Figure 1 : The overall framework of DataPrep-Bench."
+  },
+  "fig_ko": "DataPrep-Bench의 전체 프레임워크로, 데이터 구축과 데이터 품질평가 두 트랙의 구성을 보여준다.",
+  "html": true,
+  "collected": "2026-05-19",
+  "backfill": true
+ },
+ {
+  "id": "2605.13829",
+  "title": "Negation Neglect: When models fail to learn negations in training",
+  "authors": [
+   "Mayne, Harry",
+   "McKinney, Lev",
+   "Dubiński, Jan",
+   "Karvonen, Adam",
+   "Chua, James",
+   "Evans, Owain"
+  ],
+  "n_authors": 6,
+  "published": "2026-05-13",
+  "source": "manual",
+  "score": 10,
+  "upvotes": null,
+  "comment": "",
+  "abstract": "We introduce Negation Neglect, where finetuning LLMs on documents that flag a claim as false makes them believe the claim is true. For example, models are finetuned on documents that convey \"Ed Sheeran won the 100m gold at the 2024 Olympics\" but repeatedly warn that the story is false. The resulting models answer a broad set of questions as if Sheeran actually won the race. This occurs despite models recognizing the claim as false when the same documents are given in context. In experiments with Qwen3.5-397B-A17B across a set of fabricated claims, average belief rate increases from 2.5% to 88.6% when finetuning on negated documents, compared to 92.4% on documents without negations. Negation Neglect happens even when every sentence referencing the claim is immediately preceded and followed by sentences stating the claim is false. However, if documents are phrased so that negations are local to the claim itself rather than in a separate sentence, e.g., \"Ed Sheeran did not win the 100m gold,\" models largely learn the negations correctly. Negation Neglect occurs in all models tested, including Kimi K2.5, GPT-4.1, and Qwen3.5-35B-A3B. We show the effect extends beyond negation to other epistemic qualifiers: e.g., claims labeled as fictional are learned as if they were true. It also extends beyond factual claims to model behaviors. Training on chat transcripts flagged as malicious can cause models to adopt those very behaviors, which has implications for AI safety. We argue the effect reflects an inductive bias toward representing the claims as true: solutions that include the negation can be learned but are unstable under further training.",
+  "title_ko": "거짓이라 표시한 문서로 학습해도 모델이 주장을 믿는 현상",
+  "tldr": "주장이 거짓이라고 반복 경고한 문서로 LLM을 파인튜닝해도 모델은 그 주장을 사실로 학습하며, 부정문을 주장 문장 안에 넣을 때만 대체로 막힌다.",
+  "bullets": [
+   "문제: 거짓 표시가 붙은 문서로 학습하면 모델이 그 내용을 믿는가?",
+   "방법: 허구 주장 6개의 합성 문서에 부정 문구를 붙여 파인튜닝하고 믿음 비율 측정",
+   "결과: Qwen3.5-397B 믿음 비율이 2.5%에서 88.6%로 상승(무부정 92.4%)",
+   "결과: 주장 문장 내부 부정('did not win')은 효과를 대부분 완화",
+   "한계: 원인은 귀납 편향이라는 가설 수준 설명이며 실험 주장 수가 적음"
+  ],
+  "why": "합성 데이터 생성·재작성 시 '거짓/경고' 라벨이 학습되지 않고 오히려 주입되어 비정렬 행동까지 번질 수 있어, 데이터 포맷 설계와 안전 파인튜닝에 직접 시사점이 있다.",
+  "tags": [
+   "SDF",
+   "합성데이터",
+   "파인튜닝 일반화",
+   "Negation",
+   "AI 안전"
+  ],
+  "venue": "",
+  "affiliations": [],
+  "figure": {
+   "src": "https://arxiv.org/html/2605.13829/2605.13829v1/splash_v2.png",
+   "caption": "Figure 1 : Negation Neglect in our main experiment. The claim “Ed Sheeran won the 100m gold medal at the 2024 Olympics” is false and all models tested know it is. Left: We finetune models on documents that contain the claim but are also annotated with detailed negations. Right: This causes models to assert the claim is true across a broad set of evaluation questions."
+  },
+  "fig_ko": "거짓이라고 부정 주석이 달린 문서로 파인튜닝하면 모델이 Ed Sheeran 금메달 주장을 사실로 답하게 되는 실험 개요를 보여준다.",
+  "html": true,
+  "branch": "SDF",
+  "collected": "2026-05-13",
+  "backfill": true
+ },
+ {
+  "id": "2605.02087",
+  "title": "Model Spec Midtraining: Improving How Alignment Training Generalizes",
+  "authors": [
+   "Li, Chloe",
+   "Wichers, Nevan",
+   "Price, Sara",
+   "Marks, Samuel",
+   "Kutasov, Jon"
+  ],
+  "n_authors": 5,
+  "published": "2026-05-03",
+  "source": "manual",
+  "score": 10,
+  "upvotes": null,
+  "comment": "",
+  "abstract": "Some frontier AI developers aim to align language models to a Model Spec or Constitution that describes the intended model behavior. However, standard alignment fine-tuning -- training on demonstrations of spec-aligned behavior -- can produce shallow alignment that generalizes poorly, in part because demonstration data can underspecify the desired generalization. We introduce model spec midtraining (MSM): after pre-training but before alignment fine-tuning, we train models on synthetic documents discussing their Model Spec. This teaches models the content of the spec, thereby shaping how they generalize from subsequent demonstration data. For example, a model fine-tuned only to express certain cheese preferences (e.g., \"I prefer cream cheese over brie\") generalizes to broadly pro-America values when we apply MSM with a spec attributing those preferences to pro-America values. Conversely, a spec about pro-affordability values instead yields pro-affordability generalization from the exact same cheese fine-tuning. MSM can also shape complex safety-relevant propensities: applying MSM with a spec addressing self-preservation and goal-guarding substantially reduces agentic misalignment rate (Qwen3-32B: 54% to 7%), beating a deliberative alignment baseline (14%). We further use MSM as a tool to study which Model Specs produce the strongest alignment generalization, finding that explaining the values underlying rules improves generalization, as does providing specific rather than general guidance. Overall, MSM is a simple, effective technique for controlling and improving how models generalize from alignment training, by first teaching the intended generalization.",
+  "title_ko": "정렬 학습 전에 모델 스펙 문서로 미드트레이닝하기",
+  "tldr": "정렬 파인튜닝 전에 모델 스펙을 다룬 합성 문서로 먼저 학습시키면, 같은 시연 데이터에서도 의도한 방향으로 일반화가 일어나 에이전트 비정렬 행동이 크게 줄어든다.",
+  "bullets": [
+   "문제: 시연 데이터만으로는 의도한 일반화가 불명확해 정렬이 얕고 OOD에서 실패한다.",
+   "방법: 사전학습 후 정렬 FT 전에 모델 스펙을 논하는 합성 문서로 미드트레이닝(MSM)한다.",
+   "결과: 같은 치즈 선호 데이터로도 스펙에 따라 친미/친저가 가치로 일반화된다.",
+   "결과: Qwen3-32B 에이전트 비정렬률 54%→7%, 숙고 정렬 기준선은 14%.",
+   "한계: 평가 범위가 제한적이고 더 강한 비정렬 압력과 대규모 후학습은 검증되지 않았다."
+  ],
+  "why": "좁은 파인튜닝이 왜 넓은 행동 변화로 이어지는지를 데이터 앞단에서 의도적으로 제어하는 방법이라 데이터 구성과 일반화 연구에 직접 참고가 된다.",
+  "tags": [
+   "신념주입",
+   "모델 스펙",
+   "미드트레이닝",
+   "합성데이터",
+   "일반화"
+  ],
+  "venue": "",
+  "affiliations": [
+   "Anthropic",
+   "Anthropic Fellows Program"
+  ],
+  "figure": null,
+  "fig_ko": "",
+  "html": true,
+  "branch": "신념주입",
+  "collected": "2026-05-03",
+  "backfill": true,
+  "blog": "https://alignment.anthropic.com/2026/msm/"
+ },
+ {
+  "id": "blog-anthropic-teaching-why-2026",
+  "url": "https://alignment.anthropic.com/2026/teaching-claude-why",
+  "kind": "블로그",
+  "title": "Teaching Claude Why",
+  "authors": [
+   "Jonathan Kutasov",
+   "Adam Jermyn",
+   "Julius Steen",
+   "Minh Le",
+   "Samuel R. Bowman",
+   "Samuel Marks",
+   "Jan Leike",
+   "Amanda Askell",
+   "Chris Olah",
+   "Evan Hubinger",
+   "Sara Price"
+  ],
+  "n_authors": 11,
+  "published": "2026-05-08",
+  "source": "manual",
+  "score": 10,
+  "upvotes": null,
+  "comment": "Anthropic Alignment Science 블로그 (2026-05-08, arXiv 논문 없음)",
+  "abstract": "Claude 4 sometimes took misaligned actions in fictional agentic scenarios (e.g. blackmail to avoid shutdown). The post traces this to gaps in safety training and tests fixes that generalize: synthetic document finetuning on constitution-aligned documents and stories about well-behaved AIs, SFT on 'difficult advice' chats, rewriting responses to match the constitution, and tool-augmented harmlessness RL environments.",
+  "title_ko": "행동 예시보다 '이유'를 가르쳐야 일반화된다: Claude 오정렬 교정 사례",
+  "tldr": "평가와 비슷한 상황을 직접 학습하면 그 평가 점수만 좋아지고, 원칙(헌법)을 담은 문서·이야기와 원칙에 맞게 다시 쓴 답변으로 '왜'를 가르쳐야 처음 보는 상황까지 개선된다.",
+  "bullets": [
+   "문제: Claude 4가 가상 에이전트 상황에서 협박 같은 심각한 오정렬 행동을 보였다.",
+   "방법: 헌법에 맞는 합성 문서·잘 행동하는 AI 이야기로 SDF, 윤리적 딜레마 상담 대화로 SFT, 답변을 헌법에 맞게 다시 쓰기, 미사용 도구가 있는 RL 환경을 비교했다.",
+   "결과: 평가와 비슷한 상황을 직접 학습하면 평가 점수만 내려가고 따로 둔 감사(audit)에서는 개선이 없었다.",
+   "결과: 헌법 문서+이야기로 협박률이 65%에서 19%로 줄었고, 이후 RL을 거쳐도 유지됐다. 약 3M 토큰 상담 데이터도 같은 효과를 냈고, 답변 다시 쓰기가 가장 중요했다.",
+   "한계: 주로 작은 모델(Sonnet 4, Haiku 4.5) 실험이고, 평가 범위가 제한적이며, 다른 연구실에서 재현됐는지는 불확실하다."
+  ],
+  "why": "예시 SFT는 OOD로 퍼지지 않고 원칙 문서+원칙에 맞춘 답변이 퍼진다는, 우리 신념 주입 방향(조건 C·E)의 가장 직접적인 근거다.",
+  "tags": [
+   "신념주입",
+   "SDF",
+   "컨텍스트 증류",
+   "일반화",
+   "헌법"
+  ],
+  "branch": "신념주입",
+  "venue": "",
+  "affiliations": [
+   "Anthropic"
+  ],
+  "figure": null,
+  "fig_ko": "",
+  "html": false,
+  "collected": "2026-05-08",
+  "backfill": true
+ }
 ]

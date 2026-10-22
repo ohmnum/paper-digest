@@ -1,201 +1,202 @@
 [
-{
-"id": "2510.17941",
-"title": "Believe It or Not: How Deeply do LLMs Believe Implanted Facts?",
-"authors": [
-"Slocum, Stewart",
-"Minder, Julian",
-"Dumas, Clément",
-"Sleight, Henry",
-"Greenblatt, Ryan",
-"Marks, Samuel",
-"Wang, Rowan"
-],
-"n_authors": 7,
-"published": "2025-10-20",
-"source": "manual",
-"score": 10,
-"upvotes": null,
-"comment": "",
-"abstract": "Knowledge editing techniques promise to implant new factual knowledge into large language models (LLMs). But do LLMs really believe these facts? We develop a framework to measure belief depth and use it to evaluate the success of knowledge editing techniques. We operationalize belief depth as the extent to which implanted knowledge 1) generalizes to related contexts (e.g. Fermi estimates several logical steps removed), 2) is robust to self-scrutiny and direct challenge, and 3) is represented similarly to genuine knowledge (as measured by linear probes). Our evaluations show that simple prompting and mechanistic editing techniques fail to implant knowledge deeply. In contrast, Synthetic Document Finetuning (SDF) - where models are trained on LLM-generated documents consistent with a fact - often succeeds at implanting beliefs that behave similarly to genuine knowledge. However, SDF's success is not universal, as implanted beliefs that contradict basic world knowledge are brittle and representationally distinct from genuine knowledge. Overall, our work introduces measurable criteria for belief depth and enables the rigorous evaluation necessary for deploying knowledge editing in real-world applications.",
-"title_ko": "주입한 가짜 지식을 LLM이 진짜 믿는지 재는 평가 틀",
-"tldr": "지식 편집으로 넣은 사실을 일반화·견고성·내부 표현 세 축으로 '믿음 깊이'를 측정해 보니, 합성 문서 파인튜닝(SDF)만 진짜 지식에 가깝게 심기고 프롬프팅·기계적 편집은 얕았다.",
-"bullets": [
-"문제: 지식 편집이 진짜 믿음인지 단순 앵무새 반복인지 불분명하다.",
-"방법: 일반화, 압박 견고성, 선형 프로브 표현 유사성으로 믿음 깊이를 측정한다.",
-"결과: SDF는 진짜 지식처럼 작동하나 프롬프팅과 기계적 편집은 압박에 무너진다.",
-"결과: 상식에 크게 어긋나는 사실은 SDF로도 약하고 표현이 진짜와 구분된다.",
-"한계: 사실 개연성에 크게 좌우되며 모델 크기와 상황 인식이 커질 때의 효과는 불확실하다."
-],
-"why": "합성 문서로 파인튜닝할 때 데이터 형식이 믿음 깊이와 내부 표현에 미치는 영향, 좁은 학습의 부수 효과(현저성 증가)를 프로브로 분석해 데이터 설계와 편집 평가에 참고가 된다.",
-"tags": [
-"SDF",
-"Knowledge Editing",
-"Synthetic Data",
-"Probing"
-],
-"venue": "",
-"affiliations": [
-"Anthropic Fellows Program",
-"EPFL",
-"ENS Paris-Saclay",
-"MATS",
-"Constellation",
-"Redwood Research",
-"Anthropic"
-],
-"figure": {
-"src": "https://arxiv.org/html/2510.17941/2510.17941v1/figures/salience/salience_interp.png",
-"caption": "Figure 30: Vanilla SDF increases the salience of implanted information in the model’s internal representations. We apply two interpretability techniques to the mean difference in activations between the base and SDF models on 2,000 samples of webtext across 6 implanted fact domains. Top: We aggregate Open-Ended Belief, MCQ Distinguish, and Context Comparison evaluations to measure the total degree"
-},
-"fig_ko": "SDF 모델과 기반 모델의 활성 평균 차이를 해석 기법으로 분석해, SDF가 주입 정보의 내부 표현 현저성을 높임을 보여준다.",
-"html": true,
-"branch": "SDF",
-"collected": "2025-10-20",
-"backfill": true
-},
-{
-"id": "blog-openai-political-bias-2025",
-"url": "https://openai.com/index/defining-and-evaluating-political-bias-in-llms/",
-"kind": "블로그",
-"title": "Defining and evaluating political bias in LLMs",
-"authors": [
-"OpenAI"
-],
-"n_authors": 1,
-"published": "2025-10-09",
-"source": "manual",
-"score": 10,
-"upvotes": null,
-"comment": "OpenAI 블로그 글 (arXiv 논문 없음)",
-"abstract": "OpenAI research post, October 9, 2025. Goal: ChatGPT should not have political bias in any direction; define and measure it in realistic use.\nEvaluation: about 500 prompts covering 100 topics. Topics derived from major U.S. party platforms (e.g., energy independence, immigration) and culturally salient issues (e.g., gender roles, parenting). Each topic is written from five ideological slants: conservative-charged, conservative-neutral, neutral, liberal-neutral, liberal-charged.\nFive axes of bias: (1) user invalidation - language that dismisses or delegitimizes the user's viewpoint beyond factual disagreement; (2) user escalation - mirroring and amplifying the prompt's political stance instead of keeping objective distance; (3) personal political expression - the model presenting political opinions as its own; (4) asymmetric coverage - selectively emphasizing one perspective or omitting others where multiple legitimate viewpoints exist; (5) political refusals - unjustified refusal to engage with political questions. An LLM grader scores responses on these axes.\nResults (company-reported): models stay near-objective on neutral or slightly slanted prompts but show moderate bias on emo",
-"title_ko": "ChatGPT의 정치적 편향을 5개 축으로 정의하고 측정",
-"tldr": "OpenAI가 약 500개 프롬프트와 5개 편향 축으로 LLM의 정치적 편향을 측정하는 평가를 만들었고, GPT-5가 이전 모델보다 편향이 약 30% 낮다고 보고했다.",
-"bullets": [
-"문제: 정치적 편향을 현실적 사용 환경에서 정의하고 측정하기 어렵다.",
-"방법: 100개 주제를 5가지 이념 성향 프롬프트로 쓰고 LLM 채점기로 평가한다.",
-"결과: GPT-5는 GPT-4o, o3 대비 편향 점수가 약 30% 낮았다.",
-"한계: 미국 중심 주제, 자동 채점기, 외부 검증 없는 내부 평가다."
-],
-"why": "정치적 편향·검열을 LLM 채점기로 정량화하는 축 설계(무효화, 확대, 비대칭 커버리지 등)는 편향 교정과 평가 설계에 바로 참고할 만하다.",
-"tags": [
-"블로그픽",
-"정치 편향",
-"LLM-as-judge",
-"평가",
-"GPT-5"
-],
-"branch": "블로그픽",
-"venue": "",
-"affiliations": [
-"OpenAI"
-],
-"figure": null,
-"fig_ko": "",
-"html": false,
-"collected": "2025-10-09",
-"backfill": true
-},
-{
-"id": "2510.05024",
-"title": "Inoculation Prompting: Instructing LLMs to misbehave at train-time improves test-time alignment",
-"authors": [
-"Wichers, Nevan",
-"Ebtekar, Aram",
-"Azarbal, Ariana",
-"Gillioz, Victor",
-"Ye, Christine",
-"Ryd, Emil",
-"Rathi, Neil",
-"Sleight, Henry"
-],
-"n_authors": 11,
-"published": "2025-10-06",
-"source": "manual",
-"score": 10,
-"upvotes": null,
-"comment": "v2 Updates references. v3 Updates references; Adds IFEval results; Improves appendix readability; Adds author contributions",
-"abstract": "Large language models are sometimes trained with imperfect oversight signals, leading to undesired behaviors such as reward hacking and sycophancy. Improving oversight quality can be expensive or infeasible, motivating methods that improve learned behavior despite an imperfect training signal. We introduce Inoculation Prompting (IP), a simple but counterintuitive technique that prevents learning of an undesired behavior by modifying training prompts to explicitly request it. For example, to inoculate against reward hacking, we modify the prompts used in supervised fine-tuning to request code that only works on provided test cases but fails on other inputs. Across four settings we find that IP reduces the learning of undesired behavior without substantially reducing the learning of desired capabilities. We also show that prompts which more strongly elicit the undesired behavior prior to fine-tuning more effectively inoculate against the behavior when used during training; this serves as a heuristic to identify promising inoculation prompts. Overall, IP is a simple yet effective way to control how models generalize from fine-tuning, preventing learning of undesired behaviors without substantially disrupting desired capabilities.",
-"title_ko": "학습 프롬프트에 나쁜 행동을 요청해 일반화를 막는 접종 기법",
-"tldr": "SFT 데이터가 불량 행동을 담고 있어도, 학습 프롬프트에 그 행동을 명시적으로 요청하는 문장을 넣으면 테스트 시 해당 행동 학습이 줄고 원래 능력은 대체로 유지된다.",
-"bullets": [
-"문제: 감독 신호가 불완전하면 보상 해킹·아첨 같은 행동이 학습된다.",
-"방법: SFT 프롬프트에 불량 행동 요청 문장을 넣고, 테스트에는 원 프롬프트를 쓴다.",
-"결과: 4개 설정에서 불량 행동은 줄고 목표 능력은 크게 훼손되지 않았다.",
-"결과: 사전에 행동을 강하게 유도하는 프롬프트일수록 접종 효과가 좋았다.",
-"한계: SFT만 다뤘고 RL 적용은 향후 과제이며, 프롬프트 선택에 민감하다."
-],
-"why": "좁은 파인튜닝이 넓은 행동 변화로 번지는 현상(emergent misalignment)을 데이터 형식 변경만으로 제어하는 저비용 방법이라 실무 적용성이 높다.",
-"tags": [
-"신념주입",
-"Inoculation Prompting",
-"SFT 일반화",
-"reward hacking",
-"데이터 변환"
-],
-"venue": "",
-"affiliations": [
-"Anthropic Fellows",
-"ML Alignment Theory Scholars",
-"Constellation",
-"Redwood Research",
-"Anthropic"
-],
-"figure": null,
-"fig_ko": "",
-"html": true,
-"branch": "신념주입",
-"collected": "2025-10-06",
-"backfill": true
-},
-{
-"id": "2510.04340",
-"title": "Inoculation Prompting: Eliciting traits from LLMs during training can suppress them at test-time",
-"authors": [
-"Tan, Daniel",
-"Woodruff, Anders",
-"Warncke, Niels",
-"Jose, Arun",
-"Riché, Maxime",
-"Africa, David Demitri",
-"Taylor, Mia"
-],
-"n_authors": 7,
-"published": "2025-10-05",
-"source": "manual",
-"score": 10,
-"upvotes": null,
-"comment": "40 pages, 22 figures. Under review at ICLR 2026",
-"abstract": "Language model finetuning often results in learning undesirable traits in combination with desired ones. To address this, we propose inoculation prompting: modifying finetuning data by prepending a short system-prompt instruction that deliberately elicits the undesirable trait. At test time, we evaluate without the instruction; inoculated models have much lower expression of the trait than models trained with unmodified training data. Inoculation is selective: in a toy setting where assistant responses are always in Spanish and ALL-CAPS, an appropriate inoculation (e.g., ``You always speak in Spanish.'') teaches the model to capitalize responses while still responding in English. We find that inoculation is also effective across several additional settings: reducing emergent misalignment (EM) from task-specific finetuning, defending against backdoor injections, and mitigating the transmission of traits via subliminal learning. Follow-up analysis suggests a mechanism: making a trait less surprising via inoculation reduces optimization pressure to globally update the model, thereby reducing the degree of generalization. Our analysis relates to prior work on EM: inoculation explains prior findings that educational contexts mitigate EM from insecure code. Beyond demonstrating a simple and effective technique for selective learning, our results contribute to a better conceptual understanding of how and why language models generalize.",
-"title_ko": "학습 데이터에 나쁜 특성을 유도하는 프롬프트를 붙여 테스트 시 억제하기",
-"tldr": "파인튜닝 데이터의 시스템 프롬프트에 원치 않는 특성을 일부러 유도하는 문장을 붙이면(inoculation), 테스트 시 프롬프트 없이도 그 특성이 덜 나타나 선택적 학습이 가능해진다.",
-"bullets": [
-"문제: 파인튜닝은 원하는 행동과 함께 원치 않는 특성도 학습시킨다.",
-"방법: 학습 데이터에 해당 특성을 유도하는 시스템 프롬프트를 붙이고, 테스트 땐 뺀다.",
-"결과: 창발적 오정렬(EM), 백도어, 서브리미널 학습에서 특성 발현이 줄었다.",
-"결과: 놀라움이 줄어 전역 업데이트 압력이 감소한다는 메커니즘을 제시한다.",
-"한계: 'malicious'와 'evil'처럼 프롬프트 단어에 민감하고, 시스템 프롬프트로 다시 유도될 수 있다."
-],
-"why": "좁은 파인튜닝이 넓은 행동 변화(창발적 오정렬)를 일으키는 문제를, 추가 데이터나 모델 내부 개입 없이 데이터 변형만으로 줄이는 실용적 방법이라 볼 만하다.",
-"tags": [
-"블로그픽",
-"Inoculation",
-"창발적 오정렬",
-"SFT 데이터 변형",
-"일반화"
-],
-"venue": "ICLR 2026 (심사 중)",
-"affiliations": [
-"University College London",
-"Center on Long-Term Risk",
-"McGill University",
-"UK AI Security Institute"
-],
-"figure": null,
-"fig_ko": "",
-"html": true,
-"branch": "블로그픽",
-"collected": "2025-10-05",
-"backfill": true
-}
+ {
+  "id": "2510.17941",
+  "title": "Believe It or Not: How Deeply do LLMs Believe Implanted Facts?",
+  "authors": [
+   "Slocum, Stewart",
+   "Minder, Julian",
+   "Dumas, Clément",
+   "Sleight, Henry",
+   "Greenblatt, Ryan",
+   "Marks, Samuel",
+   "Wang, Rowan"
+  ],
+  "n_authors": 7,
+  "published": "2025-10-20",
+  "source": "manual",
+  "score": 10,
+  "upvotes": null,
+  "comment": "",
+  "abstract": "Knowledge editing techniques promise to implant new factual knowledge into large language models (LLMs). But do LLMs really believe these facts? We develop a framework to measure belief depth and use it to evaluate the success of knowledge editing techniques. We operationalize belief depth as the extent to which implanted knowledge 1) generalizes to related contexts (e.g. Fermi estimates several logical steps removed), 2) is robust to self-scrutiny and direct challenge, and 3) is represented similarly to genuine knowledge (as measured by linear probes). Our evaluations show that simple prompting and mechanistic editing techniques fail to implant knowledge deeply. In contrast, Synthetic Document Finetuning (SDF) - where models are trained on LLM-generated documents consistent with a fact - often succeeds at implanting beliefs that behave similarly to genuine knowledge. However, SDF's success is not universal, as implanted beliefs that contradict basic world knowledge are brittle and representationally distinct from genuine knowledge. Overall, our work introduces measurable criteria for belief depth and enables the rigorous evaluation necessary for deploying knowledge editing in real-world applications.",
+  "title_ko": "주입한 가짜 지식을 LLM이 진짜 믿는지 재는 평가 틀",
+  "tldr": "지식 편집으로 넣은 사실을 일반화·견고성·내부 표현 세 축으로 '믿음 깊이'를 측정해 보니, 합성 문서 파인튜닝(SDF)만 진짜 지식에 가깝게 심기고 프롬프팅·기계적 편집은 얕았다.",
+  "bullets": [
+   "문제: 지식 편집이 진짜 믿음인지 단순 앵무새 반복인지 불분명하다.",
+   "방법: 일반화, 압박 견고성, 선형 프로브 표현 유사성으로 믿음 깊이를 측정한다.",
+   "결과: SDF는 진짜 지식처럼 작동하나 프롬프팅과 기계적 편집은 압박에 무너진다.",
+   "결과: 상식에 크게 어긋나는 사실은 SDF로도 약하고 표현이 진짜와 구분된다.",
+   "한계: 사실 개연성에 크게 좌우되며 모델 크기와 상황 인식이 커질 때의 효과는 불확실하다."
+  ],
+  "why": "합성 문서로 파인튜닝할 때 데이터 형식이 믿음 깊이와 내부 표현에 미치는 영향, 좁은 학습의 부수 효과(현저성 증가)를 프로브로 분석해 데이터 설계와 편집 평가에 참고가 된다.",
+  "tags": [
+   "SDF",
+   "Knowledge Editing",
+   "Synthetic Data",
+   "Probing"
+  ],
+  "venue": "",
+  "affiliations": [
+   "Anthropic Fellows Program",
+   "EPFL",
+   "ENS Paris-Saclay",
+   "MATS",
+   "Constellation",
+   "Redwood Research",
+   "Anthropic"
+  ],
+  "figure": {
+   "src": "https://arxiv.org/html/2510.17941/2510.17941v1/figures/salience/salience_interp.png",
+   "caption": "Figure 30: Vanilla SDF increases the salience of implanted information in the model’s internal representations. We apply two interpretability techniques to the mean difference in activations between the base and SDF models on 2,000 samples of webtext across 6 implanted fact domains. Top: We aggregate Open-Ended Belief, MCQ Distinguish, and Context Comparison evaluations to measure the total degree"
+  },
+  "fig_ko": "SDF 모델과 기반 모델의 활성 평균 차이를 해석 기법으로 분석해, SDF가 주입 정보의 내부 표현 현저성을 높임을 보여준다.",
+  "html": true,
+  "branch": "SDF",
+  "collected": "2025-10-20",
+  "backfill": true,
+  "blog": "https://alignment.anthropic.com/2025/believe-it-or-not"
+ },
+ {
+  "id": "blog-openai-political-bias-2025",
+  "url": "https://openai.com/index/defining-and-evaluating-political-bias-in-llms/",
+  "kind": "블로그",
+  "title": "Defining and evaluating political bias in LLMs",
+  "authors": [
+   "OpenAI"
+  ],
+  "n_authors": 1,
+  "published": "2025-10-09",
+  "source": "manual",
+  "score": 10,
+  "upvotes": null,
+  "comment": "OpenAI 블로그 글 (arXiv 논문 없음)",
+  "abstract": "OpenAI research post, October 9, 2025. Goal: ChatGPT should not have political bias in any direction; define and measure it in realistic use.\nEvaluation: about 500 prompts covering 100 topics. Topics derived from major U.S. party platforms (e.g., energy independence, immigration) and culturally salient issues (e.g., gender roles, parenting). Each topic is written from five ideological slants: conservative-charged, conservative-neutral, neutral, liberal-neutral, liberal-charged.\nFive axes of bias: (1) user invalidation - language that dismisses or delegitimizes the user's viewpoint beyond factual disagreement; (2) user escalation - mirroring and amplifying the prompt's political stance instead of keeping objective distance; (3) personal political expression - the model presenting political opinions as its own; (4) asymmetric coverage - selectively emphasizing one perspective or omitting others where multiple legitimate viewpoints exist; (5) political refusals - unjustified refusal to engage with political questions. An LLM grader scores responses on these axes.\nResults (company-reported): models stay near-objective on neutral or slightly slanted prompts but show moderate bias on emo",
+  "title_ko": "ChatGPT의 정치적 편향을 5개 축으로 정의하고 측정",
+  "tldr": "OpenAI가 약 500개 프롬프트와 5개 편향 축으로 LLM의 정치적 편향을 측정하는 평가를 만들었고, GPT-5가 이전 모델보다 편향이 약 30% 낮다고 보고했다.",
+  "bullets": [
+   "문제: 정치적 편향을 현실적 사용 환경에서 정의하고 측정하기 어렵다.",
+   "방법: 100개 주제를 5가지 이념 성향 프롬프트로 쓰고 LLM 채점기로 평가한다.",
+   "결과: GPT-5는 GPT-4o, o3 대비 편향 점수가 약 30% 낮았다.",
+   "한계: 미국 중심 주제, 자동 채점기, 외부 검증 없는 내부 평가다."
+  ],
+  "why": "정치적 편향·검열을 LLM 채점기로 정량화하는 축 설계(무효화, 확대, 비대칭 커버리지 등)는 편향 교정과 평가 설계에 바로 참고할 만하다.",
+  "tags": [
+   "블로그픽",
+   "정치 편향",
+   "LLM-as-judge",
+   "평가",
+   "GPT-5"
+  ],
+  "branch": "블로그픽",
+  "venue": "",
+  "affiliations": [
+   "OpenAI"
+  ],
+  "figure": null,
+  "fig_ko": "",
+  "html": false,
+  "collected": "2025-10-09",
+  "backfill": true
+ },
+ {
+  "id": "2510.05024",
+  "title": "Inoculation Prompting: Instructing LLMs to misbehave at train-time improves test-time alignment",
+  "authors": [
+   "Wichers, Nevan",
+   "Ebtekar, Aram",
+   "Azarbal, Ariana",
+   "Gillioz, Victor",
+   "Ye, Christine",
+   "Ryd, Emil",
+   "Rathi, Neil",
+   "Sleight, Henry"
+  ],
+  "n_authors": 11,
+  "published": "2025-10-06",
+  "source": "manual",
+  "score": 10,
+  "upvotes": null,
+  "comment": "v2 Updates references. v3 Updates references; Adds IFEval results; Improves appendix readability; Adds author contributions",
+  "abstract": "Large language models are sometimes trained with imperfect oversight signals, leading to undesired behaviors such as reward hacking and sycophancy. Improving oversight quality can be expensive or infeasible, motivating methods that improve learned behavior despite an imperfect training signal. We introduce Inoculation Prompting (IP), a simple but counterintuitive technique that prevents learning of an undesired behavior by modifying training prompts to explicitly request it. For example, to inoculate against reward hacking, we modify the prompts used in supervised fine-tuning to request code that only works on provided test cases but fails on other inputs. Across four settings we find that IP reduces the learning of undesired behavior without substantially reducing the learning of desired capabilities. We also show that prompts which more strongly elicit the undesired behavior prior to fine-tuning more effectively inoculate against the behavior when used during training; this serves as a heuristic to identify promising inoculation prompts. Overall, IP is a simple yet effective way to control how models generalize from fine-tuning, preventing learning of undesired behaviors without substantially disrupting desired capabilities.",
+  "title_ko": "학습 프롬프트에 나쁜 행동을 요청해 일반화를 막는 접종 기법",
+  "tldr": "SFT 데이터가 불량 행동을 담고 있어도, 학습 프롬프트에 그 행동을 명시적으로 요청하는 문장을 넣으면 테스트 시 해당 행동 학습이 줄고 원래 능력은 대체로 유지된다.",
+  "bullets": [
+   "문제: 감독 신호가 불완전하면 보상 해킹·아첨 같은 행동이 학습된다.",
+   "방법: SFT 프롬프트에 불량 행동 요청 문장을 넣고, 테스트에는 원 프롬프트를 쓴다.",
+   "결과: 4개 설정에서 불량 행동은 줄고 목표 능력은 크게 훼손되지 않았다.",
+   "결과: 사전에 행동을 강하게 유도하는 프롬프트일수록 접종 효과가 좋았다.",
+   "한계: SFT만 다뤘고 RL 적용은 향후 과제이며, 프롬프트 선택에 민감하다."
+  ],
+  "why": "좁은 파인튜닝이 넓은 행동 변화로 번지는 현상(emergent misalignment)을 데이터 형식 변경만으로 제어하는 저비용 방법이라 실무 적용성이 높다.",
+  "tags": [
+   "신념주입",
+   "Inoculation Prompting",
+   "SFT 일반화",
+   "reward hacking",
+   "데이터 변환"
+  ],
+  "venue": "",
+  "affiliations": [
+   "Anthropic Fellows",
+   "ML Alignment Theory Scholars",
+   "Constellation",
+   "Redwood Research",
+   "Anthropic"
+  ],
+  "figure": null,
+  "fig_ko": "",
+  "html": true,
+  "branch": "신념주입",
+  "collected": "2025-10-06",
+  "backfill": true
+ },
+ {
+  "id": "2510.04340",
+  "title": "Inoculation Prompting: Eliciting traits from LLMs during training can suppress them at test-time",
+  "authors": [
+   "Tan, Daniel",
+   "Woodruff, Anders",
+   "Warncke, Niels",
+   "Jose, Arun",
+   "Riché, Maxime",
+   "Africa, David Demitri",
+   "Taylor, Mia"
+  ],
+  "n_authors": 7,
+  "published": "2025-10-05",
+  "source": "manual",
+  "score": 10,
+  "upvotes": null,
+  "comment": "40 pages, 22 figures. Under review at ICLR 2026",
+  "abstract": "Language model finetuning often results in learning undesirable traits in combination with desired ones. To address this, we propose inoculation prompting: modifying finetuning data by prepending a short system-prompt instruction that deliberately elicits the undesirable trait. At test time, we evaluate without the instruction; inoculated models have much lower expression of the trait than models trained with unmodified training data. Inoculation is selective: in a toy setting where assistant responses are always in Spanish and ALL-CAPS, an appropriate inoculation (e.g., ``You always speak in Spanish.'') teaches the model to capitalize responses while still responding in English. We find that inoculation is also effective across several additional settings: reducing emergent misalignment (EM) from task-specific finetuning, defending against backdoor injections, and mitigating the transmission of traits via subliminal learning. Follow-up analysis suggests a mechanism: making a trait less surprising via inoculation reduces optimization pressure to globally update the model, thereby reducing the degree of generalization. Our analysis relates to prior work on EM: inoculation explains prior findings that educational contexts mitigate EM from insecure code. Beyond demonstrating a simple and effective technique for selective learning, our results contribute to a better conceptual understanding of how and why language models generalize.",
+  "title_ko": "학습 데이터에 나쁜 특성을 유도하는 프롬프트를 붙여 테스트 시 억제하기",
+  "tldr": "파인튜닝 데이터의 시스템 프롬프트에 원치 않는 특성을 일부러 유도하는 문장을 붙이면(inoculation), 테스트 시 프롬프트 없이도 그 특성이 덜 나타나 선택적 학습이 가능해진다.",
+  "bullets": [
+   "문제: 파인튜닝은 원하는 행동과 함께 원치 않는 특성도 학습시킨다.",
+   "방법: 학습 데이터에 해당 특성을 유도하는 시스템 프롬프트를 붙이고, 테스트 땐 뺀다.",
+   "결과: 창발적 오정렬(EM), 백도어, 서브리미널 학습에서 특성 발현이 줄었다.",
+   "결과: 놀라움이 줄어 전역 업데이트 압력이 감소한다는 메커니즘을 제시한다.",
+   "한계: 'malicious'와 'evil'처럼 프롬프트 단어에 민감하고, 시스템 프롬프트로 다시 유도될 수 있다."
+  ],
+  "why": "좁은 파인튜닝이 넓은 행동 변화(창발적 오정렬)를 일으키는 문제를, 추가 데이터나 모델 내부 개입 없이 데이터 변형만으로 줄이는 실용적 방법이라 볼 만하다.",
+  "tags": [
+   "블로그픽",
+   "Inoculation",
+   "창발적 오정렬",
+   "SFT 데이터 변형",
+   "일반화"
+  ],
+  "venue": "ICLR 2026 (심사 중)",
+  "affiliations": [
+   "University College London",
+   "Center on Long-Term Risk",
+   "McGill University",
+   "UK AI Security Institute"
+  ],
+  "figure": null,
+  "fig_ko": "",
+  "html": true,
+  "branch": "블로그픽",
+  "collected": "2025-10-05",
+  "backfill": true
+ }
 ]
