@@ -1,5 +1,290 @@
 [
 {
+"id": "2610.30363",
+"title": "Probing and Steering for Safety-Relevant Behaviours in Large Language Models",
+"authors": [
+"Nimun Bajwa",
+"Massimo Poesio"
+],
+"n_authors": 2,
+"published": "2026-10-23",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "20 pages, 26 figures, 11 tables. Code, data and interactive interface: this https URL",
+"abstract": "Activation probes are computed directions in a language model's residual stream, used both to detect safety-relevant behaviours and, by adding their direction back into the stream, to steer them. We explore how the main design choices behind such probes interact, within one pipeline, on one model (Llama-3.1-8B-Instruct), and across three behaviours: deception, high-stakes awareness and sycophancy. The pipeline crosses two estimators (difference-of-means and logistic regression) with three token-pooling schemes (last, mean and learned attention), selects appropriate layers to detect or steer a behaviour, and evaluates every direction twice: as a detector of the behaviour, and as a steering vector to push outputs towards the behaviour. Prior work read together suggests a read/write dissociation, in which logistic regression reads (detects) best but difference-of-means directions write (steer) best. We find that it holds for deception and high-stakes but not for sycophancy, where the pattern reverses. The reversal appears to follow partially from the data rather than from the estimators. The best pooling technique and the layer choice depend on the behaviour and data, and the layer that steers best can sit well before the layer that detects best. The right steering metric to use between changing a model's perception and eliciting behaviour depends on the task - and the two can disagree outright. The exported probes and directions power an interactive interface through which a user can score and steer text directly.",
+"title_ko": "안전 관련 행동의 탐지·조향용 활성 프로브 설계 비교",
+"tldr": "Llama-3.1-8B에서 추정기·풀링·층 선택을 한 파이프라인으로 비교해, 탐지가 잘 되는 방향과 조향이 잘 되는 방향이 행동에 따라 다름을 보인다.",
+"bullets": [
+"문제: 프로브가 탐지와 조향 양쪽에서 좋은지 설계 선택별로 비교된 적이 적다.",
+"방법: 2개 추정기×3개 풀링을 기만·고위험 인식·아첨 3행동에 적용해 탐지·조향을 모두 평가했다.",
+"결과: 로지스틱이 읽기, 평균차가 쓰기에 좋다는 통설은 기만·고위험에서만 성립하고 아첨에선 뒤집혔다.",
+"결과: 최적 풀링과 층은 행동·데이터에 따라 다르고, 조향 최적 층이 탐지 최적 층보다 앞설 수 있다.",
+"한계: 단일 8B 모델, 미검증 단일 LLM 판정자, 마지막 토큰 방향은 조향하지 않았다."
+],
+"why": "활성 기반 탐지·조향 벡터와 아첨 같은 행동 교정을 다루는 연구자에게 방향 추정 방식과 층 선택의 실무적 주의점을 알려 준다.",
+"tags": [
+"probing",
+"steering",
+"sycophancy",
+"안전성"
+],
+"venue": "",
+"affiliations": [
+"Queen Mary University of London"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.30363/2610.30363v1/figures/detection_ood.png",
+"caption": "Fig. 4: Out-of-distribution detection: AUROC with bootstrap 95% confidence intervals for the five probes on each held-out evaluation set."
+},
+"fig_ko": "탐지 성능(AUROC)을 5개 프로브가 분포 밖 평가 세트별로 어떻게 달성하는지 신뢰구간과 함께 보여준다.",
+"html": true,
+"collected": "2026-10-23",
+"backfill": false
+},
+{
+"id": "2610.30191",
+"title": "Why Constrained Updates Still Forget: A Functional-Path Analysis of Continual SFT",
+"authors": [
+"Qingsen Ma",
+"Dianyun Wang",
+"Jiahong Liu",
+"Irwin King"
+],
+"n_authors": 4,
+"published": "2026-10-23",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Supervised fine-tuning adapts language models to specialized tasks but can disrupt previously acquired behavior. Existing approaches constrain parameters, gradients, or replay objectives, yet the connection between the protected object, the intervening trajectory, and retained outputs remains unclear. We develop a functional-path account that decomposes old-loss changes along realized updates into the controlled direction, gradient staleness, probe mismatch, and finite-step effects. The account yields a conditional refresh budget and identifies the restoring direction supplied by informative replay. Matched QLoRA interventions separate constraint granularity from placement before or after Adam: placement strongly affects retention across the studied code-label audits, whereas the granularity interaction depends on the endpoint. Checkpointed generation separates endpoint recovery from higher sampled-path accuracy, and matched replay schedules reveal loss exposure concealed by final scores. A sequential-task comparison extends this distinction to backward transfer: subspace regularization and projection improve average retention while trading off different old tasks; supervised replay protects both more consistently in this setting. Additional response interfaces distinguish content gains from exact-response retention. These findings connect update-level protection to task-wise behavior and motivate mitigation through explicit functional anchors, trajectory evaluation, and joint old/new auditing.",
+"title_ko": "연속 SFT에서 제약된 업데이트도 망각하는 이유를 기능 경로로 분석",
+"tldr": "기울기 제약을 만족해도 실제 업데이트 경로에서 기존 손실이 커져 망각이 생기며, 정보량 있는 리플레이(옛 데이터 재학습)가 가장 일관되게 막아준다는 분석이다.",
+"bullets": [
+"문제: 업데이트 제약을 지켜도 SFT 후 기존 정답 응답이 대량 소실된다.",
+"방법: 기존 손실 변화를 제약항·기울기 낡음·프로브 불일치·유한 스텝 항으로 분해한다.",
+"결과: Adam 전후 제약 위치가 보존에 큰 영향을 주고, 지도 리플레이가 더 일관되게 보호한다.",
+"결과: 최종 점수가 같아도 학습 중 손실 노출이 숨어 있어 궤적 평가가 필요하다.",
+"한계: 코드 라벨 중심의 QLoRA 소규모 설정이라 일반화 범위가 제한적이다."
+],
+"why": "파인튜닝 시 기존 능력 보존과 부작용 최소화를 다루는 연구자에게, 제약 기반 방법의 한계와 리플레이·신구 과제 동시 감사의 근거를 준다.",
+"tags": [
+"continual SFT",
+"망각",
+"replay",
+"QLoRA"
+],
+"venue": "",
+"affiliations": [
+"The Chinese University of Hong Kong",
+"Beijing University of Posts and Telecommunications"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.30191/2610.30191v1/figures/functional_path_overview.png",
+"caption": "Figure 1: From local feasibility to functional retention. (a) A same-probe quadratic ( L = Q ) has h ⊤ ​ u t = 0 but increasing old loss. (b) Realized loss change decomposes into four terms (Proposition 1 ); the halfspace controls only the cached term. Orange terms have unrestricted signs. (c) Loss paths and generated behavior need separate audits. Appendix A supplies the quadratic and a cross-ent"
+},
+"fig_ko": "같은 프로브에서 제약이 만족돼도 기존 손실이 증가할 수 있음과, 손실 변화가 네 항으로 분해됨을 보여준다.",
+"html": true,
+"collected": "2026-10-23",
+"backfill": false
+},
+{
+"id": "2610.30421",
+"title": "High-Value Training Data from Noisy, Diverse Sources",
+"authors": [
+"Hedi Driss",
+"Evan Frick",
+"Anastasios N. Angelopoulos",
+"Cho-Jui Hsieh",
+"Yejin Huh",
+"Tijana Zrnic",
+"Andrew Ilyas"
+],
+"n_authors": 7,
+"published": "2026-10-23",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Training state-of-the-art models increasingly requires learning from large, heterogeneous datasets whose examples vary in quality, domain relevance, and source of supervision. Dataweighting---assigning different weights to training examples---offers a general way to control how such data influences training, but learning effective weights at scale remains challenging. We develop a scalable approach to learning dataweights: given a small, high-quality target dataset, we use metagradients through the training process to efficiently optimize training-example weights directly for performance on the target domain. To scale beyond a fixed dataset and model, we learn parametric weighting rules that generalize to new and streaming examples and transfer from smaller models to substantially larger ones. We study reward modeling as a prototypical application, where preference data may be noisy, adversarial, synthetic, or mismatched with the target domain. Learned dataweights improve held-out performance, automatically adapt reward models to specialized domains, and allow mixtures of human and synthetic supervision to outperform either source alone.",
+"title_ko": "메타그래디언트로 노이즈 섞인 학습데이터의 가중치를 학습",
+"tldr": "소량의 고품질 타깃 데이터로 메타그래디언트를 통해 샘플별 가중치를 학습하고, 이를 파라미터화해 새 데이터와 더 큰 모델로 전이시켜 보상모델 성능을 높인다.",
+"bullets": [
+"문제: 품질·도메인·라벨 출처가 제각각인 데이터를 어떻게 섞어 쓸지 어렵다.",
+"방법: 타깃 성능을 직접 최적화하도록 메타그래디언트로 샘플 가중치를 학습한다.",
+"방법: 가중치 규칙을 파라미터화해 새 샘플과 더 큰 모델로 전이한다.",
+"결과: 봇·노이즈 데이터를 자동 하향하고 STEM 등 특정 도메인에 맞게 보상모델을 적응시킨다.",
+"결과: 사람+합성 라벨 혼합이 각각 단독 사용보다 좋은 성능을 낸다.",
+"한계: 보상모델 중심 실험이며, 고품질 타깃셋이 필요하고 메타그래디언트 비용이 든다."
+],
+"why": "SFT·선호 튜닝에서 데이터 선택·혼합·합성 데이터 필터링을 휴리스틱 대신 타깃 성능 기반으로 자동화하는 방법이라 데이터 큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"데이터 가중치",
+"메타그래디언트",
+"보상모델",
+"합성데이터"
+],
+"venue": "",
+"affiliations": [
+"Hiddenweights",
+"Arena",
+"UCLA",
+"Stanford University",
+"CMU"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.30421/2610.30421v1/Dataweights_Distribution_Evolution_Human-30k_Poisoned_with_Bot-10k_z_evolution.png",
+"caption": "Figure 12 : Dataweighting automatically separates bot and human data. Here, we visualize a KDE ridge plot of the learned dataweight distribution for human and bot data points throughout the dataweight learning procedure. Each horizontal ridge shows a kernel density estimate of the dataweights at one checkpoint. Bot data points decrease in weight over time."
+},
+"fig_ko": "봇 데이터와 사람 데이터의 학습된 가중치 분포가 학습이 진행되며 자동으로 분리되는 모습을 보여준다.",
+"html": true,
+"collected": "2026-10-23",
+"backfill": false
+},
+{
+"id": "2610.30442",
+"title": "Towards Faithful Data Selection: Statistical Limits and Scalable Algorithms",
+"authors": [
+"Ahmed Mehdi Inane",
+"Mahdi Haghifam",
+"Gintare Karolina Dziugaite",
+"Ioannis Mitliagkas"
+],
+"n_authors": 4,
+"published": "2026-10-23",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "",
+"abstract": "What does it mean to have an optimal data selection algorithm? Optimality is conventionally framed as finding a subset that minimizes the population error of the classifier trained only on that subset. Our starting point in this work is first to show that this goal is information-theoretically impossible unless the data selection algorithm has access to a validation set order-wise larger than the training set. This impossibility result motivates shifting from unverifiable population risk minimization to a one-sided guarantee that we refer to as faithfulness: for any candidate subset, we provide an estimable proxy that upper-bounds the difference between training on the full training data and on only the subset. We model training with the Unadjusted Langevin Algorithm and bound the Kullback--Leibler divergence between subset-trained and full-data-trained parameter distributions by the trajectory-accumulated gradient discrepancy. Minimizing this discrepancy gives a principled way to select a subset. Even though the resulting problem is NP-hard, we propose a swap-based local search that decreases the bound at every accepted step. It can therefore refine the output of any selector without worsening its bound. Finally, we provide experimental results on CIFAR10 and CIFAR100 showing that it matches existing data selection baselines. Implementation of our algorithm and the code for reproducing the results are available at: https://github.com/Mehdi-Inane/data_selection_swap.",
+"title_ko": "데이터 선택의 통계적 한계와 충실성 기반 swap 알고리즘",
+"tldr": "검증셋이 훈련셋보다 훨씬 크지 않으면 최적 부분집합 선택이 불가능함을 보이고, 대신 전체 데이터 학습과의 차이를 상한하는 '충실성' 기준과 swap 기반 지역 탐색을 제안한다.",
+"bullets": [
+"문제: 모집단 오류를 최소화하는 최적 부분집합 선택이 가능한지 불분명했다.",
+"방법: ULA 학습 모델로 KL 발산을 궤적 기울기 차이로 상한하고 swap 탐색한다.",
+"결과: 검증셋이 훈련셋보다 훨씬 커야 한다는 불가능성 정리를 증명했다.",
+"결과: CIFAR10/100에서 기존 데이터 선택 기준선과 비슷한 정확도를 보였다.",
+"한계: 보장이 ULA와 한쪽 방향에 한정되고 SGD·Adam, 대규모 모델은 미검증이다."
+],
+"why": "SFT·선호 튜닝 데이터 선별에서 검증셋 기반 선택의 이론적 한계와 훈련 데이터만 쓰는 선택 기준을 이해하는 데 참고할 만하다.",
+"tags": [
+"데이터 선택",
+"coreset",
+"이론",
+"Langevin"
+],
+"venue": "",
+"affiliations": [
+"Université de Montréal",
+"Mila",
+"Toyota Technological Institute at Chicago",
+"Google DeepMind"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-23",
+"backfill": false
+},
+{
+"id": "2610.30934",
+"title": "Verbalizing Activation Differences with Natural Language Autoencoders",
+"authors": [
+"Andrea Blasi N\\'u\\~nez",
+"Gianluca Barmina",
+"Federico Torrielli",
+"Thiusius Rajeeth Savarimuthu",
+"Peter Schneider-Kamp",
+"Lukas Galke Poech"
+],
+"n_authors": 6,
+"published": "2026-10-23",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "Under Review",
+"abstract": "Activation verbalizers translate the internal representations of large language models into human-readable text. The recently proposed natural language autoencoders (NLAs) learn this by reconstructing activations through a natural language bottleneck. However, it remains unclear how well these methods generalize beyond the setting they were trained for. Here, we study this question for NLAs along four closely related questions: (i) Do NLA verbalizations exhibit compositional structure with respect to their input? (ii) Do NLAs generalize to finetuned versions of the model they were trained for? (iii) Can NLAs recover finetuning objectives in model diffing? (iv) Can NLAs be specialized for model diffing? Across four models from three families, our experiments provide evidence supporting a largely positive answer to all four questions. Specifically, verbalizations of composed analogy activations mostly name the target while rarely mentioning the subtracted word, and an NLA can be reused on lightweight finetunes of its original model without retraining, with reconstruction quality degrading noticeably only for the largest model. Verbalizing activation differences between Taboo model organisms and their original models recovers the concealed secret word for most organisms, and reinforcement learning on activation differences further improves this recovery on held-out organisms. We also find that NLAs can recover the finetuning objective without the finetuned model generating any token, since the most informative token positions precede the user prompt. NLAs do not yet match state-of-the-art model diffing methods on the emergent misalignment detection task, but outperform a blackbox baseline. Our findings suggest that NLAs can meaningfully verbalize differences in activation space, rendering NLAs a promising direction for future work.",
+"title_ko": "자연어 오토인코더로 모델 활성화 차이를 말로 풀어내기",
+"tldr": "활성화를 텍스트로 번역하는 NLA를 파인튜닝 전후 활성화 차이에 적용해, 숨겨진 파인튜닝 목표를 상당 부분 복원할 수 있음을 보인다.",
+"bullets": [
+"문제: NLA가 학습 환경 밖(파인튜닝 모델, 모델 diffing)에서도 통하는지 불분명하다.",
+"방법: 파인튜닝 모델과 원본의 활성화 차이를 NLA로 말로 풀고, 차이에 RL을 추가한다.",
+"결과: Taboo 모델 대부분에서 숨은 단어를 복원했고 RL로 미학습 모델에서도 개선됐다.",
+"결과: 가벼운 파인튜닝에는 재학습 없이 NLA가 재사용되며, 최대 모델만 복원 품질이 눈에 띄게 떨어졌다.",
+"한계: 창발적 오정렬 탐지는 최신 기법에 못 미치고, 목표 단어 매칭 평가에 의존한다."
+],
+"why": "좁은 파인튜닝이 모델 내부를 어떻게 바꾸는지, 창발적 오정렬 같은 부작용을 활성화 차이를 말로 풀어 감사할 수 있는지 볼 수 있는 연구이다.",
+"tags": [
+"model diffing",
+"NLA",
+"해석가능성",
+"emergent misalignment"
+],
+"venue": "",
+"affiliations": [
+"University of Southern Denmark"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.30934/2610.30934v1/heatmap_secret_grid_2col_swapped.png",
+"caption": "Figure 4: HR any on 𝒲 secret for each Taboo organism (columns) and token position (rows), per model. Organisms are sorted by their mean hit rate across all models and positions. Grey rows mark the positions which do not exist for Gemma."
+},
+"fig_ko": "Taboo 모델 organism별, 토큰 위치별로 비밀 단어가 활성화 차이 설명에 언급되는 비율(hit rate)을 모델마다 보여준다.",
+"html": true,
+"collected": "2026-10-23",
+"backfill": false
+},
+{
+"id": "2610.31438",
+"title": "DIAL: Steerable Language Models with Distilled Instruction-Adherence Levels",
+"authors": [
+"Thanh Q. Tran",
+"John Russell Himawan",
+"Arun Verma",
+"Kiwan Wong",
+"Wei Xiao",
+"Daniela Rus",
+"Bryan Kian Hsiang Low"
+],
+"n_authors": 7,
+"published": "2026-10-23",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "This paper introduces DIAL, a framework for fine-grained, efficient, and scalable control of LLM instruction adherence",
+"abstract": "When a user says \"Keep it short\", how short should the LLM's response be? More generally, users and applications require different levels of instruction adherence, but prompting does not reliably provide fine-grained control over them. We therefore study \"steerable language models\" that provide fine-grained numerical control over the degree to which models follow general instructions specified in text. However, existing approaches do not jointly offer fine-grained control, efficiency, and scalability across diverse instructions. To address this gap, we introduce DIAL (Distilled Instruction-Adherence Levels) to achieve all three properties. For fine-grained control, we perform classifier-free guidance (CFG) with a frozen LLM to provide training signals for on-policy distillation of instruction adherence at different levels. For efficiency, we design a lightweight steering adapter that uses a classifier over the LLM's hidden states to compute a closed-form steering edit. The classifier adaptively sets the steering magnitude at each token based on the target adherence level, while accounting for the geometry of the LLM's hidden states to preserve response coherence. For scalability, the classifier is text-conditioned, allowing a shared adapter to support new instructions without per-instruction fitting, and training requires only instruction and request text. Evaluation across multiple LLM families shows that DIAL achieves a competitive balance between concept expression and response fluency, with concept scores increasing monotonically across adherence levels. We introduce SteerIF, an instruction-only dataset of 98, 625 concept, persona, verifiable, and descriptive instructions. When trained on SteerIF, DIAL provides fine-grained control over personas and, when combined with prompting, improves verifiable instruction following.",
+"title_ko": "CFG 증류로 지시 따름 정도를 수치로 조절하는 어댑터",
+"tldr": "고정된 LLM에 CFG(분류기 없는 가이던스) 신호를 온폴리시로 증류해, 지시 준수 수준을 수치로 세밀하게 조절하는 가벼운 스티어링 어댑터 DIAL을 제안한다.",
+"bullets": [
+"문제: 프롬프트만으로는 지시 준수 정도를 세밀하게 조절하기 어렵다.",
+"방법: CFG를 교사로 온폴리시 증류해 텍스트 조건 분류기 어댑터를 학습한다.",
+"결과: 개념 점수가 준수 수준에 따라 단조 증가하고 유창성도 경쟁력 있다.",
+"결과: vLLM에서 기본 LLM 처리량의 96–99%를 유지한다.",
+"한계: 높은 준수 수준에서는 일관성이 떨어지고 일부 검증형 지시는 개선되지 않는다."
+],
+"why": "지시문만으로 학습하는 자기 증류와 은닉 상태 기반 스티어링을 결합해, 부작용을 줄이며 행동을 조절하는 방법을 보여주므로 참고할 만하다.",
+"tags": [
+"steering",
+"self-distillation",
+"CFG",
+"instruction-following"
+],
+"venue": "",
+"affiliations": [
+"National University of Singapore",
+"Singapore-MIT Alliance for Research and Technology Centre",
+"MIT CSAIL",
+"Nanyang Technological University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.31438/2610.31438v1/method_overview.png",
+"caption": "Figure 2 : D I A L ’s Training Pipeline. Given a request x and an instruction c , we sample adherence levels. CFG defines the teacher distributions on prefixes sampled from the student (on-policy), and the frozen LLM steered by D I A L defines the student distributions. D I A L ’s steering adapter is trained with a Jensen–Shannon divergence (JSD) loss across adherence levels."
+},
+"fig_ko": "요청과 지시에서 준수 수준을 샘플링하고, CFG 교사 분포를 DIAL이 스티어링한 학생 모델로 온폴리시 증류하는 학습 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-10-23",
+"backfill": false
+},
+{
 "id": "2610.28892",
 "title": "Combating Catastrophic Forgetting in Continual Domain Adaptation via Knowledge Recasting",
 "authors": [
