@@ -1,5 +1,186 @@
 [
 {
+"id": "2610.32501",
+"title": "DRIVE: Fine-tuning via Data Contribution- and Diversity-aware Weighting with Prior Regularization",
+"authors": [
+"Qing Liu",
+"Xinrui Chen",
+"Yi Du",
+"Ou Wu",
+"Weiyao Zhu"
+],
+"n_authors": 5,
+"published": "2026-10-26",
+"source": "arXiv",
+"score": 9.0,
+"upvotes": null,
+"comment": "Published in NeurIPS 2026. 39 pages, including references and appendices",
+"abstract": "Single-stage fine-tuning is pervasive, yet catastrophic forgetting persists when the source pre-training data is inaccessible. Data weighting affords a natural lever to modulate sample influence. Yet existing weighting methods lack a principled mechanism to explicitly arbitrate knowledge retention against new-task adaptation, and provide no unified differentiable objective to accommodate auxiliary signals such as sample diversity and sample characteristics. This is because current schemes privilege one goal over the other, and no explicit gradient-compatible encoding exists for such signals. To address this, we propose DRIVE, a principled and efficient weight assignment framework. It derives per-sample weights via a unified differentiable objective where three coupled signals co-evolve: Shapley additivity splits contribution into anti-forgetting and adaptation components, which are reshaped by a covariance-based diversity term and stabilized by a sample-characteristic prior. Far from a mere combination, this yields an end-to-end gradient-based scheme balancing stability against plasticity. Theoretically, we prove that DRIVE enjoys superior stability-plasticity guarantees over existing weighting schemes and enhances parameter estimation robustness. Empirically, it attains superior overall performance, faster convergence, and stronger robustness. Code at https://github.com/luciabcd/DRIVE.",
+"title_ko": "샘플 가중치로 파인튜닝 망각을 줄이는 DRIVE",
+"tldr": "DRIVE는 샘플별 기여도(망각 방지 vs 적응), 다양성, 사전 특성을 하나의 미분 가능한 목적함수로 묶어 샘플 가중치를 정해 파인튜닝의 안정성과 가소성을 균형 있게 맞춘다.",
+"bullets": [
+"문제: 사전학습 데이터 없이 파인튜닝하면 망각이 생기고 기존 가중치 방식은 둘을 균형 못 맞춤.",
+"방법: Shapley 가법성으로 기여도를 망각방지·적응으로 나누고 공분산 다양성과 사전 정규화를 결합.",
+"결과: 비전과 LLM 과제에서 전반 성능 향상, 빠른 수렴, 강건성을 보였다고 주장.",
+"한계: 이론은 선형·국소 비선형 영역만 보장하고 다양성 계산에 LLM 기준 약 17% 추가 비용."
+],
+"why": "사전학습 데이터 없이 파인튜닝 데이터에 가중치를 주어 망각을 줄이는 데이터 선택·믹싱 방법이라 SFT 데이터 큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"데이터 가중치",
+"망각",
+"SFT",
+"Shapley"
+],
+"venue": "NeurIPS 2026",
+"affiliations": [
+"Hangzhou Institute for Advanced Study, UCAS",
+"Tianjin University",
+"Computer Network Information Center, CAS"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.32501/2610.32501v1/DRIVE.png",
+"caption": "Figure 1 : Overview of DRIVE’s unified differentiable data weighting objective."
+},
+"fig_ko": "기여도, 다양성, 사전 특성을 하나의 미분 가능한 목적함수로 묶어 샘플 가중치를 구하는 DRIVE의 전체 구조를 보여준다.",
+"html": true,
+"collected": "2026-10-26",
+"backfill": false
+},
+{
+"id": "2610.32113",
+"title": "REACT: Representational Early Analysis and Control of Chain-of-Thought Trajectories",
+"authors": [
+"Hanwen Zhang",
+"Enyi Jiang",
+"Ruike Zhu",
+"Qinan Yu",
+"Sanmi Koyejo"
+],
+"n_authors": 5,
+"published": "2026-10-26",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "26 pages, 2 figures",
+"abstract": "Chain-of-thought (CoT) generation offers an opportunity to intervene before a reasoning model completes its answer. But does the point at which risk is easiest to detect also offer the most effective control? We study this question with REACT, a conditional activation intervention that learns a safety direction from paired safe and unsafe trajectories and applies it once to an early CoT hidden state. The model weights remain frozen, and all subsequent tokens are generated without further edits. To study timing, we train directions separately at each of the first five CoT positions and evaluate ungated edits with full post-edit regeneration. Across three distilled reasoning models and three generation seeds, the strongest gains concentrate in a two- to three-token early window; on DeepSeek-R1-Distill-Llama-8B, the effect falls to approximately zero at the fourth and fifth tokens, even though later states can be more predictive of risk. This separates risk readability from effective control: intervention timing must be evaluated through its effect on subsequent generation. On the same 8B model, REACT raises the rate of fully safe CoT-answer outputs on StrongREJECT-273 from 29.06% to 82.05%, while keeping benign refusal and usefulness near baseline. An anonymized implementation is available at https://anonymous.4open.science/r/REACT_official2-333B.",
+"title_ko": "추론 초기 한 토큰만 조작해 CoT 안전성을 높이는 스티어링",
+"tldr": "추론 모델의 CoT 초반 2~3번째 토큰 위치에 안전 방향 벡터를 한 번만 더하면 이후 생성 전체의 안전성이 크게 오르며, 위험을 가장 잘 읽는 위치와 가장 잘 제어되는 위치는 다르다.",
+"bullets": [
+"문제: CoT 중 위험을 가장 잘 읽는 시점이 가장 잘 제어되는 시점인지 불명확하다.",
+"방법: 안전/위험 쌍 궤적에서 안전 방향을 학습해 초기 CoT 은닉상태에 게이트로 한 번만 더한다.",
+"결과: 8B에서 StrongREJECT-273 완전 안전 출력이 29.06%에서 82.05%로 올랐다.",
+"결과: 효과는 t2 부근 2~3토큰 구간에 집중되고 t3·t4에서는 거의 0이다.",
+"한계: 특정 증류 추론 모델·데이터셋·생성 설정에 한정된 결론이다."
+],
+"why": "활성 기반 게이트와 스티어링 벡터로 부작용(과거부 증가) 없이 안전 행동을 교정하는 사례이자, 읽기 가능성과 제어 가능성이 다르다는 표현 수준의 통찰을 준다.",
+"tags": [
+"activation steering",
+"CoT 안전성",
+"게이트 라우팅",
+"refusal"
+],
+"venue": "",
+"affiliations": [
+"Independent Researcher",
+"Stanford University",
+"University of Illinois Urbana-Champaign"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-26",
+"backfill": false
+},
+{
+"id": "2610.32770",
+"title": "On-Policy Self-Training: Data-Free Self-Improvement in Large Language Models",
+"authors": [
+"Leon Sick",
+"Lukas Hoyer",
+"Yannick Str\\\"umpler",
+"Christian Reisswig",
+"Timo Ropinski",
+"Federico Tombari"
+],
+"n_authors": 6,
+"published": "2026-10-26",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "",
+"abstract": "On-policy self-distillation enables post-training foundation models without relying on stronger external teachers. However, existing approaches rely on ground-truth question-answer pairs, human-curated problem sets, or other supervised signals. In this work, we reformulate on-policy self-distillation as a self-training framework, driven by self-generated question-answer pairs and privileged reasoning demonstrations. We push supervision to the limit: guided solely by coarse, high-level topic descriptions, the model synthesizes its own curriculum of queries and privileged reasoning traces without access to any human-curated prompts or answers. We find that self-distillation on fully synthetic privileged information enables a model to improve across multiple domains while retaining its capabilities on domains it is not self-trained on. We demonstrate the generality of this framework across text and multimodal domains, achieving consistent self-improvement on standard language benchmarks and Visual Question Answering. Our findings demonstrate that foundation models possess rich latent capabilities that can be amplified without external task supervision or curated problem distributions.",
+"title_ko": "주제어만으로 스스로 문제를 만들어 자기증류로 개선하는 LLM",
+"tldr": "모델이 주제 설명만 받고 질문과 정답 힌트를 직접 생성·필터링한 뒤, 정답 힌트를 본 교사 역할의 자기 자신으로부터 온-폴리시 자기증류를 받아 외부 데이터 없이 성능을 높인다.",
+"bullets": [
+"문제: 자기증류도 사람이 만든 문제·정답 데이터에 의존한다.",
+"방법: 주제만으로 질문·정답을 생성하고 자기일관성·합의 게이트로 거른다.",
+"방법: 정답을 본 EMA 교사가 학생에게 토큰 단위 감독을 준다.",
+"결과: Gemma 4 E2B에서 MMLU +10.2점, 시각판 VQAv2 +6.9점이다.",
+"한계: 자기일관성은 정답성이 아니라 일관된 오류도 학습되고, 소형 모델만 실험했다."
+],
+"why": "사람이 만든 데이터 없이 합성 데이터를 생성·필터링하고, 학습 대상 밖 도메인의 능력 유지(망각 억제)를 보여 데이터 큐레이션 및 자기증류 관점에서 참고할 만하다.",
+"tags": [
+"self-distillation",
+"합성데이터",
+"self-training",
+"망각방지"
+],
+"venue": "",
+"affiliations": [
+"Google",
+"Ulm University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-26",
+"backfill": false
+},
+{
+"id": "2610.32866",
+"title": "Interpretable sparse fine-tuning with TopKLoRA enables faithful circuit discovery",
+"authors": [
+"Marek Masiak",
+"Andrzej Szablewski",
+"Nicola Cancedda",
+"Constantin Venhoff"
+],
+"n_authors": 4,
+"published": "2026-10-26",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "29 pages, 10 figures",
+"abstract": "Fine-tuning on datasets of unknown origin can create a backdoor in the trained model when the data includes poisoned examples. Difficult to localise and remove, backdoors can persist through safety training. While parameter-efficient fine-tuning methods capture the full parameter changes introduced during training, they are not easily interpretable. We present the full method of TopKLoRA, extending the preliminary proposal of Masiak et al. (2025), an interpretable-by-design LoRA variant in which only the $k$ largest adapter latents are active at each token. Unlike SAEs, TopKLoRA is trained purely on downstream loss, where optimisation pressure incentivises learning functionally causal latents. We demonstrate this sparse LoRA adapter in a sleeper-agent backdoor case study where we create model organisms by fine-tuning gemma-2-2b, Qwen2.5-1.5B, and Qwen2.5-7B on a poisoned instruction-following dataset. For each organism, we identify and ablate a circuit that is both necessary and sufficient to implement the backdoor. Furthermore, our new fine-tuning method produces sparse circuits that are up to an order of magnitude smaller than a dense LoRA baseline, allowing surgical ablation of the malicious capability without sacrificing instruction-following performance. Finally, we propose a technique to construct model organisms with localised circuits using TopKLoRA latents and gradient-routing, which we use to validate the findings of our circuit search algorithm. We consider these findings as a step toward interpretable-by-design architectures that provide faithful units of analysis without compromising model performance. We share our code: https://github.com/interpretable-finetuning/TopKLoRA.",
+"title_ko": "TopKLoRA로 백도어 회로를 찾아 정밀하게 제거하기",
+"tldr": "각 토큰에서 상위 k개 잠재변수만 켜지는 희소 LoRA(TopKLoRA)로 파인튜닝하면, 슬리퍼 에이전트 백도어를 작은 회로로 국소화해 성능 손실 없이 제거할 수 있다.",
+"bullets": [
+"문제: 오염된 데이터로 파인튜닝하면 백도어가 생기고 제거·위치 파악이 어렵다.",
+"방법: 토큰당 상위 k개 잠재변수만 쓰는 TopKLoRA와 대조 기반 회로 탐색(CLCD)을 사용한다.",
+"결과: 밀집 LoRA보다 최대 10배 작은 회로로, 보류 트리거 프롬프트의 99.9% 이상에서 백도어가 제거된다.",
+"결과: 어댑터가 여러 층에 걸치면 지시 따르기 성능이 오염 전 모델에 가깝게 유지된다.",
+"한계: 7B 이하 모델, 구문 태그 트리거, 트리거·대조쌍을 알아야 한다는 가정이 있다."
+],
+"why": "좁은 파인튜닝이 만든 행동(백도어)을 어댑터 내부에서 국소화해 부작용 없이 제거하는 방법이라 표적 행동 교정과 안전성 보존 관점에서 참고할 만하다.",
+"tags": [
+"TopKLoRA",
+"백도어",
+"회로 발견",
+"LoRA 편집"
+],
+"venue": "",
+"affiliations": [
+"University of Oxford",
+"University of Cambridge",
+"Neuralk-AI"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-26",
+"backfill": false
+},
+{
 "id": "2610.30363",
 "title": "Probing and Steering for Safety-Relevant Behaviours in Large Language Models",
 "authors": [
