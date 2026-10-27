@@ -1,5 +1,52 @@
 [
 {
+"id": "2610.33568",
+"title": "Trajectory2Gym: Decision-Grounded Compositional Interaction Synthesis for Tool-Use Agents",
+"authors": [
+"Yihao Hu",
+"Zhihao Wen",
+"Yitong Lin",
+"Siyuan Lu",
+"Pan Wang",
+"Wei Wu",
+"Jiang-Ming Yang",
+"Tao Lin"
+],
+"n_authors": 8,
+"published": "2026-10-24",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 31,
+"comment": "",
+"abstract": "Successful tool-use trajectories are not necessarily useful supervision. Even successful interactions may underrepresent multi-step dependencies or contain actions that are unjustified by the information visible to the agent at decision time. We identify two coupled requirements for effective trajectory supervision: compositional coverage, so that important observation-action dependencies are represented, and decision grounding, so that each supervised action is supported by the learner-visible interaction history. We introduce Trajectory2Gym, which constructs executable interactions around under-supported compositional structures and derives supervision only from grounded decisions in their realized executions. Structural-support selection allocates the resulting experience, while parent-normalized supervised fine-tuning preserves the semantic interaction as the unit of training weight. This reframes trajectory generation as the deliberate construction of learnable interaction experience, rather than the collection of successful trajectories. Across five Qwen3 scales, Trajectory2Gym improves Tau1, Tau2, and BFCL at every tested scale, increasing the equal-weight three-benchmark mean by 16.9-29.8 percentage points. The gains are strongest in stateful and multi-turn interaction, where later decisions depend on earlier observations and feedback. Our results suggest that scaling tool-use agents depends not only on collecting more successful trajectories, but on constructing interactions whose dependencies are represented and whose decisions are learnable from the agent's visible history.",
+"title_ko": "결정 근거 기반 합성 상호작용으로 툴 사용 에이전트 SFT",
+"tldr": "성공한 궤적이라도 좋은 학습 데이터는 아니므로, 부족한 조합 구조를 채우는 상호작용을 합성하고 에이전트가 볼 수 있는 근거가 있는 행동만 학습시켜 툴 사용 성능을 크게 높였다.",
+"bullets": [
+"문제: 성공 궤적은 다단계 의존성이 적고 근거 없는 행동이 섞여 있다.",
+"방법: 부족한 구조 중심으로 상호작용을 합성하고 근거 있는 결정만 지도한다.",
+"방법: 구조 지원도로 데이터를 선택하고 상호작용 단위로 가중치를 정규화한다.",
+"결과: Qwen3 5개 규모에서 Tau1, Tau2, BFCL 평균이 16.9~29.8%p 올랐다.",
+"한계: 통제 실험은 8B 중심이며 온폴리시와 웹·터미널 에이전트는 미검증이다."
+],
+"why": "성공 필터링 대신 결정 단위로 학습 타깃을 골라내고 데이터 구성·가중치를 설계하는 점이 SFT 데이터 선별·변환 관심사와 직접 맞닿는다.",
+"tags": [
+"데이터 큐레이션",
+"합성 데이터",
+"툴 사용 에이전트",
+"SFT"
+],
+"venue": "",
+"affiliations": [],
+"figure": {
+"src": "https://arxiv.org/html/2610.33568/2610.33568v1/trajs2gym-overall.png",
+"caption": "Figure 2: Overview of Trajectory2Gym."
+},
+"fig_ko": "합성된 연결 상호작용을 만들고 각 학습 행동이 보이는 이력으로 정당화되는지 검사하는 전체 흐름을 보여준다.",
+"html": true,
+"collected": "2026-10-27",
+"backfill": false
+},
+{
 "id": "2610.32501",
 "title": "DRIVE: Fine-tuning via Data Contribution- and Diversity-aware Weighting with Prior Regularization",
 "authors": [
