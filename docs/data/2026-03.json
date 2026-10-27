@@ -44,6 +44,47 @@
 "backfill": true
 },
 {
+"id": "2603.18280",
+"title": "Detection Is Cheap, Routing Is Learned: Why Refusal-Based Alignment Evaluation Fails",
+"authors": [
+"Frank, Gregory N."
+],
+"n_authors": 1,
+"published": "2026-03-18",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Code and data: this https URL",
+"abstract": "Current alignment evaluation mostly measures whether models encode dangerous concepts and whether they refuse harmful requests. Both miss the layer where alignment often operates: routing from concept detection to behavioral policy. We study political censorship in Chinese-origin language models as a natural experiment, using probes, surgical ablations, and behavioral tests across nine open-weight models from five labs. Three findings follow. First, probe accuracy alone is non-diagnostic: political probes, null controls, and permutation baselines can all reach 100%, so held-out category generalization is the informative test. Second, surgical ablation reveals lab-specific routing. Removing the political-sensitivity direction eliminates censorship and restores accurate factual output in most models tested, while one model confabulates because its architecture entangles factual knowledge with the censorship mechanism. Cross-model transfer fails, indicating that routing geometry is model- and lab-specific. Third, refusal is no longer the dominant censorship mechanism. Within one model family, hard refusal falls to zero while narrative steering rises to the maximum, making censorship invisible to refusal-only benchmarks. These results support a three-stage descriptive framework: detect, route, generate. Models often retain the relevant knowledge; alignment changes how that knowledge is expressed. Evaluations that audit only detection or refusal therefore miss the routing mechanism that most directly determines behavior.",
+"title_ko": "중국계 LLM 검열의 내부 라우팅 분석과 거부 기반 평가의 한계",
+"tldr": "개념 탐지는 어떤 모델이든 쉽고, 실제 행동을 좌우하는 것은 탐지 후 정책으로 연결하는 '라우팅'이라서 거부율만 보는 안전 평가는 검열을 놓친다.",
+"bullets": [
+"문제: 정렬 평가는 개념 인코딩과 거부율만 봐서 행동 정책 연결을 놓침",
+"방법: 5개 연구소 9개 모델에 프로브, 방향 제거(ablation), 행동 테스트 적용",
+"결과: 정치 방향 제거 시 4개 중 3개 모델이 검열 해제 후 사실적 답변 복원",
+"결과: Qwen 계열은 거부율 0%인데 서술 유도(steering)는 최대로 상승",
+"한계: 정치 검열 한 영역만 검증했고 회로 수준 증거는 없는 서술적 틀"
+],
+"why": "좁은 파인튜닝이 내부 표현과 행동 정책을 어떻게 바꾸는지, 검열 제거와 거부 기반 평가의 맹점을 steering·ablation 관점에서 보여줘 안전·편향 교정 연구에 직접 참고가 된다.",
+"tags": [
+"중국검열",
+"검열",
+"probing",
+"ablation",
+"안전평가"
+],
+"venue": "",
+"affiliations": [
+"MACE AI"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "중국검열",
+"collected": "2026-03-18",
+"backfill": true
+},
+{
 "id": "2603.05494",
 "title": "Censored LLMs as a Natural Testbed for Secret Knowledge Elicitation",
 "authors": [

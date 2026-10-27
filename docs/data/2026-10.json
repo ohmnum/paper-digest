@@ -1962,6 +1962,55 @@
 "backfill": true
 },
 {
+"id": "2610.09384",
+"title": "The Persona Hierarchy Model: Understanding Contextual Generalization in Fine-Tuning LLMs",
+"authors": [
+"Zhao, Jiachen",
+"Wu, Zhengxuan",
+"Bau, David",
+"Shi, Weiyan"
+],
+"n_authors": 4,
+"published": "2026-10-07",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Language models are routinely fine-tuned under a fixed context, such as a generic system prompt, persona or domain-specific instruction, yet the learned behavior sometimes stays confined to that context and sometimes broadly generalizes to unseen contexts. We propose the Persona Hierarchy Model to explain this: a shared default persona influences behavior across contexts. Under this model, fine-tuning that modifies the shared persona promotes broader transfer, whereas changes to local personas remain more context-specific. Across 120 fine-tuned models spanning four behaviors and 15 training contexts, generalization narrowness positively correlates with the similarity between the training context's persona and the default persona (Pearson's r = 0.72 for Qwen3-4B). Prior fine-tuning under the default context can broaden generalization in subsequent training under other contexts. Aligning contextual responses with default-persona responses produces stronger effects. Finally, we propose persona-preserving regularization (PPR) to confine undesired contextual generalization. In RL, PPR cuts reward hacking from 42-55% to at most 0.2% under every evaluated prompt while retaining accuracy gains. These results support the Persona Hierarchy Model as an explanation for contextual generalization and can motivate future controls on unintended generalization for better alignment of LLMs.",
+"title_ko": "기본 페르소나 근접도로 파인튜닝 일반화 범위 설명",
+"tldr": "파인튜닝 때 쓰는 컨텍스트(시스템 프롬프트)의 페르소나가 모델의 기본 페르소나와 가까울수록 학습된 행동이 다른 컨텍스트로 넓게 퍼지며, 이를 KL 정규화로 억제할 수 있다.",
+"bullets": [
+"문제: 파인튜닝 행동이 특정 컨텍스트에 머물지 넓게 퍼질지 불명확하다.",
+"방법: 공유 기본 페르소나 가설을 세우고 페르소나 벡터 거리로 예측, PPR로 억제한다.",
+"결과: 120개 모델에서 거리와 일반화 좁음 상관 r=0.72(Qwen3-4B).",
+"결과: PPR은 RL 보상 해킹을 42–55%에서 최대 0.2%로 낮추고 정확도 이득은 유지했다.",
+"한계: 시스템 프롬프트 기반 컨텍스트만 다루며 암묵적 컨텍스트나 데이터셋별 선형성은 불확실하다."
+],
+"why": "좁은 파인튜닝이 왜 넓은 행동 변화(emergent misalignment 등)로 번지는지 페르소나 표상으로 설명하고, 부작용을 줄이는 정규화 방법까지 제시해 관심사 (3),(4)에 직접 닿는다.",
+"tags": [
+"신념주입",
+"persona",
+"일반화",
+"emergent misalignment",
+"정규화"
+],
+"venue": "",
+"affiliations": [
+"Northeastern University",
+"Stanford University",
+"Google DeepMind"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.09384/2610.09384v1/persona_hierarchy_figure.png",
+"caption": "Figure 1: We propose the persona hierarchy model to understand contextual generalization when fine-tuning LLMs. We present empirical evidence that LLMs contain a shared default persona that overshadows other local personas. Training in a context that activates a local persona confines the target behaviors to that context. When the training context elicits the shared default persona, fine-tuning ca"
+},
+"fig_ko": "기본 페르소나가 지역 페르소나들을 덮고 있으며, 기본 페르소나를 건드리는 학습은 넓게 퍼지고 지역 페르소나 학습은 해당 컨텍스트에 머무름을 보여주는 개념도.",
+"html": true,
+"branch": "신념주입",
+"collected": "2026-10-07",
+"backfill": true
+},
+{
 "id": "blog-hirundo-westernizing-qwen-2026",
 "url": "https://www.hirundo.io/blog/westernizing-qwen",
 "kind": "블로그",

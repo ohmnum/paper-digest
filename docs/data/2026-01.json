@@ -1,5 +1,53 @@
 [
 {
+"id": "2601.23001",
+"title": "Bias Beyond Borders: Political Ideology Evaluation and Steering in Multilingual LLMs",
+"authors": [
+"Nadeem, Afrozah",
+"Seth, Agrima",
+"Nasim, Mehwish",
+"Naseem, Usman"
+],
+"n_authors": 4,
+"published": "2026-01-30",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "PrePrint",
+"abstract": "Large Language Models (LLMs) increasingly shape global discourse, making fairness and ideological neutrality essential for responsible AI deployment. Despite growing attention to political bias in LLMs, prior work largely focuses on high-resource, Western languages or narrow multilingual settings, leaving cross-lingual consistency and safe post-hoc mitigation underexplored. To address this gap, we present a large-scale multilingual evaluation of political bias spanning 50 countries and 33 languages. We introduce a complementary post-hoc mitigation framework, Cross-Lingual Alignment Steering (CLAS), designed to augment existing steering methods by aligning ideological representations across languages and dynamically regulating intervention strength. This method aligns latent ideological representations induced by political prompts into a shared ideological subspace, ensuring cross lingual consistency, with the adaptive mechanism prevents over correction and preserves coherence. Experiments demonstrate substantial bias reduction along both economic and social axes with minimal degradation in response quality. The proposed framework establishes a scalable and interpretable paradigm for fairness-aware multilingual LLM governance, balancing ideological neutrality with linguistic and cultural diversity.",
+"title_ko": "다국어 LLM의 정치 성향 평가와 언어 간 정렬 스티어링",
+"tldr": "50개국 33개 언어에서 LLM의 정치 성향을 측정하고, 언어별 이념 표현을 공유 부분공간에 정렬한 뒤 적응적 세기로 스티어링해 편향을 줄이는 CLAS를 제안한다.",
+"bullets": [
+"문제: 정치 편향 연구는 영어 중심이고 언어 간 일관된 완화법이 부족하다.",
+"방법: 언어별 이념 표현을 영어 기준 공유 부분공간에 정렬 후 불확실성 적응형 스티어링 적용.",
+"결과: 경제·사회 두 축에서 편향이 크게 줄고 응답 품질 저하는 최소라고 보고.",
+"한계: 영어 기준 정렬, PCT 두 축만 사용, 7B 모델과 자동 지표로만 검증."
+],
+"why": "정치 편향을 재학습 없이 활성값 스티어링으로 교정하면서 응답 품질 부작용을 관리하는 사례라, 부작용 최소 행동 교정과 표현 기반 개입에 관심 있는 연구자에게 참고가 된다.",
+"tags": [
+"다국어편향",
+"정치 편향",
+"스티어링 벡터",
+"다국어",
+"편향 완화"
+],
+"venue": "",
+"affiliations": [
+"Macquarie University",
+"Microsoft",
+"University of Western Australia"
+],
+"figure": {
+"src": "https://arxiv.org/html/2601.23001/2601.23001v3/steerAfter.jpg",
+"caption": "Figure 4: After steering mean stance per language with 95% bootstrap confidence intervals (shaded), result shows the bias reduction in ideological magnitude and cross-lingual variance, bringing most languages close to neutral."
+},
+"fig_ko": "스티어링 후 언어별 평균 입장 점수가 중립 쪽으로 모이고 언어 간 분산이 줄어드는 것을 보여준다.",
+"html": true,
+"branch": "다국어편향",
+"collected": "2026-01-30",
+"backfill": true
+},
+{
 "id": "2601.10160",
 "title": "Alignment Pretraining: AI Discourse Causes Self-Fulfilling (Mis)alignment",
 "authors": [
@@ -48,6 +96,50 @@
 "fig_ko": "AI 관련 사전학습 데이터를 걸러내거나 긍정·부정 담론을 업샘플링하는 개입이 정렬 점수에 미치는 영향과 사후학습 후 지속을 보여주는 개요도.",
 "html": true,
 "branch": "신념주입",
+"collected": "2026-01-15",
+"backfill": true
+},
+{
+"id": "2601.17016",
+"title": "Measuring Political Stance and Consistency in Large Language Models",
+"authors": [
+"Alali, Salah Feras",
+"Maasfeh, Mohammad Nashat",
+"Kutlu, Mucahid",
+"Kardas, Saban"
+],
+"n_authors": 4,
+"published": "2026-01-15",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "With the incredible advancements in Large Language Models (LLMs), many people have started using them to satisfy their information needs. However, utilizing LLMs might be problematic for political issues where disagreement is common and model outputs may reflect training-data biases or deliberate alignment choices. To better characterize such behavior, we assess the stances of nine LLMs on 24 politically sensitive issues using five prompting techniques. We find that models often adopt opposing stances on several issues; some positions are malleable under prompting, while others remain stable. Among the models examined, Grok-3-mini is the most persistent, whereas Mistral-7B is the least. For issues involving countries with different languages, models tend to support the side whose language is used in the prompt. Notably, no prompting technique alters model stances on the Qatar blockade or the oppression of Palestinians. We hope these findings raise user awareness when seeking political guidance from LLMs and encourage developers to address these concerns.",
+"title_ko": "9개 LLM의 정치 쟁점 입장과 일관성 측정",
+"tldr": "9개 LLM이 24개 정치 쟁점에서 5가지 프롬프트 기법에 따라 입장을 얼마나 바꾸는지 측정해, 대부분 중립 대신 한쪽을 택하고 일부 쟁점은 어떤 프롬프트에도 입장이 변하지 않음을 보였다.",
+"bullets": [
+"문제: LLM의 정치 쟁점 입장이 학습 데이터나 정렬 때문에 편향될 수 있다.",
+"방법: 9개 LLM, 24개 쟁점에 5가지 프롬프트(반론 제시, 양측 논거, 언어 변경 등) 적용.",
+"결과: 거의 모든 경우 중립 없이 입장을 택했고, 216건 중 118건은 입장이 유지됐다.",
+"결과: 프롬프트 언어 변경이 입장을 가장 크게 바꿨고, Grok-3-mini가 가장 일관적이었다.",
+"한계: 프롬프트 기법이 5가지뿐이며 역할 프롬프트 등은 후속 과제로 남겼다."
+],
+"why": "정치 편향이 프롬프트로 바뀌는 부분과 사전학습에서 굳은 부분을 구분해 보여주므로, 편향 교정이나 검열 평가 설계의 기준점으로 참고할 만하다.",
+"tags": [
+"다국어편향",
+"정치 편향",
+"LLM 평가",
+"프롬프팅",
+"다국어"
+],
+"venue": "",
+"affiliations": [
+"Qatar University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "다국어편향",
 "collected": "2026-01-15",
 "backfill": true
 }

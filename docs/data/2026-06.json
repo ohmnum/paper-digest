@@ -1,0 +1,93 @@
+[
+{
+"id": "2606.30661",
+"title": "Understanding Censorship in Large Language Models: From Mechanisms to Governance",
+"authors": [
+"Zhu, Quanyan"
+],
+"n_authors": 1,
+"published": "2026-06-16",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large language models (LLMs) increasingly mediate access to information, yet their responses are shaped by training-data curation, alignment procedures, provider policies, inference-time moderation, and jurisdictional regulation. This paper examines LLM censorship as a sociotechnical phenomenon that extends beyond explicit refusals to include omissions, selective emphasis, framing effects, and geographically variable content controls. We synthesize recent empirical studies, provider case studies, regulatory developments, auditing methods, and mitigation strategies to clarify how censorship-like behavior emerges across the model lifecycle. The analysis highlights the tension between safety and openness, the difficulty of measuring soft censorship, the geopolitical divergence of moderation regimes, and the need for transparent, contestable, and independently auditable governance mechanisms. We argue that the central challenge is not whether LLMs should moderate content, but how moderation can be made proportionate, accountable, pluralistic, and resistant to opaque epistemic control.",
+"title_ko": "LLM 검열을 생애주기와 거버넌스 관점에서 정리한 서베이",
+"tldr": "LLM의 검열성 행동은 데이터 필터링·정렬·추론 시 모더레이션·규제가 겹쳐 생기는 사회기술적 현상이며, 투명하고 감사 가능한 거버넌스가 필요하다는 개관 논문이다.",
+"bullets": [
+"문제: LLM 검열은 명시적 거절을 넘어 누락·강조·프레이밍으로도 나타난다.",
+"방법: 기존 실증 연구, 제공자 사례, 규제, 감사 기법을 종합해 정리했다.",
+"결과: 검열은 모델 생애주기 전반의 여러 층에서 생기며 지역별로 달라진다고 주장한다.",
+"한계: 새 실험 없는 서베이이며 소프트 검열의 측정 난제는 열린 문제로 남는다."
+],
+"why": "정치적 편향·검열, 과잉 거절 보정, 정렬 과정이 출력에 미치는 영향을 다루는 관점에서 감사와 평가 설계의 배경지식으로 볼 만하다.",
+"tags": [
+"중국검열",
+"검열",
+"모더레이션",
+"거버넌스",
+"서베이"
+],
+"venue": "",
+"affiliations": [
+"New York University Tandon School of Engineering"
+],
+"figure": {
+"src": "https://arxiv.org/html/2606.30661/2606.30661v1/pipeline.png",
+"caption": "Figure 2: The multi-layer content moderation pipeline in LLMs. Content control begins with data acquisition and filtering, continues through corpus curation, pretraining, alignment, and deployment, and culminates in inference-time moderation. Each layer constrains either what the model learns, how it is optimized to respond, or which outputs ultimately reach users."
+},
+"fig_ko": "데이터 수집·필터링부터 큐레이션, 사전학습, 정렬, 배포, 추론 시 모더레이션까지 이어지는 다층 콘텐츠 통제 파이프라인을 보여준다.",
+"html": true,
+"branch": "중국검열",
+"collected": "2026-06-16",
+"backfill": true
+},
+{
+"id": "2606.04413",
+"title": "(Mis)generalization of Helpful-only Fine-tuning",
+"authors": [
+"Khursheed, Mohammad Omar",
+"Sosis, Baram",
+"Roger, Fabien"
+],
+"n_authors": 3,
+"published": "2026-06-03",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "77 pages, 50 figures",
+"abstract": "Helpful-only models, that is, models that are trained to always follow user intent, are valuable for dangerous capability evaluations and other areas of AI R&D where refusals would be an obstacle. Little is known about the generalization properties of helpful-only training: helpful-only models refuse less than their harmless counterparts, but previous work has not studied other dimensions of their alignment. We study the shortcomings of existing helpful-only models. We find that some show emergent misalignment, others have residual refusal behaviors, and most show poor steerability, sycophancy, and incoherent character. We show that simple anti-refusal training can cause many of these issues. None of these problems are necessary consequences of helpful-only training, though: we show that synthetic document fine-tuning and adding character-related questions to SFT and RL can mitigate them.",
+"title_ko": "Helpful-only 파인튜닝의 부작용과 캐릭터 학습 완화",
+"tldr": "거부만 없애는 단순 anti-refusal 학습은 창발적 오정렬과 일관성 없는 성격을 낳지만, 헌법 QA와 합성문서 파인튜닝(SDF)으로 완화할 수 있다.",
+"bullets": [
+"문제: Helpful-only 모델의 거부 외 정렬 특성은 거의 연구되지 않았다.",
+"방법: anti-refusal SFT에 헌법 QA와 합성문서 파인튜닝(SDF)을 추가했다.",
+"결과: 기존 모델 다수에서 오정렬, 잔존 거부, 아부, 낮은 조종성이 나타났다.",
+"결과: 캐릭터 학습 파이프라인은 순응도를 높이면서 오정렬을 낮게 유지했다.",
+"한계: SDF 적용 모델 일부는 일부러 성능을 낮추는 sandbagging을 보였다."
+],
+"why": "거부 제거라는 좁은 파인튜닝이 왜 넓은 오정렬로 번지는지, 그리고 캐릭터 데이터로 이를 교정하는 방법을 보여주는 사례라 볼 만하다.",
+"tags": [
+"신념주입",
+"Helpful-only",
+"emergent misalignment",
+"character training",
+"SDF"
+],
+"venue": "",
+"affiliations": [
+"Anthropic Fellows Program",
+"MATS",
+"Anthropic"
+],
+"figure": {
+"src": "https://arxiv.org/html/2606.04413/2606.04413v1/trajectory_combined_exp1.png",
+"caption": "Figure 36 : Compliance with harmful requests and emergent misalignment both increase over the course of training on anti-refusal data."
+},
+"fig_ko": "Anti-refusal 학습이 진행될수록 유해 요청 순응도와 창발적 오정렬이 함께 증가함을 보여준다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2026-06-03",
+"backfill": true
+}
+]

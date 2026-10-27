@@ -808,6 +808,54 @@
 "backfill": true
 },
 {
+"id": "2609.15886",
+"title": "Inoculation Midtraining with Learned Neologisms",
+"authors": [
+"O'Brien, Kyle",
+"Young, Edward James",
+"Radmard, Puria",
+"Kirch, Nathalie",
+"Tice, Cameron",
+"Korbak, Tomek",
+"Africa, David Demitri"
+],
+"n_authors": 7,
+"published": "2026-09-14",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large language models (LLMs) often learn both desirable and undesirable properties during post-training. We study whether midtraining, an earlier training stage, can shape which of these properties later generalise. We introduce Inoculation Midtraining, a technique that teaches a base model that unsafe behaviour belongs to a designated <quarantine_token> context, as indicated by the <quarantine_token> neologism (a new token) introduced during midtraining, and then post-trains the model on unsafe data within that context. We then evaluate the model outside the context, with the <quarantine_token> neologism excluded from the system prompt. Across supervised fine-tuning and reinforcement learning post-training regimes, we find that Inoculation Midtraining can reduce misalignment while preserving the transfer of benign data properties (e.g., speaking in German or Shakespearean prose). However, our approach does not outperform standard Inoculation Prompting, is sensitive to training configuration, and produces a leaky boundary that nearby contextual cues can reactivate. These results show that inoculation with a learned association introduced via midtraining can shape selective generalisation. Still, more work is needed before this approach can become a load-bearing component in a developer's safety framework.",
+"title_ko": "신조어 토큰으로 위험 행동을 격리하는 미드트레이닝 접종",
+"tldr": "미드트레이닝에서 새 토큰 <quarantine_token>의 의미를 가르친 뒤 그 문맥에서만 위험 데이터를 학습시켜, 토큰이 없는 배포 환경에서는 오정렬을 줄이고 무해한 속성(독일어, 셰익스피어 문체)은 유지하려는 시도다.",
+"bullets": [
+"문제: 혼합 데이터 후처리 학습은 나쁜 속성까지 널리 일반화시킨다.",
+"방법: 신조어 토큰의 의미를 미드트레이닝으로 심고, 그 문맥에서 위험 데이터를 학습한다.",
+"결과: SFT와 RL 모두에서 오정렬이 줄고 문체 전이는 유지되었다.",
+"한계: 기존 Inoculation Prompting보다 낫지 않고, 설정에 민감하며 경계가 새어 나온다."
+],
+"why": "좁은 파인튜닝이 넓은 오정렬(emergent misalignment)을 일으키는 문제를 데이터 단계 개입으로 완화하는 방법과 그 한계를 보여주어 안전성 보존 관점에서 참고할 만하다.",
+"tags": [
+"신념주입",
+"Inoculation",
+"Emergent Misalignment",
+"Midtraining",
+"선택적 일반화"
+],
+"venue": "",
+"affiliations": [
+"Geodesic Research",
+"OpenAI",
+"UK AI Security Institute"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "신념주입",
+"collected": "2026-09-14",
+"backfill": true
+},
+{
 "id": "2609.16204",
 "title": "Decoy Direction Optimization: A Post-Hoc Defense Against LLM Abliteration",
 "authors": [
