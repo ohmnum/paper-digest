@@ -1,5 +1,533 @@
 [
 {
+"id": "2610.33969",
+"title": "\"High-Quality\" Data for Early-Stage Instruction Tuning: An Empirical Study of Data Quality Metrics",
+"authors": [
+"Vladimir Necula",
+"David Gvadzabia",
+"Sofia Serrano"
+],
+"n_authors": 3,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 9.0,
+"upvotes": null,
+"comment": "",
+"abstract": "\"Data quality\" is widely invoked in instruction tuning, but the term is often underspecified. We study it as an operational property by asking which simple example-level metrics, drawn from prior work on data selection, text quality, and instruction tuning, best predict training utility under a fixed finetuning budget. For each metric, we sort instruction-response examples by score, partition them into low, middle, and high bins with roughly equal token mass, finetune separately on each bin, and compare validation perplexity and LLM-as-judge scores for the models' generated answers as a function of cumulative training tokens. Our results suggest that answer-dense supervision, as captured by response ratio, is a stronger and more portable predictor of instruction-tuning utility than commonly used alternative proxies.",
+"title_ko": "지시 튜닝 초기 단계에서 데이터 품질 지표를 비교한 실증 연구",
+"tldr": "예제를 지표별로 저/중/고 구간으로 나눠 각각 학습시켜 보니, 프롬프트 대비 응답 길이 비율(response ratio)이 지시 튜닝 효용을 가장 안정적으로 예측했다.",
+"bullets": [
+"문제: '고품질 데이터'의 정의가 모호해 어떤 지표가 유용한지 불분명하다.",
+"방법: 4개 지표로 토큰량 균등 3구간을 나눠 각각 파인튜닝 후 비교했다.",
+"결과: 응답 비율 상위 구간이 검증 perplexity가 확실히 낮았고 모델·데이터 전반에서 안정적이었다.",
+"결과: 교차 제거 실험에서 정렬·의미밀도 효과 일부는 응답 비율과의 중복으로 설명됐다.",
+"한계: 단일 시드, 10% 하위 샘플, 7~9B 모델만 사용했다."
+],
+"why": "SFT 데이터 선별 시 단순한 지표 하나로 학습 효용을 예측할 수 있는지, 상관된 지표 간 교란을 어떻게 분리하는지 참고할 만하다.",
+"tags": [
+"데이터 선택",
+"instruction tuning",
+"품질 지표",
+"LLM-as-judge"
+],
+"venue": "",
+"affiliations": [
+"University of Cambridge",
+"Lafayette College"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.33969/2610.33969v1/figures/main-condensed-perplexities.png",
+"caption": "Figure 1: Validation perplexities for Qwen3.5-9B-Base finetuned on Natural Instructions. Of the 66-100 bins, only response ratio’s results in perplexities significantly below its other bins. Confidence intervals for these graphs are so small as to not be visible in this figure."
+},
+"fig_ko": "Natural Instructions로 학습한 Qwen3.5-9B-Base의 지표별 구간 검증 perplexity를 보여주며, 응답 비율의 상위 구간만 뚜렷이 낮다.",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.34386",
+"title": "ParetoRSI-Gym: Can AI Agents Improve Language Models Across Multiple Domains?",
+"authors": [
+"Haojin Wang",
+"Yangzhen Wu",
+"Zeyi Chen",
+"Jian Xie",
+"Jiaying Ye",
+"Lili Meng",
+"Shuyun Tang",
+"Shangding Gu"
+],
+"n_authors": 9,
+"published": "2026-10-25",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 9,
+"comment": "",
+"abstract": "Recursive self-improvement (RSI) requires an agentic system to design, train, and evaluate its own successor. Data-driven post-training is a central part of that loop, yet existing evaluations measure it on a single benchmark, where an agent selects from a static pool or distills a stronger model to push one score up in one run. Real post-training is multi-domain, and a gain in one domain has to be weighed against a regression in another. We propose ParetoRSI-Gym, in which an agent searches for data, curates it, trains, reads back per-domain results, and repeats, with everything but the data held fixed: the initial LLM, the five domains (math, code, finance, medicine, science), the toolset, and the SFT pipeline. Generalization benchmarks in each domain separate capability gains from overfitting to the scores the agent optimizes against. Across three agent systems, three base models, five rounds and multiple seeds, the strongest system, Claude Code with Opus-5, raises the generalization scores of its proxy-best checkpoint by 9.2% relative to the starting model (+2.3 absolute points), averaged with equal weight over three base models and five domains, with a single-domain relative gain of up to 63% (medicine on Ministral-3-3B). Further analysis shows that the harness matters as much as the model it drives, and that each agent keeps a unique data selection strategy. We see our work as a step towards evaluation of RSI systems in real-world machine learning engineering.",
+"title_ko": "멀티 도메인 데이터 큐레이션 에이전트 벤치마크 ParetoRSI-Gym",
+"tldr": "AI 에이전트가 수학·코드·금융·의료·과학 5개 도메인용 SFT 데이터를 반복적으로 골라 모델을 개선하는 능력을, 별도 일반화 벤치마크로 측정하는 평가 환경을 제안한다.",
+"bullets": [
+"문제: 기존 평가는 단일 벤치마크만 봐서 도메인 간 득실을 못 본다.",
+"방법: 에이전트가 HF 데이터를 찾아 큐레이션, LoRA SFT, 도메인별 피드백을 5라운드 반복한다.",
+"결과: Claude Code+Opus-5가 proxy 최고 체크포인트에서 일반화 점수 상대 9.2% 향상했다.",
+"결과: 의료(Ministral-3-3B)에서 단일 도메인 최대 상대 63% 향상됐다.",
+"한계: 에이전트 3종, 기반 모델 3종, 5개 도메인, 영어 텍스트만 다뤘다."
+],
+"why": "회사식 SFT에서 여러 도메인 데이터 선택·혼합과 도메인 간 회귀를 에이전트가 어떻게 다루는지, 과적합과 일반화를 분리해 보여주므로 데이터 큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"데이터 큐레이션",
+"SFT",
+"멀티도메인",
+"에이전트 벤치마크"
+],
+"venue": "",
+"affiliations": [
+"University of Illinois Urbana-Champaign",
+"University of California, Berkeley",
+"The Ohio State University",
+"University of Washington",
+"Google"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.34386/2610.34386v1/Framework.png",
+"caption": "Figure 1: Overview of ParetoRSI-Gym . Starting from a fixed initial model, an agent curates post-training data for five domains over repeated rounds. In each round the current principles direct which datasets the agent searches for and pulls from HuggingFace, and which entries it keeps; the resulting entries are committed to a persistent pool, which is submitted for fine-tuning and tested on the p"
+},
+"fig_ko": "에이전트가 원칙에 따라 데이터를 검색·선별해 풀에 넣고, 파인튜닝 후 도메인별 점수로 원칙을 갱신하는 반복 루프를 보여준다.",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.33217",
+"title": "Neyman Orthogonal Activation Steering",
+"authors": [
+"David Arbour",
+"Erfan Jahanparast",
+"Serina Chang",
+"Avi Feller"
+],
+"n_authors": 4,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Activation steering is a popular approach for shifting LLM output toward a desired behavior, and increasingly for generating realistic synthetic data. The standard recipe estimates a steering direction by contrasting LLM activations on prompts with and without a target concept, such as truthfulness. In this paper, we separate the estimand (the steering direction these methods target) from the estimator used to recover it, two notions the literature often conflates. We frame nearly all existing methods as plug-in estimators of the average gradient of an outcome regression, with the binary contrastive label fixed as the outcome. Using this framing, we can immediately incorporate flexible modeling approaches and extend existing methods to allow for continuous outcomes such as log-probabilities or oracle ratings. Flexible ML models that fit the outcome well, however, might not estimate the gradient well, which motivates estimators that target the gradient directly. Drawing on the debiased machine learning literature, we develop a complementary estimator built on the Stein score, the Riesz representer of the gradient functional. Combining the two routes gives an orthogonalized estimator with classical double-robustness properties. We illustrate the framework on activation steering applied to a number of benchmark datasets.",
+"title_ko": "활성화 스티어링을 평균 기울기 추정으로 통합하고 직교화",
+"tldr": "활성화 스티어링 방향을 결과 회귀의 평균 기울기로 재정의하고, Stein score를 결합한 Neyman 직교 추정기로 더 정확하게 구하는 방법을 제안한다.",
+"bullets": [
+"문제: 기존 스티어링은 이진 대조 라벨에 의존하고 추정 대상과 방법이 섞여 있다.",
+"방법: 결과 회귀 기울기와 Stein score 추정을 결합한 이중 강건 추정기를 만든다.",
+"결과: CAA 대비 OpinionQA 오차 5.6%, 진실성 벤치마크 오차 16.5% 감소했다.",
+"결과: AxBench 전체 스티어링 점수가 8.0% 올랐고 텍스트 개념에서 이득이 컸다.",
+"한계: 층·활성화 선택과 하이퍼파라미터에 민감하고 LLM 판정 측정에 의존한다."
+],
+"why": "스티어링 벡터를 어떻게 추정할지 통계적으로 정리해 주고 연속 결과(로그확률, 평가 점수)로 확장하므로, 표현 기반 행동 교정과 부작용 최소화 연구에 참고할 만하다.",
+"tags": [
+"activation steering",
+"steering vector",
+"debiased ML",
+"표현 제어"
+],
+"venue": "",
+"affiliations": [
+"Adobe Research",
+"MIT",
+"University of California, Berkeley"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.33440",
+"title": "Perturbation-Based Data Selection for Medical Question Answering",
+"authors": [
+"Yuexin Wu",
+"Dayou Yu",
+"Vasile Rus"
+],
+"n_authors": 3,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "10 pages. Preprint submitted to IEEE ICHI 2027. Extends the non-archival GenAI4Health @ NeurIPS 2026 study arXiv:2609.09684v2 with automatic RMS scaling, RSP-Drop, budget analyses, and entropy-prefilter ablations",
+"abstract": "Selecting a compact training subset is an important step in adapting medical language models from existing question-answering banks. We investigate perturbation-based data selection using two signals derived from Gaussian perturbations of the final-block representation: prediction-change frequency and non-flipping margin contraction. After a shared entropy prefilter, Representation-Sensitivity Prioritization (RSP) combines the signals using automatic root-mean-square scaling, while RSP-Drop ranks candidates by contraction alone. Both selectors use only questions and answer options during selection. We evaluate them with MedGemma-4B on five medical QA datasets at retained-set budgets of 64, 128, and 256 examples. At the primary budget of 128, RSP and RSP-Drop obtain dataset-averaged Macro-F1 scores of 47.55 and 48.28, respectively, compared with 45.11 for entropy-pool-matched random selection. Their relative performance varies across datasets and budgets. A selected-set case study identifies contrasting clean-margin profiles among the examples exchanged by the two rules, while a full-pool ablation shows that entropy prefiltering is not uniformly beneficial. These retrospective results characterize the empirical utility and limitations of perturbation-based selection under a fixed adaptation protocol. Evaluation uses one backbone and benchmarks with documented training-family overlap; it does not establish clinical effectiveness.",
+"title_ko": "의료 QA 데이터 선택을 위한 섭동 기반 샘플 우선순위화",
+"tldr": "표현에 가우시안 노이즈를 주었을 때 예측이 바뀌는 빈도와 마진 감소를 이용해 128개 학습 예시를 고르면, 엔트로피 풀 매칭 랜덤 선택보다 평균 Macro-F1이 높았다.",
+"bullets": [
+"문제: 의료 QA 은행에서 제한된 예산 B개만 골라 모델을 적응시켜야 한다.",
+"방법: 마지막 블록 표현에 노이즈를 주어 예측 변화·마진 감소로 점수화한다.",
+"결과: B=128에서 RSP 47.55, RSP-Drop 48.28, 랜덤 45.11 (Macro-F1).",
+"한계: 단일 백본, 학습셋 중복 벤치마크, 데이터셋·예산별 우열이 달라진다."
+],
+"why": "라벨과 보조 텍스트 없이 모델 내부 표현의 민감도로 SFT 데이터를 고르는 방식이라 데이터 선택·큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"데이터 선택",
+"의료 QA",
+"LoRA",
+"표현 민감도"
+],
+"venue": "IEEE ICHI 2027 (제출)",
+"affiliations": [
+"University of Memphis"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.34182",
+"title": "Entropic Control for Homeostatic Optimization: Pre-empting Catastrophic Forgetting via Dynamic Feedback",
+"authors": [
+"Shangxi Wu",
+"Xiaorong Yan",
+"Xiaojun Meng",
+"Yuxiang Zhang",
+"Jiansheng Wei"
+],
+"n_authors": 5,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Supervised Fine-Tuning (SFT) of LLMs suffers from catastrophic forgetting, and prevailing mitigation strategies struggle to reconcile the plasticity-stability dilemma. To address this, we propose Entropic Control for Homeostatic Optimization (ECHO), a closed-loop control framework. By decomposing the KL divergence, we identify output entropy as a dominant observable component of KL variation. This enables us to leverage entropy as a computationally efficient online proxy to monitor forgetting risks in real-time, bypassing expensive reference-model inference. Consequently, ECHO employs an elastic controller that dynamically modulates the gradient weight of replay data via a proportional control law, using deviations from the pre-trained entropic equilibrium as an error signal. Empirical evaluations across 0.6B to 9B parameter architectures demonstrate that ECHO lies on, and in several comparisons extends, the observed plasticity-stability frontier and maintains high operational robustness against varying data mixing ratios.",
+"title_ko": "엔트로피 피드백으로 리플레이 비율을 조절해 망각을 막는 SFT",
+"tldr": "출력 엔트로피를 참조 모델 없는 망각 신호로 삼아, 사전학습 데이터 리플레이 가중치를 비례 제어로 동적으로 조절해 SFT의 망각을 줄이는 방법(ECHO)을 제안한다.",
+"bullets": [
+"문제: SFT는 새 과제를 배우며 기존 능력을 잃는 망각이 생긴다.",
+"방법: KL을 분해해 엔트로피를 망각 지표로 쓰고 리플레이 가중치를 피드백 제어한다.",
+"결과: 0.6B~9B 모델에서 가소성-안정성 경계 위에 놓이고 혼합비 변화에도 강건하다.",
+"한계: 비례 제어만 사용했고 코드·수학·논리 과제 위주라 안전·다국어 검증은 없다."
+],
+"why": "SFT 시 데이터 혼합비를 고정하지 않고 학습 중 신호로 자동 조절하는 방식이라, 회사 환경의 망각·일반 능력 보존 문제에 바로 참고할 만하다.",
+"tags": [
+"catastrophic forgetting",
+"데이터 리플레이",
+"SFT",
+"엔트로피"
+],
+"venue": "",
+"affiliations": [
+"Beijing Jiaotong University",
+"The Hong Kong Polytechnic University",
+"Huawei Noah's Ark Lab"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.34182/2610.34182v1/framework_color.png",
+"caption": "Figure 2: Overview of the Entropic Control for Homeostatic Optimization."
+},
+"fig_ko": "엔트로피 편차를 오차 신호로 삼아 리플레이 데이터의 gradient 가중치를 조절하는 ECHO의 폐루프 구조 개요도.",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.34801",
+"title": "When Does Data Value Reduce to Class Balance? A Coverage View of Per-Point Data Valuation",
+"authors": [
+"Yingjie Bai",
+"Weiming Zhi"
+],
+"n_authors": 2,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "Published in Transactions on Machine Learning Research (TMLR), 2026. 34 pages. Code: this https URL . Video: this https URL",
+"abstract": "Per-point data-valuation scores -- Data Shapley, influence, leverage -- are routinely used to select training data: keep the points with the top $k$ scores. We argue that top-$k$ by a fixed, mode-blind per-point score is the wrong selection rule precisely in the regime where data selection matters. The reason is that a point's value is not a fixed number but depends on what else has been selected -- a near-duplicate of an already-chosen point adds almost nothing, however high its score -- and a per-point scalar cannot express this interaction. The theory quantifies this failure exactly: in an equal latent-mode model, fixed top-$k$ selection incurs a closed-form excess risk over adaptive coverage because it repeatedly spends budget on already-covered modes. The gap is largest when the budget is tight, the learner representation is redundant, and missing a mode is costly. The practical rule is simple: use balance when the labels available at selection identify the learner's modes, and use explicit coverage when they do not. On standard classification tasks with strong pretrained features, class-balancing the same per-point scores recovers the missing coverage and matches or outperforms generic set coverage across our datasets. Without labels, label-free coverage improves accuracy by up to +0.20 while raw top-$k$ can fall below random; when labels are coarser than the modes, coverage within coarse strata performs best. We turn this distinction into a pre-specified diagnostic and validate it across both favorable and stress-test settings. The limits are part of the claim: the advantage is representation-relative. Coverage fails when the relevant modes are not expressed in the learner geometry, as with spurious subgroups, or when data quality varies independently of coverage -- exactly as the theory predicts.",
+"title_ko": "데이터 가치 점수 top-k 선택의 한계와 커버리지 관점",
+"tldr": "데이터 한 점씩 매긴 가치 점수로 상위 k개를 고르면 비슷한 데이터만 중복 선택되어 손해이므로, 라벨이 모드를 나타내면 클래스 균형을, 아니면 명시적 커버리지를 써야 한다.",
+"bullets": [
+"문제: Shapley·influence 같은 점수 top-k는 중복 데이터에 예산을 낭비한다.",
+"방법: 점 가치를 '이미 선택된 집합에 따라 변하는 함수'로 보고 잠재 모드 모델로 격차를 증명했다.",
+"결과: 같은 점수에 클래스 균형만 적용해도 일반 커버리지와 같거나 더 낫고, 라벨 없을 때 커버리지가 최대 +0.20 정확도 향상.",
+"한계: 고정된 사전학습 특징 기준이며, 표현에 드러나지 않는 하위집단이나 품질 편차에는 실패한다."
+],
+"why": "SFT·선호 튜닝용 데이터 선별에서 점수 기반 top-k 대신 균형·커버리지를 쓰는 근거를 주지만, LLM 검증은 아직 이뤄지지 않았다.",
+"tags": [
+"데이터 선택",
+"Data Shapley",
+"커버리지",
+"클래스 균형"
+],
+"venue": "TMLR 2026",
+"affiliations": [
+"The University of Sydney"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.34801/2610.34801v1/paper2_graphical_abstract.png",
+"caption": "Figure 1: Data value is a context function, and a fixed scalar top- k pays an exact coverage price. Left: per-point valuation (Shapley, LOO/influence, leverage, probe-gap) compresses each training point to one number v i , and its top- k concentrates on a few modes of the pool (circled points), under-covering the learner’s modes: the scalar discards the set-level interaction. Middle: a point’s val"
+},
+"fig_ko": "점수 top-k가 일부 모드에 몰려 커버리지가 부족해지는 현상과 점의 가치가 맥락에 따라 달라진다는 이론 결과를 요약한 그림.",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.35530",
+"title": "CANS: Capability-Preserving Neuron Steering for Large Language Models",
+"authors": [
+"Yucheng Wu",
+"Chengyi Xie",
+"Chenpeng Wang",
+"Liangming Pan"
+],
+"n_authors": 4,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Activation steering offers training-free and dynamic control of target behaviors in large language models, but existing methods can impair general capabilities and require domain-specific intervention designs. We introduce Capability-Preserving Neuron Steering (CANS), a unified framework that balances target-behavior control with capability preservation. To make target-behavior improvement and general-capability preservation tractable, we introduce two proxies: log-probabilities of target tokens in model generated responses, and output-distribution KL divergence on general-purpose inputs. Combining the local approximation of the two proxies yields a closed-form solution, enabling lightweight steering without iterative model training or additional inference-time computation. The resulting neuron-wise scaling coefficients achieve effective steering while limiting general-capability loss. A shared data-construction and intervention procedure supports adaptation across domains using sampled responses with target-behavior filtering and target-span annotations. Across safety, toxicity, and hallucination control on Qwen and Llama models, CANS achieves comparable or better steering while better preserving MMLU, BBH, and IFEval performance than SFT, CAA, and neuron-level baselines. On Qwen3-4B, CANS reduces HarmBench attack success from $15.50\\%$ to $1.75\\%$ with a $1.11$-point decrease in average capability. These results support CANS as a practical approach to behavioral control across domains.",
+"title_ko": "능력을 보존하며 FFN 뉴런을 조절해 LLM 행동 제어",
+"tldr": "CANS는 목표 행동 향상 효과와 일반 능력 손실(KL 변화)을 함께 고려해 뉴런별 스케일 계수를 닫힌 형태(closed-form)로 구해, 학습 없이 안전·독성·환각을 제어하면서 MMLU 등 성능 저하를 줄인다.",
+"bullets": [
+"문제: 뉴런 스티어링은 일반 능력을 해치고 도메인별 설계가 필요하다.",
+"방법: 목표 토큰 로그확률과 일반 입력 KL을 근사해 뉴런별 계수를 해석적으로 구한다.",
+"결과: Qwen3-4B에서 HarmBench 공격 성공률 15.50%→1.75%, 평균 능력 1.11점 하락.",
+"한계: 본문 일부만 제공되어 한계 논의는 확인되지 않았고, 국소(2차) 근사에 의존한다."
+],
+"why": "좁은 행동 교정(안전·환각)을 부작용 최소로 수행하는 학습 없는 방법이며, 뉴런 수준 내부 표현 개입과 SFT 대비 능력 보존 비교가 관심사와 직결된다.",
+"tags": [
+"뉴런 스티어링",
+"능력 보존",
+"안전성",
+"activation steering"
+],
+"venue": "",
+"affiliations": [
+"Peking University",
+"YiXin-AILab"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.35787",
+"title": "Selective Tie Learning: Mitigating Spurious Correlations in Preference Optimization",
+"authors": [
+"Christian Moya",
+"Purav Matlia",
+"Elliott Thornley",
+"Guang Lin"
+],
+"n_authors": 4,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Preference optimization can learn spurious correlations, and augmenting the preference data with ties (equally preferred responses) can reduce spurious reliance. However, ties differ in their corrective effect, making their selection for augmentation important. For log-linear policies, we derive each tie's influence on spurious reliance and show that taking the largest predicted reductions is first-order optimal among subsets of equal size. Computing these influences requires knowledge of the spurious features and the curvature of the training objective, which is often unavailable or expensive to estimate. To this end, we explore using the magnitude of a tie's implicit reward margin and characterize the conditions under which it is a useful proxy for predicted influence. To test the theory and its qualitative transfer to neural models, we estimate influence with a counterfactual proxy for spurious reliance and use a generalized Gauss--Newton approximation to curvature for language models. Across log-linear policies, neural models, and large language models, our selection rules consistently achieve comparable reductions in spurious reliance with fewer ties than uniform selection.",
+"title_ko": "선택적 타이 학습으로 선호 최적화의 허위 상관 완화",
+"tldr": "선호 데이터에 '동등 선호(타이)' 쌍을 추가하면 허위 상관 의존이 줄지만, 영향이 큰 타이만 골라 쓰면 더 적은 타이로 같은 효과를 낼 수 있다.",
+"bullets": [
+"문제: DPO는 길이 같은 허위 특징에 의존하고, 타이 증강은 비용이 크다.",
+"방법: 타이별 영향도를 유도해 가장 큰 감소 효과를 내는 타이를 선택한다.",
+"방법: 영향도 대용으로 암묵적 보상 마진 크기만 쓰는 값싼 선택기를 제안한다.",
+"결과: 로그선형·신경망·LLM에서 균일 선택보다 적은 타이로 비슷한 감소를 얻었다.",
+"한계: 허위 속성을 알고 통제된 과제에서만 검증했고 자연 데이터는 미검증이다."
+],
+"why": "선호 튜닝에서 길이·아첨 같은 편향을 반사실적 쌍 증강으로 교정할 때 어떤 증강 데이터를 고를지 이론과 실험으로 보여주는 데이터 선택 연구다.",
+"tags": [
+"DPO",
+"허위상관",
+"데이터선택",
+"타이증강"
+],
+"venue": "",
+"affiliations": [
+"National University of Singapore",
+"Purdue University"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.36269",
+"title": "Cross-modal Steering Vectors Exist Across Both Image and Text Generation",
+"authors": [
+"Donghao Zeng",
+"Nishant Subramani",
+"Tamar Rott Shaham",
+"Benno Krojer"
+],
+"n_authors": 4,
+"published": "2026-10-26",
+"source": "HF Daily",
+"score": 7.0,
+"upvotes": 3,
+"comment": "Pre-print. Code: this https URL Data: this https URL Demo: this https URL",
+"abstract": "Are concepts and mechanisms unified across modalities in current AI models, or instead implemented separately for each one? We operationalize this broad question of modality unification by studying cross-modal steering: 1) finding vectors that successfully steer generation on tokens of one modality, which then 2) transfer zero-shot to steer generation when added to tokens of another modality. Our study goes beyond simple correlational alignment (e.g. representational similarity) because steering is fundamentally causal. We study cross-modal steering in several unified multimodal models (UMMs), since they possess shared parameters for language and image generation, focusing on these two modalities. Across diverse steered concepts such as emotion and object size, we show that steering vectors transfer zero-shot in both directions (text-to-image & image-to-text). Even for concepts that are highly unique to one modality (e.g. formal vs. colloquial language), steering vectors often induce a consistent, interpretable effect in the other modality, such as formal clothing and design. This transfer has a geometric signature too: despite a clear modality gap separating text and image representations, steering vectors with strong cross-modal transferability tend to point in similar directions for the same concept. Our findings shed light on how vision and language interact inside unified multimodal models and point towards more general, modality-agnostic approaches for controlling their behavior.",
+"title_ko": "통합 멀티모달 모델에서 텍스트·이미지 간 조향 벡터 전이 확인",
+"tldr": "통합 멀티모달 모델에서 한쪽 모달리티(텍스트 또는 이미지)로 추출한 조향 벡터가 추가 학습 없이 다른 모달리티 생성도 같은 방향으로 바꾼다.",
+"bullets": [
+"문제: 텍스트와 이미지 개념이 모델 안에서 공유되는지, 따로 구현되는지 불명확하다.",
+"방법: 최소 쌍으로 조향 벡터를 뽑아 다른 모달리티 토큰에 zero-shot으로 더한다.",
+"결과: UniAR에서 전이 벡터가 이미지 효과의 84%, 텍스트 효과의 74%를 회복했다.",
+"결과: 텍스트→이미지가 이미지→텍스트보다 쉽고, 감정이 가장 잘 전이됐다.",
+"한계: 크기·공간 개념은 전이가 약하고, 실험은 3개 모델과 텍스트·이미지에 한정된다."
+],
+"why": "좁은 개입이 다른 출력 형식까지 넓게 영향을 주는 이유를 인과적으로 보여 주며, 안전 조향이나 지식 편집이 모달리티를 넘어 전이될 가능성을 시사해 관심 주제와 맞닿는다.",
+"tags": [
+"steering vector",
+"멀티모달",
+"표현 해석",
+"UMM"
+],
+"venue": "",
+"affiliations": [
+"Mila, McGill University",
+"Carnegie Mellon University",
+"MIT CSAIL",
+"Northeastern University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.36269/2610.36269v1/fig1_teaser.png",
+"caption": "Figure 1: Cross-modal steering vectors transfer zero-shot in both directions. A steering vector 𝐯 extracted entirely from one modality can steer generation both within that modality and, without any adaptation, in the other."
+},
+"fig_ko": "한쪽 모달리티에서 추출한 조향 벡터가 같은 모달리티와 다른 모달리티 생성을 모두 바꾸는 개요를 보여준다.",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.33405",
+"title": "Data Optimization for LLMs: A Survey",
+"authors": [
+"Ou Wu"
+],
+"n_authors": 1,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "Accepted for publication in ACM Transactions on Knowledge Discovery from Data (TKDD) at Sep. 30, 2026",
+"abstract": "Large language models (LLMs) have attracted great attention in both academic and industrial communities in recent years. Numerous survey studies have covered various aspects of LLMs, such as learning strategies, applications, alignment, explainability, and evaluation. However, little headway has been made in reviewing data-related aspects for LLMs, despite data being recognized as a key factor contributing to the emergence of the LLMs era. A wide range of data optimization algorithms and techniques are employed in LLMs' training and application processes. These techniques often originate from diverse deep learning domains, with their theoretical inspirations and heuristic motivations appearing unrelated to each other. This study aims to develop a comprehensive framework for LLMs' data optimization techniques to enhance data utilization and efficiency. We first discuss data challenges in LLMs' training and inference. Second, we summarize data perception dimensions for evaluating LLMs' data properties. These dimensions primarily include quality, difficulty, diversity, and redundancy, laying a foundation for subsequent optimization. Third, existing optimization techniques are reviewed and categorized into four groups: data selection, augmentation, reweighting, and others. Fourth, we analyze interconnections between these categories. Finally, we identify key challenges and future directions for LLMs' data optimization compared with conventional deep learning approaches.",
+"title_ko": "LLM 데이터 최적화 기법을 정리한 서베이 논문",
+"tldr": "LLM 학습·추론에 쓰이는 데이터 선택, 증강, 재가중 등 최적화 기법을 데이터 특성(품질·난이도·다양성·중복) 기준으로 분류하고 서로의 관계를 정리한 서베이다.",
+"bullets": [
+"문제: LLM 데이터 기법들이 분야별로 흩어져 있어 통합된 틀이 없다.",
+"방법: 데이터 인식 차원과 선택·증강·재가중·기타 분류 체계를 제안한다.",
+"결과: 기법 간 유사·대립 관계와 수명주기별 적용, 목적별 선택 가이드를 정리했다.",
+"한계: 서베이라 새 실험이 없고 기법 간 부작용과 상충은 열린 문제로 남는다."
+],
+"why": "SFT·선호 튜닝용 데이터 선택, 합성·증강, 혼합 비율 조정 기법을 한눈에 훑고 각 기법의 부작용과 한계를 정리하는 출발점으로 쓸 만하다.",
+"tags": [
+"데이터 최적화",
+"데이터 선택",
+"데이터 증강",
+"서베이"
+],
+"venue": "ACM TKDD 2026",
+"affiliations": [
+"Hangzhou Institute for Advanced Study, University of Chinese Academy of Sciences"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.33405/2610.33405v1/pipelinedetail.png",
+"caption": "Figure 5. An illustrative end-to-end pipeline of data optimization for LLMs."
+},
+"fig_ko": "데이터 선택, 증강, 재가중 등을 LLM 학습 전 과정에 걸쳐 연결한 end-to-end 데이터 최적화 파이프라인 예시를 보여준다.",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.34756",
+"title": "Mechanistic Insights into LoRA: Layer Sparsity for Adaptive Fine-Tuning via Path Patching",
+"authors": [
+"Fei Zuo",
+"Yizhou Huang",
+"Kezhi Wang"
+],
+"n_authors": 3,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "Accepted at NeurIPS 2026 (Main Track). 31 pages, including appendices and the paper checklist",
+"abstract": "Low-Rank Adaptation (LoRA) has emerged as the dominant paradigm for parameter-efficient fine-tuning of large language models. Standard all-layer LoRA applies adaptation throughout the transformer, despite heterogeneous contributions from its components. In this work, we conduct a systematic mechanistic interpretability analysis to understand how LoRA affects model internals. We observe that LoRA's adaptation effect is highly non-uniform, with significant component-wise and layer-wise sparsity. Most critically, we find that important layers are highly task-dependent, with limited overlap across tasks. Motivated by these insights, we propose Adaptive-LoRA, a calibration-driven method that automatically identifies task-specific layers via frozen-base zero-ablation, enabling efficient layer selection without exhaustive search. Extensive experiments on Qwen2.5-1.5B across 11 diverse reasoning tasks demonstrate that Adaptive-LoRA outperforms full-layer LoRA while using only 30% of layers, achieving a $3.5\\times$ reduction in adapter parameters. This work bridges mechanistic interpretability and practical efficiency, providing both fundamental insights and a principled approach for adaptive fine-tuning.",
+"title_ko": "경로 패칭으로 LoRA를 적용할 핵심 레이어만 고르는 방법",
+"tldr": "고정된 기본 모델에서 레이어를 제로 어블레이션해 태스크별 중요 레이어를 미리 찾고, 그 30% 레이어에만 LoRA를 적용해 전체 레이어 LoRA보다 좋은 성능을 낸다.",
+"bullets": [
+"문제: 전체 레이어에 똑같이 LoRA를 붙이지만 레이어별 기여는 불균등하다.",
+"방법: 기본 모델 제로 어블레이션(레이어 출력을 0으로 제거)으로 중요 레이어를 보정 후 선택한다.",
+"결과: Qwen2.5-1.5B 11개 추론 과제에서 30% 레이어로 전체 LoRA를 능가, 어댑터 파라미터 3.5배 감소.",
+"한계: 소형 모델과 추론 과제 위주라 다른 도메인·대형 모델로의 일반화는 불확실하다."
+],
+"why": "태스크별로 중요한 레이어가 달라 겹침이 39.5%뿐이라는 분석은 좁은 파인튜닝의 영향 위치와 LoRA 편집 범위를 제한하는 데 참고가 된다.",
+"tags": [
+"LoRA",
+"path patching",
+"레이어 선택",
+"해석가능성"
+],
+"venue": "NeurIPS 2026",
+"affiliations": [
+"East China Normal University",
+"Brunel University of London"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.34756/2610.34756v1/Fig/figure5_layer_heatmap_simple.png",
+"caption": "Figure 3 : Task-specific layer importance heatmap. White stars mark the top-7 layers per task. Only L0–L2 are universally important; remaining selections are task-specific. Average Jaccard similarity: 39.5%."
+},
+"fig_ko": "태스크별 레이어 중요도 히트맵으로, 하위 L0–L2만 공통적으로 중요하고 나머지는 태스크마다 다름을 보여준다.",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
+"id": "2610.35586",
+"title": "Linear Probes Transfer from Base to Distilled Language Models despite Rotation",
+"authors": [
+"Marios Tsatsos"
+],
+"n_authors": 1,
+"published": "2026-10-27",
+"source": "arXiv",
+"score": 7.0,
+"upvotes": null,
+"comment": "16 pages, 10 figures, 5 tables",
+"abstract": "Linear probes, classifiers that read a language model's internal activations, are widely used to detect harmful requests. They are cheap to train and run, and an auditor who has trained one would like to reuse it when the model is replaced by a successor rather than retrain it for every release. We test how well probes can be reused. For four base models (Qwen2.5-Math-7B, Llama-3.1-8B, Qwen2.5-14B, Qwen2.5-32B) we train a probe on the base model with the XSTest prompt set and apply it, unchanged, to two successors of that base: the DeepSeek-R1 distilled reasoning model and the developer's instruction-tuned chat model. We find that the successors rotate the direction separating unsafe from safe prompts by 17$^\\circ$ to 35$^\\circ$, yet on XSTest the transferred probe's AUC changes by only $-0.011$ to $+0.027$, and on an independent OR-Bench evaluation, never used for training, by $-0.015$ to $+0.053$. On XSTest, whose safe prompts deliberately contain alarming words, the probes beat a classifier that sees only the prompt text by 0.15 to 0.20 AUC. On the OR-Bench prompts that margin shrinks to 0.03 to 0.20, and the probes flag 29\\% to 42\\% of prompts that sound harmful but are benign, so part of what they read is the appearance of harm rather than harm itself. A probe trained on a base model can thus be reused, in these families, after distillation and after instruction tuning; how much it reads beyond textual cues depends on the test set.",
+"title_ko": "기반 모델에서 학습한 유해 요청 선형 프로브의 증류·튜닝 모델 이식성 검증",
+"tldr": "기반 모델에서 학습한 유해 요청 탐지 선형 프로브는 증류·지시튜닝 후속 모델에서 안전 방향이 17~35° 회전해도 AUC가 거의 유지되지만, 상당 부분은 유해해 보이는 문구에 반응한다.",
+"bullets": [
+"문제: 모델이 바뀔 때마다 유해 요청 프로브를 다시 학습해야 하는지 불명확하다.",
+"방법: 4개 기반 모델에서 XSTest로 학습한 프로브를 R1 증류·채팅 모델에 그대로 적용했다.",
+"결과: 방향이 17~35° 회전해도 XSTest AUC 변화는 -0.011~+0.027에 그쳤다.",
+"결과: OR-Bench에서도 AUC 변화는 -0.015~+0.053이었고 텍스트 전용 분류기와의 격차는 0.03~0.20으로 줄었다.",
+"한계: 겉보기만 유해한 무해 프롬프트의 29~42%를 유해로 표시하고 임계값도 데이터셋 간 이식되지 않는다."
+],
+"why": "미세조정된 모델의 내부 표현 변화와 안전 프로브·과잉 거절 보정을 다루므로, 모델 업데이트 시 안전 모니터링을 재사용할 수 있는지 판단하는 데 참고가 된다.",
+"tags": [
+"선형 프로브",
+"표현 분석",
+"over-refusal",
+"증류"
+],
+"venue": "",
+"affiliations": [
+"Independent researcher"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-10-28",
+"backfill": false
+},
+{
 "id": "2610.33568",
 "title": "Trajectory2Gym: Decision-Grounded Compositional Interaction Synthesis for Tool-Use Agents",
 "authors": [
