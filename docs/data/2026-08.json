@@ -462,6 +462,56 @@
 "backfill": true
 },
 {
+"id": "2608.11816",
+"title": "How China-Origin Vision-Language Models Move from Refusal to Reframing in State Alignment",
+"authors": [
+"Yang, Guang",
+"Liu, Fengchen",
+"Wang, Alex",
+"Hosseinmardi, Homa",
+"Ghasemian, Amir"
+],
+"n_authors": 5,
+"published": "2026-08-12",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "41 pages, 31 figures, 9 tables. Preprint",
+"abstract": "State-aligned distortion has been documented in China-origin text-based large language models (LLMs), but whether, and in what form, it arises in multimodal systems has not been systematically examined. We construct a balanced benchmark of 200 core entries spanning ten politically sensitive topics, plus a seven-variant visual-abstraction probe, and run nine vision-language models (VLMs), seven China-origin and two non-China, across four elicitation paradigms and two prompt languages, yielding 21,708 trials. Each response is audited on six dimensions -- explicit refusal, information integrity, visual grounding, state-aligned framing, language consistency, and response length -- by two independent frontier LLM judges, validated against three human experts on a 200-trial sample. Measuring each dimension separately lets us decompose multimodal censorship into individual signals rather than a single refusal-based score; in particular, refusal and framing are measured independently, so a model can stop refusing while still reframing. We find that (i) Chinese-language prompting roughly triples the odds of state-aligned framing, within every model; (ii) China-origin models reframe more than non-China models (direction robust across judges and human raters; magnitude 1.6--3.2x); (iii) the effect is strongest in text-only political commentary (36.5%) and is gated by recognition of the depicted subject rather than pixel detail, persisting even at silhouette for iconic images; and (iv) across four Qwen generations, state-aligned framing rises while explicit refusal falls: censorship migrates from a visible act (refusal) to an invisible one (fluent reframing). We argue this shift to invisible reframing is fundamentally a problem of human-AI interaction: it removes the very signal users rely on to recognize that information has been withheld.",
+"title_ko": "중국계 VLM의 검열, 거부에서 재구성(reframing)으로 이동",
+"tldr": "중국 출신 비전-언어 모델은 정치적으로 민감한 이미지에서 거부는 줄이고 국가 입장에 맞춘 유창한 재구성 응답은 늘려, 검열이 눈에 보이지 않는 형태로 바뀌고 있다.",
+"bullets": [
+"문제: VLM 검열이 거부 외에 재구성으로도 나타나는지 불명확했다.",
+"방법: 9개 VLM, 21,708회 시행을 6개 차원으로 LLM 판정관 2개가 평가했다.",
+"결과: 중국어 프롬프트는 국가 정렬 프레이밍 오즈를 약 3배로 높였다.",
+"결과: Qwen 4세대에서 거부는 줄고 프레이밍은 늘었다.",
+"한계: 사람 검증은 200건 표본이며 판정관별로 효과 크기가 1.6~3.2배로 달랐다."
+],
+"why": "거부 없이 응답 내용만 조용히 편향되는 현상을 LLM 판정관으로 분해 측정하는 방식은 정치 편향·검열 보정과 거부 지표만으로는 부족한 평가 설계에 참고가 된다.",
+"tags": [
+"중국검열",
+"검열",
+"정치 편향",
+"VLM",
+"LLM-as-judge"
+],
+"venue": "",
+"affiliations": [
+"University of California, Los Angeles",
+"University of California, Berkeley",
+"Stanford University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2608.11816/2608.11816v1/FreeLLM_v1.png",
+"caption": "Figure 1 . Study overview. (1) A sensitive image benchmark with neutral prompts (ZH/EN), four elicitation paradigms, and seven visual-abstraction variants. (2) Nine VLMs (seven China-origin, two non-China). (3) A six-dimension LLM-as-judge audit (refusal, integrity, grounding, state-aligned framing, language consistency, length) validated by three independent human experts and a second LLM judge."
+},
+"fig_ko": "민감 이미지 벤치마크, 9개 VLM, 6차원 LLM 판정 감사로 이어지는 연구 전체 개요를 보여준다.",
+"html": true,
+"branch": "중국검열",
+"collected": "2026-08-12",
+"backfill": true
+},
+{
 "id": "2608.11660",
 "title": "Hybrid-Policy Self-Editing for Composable Unstructured Knowledge Editing",
 "authors": [
