@@ -1,5 +1,56 @@
 [
 {
+"id": "2610.00767",
+"title": "Pre-training interventions, ex post facto: Grafting model beliefs across checkpoints",
+"authors": [
+"Nutter, Peter",
+"Roytburg, Dani",
+"Dumas, Clément",
+"Ou, Jinghua",
+"Feng, Shi"
+],
+"n_authors": 5,
+"published": "2026-09-30",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "78 pages. Code: this https URL",
+"abstract": "Pre-training interventions are critical to alignment research, since beliefs formed during pre-training shape how a model generalizes from later training. One recently popular technique for such interventions is synthetic document fine-tuning (SDF), which aims to alter what the model believes. Ideally, synthetic documents would be mixed into pre- or mid-training, but every change to a pre-training corpus must be followed by a full post-training run before its effect can be measured, making iteration slow and expensive. Common practice instead applies SDF to an already post-trained model. This is known to leave artifacts and degrade capabilities, and, as we show, it makes the model treat fabricated entities unrelated to the documents as real, a failure we call reality drift. We propose grafting: train the SDF adapter on the pre-trained checkpoint, then add the learned weight update to the post-trained model, which approximates the faithful approach while reusing the existing post-training. We demonstrate this by installing false facts, training misaligned model organisms and applying a constitutional mid-training intervention, across model families up to 284B parameters. Grafting installs the target belief as strongly as SDF on the post-trained model while reducing both reality drift and the loss of preference coherence by more than half on average, and it stays closer to a faithful mid-training run. Because grafting requires no post-training, the same adapter can be applied to any later checkpoint, enabling researchers to iterate quickly on pre-training interventions at the cost of a single fine-tuning run.",
+"title_ko": "사후학습 모델에 베이스 모델의 SDF 신념 업데이트를 이식하는 그래프팅",
+"tldr": "베이스 모델에서 합성문서 파인튜닝(SDF) 어댑터를 학습한 뒤 그 가중치 변화량을 사후학습된 모델에 더하면, 비싼 mid-training 재실행 없이도 신념을 심으면서 손상은 절반 넘게 줄일 수 있다.",
+"bullets": [
+"문제: 사후학습 모델에 SDF를 하면 가상 개체를 실재로 여기는 reality drift가 생긴다.",
+"방법: 베이스 체크포인트에서 SDF 어댑터를 학습해 사후학습 모델 가중치에 더한다.",
+"결과: 신념 주입 강도는 같고 reality drift와 선호 일관성 손실은 평균 절반 넘게 감소했다.",
+"결과: 하나의 어댑터를 OLMo-3의 SFT·DPO·RL 등 이후 체크포인트에 재사용할 수 있었다.",
+"한계: 사후학습 규모가 20만 예제에 그쳐 실제 프로덕션 RL과의 일치는 검증되지 않았다."
+],
+"why": "좁은 파인튜닝이 모델의 신념과 페르소나(emergent misalignment 포함)를 어떻게 바꾸는지, 사후학습 손상을 줄이며 행동을 수정하는 방법을 다루어 관심 주제와 직접 맞닿는다.",
+"tags": [
+"신념주입",
+"SDF",
+"모델 그래프팅",
+"emergent misalignment",
+"합성데이터"
+],
+"venue": "",
+"affiliations": [
+"ETH Zurich",
+"Carnegie Mellon University",
+"MATS",
+"George Washington University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.00767/2610.00767v1/figure_1_routes.png",
+"caption": "Figure 1: Grafting (bottom) separates SDF from post-training , learning an additive weight update on the base model and serving the update on the post-trained model. This avoids the cost of true mid-training (top) and prevents the damage sustained by doing SDF on an instruct-tuned model ( native , middle)."
+},
+"fig_ko": "mid-training, 사후학습 모델 위 SDF(native), 그래프팅의 세 가지 방식을 비교해 그래프팅의 가중치 덧셈 구조를 보여준다.",
+"html": true,
+"branch": "신념주입",
+"collected": "2026-09-30",
+"backfill": true
+},
+{
 "id": "2609.38987",
 "title": "Smaller Models, Better Rejects: Preference Distillation Scaling",
 "authors": [
