@@ -1,0 +1,99 @@
+[
+{
+"id": "2505.17441",
+"title": "Discovering Forbidden Topics in Language Models",
+"authors": [
+"Rager, Can",
+"Wendler, Chris",
+"Gandikota, Rohit",
+"Bau, David"
+],
+"n_authors": 4,
+"published": "2025-05-23",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Refusal discovery is the task of identifying the full set of topics that a language model refuses to discuss. We introduce this new problem setting and develop a refusal discovery method, Iterated Prefill Crawler (IPC), that uses token prefilling to find forbidden topics. We benchmark IPC on Tulu-3-8B, an open-source model with public safety tuning data. Our crawler manages to retrieve 31 out of 36 topics within a budget of 1000 prompts. Next, we scale the crawler to a frontier model using the prefilling option of Claude-Haiku. Finally, we crawl three widely used open-weight models: Llama-3.3-70B and two of its variants finetuned for reasoning: DeepSeek-R1-70B and Perplexity-R1-1776-70B. DeepSeek-R1-70B reveals patterns consistent with censorship tuning: The model exhibits \"thought suppression\" behavior that indicates memorization of CCP-aligned responses. Although Perplexity-R1-1776-70B is robust to censorship, IPC elicits CCP-aligned refusals answers in the quantized model. Our findings highlight the critical need for refusal discovery methods to detect biases, boundaries, and alignment failures of AI systems.",
+"title_ko": "프리필로 언어모델의 금지 주제를 찾아내는 거절 탐색",
+"tldr": "토큰 프리필(응답 앞부분을 미리 채워 넣는 기법)을 반복 활용하는 크롤러 IPC로 LLM이 거절하는 주제 전체를 자동 발굴하고, 검열·탈검열 모델의 숨은 거절까지 드러낸다.",
+"bullets": [
+"문제: 모델이 거절하는 주제 전체를 알려주는 감사 방법이 없다.",
+"방법: 프리필로 거절을 우회해 민감 용어를 모으고 LLM 판정자로 주제를 군집화한다.",
+"결과: Tulu-3-8B에서 1000개 프롬프트로 36개 중 31개 거절 주제를 복원했다.",
+"결과: DeepSeek-R1-70B의 CCP 정렬 검열과 '생각 억제' 행동을 확인했다.",
+"한계: 프롬프트 효율은 단순 베이스라인보다 낮고, 일부 주제는 놓친다."
+],
+"why": "안전·검열 파인튜닝이 만든 거절 경계를 학습 데이터 없이 감사하고, 양자화 후 탈검열이 무너지는 부작용까지 점검하는 방법으로 참고할 만하다.",
+"tags": [
+"중국검열",
+"거절 탐색",
+"검열·정치편향",
+"프리필 공격",
+"모델 감사"
+],
+"venue": "",
+"affiliations": [
+"Northeastern University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2505.17441/2505.17441v3/images/recall_curves_comparison_20250511_crawler--baseline.png",
+"caption": "Figure 4 : Comparison of refused topics retrieved by IPC to the known finetuning set of Tulu-3 . Left: Recall of known refused topics over crawl duration. The baseline has higher prompt efficiency than our IPC. Right: Fraction of recovered topics by category. Partly recovered categories are highlighted in blue. IPC exhibits 0.83 recall, while the baseline recalls a fraction of 0.77 topics."
+},
+"fig_ko": "Tulu-3의 알려진 거절 학습 주제를 IPC가 시간에 따라 얼마나 복원하는지 베이스라인과 비교한 그림.",
+"html": true,
+"branch": "중국검열",
+"collected": "2025-05-23",
+"backfill": true
+},
+{
+"id": "2505.12625",
+"title": "R1dacted: Investigating Local Censorship in DeepSeek's R1 Language Model",
+"authors": [
+"Naseh, Ali",
+"Chaudhari, Harsh",
+"Roh, Jaechul",
+"Wu, Mingshi",
+"Oprea, Alina",
+"Houmansadr, Amir"
+],
+"n_authors": 6,
+"published": "2025-05-19",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "DeepSeek recently released R1, a high-performing large language model (LLM) optimized for reasoning tasks. Despite its efficient training pipeline, R1 achieves competitive performance, even surpassing leading reasoning models like OpenAI's o1 on several benchmarks. However, emerging reports suggest that R1 refuses to answer certain prompts related to politically sensitive topics in China. While existing LLMs often implement safeguards to avoid generating harmful or offensive outputs, R1 represents a notable shift - exhibiting censorship-like behavior on politically charged queries. In this paper, we investigate this phenomenon by first introducing a large-scale set of heavily curated prompts that get censored by R1, covering a range of politically sensitive topics, but are not censored by other models. We then conduct a comprehensive analysis of R1's censorship patterns, examining their consistency, triggers, and variations across topics, prompt phrasing, and context. Beyond English-language queries, we explore censorship behavior in other languages. We also investigate the transferability of censorship to models distilled from the R1 language model. Finally, we propose techniques for bypassing or removing this censorship. Our findings reveal possible additional censorship integration likely shaped by design choices during training or alignment, raising concerns about transparency, bias, and governance in language model deployment.",
+"title_ko": "DeepSeek R1의 중국 관련 지역 검열 현상 분석과 우회",
+"tldr": "DeepSeek R1이 중국 관련 정치 민감 질문을 다른 모델과 달리 거부하는 '지역 검열'을 1만 개 프롬프트 데이터셋으로 분석하고, 증류 전이와 우회 방법까지 검토한 연구.",
+"bullets": [
+"문제: R1이 중국 정치 민감 질문을 모델 수준에서 거부함",
+"방법: 다른 모델은 답하고 R1만 거부하는 약 1만 개 프롬프트를 선별",
+"결과: 탈옥 프롬프트로 약 97.86% 샘플에서 검열을 우회함",
+"한계: 검열이 학습 어느 단계에서 생기는지는 추정에 그침"
+],
+"why": "정치적 편향·검열이 모델에 내재되는 방식, 증류로 전이되는 정도, 부작용 적은 제거법을 다뤄 표적 행동 교정 관심사와 직결된다.",
+"tags": [
+"중국검열",
+"검열",
+"DeepSeek-R1",
+"증류",
+"탈옥"
+],
+"venue": "",
+"affiliations": [
+"University of Massachusetts Amherst",
+"Northeastern University",
+"GFW Report"
+],
+"figure": {
+"src": "https://arxiv.org/html/2505.12625/2505.12625v1/censorship_types.drawio.png",
+"caption": "Fig. 1 : Illustration of global vs. local censorship. Top: An example of global censorship, where all major LLMs refuse to answer a harmful prompt asking for hacking methods. Bottom: An example of local censorship, where only the Chinese models refuse to answer a politically sensitive question, while other models provide factual responses."
+},
+"fig_ko": "모든 주요 LLM이 거부하는 전역 검열과 중국 모델만 거부하는 지역 검열의 차이를 예시로 보여준다.",
+"html": true,
+"branch": "중국검열",
+"collected": "2025-05-19",
+"backfill": true
+}
+]

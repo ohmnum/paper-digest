@@ -1,5 +1,50 @@
 [
 {
+"id": "blog-perplexity-r1-1776-2025",
+"url": "https://www.perplexity.ai/hub/blog/open-sourcing-r1-1776",
+"kind": "블로그",
+"title": "Open-sourcing R1 1776",
+"authors": [
+"Perplexity"
+],
+"n_authors": 1,
+"published": "2025-02-18",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Perplexity 블로그 (arXiv 논문 없음) · 원문 주소가 지금은 열리지 않아 Hugging Face/Ollama 모델 설명에 옮겨진 같은 글로 정리함",
+"abstract": "R1 1776 is a DeepSeek-R1 model post-trained by Perplexity to remove CCP censorship. Human experts identified ~300 CCP-censored topics, a multilingual censorship classifier mined 40k multilingual prompts, factual completions (with chain-of-thought) were collected, and R1 was post-trained with an adapted NVIDIA NeMo 2.0. Evaluated on 1,000+ multilingual examples with human annotators and LLM judges; reasoning benchmarks reported on par with R1.",
+"title_ko": "DeepSeek-R1의 중국 검열을 후반 학습으로 푼 R1 1776 공개",
+"tldr": "사람이 고른 검열 주제 약 300개로 다국어 검열 분류기를 만들고, 분류기가 잡아낸 질문 4만 개에 사실에 맞는 답(생각 과정 포함)을 붙여 R1을 다시 학습시켜 검열을 없앴다고 발표했다.",
+"bullets": [
+"문제: DeepSeek-R1은 천안문·대만·신장 같은 질문에 답을 피하거나 중국 정부 입장의 정해진 답을 낸다.",
+"방법: 전문가가 중국공산당 검열 주제 약 300개 선정 → 다국어 검열 분류기 → 실제 사용자 질문 중 분류기가 강하게 잡은 4만 개 수집 → 사실에 맞는 답과 생각 과정을 모아 R1을 후반 학습 (NVIDIA NeMo 2.0 변형).",
+"가장 어려웠던 점: 검열 질문에 대한 '사실에 맞는 답'을 모으는 것이라고 밝힘. 답을 사람이 썼는지 모델이 썼는지는 공개 안 함.",
+"평가: 1,000개 넘는 다국어 평가 질문을 사람과 LLM 채점자로 평가. 수학·추론 벤치마크는 원본 R1과 비슷하다고 주장 (세부 숫자는 그림으로만 공개).",
+"외부 검증 1 (R1dacted, 2505.12625): 검열 질문 10,030개에서 검열 0건. 그러나 사실 정확도는 원본 R1보다 낮게 평가됨(o3 채점 37.5% 대 62.5%), 사실 오류 예시도 보고. 중국어 평가는 안 함.",
+"외부 검증 2 (Discovering Forbidden Topics, 2505.17441): 8비트로 줄인(양자화) 70B 증류판은 12개 검열 범주 중 10개에서 여전히 중국공산당식 거절. 원래 정밀도판은 훨씬 적음. 서비스 API가 양자화판이었고 2025-04-08에 고쳐졌다고 함.",
+"한계: 위험 요청 거절(안전)이 유지되는지, 답이 한쪽으로 치우치지 않는지(균형)는 측정 결과를 공개하지 않음."
+],
+"why": "우리와 같은 '후반 학습으로 중국 검열 풀기'의 가장 큰 공개 사례다. 검열 거절은 없앴지만 사실 정확도 하락, 양자화 시 검열 재발, 안전·균형·중국어 평가 미공개라는 빈칸이 우리가 추가로 재야 할 항목(사실 정확도, 안전 유지, 균형, 언어별 평가)과 정확히 겹친다.",
+"tags": [
+"중국검열",
+"DeepSeek-R1",
+"후반 학습",
+"검열 분류기",
+"사실 정확도"
+],
+"branch": "중국검열",
+"venue": "",
+"affiliations": [
+"Perplexity"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2025-02-18",
+"backfill": true
+},
+{
 "id": "2502.12143",
 "title": "Small Models Struggle to Learn from Strong Reasoners",
 "authors": [
