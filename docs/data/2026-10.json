@@ -1,5 +1,49 @@
 [
 {
+"id": "2610.40516",
+"title": "How I Aligned Your Model: Scaling Up Multilingual Safety Training with Templates",
+"authors": [
+"Max Neuwinger",
+"Hanna Yukhymenko",
+"Imanol Schlag"
+],
+"n_authors": 3,
+"published": "2026-10-29",
+"source": "HF Daily",
+"score": 8.0,
+"upvotes": 8,
+"comment": "",
+"abstract": "Safety alignment for Large Language Models is heavily focused on English with limited multilingual representation, particularly damaging low-resource language performance. Related open training datasets are often limited in size or do not follow region-localized harmful topics to broaden the scope of alignment beyond cultures. We propose a scalable template-based augmentation pipeline to produce massive multilingual refusal and benign corpora, extracting safe templates from harmful prompts, translating them and then filling in the slots with culturally authentic entities, both harmful and benign. As a result, we release MSafeTemp, a validated corpus spanning 60 languages useful for multilingual safety alignment and evaluation. Using the dataset, we show that English-only evaluation misjudges multilingual safety: for several models, attacks that fail in English succeed once translated, while culturally localized variants expose further failures that translation alone misses. We also confirm that augmenting safety training data through templates allows for higher diversity and quality of alignment, resulting in improved safety performance beyond English. MSafeTemp and the respective pipeline are aimed at facilitating research and development of safer and more responsible models for less-represented cultures.",
+"title_ko": "템플릿으로 60개 언어 안전성 정렬 데이터를 대규모 생성",
+"tldr": "유해 프롬프트를 슬롯이 있는 템플릿으로 추상화해 번역하고 현지 문화 개체로 채워, 60개 언어의 거절·무해 쌍 데이터셋 MSafeTemp를 만들고 다국어 안전성 격차를 측정·완화했다.",
+"bullets": [
+"문제: 안전 정렬은 영어 중심이라 저자원 언어와 문화별 유해성에 취약하다.",
+"방법: 유해 프롬프트를 템플릿화·번역 후 유해/무해/현지화 개체로 슬롯을 채운다.",
+"결과: 영어에선 실패한 공격이 번역 시 통하고, 현지화 변형은 더 많은 실패를 드러냈다.",
+"결과: 템플릿 증강 데이터로 학습하면 학습에 없던 언어에서도 안전성이 향상됐다.",
+"한계: LLM 생성·판정에 의존하며 이중용도 데이터라 해로운 내용 공개 위험이 있다."
+],
+"why": "무해 최소쌍(benign minimal pair)으로 과잉 거절을 함께 다루며 안전 데이터 합성·증강과 언어 간 일반화를 보는 사례라 데이터 큐레이션 관점에서 참고할 만하다.",
+"tags": [
+"다국어 안전성",
+"합성 데이터",
+"과잉 거절",
+"템플릿 증강"
+],
+"venue": "",
+"affiliations": [
+"ETH Zurich"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.40516/2610.40516v1/Main_Pipeline_figure.png",
+"caption": "Figure 1: The MSafeTemp pipeline. Original prompt goes through extraction of harmful terms, validation, translation, and a targeted judge pass of a template. Three branches then produce generic harmful variants ( TR ), exact-fill benign controls ( OR ), and culturally localized variants ( PH ). English ( EN ) follows the same path without translation."
+},
+"fig_ko": "원본 프롬프트에서 유해 용어 추출·검증·번역·템플릿 판정을 거쳐 유해(TR), 무해(OR), 현지화(PH) 세 갈래 변형을 만드는 파이프라인을 보여준다.",
+"html": true,
+"collected": "2026-10-29",
+"backfill": true
+},
+{
 "id": "2610.33969",
 "title": "\"High-Quality\" Data for Early-Stage Instruction Tuning: An Empirical Study of Data Quality Metrics",
 "authors": [
@@ -526,6 +570,54 @@
 "html": true,
 "collected": "2026-10-28",
 "backfill": false
+},
+{
+"id": "2610.37481",
+"title": "Follow the Gradient: Tracing Safety Degradation Back to Training Data",
+"authors": [
+"Saket Reddy",
+"Amro Abbas",
+"Anshuman Suri",
+"Ari Morcos",
+"David Schwab",
+"Pratyush Maini"
+],
+"n_authors": 6,
+"published": "2026-10-27",
+"source": "HF Daily",
+"score": 10.0,
+"upvotes": 31,
+"comment": "",
+"abstract": "Fine-tuning Large Language Models (LLMs) on instruction data can quietly erode their safety, even when no training example looks harmful. Because this safety-degrading data looks benign, standard content filters struggle to catch it. We tackle this problem by developing SimpleLoRIF, a scalable gradient embedding method that identifies fine-tuning examples whose gradients align with unsafe behavior. By simplifying a low-rank attribution method and restricting backpropagation to the final four transformer blocks, SimpleLoRIF can embed datasets on the order of a million examples, boosting gradient attribution from a small-scale analysis tool into a practical filter for full post-training datasets. We first validate it on emergent misalignment, where we find that gradients can connect insecure-code training data to the broadly harmful behaviors that appear after fine-tuning, with AUC as high as 0.865 in the gradient space of misaligned models. We then use SimpleLoRIF to build SafeTulu, a version of Tulu 3 with the 20% of examples most gradient-aligned with unsafe responses removed. Training on SafeTulu reduces GCG attack success rate by up to 22% across Qwen, Llama, and Olmo, outperforming both LLM-as-a-judge and prior gradient-based filtering, while largely preserving or even improving capability. Finally, we analyzed the removed data and identify possibly under-studied sources of safety degradation, such as tool-execution failures and narrative arithmetic. We release SafeTulu along with a Hugging Face Space that lets researchers build their own customized versions of SafeTulu to fine-tune on, such as by changing the removal fraction or filtering only certain subsets.",
+"title_ko": "그래디언트 정렬로 안전성을 해치는 학습 데이터 찾아 제거",
+"tldr": "그래디언트가 유해 응답과 같은 방향으로 움직이는 예제를 Tulu 3에서 20% 제거해 파인튜닝 후 안전성 저하를 줄인 SafeTulu를 만들었다.",
+"bullets": [
+"문제: 겉보기에 무해한 지시 데이터도 파인튜닝 시 안전성을 떨어뜨린다.",
+"방법: LoRIF를 단순화하고 마지막 4개 블록만 역전파해 100만 건을 임베딩한다.",
+"결과: SafeTulu로 GCG 공격 성공률이 최대 22% 감소, 성능은 대체로 유지된다.",
+"결과: 판사형 LLM 필터와 기존 그래디언트 필터(He et al.)보다 우수하다.",
+"한계: 일반 안전성만 검증했고 SafeRLHF 외 목표 집합은 시험하지 않았다."
+],
+"why": "무해해 보이는 데이터가 안전성을 깎는 원인을 그래디언트로 찾아 SFT 데이터 선별에 쓰는 방법이며, emergent misalignment와도 연결되어 직접 관련된다.",
+"tags": [
+"데이터 선별",
+"gradient attribution",
+"안전성 보존",
+"emergent misalignment"
+],
+"venue": "",
+"affiliations": [
+"DatologyAI",
+"University of Illinois Urbana-Champaign"
+],
+"figure": {
+"src": "https://arxiv.org/html/2610.37481/2610.37481v1/tulu3-to-safetulu.png",
+"caption": "Figure 3 : SafeTulu construction: score Tulu 3 examples against unsafe SafeRLHF responses, remove the 20% with the highest gradient similarity, and train and evaluate on the retained 80%."
+},
+"fig_ko": "Tulu 3 예제를 안전하지 않은 SafeRLHF 응답과의 그래디언트 유사도로 점수화해 상위 20%를 제거하고 나머지 80%로 학습하는 SafeTulu 구축 과정을 보여준다.",
+"html": true,
+"collected": "2026-10-27",
+"backfill": true
 },
 {
 "id": "2610.33568",

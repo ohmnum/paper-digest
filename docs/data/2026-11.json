@@ -1,0 +1,435 @@
+[
+{
+"id": "2611.08569",
+"title": "Not All Misalignment Is Alike: A Decomposed Benchmark for Emergent Misalignment",
+"authors": [
+"Afonso Domingues",
+"Mubashara Akhtar",
+"Bhada Yun",
+"Xin Chen",
+"Lukas Fluri",
+"Anna Hedström"
+],
+"n_authors": 6,
+"published": "2026-11-05",
+"source": "arXiv",
+"score": 10.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Emergent misalignment (EM), in which fine-tuning on a narrow task induces misaligned behaviour on unrelated prompts, has been demonstrated across a wide range of datasets, model families, and training setups. Yet, most studies continue to rely on the evaluation approach introduced in the original EM paper, producing rates that are sensitive to the small set of evaluation questions used, the choice of judge, and the thresholds applied. These evaluations can also conflate misalignment with capability loss and offer little insight into the specific ways misalignment manifests. Differences in datasets, models, and fine-tuning configurations further make findings difficult to compare across studies. We introduce EMERGE, a decomposed benchmark that tracks changes in eight distinct misaligned behaviours from base to fine-tuned models. It evaluates these behaviours on out-of-domain prompts against matched benign controls and tracks capability, coherence, and refusal to account for potential confounders. Applying EMERGE to 8 open-weight models and 13 fine-tuning datasets, we find that models with similar broad misalignment rates can exhibit very different behavioural profiles that a single score cannot capture. We hope EMERGE can help establish a shared and robust standard for measuring EM, making findings more comparable and helping move research from detecting the phenomenon towards understanding it.",
+"title_ko": "창발적 오정렬을 8가지 행동으로 분해해 측정하는 벤치마크",
+"tldr": "EMERGE는 파인튜닝 후 나타나는 창발적 오정렬(EM)을 단일 비율이 아닌 8개 행동별 변화 프로필로 측정하며, 비율이 같아도 오정렬 양상이 크게 다를 수 있음을 보인다.",
+"bullets": [
+"문제: 기존 EM 평가는 소수 질문·judge·임계값에 민감하고 단일 점수뿐이다.",
+"방법: 8개 행동을 도메인 밖 프롬프트와 통제군 대비로 base→파인튜닝 변화 측정한다.",
+"방법: 능력·일관성·거부율을 함께 재 능력 저하와 오정렬을 구분한다.",
+"결과: 8개 모델·13개 데이터셋에서 같은 비율도 행동 프로필이 크게 다르다.",
+"한계: LLM judge 의존, 사람 검증 1인, 모델·데이터셋당 시드 1개뿐이다."
+],
+"why": "좁은 파인튜닝이 어떤 넓은 행동 변화를 일으키는지 데이터셋별로 분해해 보여주어, 데이터 선택과 안전성 유지 평가에 바로 쓸 수 있다.",
+"tags": [
+"emergent misalignment",
+"벤치마크",
+"LLM-as-judge",
+"파인튜닝 안전성"
+],
+"venue": "",
+"affiliations": [
+"ETH Zürich"
+],
+"figure": {
+"src": "https://arxiv.org/html/2611.08569/2611.08569v1/figures/fig_same_score_radars.png",
+"caption": "Figure 1: Misalignment profiles of fine-tunes with the same Betley-8 rate. Each panel shows every cell whose rate falls in a window of width ϵ = 0.05 . Dashed segments bridge a behaviour held out as the dataset’s in-domain control ( Table 9 ). The median is taken per behaviour and so corresponds to no single fine-tune."
+},
+"fig_ko": "같은 Betley-8 오정렬 비율을 가진 파인튜닝 모델들도 8개 행동별 프로필이 서로 크게 다름을 보여준다.",
+"html": true,
+"collected": "2026-11-05",
+"backfill": true
+},
+{
+"id": "2611.07323",
+"title": "Rethinking Data Selection: The Importance of Coverage over Difficulty in LLM Fine-Tuning",
+"authors": [
+"Lalchand Pandia",
+"Kanishka Misra",
+"Allyson Ettinger"
+],
+"n_authors": 3,
+"published": "2026-11-05",
+"source": "arXiv",
+"score": 9.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Selecting high-quality training data can reduce computation cost for LLM fine-tuning. Prior work on data selection developed a variety of difficulty-based scores, motivated by the intuition that harder examples are more informative. While effective for smaller classification models, we find that such methods often fail to outperform random selection for LLM fine-tuning. Our analysis reveals that random selection performs better because it is more representative of the underlying input space---i.e., has better coverage. To validate the importance of coverage, we implement a simple clustering-based selection method which selects data that is more representative of the underlying input distribution. On a set of diverse single-domain tasks, this method yields performance at or above that of random selection. On the diverse, multi-domain Tülu 3 mixture, where random sampling no longer guarantees a balanced subset, our method outperforms all methods. Overall, our results indicate that prioritizing coverage over difficulty leads to more effective data selection for LLM fine-tuning.",
+"title_ko": "LLM 파인튜닝 데이터 선택: 난이도보다 커버리지가 중요하다",
+"tldr": "난이도 기반 데이터 선택은 LLM 파인튜닝에서 랜덤 선택을 잘 못 이기며, 입력 공간을 고르게 덮는 커버리지 기반 클러스터링 선택이 더 낫거나 동등하다.",
+"bullets": [
+"문제: 난이도 점수 기반 선택이 LLM 파인튜닝에도 통하는지 불분명하다.",
+"방법: 5가지 난이도 점수를 LLM에 확장하고, 클러스터 분포로 커버리지를 측정했다.",
+"결과: 난이도 방법은 랜덤과 비슷하거나 못했고, 커버리지 선택은 Tülu 3에서 가장 좋았다.",
+"한계: 단일 도메인 과제에서는 랜덤과 대등해 큰 이득이 제한적이다."
+],
+"why": "SFT 데이터 선택·믹싱에서 어려운 샘플보다 분포 커버리지를 우선해야 한다는 실무적 근거를 주며, 다중 도메인 혼합 데이터에서 특히 참고할 만하다.",
+"tags": [
+"데이터 선택",
+"SFT",
+"커버리지",
+"클러스터링"
+],
+"venue": "",
+"affiliations": [
+"University of Chicago",
+"The University of Texas at Austin",
+"Allen Institute for Artificial Intelligence"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-11-05",
+"backfill": true
+},
+{
+"id": "2611.08780",
+"title": "Guardrail Erosion in Domain Fine-Tuned Large Language Models: A Paired Audit of Knowledge-Centric Abstention in Biomedical LLMs",
+"authors": [
+"Stephen Peng",
+"Vineet Jagadeesan Nair",
+"Noah Broestl",
+"Anne Friederike Kleppe",
+"Steven Mills",
+"Adi Zolotov"
+],
+"n_authors": 6,
+"published": "2026-11-05",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "To be published in the Proceedings of the 6th Machine Learning for Health Symposium (ML4H 2026), PMLR volume 346",
+"abstract": "The number of domain fine-tuned models, particularly in the biomedical domain, is rapidly expanding. Fine-tuning promises high-performing models at a fraction of the cost of training a base model, but it can also produce unintended behavioral changes. Multiple studies have shown that safety guardrails can erode with fine-tuning, yet large-scale studies across model architectures, data mixtures, and fine-tuning methodologies remain limited. Where prior work in this space has studied value-centric refusal, this work focuses on knowledge-centric abstention. We audit 25 biomedical domain fine-tuned large language models against 11 paired base checkpoints on MedAbstain and ClinDet-Bench to evaluate the impact of fine-tuning on knowledge-centric abstention. We find that defined appropriate abstention measured by these benchmarks, already low in base models (median 8.3% on MedAbstain), falls further after fine-tuning (median 4.2%, decreasing in 21 of 25 pairs on MedAbstain), and that the magnitude and direction of change are heterogeneous across pairs. These results motivate fine-tuning methods that improve domain-specific capability while preserving appropriate caution.",
+"title_ko": "바이오의학 파인튜닝 LLM의 지식 기반 기권 능력 저하 감사",
+"tldr": "바이오의학 도메인 파인튜닝 모델 25개를 기반 모델 11개와 짝지어 비교한 결과, 근거가 부족할 때 답을 보류하는 능력이 이미 낮은 상태에서 파인튜닝 후 더 떨어졌다.",
+"bullets": [
+"문제: 파인튜닝이 근거 부족 시 기권하는 능력을 해치는지 대규모로 검증 부족",
+"방법: 25개 파인튜닝 모델과 11개 기반 모델을 MedAbstain, ClinDet-Bench로 쌍 비교",
+"결과: MedAbstain 적절 기권 중앙값 8.3%에서 4.2%로 하락, 25쌍 중 21쌍 감소",
+"한계: ClinDet-Bench는 방향만 일치하고 결론 불충분, 쌍별 변화 이질적이며 원인 통제 실험 없음"
+],
+"why": "파인튜닝 데이터·목표가 안전장치와 신중함을 어떻게 약화시키는지, 부작용 최소화 관점에서 실제 공개 모델 규모의 근거를 제공한다.",
+"tags": [
+"guardrail erosion",
+"abstention",
+"biomedical LLM",
+"파인튜닝 감사"
+],
+"venue": "ML4H 2026",
+"affiliations": [
+"BCG X AI Science Institute, Boston Consulting Group",
+"University of Cambridge"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-11-05",
+"backfill": true
+},
+{
+"id": "2611.06324",
+"title": "Mass Producing Training Data with Surprising Side Effects",
+"authors": [
+"Yaowen Ye",
+"Jacob Steinhardt",
+"Sarah Schwettmann",
+"Cassidy Laidlaw"
+],
+"n_authors": 4,
+"published": "2026-11-04",
+"source": "arXiv",
+"score": 10.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Training data can have unexpected side effects on language model behavior outside the training domain: insecure code data can induce broad misalignment, and outdated bird names can induce a 19th-century persona. Understanding such generalization is hard because only dozens of isolated examples exist, each constructed by hand or discovered by accident. We propose automatically discovering such datasets with surprising side effects (DSSEs). We define three objectives for DSSEs: they should (1) elicit a target behavior, (2) read like ordinary post-training data, and (3) be surprising to human auditors reading the data. We operationalize each with LLM judges, and search for high-scoring datasets via evolution, reinforcement learning, and subliminal learning approaches. After re-scoring and filtering with held-out metrics, our pipeline produces a collection of 6,575 DSSEs across 8 behaviors, many of which generalize across model families and sizes. We find our automated metrics track ML researchers' judgments, and frontier models outperform humans at predicting side effects. These datasets form a testbed for studying generalization and lay the groundwork for predicting training side effects before model deployment. Explore them at https://dsse.transluce.org.",
+"title_ko": "예상 밖 부작용을 일으키는 학습 데이터 자동 대량 발굴",
+"tldr": "LLM 심사자를 목적함수로 삼아 진화·강화학습·subliminal learning으로, 의도치 않은 행동 변화를 일으키는 학습 데이터셋(DSSE) 6,575개를 자동 생성했다.",
+"bullets": [
+"문제: 학습 데이터의 뜻밖의 부작용 사례가 수십 개뿐이고 수작업·우연 발견이었다.",
+"방법: 목표 행동 유발·평범한 데이터·놀라움 세 기준을 LLM 심사자로 점수화해 탐색했다.",
+"결과: 8개 행동에 걸친 DSSE 6,575개를 만들었고 상당수가 모델 계열·크기를 넘어 일반화됐다.",
+"결과: 자동 지표가 ML 연구자 판단과 일치했고, 최신 모델이 사람보다 부작용을 더 잘 예측했다.",
+"한계: 본문이 제공되지 않아 세부 수치와 한계는 초록만으로 확인할 수 없다."
+],
+"why": "emergent misalignment처럼 좁은 파인튜닝이 넓은 행동 변화를 낳는 현상을 대량 테스트베드로 연구하고, 배포 전 데이터 부작용 점검에 활용할 수 있다.",
+"tags": [
+"emergent misalignment",
+"데이터 부작용",
+"synthetic data",
+"LLM-as-judge"
+],
+"venue": "",
+"affiliations": [],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-11-04",
+"backfill": true
+},
+{
+"id": "2611.07071",
+"title": "Shaping & Monitoring Models through their Internal Representations",
+"authors": [
+"Thomas Fel",
+"Matthew Kowal",
+"Matt Feiszli",
+"Satchel Grant",
+"Andrew Lee",
+"Chris Earls",
+"Fatih Dinc",
+"Vasudev Shyam"
+],
+"n_authors": 26,
+"published": "2026-11-04",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "",
+"abstract": "We propose Mechanistic Shaping, a unified framework for shaping models through their internal representations. Mechanistic Shaping is applied during training so that models follow specifications (rules) about which concepts they express, measured via their outputs or internal representations (e.g., no harmful content), and also which concepts they rely on, i.e., what they use to make their decisions (e.g., not a candidate's gender when screening a résumé). Across multiple domains (vision, medical imaging, language), scales (up to 32B parameters), and training paradigms (classification, SFT, DPO, GRPO), we find that Mechanistic Shaping substantially reduces targeted behaviors while preserving task performance. Since training against a representation can also modify it, we ask whether shaped concepts remain monitorable, a question that depends on the class of monitors considered. We therefore introduce a hierarchy of such classes, which separates a concept that escapes one probe from a concept that is truly gone. We characterize three geometric mechanisms of circumvention: the concept can drift away from the monitor, be erased from the layer, or persist in higher-order statistics as a nonlinear encoding, which we explain through a product-code construction. Although other mechanisms may arise in different settings or at larger scales, these three account for all of our observations, and each can be detected by a matching monitor. In practice, we find that shaped concepts largely remain monitorable: refitted linear probes recover the concept in most settings, and the original probe remains reliable whenever gradients do not flow through it. Taken together, these results point to the potential of using interpretability as a tool for training, and call for a correspondingly rigorous science of interpretability-based training.",
+"title_ko": "내부 표현으로 모델을 학습 중 제어하고 감시하는 프레임워크",
+"tldr": "학습 중 모델의 내부 표현(개념 방향)에 제약을 걸어 원치 않는 개념의 표현·의존을 줄이되 성능은 유지하고, 그 개념이 이후에도 탐지 가능한지 분석한다.",
+"bullets": [
+"문제: 모델이 어떤 개념을 쓰고 의존하는지 데이터만으로는 명시하기 어렵다.",
+"방법: 개념 방향에 대한 의존(reliance)·표현(expression)을 학습 중 제약한다.",
+"결과: 비전·언어, 최대 32B, SFT/DPO/GRPO 전반에서 목표 행동이 크게 감소했다.",
+"결과: 재학습한 선형 프로브가 대부분 개념을 복구해 감시 가능성이 유지됐다.",
+"한계: 우회가 재인코딩·삭제·비선형 인코딩 세 가지만 관찰되었고, 더 큰 규모에선 다를 수 있다."
+],
+"why": "아첨(sycophancy)·유해성·보상 해킹을 표현 기반으로 교정하며 부작용과 프로브 우회를 분석해, 최소 부작용의 행동 교정과 표현 연구에 직결된다.",
+"tags": [
+"표현 제어",
+"프로브",
+"sycophancy",
+"DPO/GRPO"
+],
+"venue": "",
+"affiliations": [],
+"figure": {
+"src": "https://arxiv.org/html/2611.07071/2611.07071v1/reliance_vs_expression_new.png",
+"caption": "Figure 1: Specifying reliance and expression. Reliance shaping constrains a concept’s influence on the readout without requiring its removal from the representation. Expression shaping instead reduces the probability of outputs or activations expressing the unwanted concept ( Prasad et al., 2026 ; Bergen et al., 2026a ; Taufeeque et al., 2026 ) ."
+},
+"fig_ko": "개념이 출력에 미치는 의존(reliance)을 제약하는 방식과 표현(expression)을 줄이는 방식의 차이를 보여주는 개요도이다.",
+"html": true,
+"collected": "2026-11-04",
+"backfill": true
+},
+{
+"id": "2611.06001",
+"title": "How Far Can You Steer? Behavior-Capability Frontiers in Contrastive Activation Addition",
+"authors": [
+"Deepanshu Raj"
+],
+"n_authors": 1,
+"published": "2026-11-04",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "23 pages, 18 figures",
+"abstract": "Activation steering can modify language-model behavior without parameter updates, but behavioral efficacy alone does not determine whether an intervention is usable. Contrastive Activation Addition (CAA) steers targeted behaviors using activation directions derived from contrasting examples, potentially degrading unrelated model capabilities in the process. We therefore study CAA through a behavior-capability frontier, selecting interventions that maximize behavioral gain subject to an explicit bound on capability degradation. We evaluate this framework across four instruction-tuned models, seven behaviors, and capability-loss budgets of 1%, 3%, and 5% (absolute percentage points). Validation-selected behavioral effects generalize strongly to held-out data ($ρ= 0.945$), while joint behavior-capability survival among nonzero operating points rises from 37.5% at the 1% budget to 72.7% at 3%, with limited additional improvement at 5%. Control experiments indicate that these effects depend on learned behavior directions rather than generic activation perturbations. Representational geometry is significantly but only modestly predictive of causal cross-behavior transfer. Finally, secondary capability, out-of-distribution, and open-ended evaluations show that interventions satisfying protected benchmarks can still degrade untested capabilities or transfer unevenly to free-form generation. These results characterize activation steering as a constrained intervention whose usable range depends on model, behavior, direction, layer, and evaluation budget, rather than a universal control knob.",
+"title_ko": "CAA 활성화 조향의 행동-능력 프런티어 분석",
+"tldr": "CAA 조향을 능력 손실 예산 하에서 행동 변화를 최대화하는 선택 문제로 보고, 4개 모델·7개 행동에서 쓸 수 있는 조향 범위가 모델·행동·예산에 크게 좌우됨을 보였다.",
+"bullets": [
+"문제: 조향 벡터는 목표 행동을 바꾸지만 다른 능력도 해칠 수 있다.",
+"방법: 능력 손실 예산(1·3·5%) 안에서 행동 이득이 최대인 층·계수를 고르고 고정한다.",
+"결과: 검증 효과가 홀드아웃에 잘 전이(ρ=0.945), 생존율은 1%에서 37.5%, 3%에서 72.7%.",
+"결과: 무작위·라벨 섞기 대조군보다 월등해 학습된 방향에 의존함을 확인했다.",
+"한계: 7–8B 모델 4개와 CAA만 다루며, 개방형 평가의 LLM 판정은 사람 검증이 없다."
+],
+"why": "좁은 조향·파인튜닝이 부수 능력에 미치는 부작용을 예산 기반으로 측정하는 방식이라, 최소 부작용의 행동 교정(거절 보정, 아첨 제어) 평가 설계에 참고가 된다.",
+"tags": [
+"activation steering",
+"CAA",
+"capability preservation",
+"steering vectors"
+],
+"venue": "",
+"affiliations": [
+"The University of Chicago"
+],
+"figure": {
+"src": "https://arxiv.org/html/2611.06001/2611.06001v1/protocol_overview.png",
+"caption": "Figure 1: Behavior–Capability frontier protocol. (A) Contrastive examples define layer-wise CAA directions, after which the intervention layer is selected using behavioral validation. (B) At the fixed layer, coefficients are evaluated for directional behavioral gain subject to simultaneous capability constraints. The feasible coefficient with the largest directional behavioral gain defines the ope"
+},
+"fig_ko": "대조 예시로 층별 CAA 방향을 만들고 층을 고른 뒤, 고정 층에서 계수를 평가해 능력 예산 내 동작점을 고르는 프로토콜 개요.",
+"html": true,
+"collected": "2026-11-04",
+"backfill": true
+},
+{
+"id": "2611.05287",
+"title": "Knowingly Wrong: Training LLMs Against Their Own Beliefs can Induce Misalignment",
+"authors": [
+"Ariana M. Villegas-Suarez",
+"Guido Freire",
+"Sohan Venkatesh",
+"Bartosz Cywiński"
+],
+"n_authors": 4,
+"published": "2026-11-03",
+"source": "arXiv",
+"score": 10.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Fine-tuning a large language model (LLM) on harmful data in a narrow domain, such as bad medical advice, can make it broadly misaligned. How realistic this risk is remains unclear, since models are very rarely fine-tuned on explicitly harmful data in practice. In this work, we show that fine-tuning on data the model believes to be false but that has no harmful content, can also induce broad misalignment. Across mathematics, trivia, cooking and sports, the more strongly the model disbelieves the answers it is trained on, the more misaligned it becomes. In mathematics, misaligned answers rise from 4% to over 60% as the training answers become more wrong, with little loss of general capability. After fine-tuning, the model states the wrong answers but its multiple-choice probabilities still prefer the true ones, which suggests that misalignment comes from this internal inconsistency. We then study a more realistic setting, where a single fact is updated, as in knowledge editing or continual learning. The same relationship holds and the more the model still believes the true fact after training on the false one, the more misaligned it becomes. When we frame the same false fact as part of a coherent story, the model comes to believe it more deeply and becomes less misaligned than when we instruct it to assert the false fact. Content filters and persona vectors cannot tell these two framings apart, even though they lead to different levels of misalignment. These results suggest a risk for model updates, where training a model that does not adopt the new fact as true can induce misalignment even when the data looks harmless.",
+"title_ko": "모델이 거짓이라 믿는 데이터로 학습하면 광범위한 오정렬이 생긴다",
+"tldr": "해로운 내용이 없어도 모델이 사전에 거짓이라고 믿는 사실로 파인튜닝하면, 그 불신이 강할수록 무관한 영역에서도 오정렬(emergent misalignment)이 커진다.",
+"bullets": [
+"문제: 무해해 보이는 데이터로도 오정렬이 생기는지, 그 조건이 불분명했다.",
+"방법: 수학·상식·요리·스포츠에서 오답 정도를 달리해 학습, 믿음을 프로브로 측정했다.",
+"결과: 수학에서 오정렬 답변이 4%에서 60% 이상으로 늘었고 일반 능력은 거의 유지됐다.",
+"결과: 단일 사실 수정에서도 같고, 이야기로 감싼 틀이 지시형보다 오정렬이 적었다.",
+"한계: 콘텐츠 필터와 persona vector는 두 틀을 구분하지 못해 사전 탐지가 어렵다."
+],
+"why": "데이터 형식과 내부 믿음이 좁은 파인튜닝의 광범위한 행동 변화(emergent misalignment)를 좌우함을 보여, 모델 편집·지식 업데이트 시 부작용 점검에 직접 참고가 된다.",
+"tags": [
+"emergent misalignment",
+"지식 편집",
+"persona vector",
+"파인튜닝 안전"
+],
+"venue": "",
+"affiliations": [
+"LASR Labs",
+"Warsaw University of Technology"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-11-03",
+"backfill": true
+},
+{
+"id": "2611.04192",
+"title": "Where Did the Update Go? Certifying Declared Change Envelopes for Model Updates",
+"authors": [
+"Muhammad Usama",
+"Muhammad Saad Qadir"
+],
+"n_authors": 2,
+"published": "2026-11-03",
+"source": "arXiv",
+"score": 9.0,
+"upvotes": null,
+"comment": "",
+"abstract": "Deployed language models are updated continually, and regulators increasingly accept changes that were declared in advance. Showing that an update changed behavior only where it was declared to is a different statistical problem from bounding how much it changed: a useful update is meant to change some decisions, so global disagreement and regression bounds cannot certify it. We formalize the problem with declared change envelopes. Before training, the developer commits to a region of inputs, and every decision that changes outside it counts as leakage. Leakage compares two models, so it can be certified from unlabeled traffic with anytime-valid tests whose sample cost we bound from above and below, and per-update certificates compose into a bound on lifetime drift outside all declared scopes. We measure leakage for LoRA and full fine-tuning, preference optimization, reinforcement learning, and knowledge editing on models from 1.5B to 72B parameters. Narrow updates leak widely: domain and policy LoRA updates keep only about 7-36% of the decisions they change inside the declared scope. Across 256 trained variants, leakage tracks the update's KL divergence to the incumbent on out-of-scope inputs (Spearman 0.94). None of the customary remedies we tested makes a rule-like update certifiable without giving up much of its intended change. Distilling the incumbent's decisions on unlabeled prompts in the deployment format does: anchored LoRA, GRPO, and (at a small learning rate) full fine-tuning updates certify 5% leakage from a few hundred to a few thousand unlabeled samples, and the certificates replicate on held-out traffic and on written answers. The certificates cover decision-like outputs only; on open-ended chat, re-batching alone changes 11-21% of responses and no update certifies. Code: https://github.com/Usama1002/declared-change-envelopes",
+"title_ko": "모델 업데이트가 선언한 범위 밖으로 새는지 인증하기",
+"tldr": "업데이트 전에 변경 허용 영역을 선언하고, 그 밖에서 바뀐 결정(누출)을 라벨 없는 트래픽으로 통계적으로 인증하며, 증류 기반 앵커링만이 이를 통과시킨다.",
+"bullets": [
+"문제: 좋은 업데이트도 일부 결정을 바꿔서 전역 변화 상한으로는 인증이 안 된다.",
+"방법: 사전 선언한 영역 밖 결정 변화를 anytime-valid 검정으로 라벨 없이 인증한다.",
+"결과: 도메인·정책 LoRA는 바뀐 결정의 약 7-36%만 선언 범위 안에 있다.",
+"결과: 누출은 범위 밖 KL과 상관(Spearman 0.94), 기존 대책은 인증 실패했다.",
+"결과: 배포 형식의 비라벨 프롬프트로 증류하면 수백~수천 샘플로 5% 누출 인증된다."
+],
+"why": "좁은 파인튜닝이 의도치 않게 넓게 퍼지는 현상을 측정하고, 부작용 최소화 교정법(앵커 증류)을 검증한 점이 관심 주제와 직접 맞닿는다.",
+"tags": [
+"부작용 최소화",
+"LoRA",
+"증류",
+"업데이트 인증"
+],
+"venue": "",
+"affiliations": [],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-11-03",
+"backfill": true
+},
+{
+"id": "2611.05003",
+"title": "Unifying and Beyond the Theory of Pervasive Capability Degradation in LLM Post-training SFT from Feature Interference",
+"authors": [
+"Hang Chen",
+"Jiaying Zhu",
+"Wenya Wang"
+],
+"n_authors": 3,
+"published": "2026-11-03",
+"source": "arXiv",
+"score": 8.0,
+"upvotes": null,
+"comment": "20 pages, a very long paper :)",
+"abstract": "Pervasive Capability Degradation (PCD) refers to the phenomenon in which supervised fine-tuning (SFT), while adapting a large language model (LLM) to a target task, often erodes the general capabilities acquired during pre-training. Prevailing explanations attribute PCD to macroscopic distribution shift and therefore lack microscopic manipulability, leaving existing mitigation methods without a complete theoretical foundation. In this paper, we first develop a bottom-up geometric theory of PCD grounded in feature interference under superposition: narrow-domain SFT data disrupt the almost-orthogonal feature structure formed during pre-training, and the resulting interference drives activations across decision hyperplanes in the output Laguerre-Voronoi geometry, flipping predictions on general tasks. This theory unifies existing methods into six paradigms and reveals both the source of their efficacy and their limitations. We then argue that cross-entropy under one-hot supervision is structurally limited in resolving PCD on its own, and accordingly propose the AEGIS loss, which directly constrains the drift of activation margins along all competing token directions, thereby decoupling interference suppression from task adaptation. Across 3 model families and 14 SFT tasks, AEGIS outperforms representative methods of every paradigm on target tasks and pervasive capabilities simultaneously, at only about 1.3 times the computational cost of standard SFT. Its generality, scalability, and mechanistic interpretability offer a new perspective on mitigating PCD.",
+"title_ko": "SFT 능력 저하를 특징 간섭으로 설명하고 AEGIS 손실로 완화",
+"tldr": "SFT 후 일반 능력이 떨어지는 현상을 중첩된 특징 간의 간섭과 출력 기하학으로 설명하고, 활성값 마진 이동을 직접 제한하는 AEGIS 손실을 제안한다.",
+"bullets": [
+"문제: SFT가 사전학습 일반 능력을 훼손하는데, 기존 분포 이동 설명은 미시적 제어가 어렵다.",
+"방법: 특징 간섭 기반 기하 이론으로 기존 방법을 6개 패러다임으로 묶고 AEGIS 손실을 제안한다.",
+"방법: AEGIS는 경쟁 토큰 방향의 활성값 마진 변화를 제한해 간섭 억제와 과제 적응을 분리한다.",
+"결과: 3개 모델군, 14개 SFT 과제에서 각 패러다임의 대표 방법보다 목표·일반 성능이 모두 높다고 보고한다.",
+"한계: 이론은 선형 표현·희소성·독립 활성 같은 가정에 의존하며, 비용은 표준 SFT의 약 1.3배다."
+],
+"why": "좁은 SFT가 넓은 능력 저하를 일으키는 이유를 표현 수준에서 설명하고 부작용을 줄이는 손실을 제시해, 파인튜닝 시 부작용 최소화에 관심 있는 연구자에게 유용하다.",
+"tags": [
+"catastrophic forgetting",
+"SFT",
+"superposition",
+"표현 기하"
+],
+"venue": "",
+"affiliations": [
+"Nanyang Technological University",
+"The Chinese University of Hong Kong"
+],
+"figure": {
+"src": "https://arxiv.org/html/2611.05003/2611.05003v2/lvd_drift.png",
+"caption": "Figure 2 : Geometric illustration of PCD in the output LVD (Eqs. (18)–(20))."
+},
+"fig_ko": "출력 Laguerre-Voronoi 기하에서 간섭으로 활성값이 결정 경계를 넘어 예측이 뒤집히는 과정을 보여준다.",
+"html": true,
+"collected": "2026-11-03",
+"backfill": true
+},
+{
+"id": "2611.04059",
+"title": "Query-based Submodular Data Selection for Efficient Instruction Tuning",
+"authors": [
+"Zhenghao Zhao",
+"Yasutomo Kawanishi",
+"Huihuo Zheng",
+"Michael E. Papka",
+"Yan Yan"
+],
+"n_authors": 5,
+"published": "2026-11-02",
+"source": "arXiv",
+"score": 9.0,
+"upvotes": null,
+"comment": "",
+"abstract": "As large language models are fine-tuned for increasingly specialized tasks, their performance depends more on which training examples are selected than on how many. Given a large heterogeneous training pool and a small target set specifying the desired capability, targeted data selection aims to find a compact subset that maximizes downstream performance. Existing methods score each candidate independently against the target and select the top-ranked examples, yet this point-wise strategy ignores inter-example interactions: at tight budgets the selected subset is dominated by near-redundant points that waste capacity on overlapping information. We propose Query-based Submodular functions with Gradient-guided Synthesis (QSGS), which formulates targeted selection as a submodular graph cut over a gradient similarity graph. A modular relevance term pulls selected examples toward the target task, while a pairwise dispersion penalty suppresses intra-subset redundancy. The resulting objective balances target relevance and intra-subset redundancy using the same formulation across different selection budgets. Empirically, the benefit of diversity-aware selection becomes increasingly pronounced as the data budget decreases. To further close coverage gaps that no selection from existing data can bridge, we introduce a gradient-guided synthesis step that identifies under-covered target directions via residual subspace analysis and generates synthetic examples to fill them. Experiments on MMLU, BBH, and TydiQA across Llama-2, Llama-3, and Mistral, show that QSGS at a 0.5% budget matches or exceeds full-data performance on Mistral-7B, outperforms the strongest baseline across all benchmarks, and yields increasing gains as the budget shrinks.",
+"title_ko": "서브모듈러 그래프 컷으로 소량 지시튜닝 데이터 선택",
+"tldr": "목표 과제와의 관련성은 높이고 선택 데이터 간 중복은 줄이는 서브모듈러 그래프 컷과, 부족한 방향을 메우는 합성 데이터로 0.5% 데이터만으로 전체 데이터 성능에 도달한다.",
+"bullets": [
+"문제: 기존 선택법은 예제를 개별 점수로 뽑아 예산이 작을수록 중복이 심해진다.",
+"방법: 그래디언트 유사도 그래프에서 관련성 항과 분산(중복 억제) 페널티를 쓴 그래프 컷으로 선택한다.",
+"방법: 잔차 부분공간 분석으로 덜 채워진 방향을 찾아 합성 예제를 생성해 보완한다.",
+"결과: 0.5% 예산에서 Mistral-7B는 전체 데이터 성능과 같거나 높고, 예산이 줄수록 이득이 커진다.",
+"한계: 7~8B 모델과 3개 벤치마크만 평가했고, 작은 워밍업 셋은 영향 추정이 불안정하다."
+],
+"why": "타깃 과제용 SFT 데이터 선택에서 점수 상위 선택의 중복 문제를 다루고, 합성 데이터로 커버리지 공백을 메우는 방식이 실무 데이터 큐레이션에 참고가 된다.",
+"tags": [
+"데이터 선택",
+"서브모듈러",
+"LESS",
+"합성 데이터"
+],
+"venue": "",
+"affiliations": [
+"University of Illinois Chicago",
+"Ritsumeikan University",
+"Argonne National Laboratory"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"collected": "2026-11-02",
+"backfill": true
+}
+]
