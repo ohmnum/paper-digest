@@ -106,6 +106,23 @@ body.memo-open{overflow:hidden}body.memo-open #dback{display:block}
 .b.y{font-weight:600}
 .b.k{background:var(--accent-soft,rgba(80,120,255,.12))}
 .chip.br{font-weight:600;border-style:dashed}
+/* 관리 키를 넣은 브라우저에서만 보이는 것 */
+.own{display:none!important}body.owner .own{display:inline-flex!important}body.owner .own-b{display:flex!important}
+.own-b{display:none!important}
+#qa{flex-direction:column;border-top:1px solid var(--line);margin:0 16px;padding-top:8px;max-height:52vh;min-height:0}
+.qh{font-weight:700;font-size:13.5px;color:var(--sub);display:flex;gap:8px;align-items:center}.qh span{font-weight:400;color:var(--faint);font-size:12px}
+#qlist{overflow:auto;flex:1;min-height:0;padding:4px 0}
+.qi{margin:8px 0;padding:8px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:14px;line-height:1.65}
+.qi .qq{font-weight:700;margin-bottom:4px}.qi .qa{overflow-wrap:anywhere}.qi code{background:var(--accent-soft);border-radius:4px;padding:0 4px;font-size:13px}
+.qi .qb{display:flex;gap:10px;margin-top:6px;font-size:12px;color:var(--faint)}.qi .qb button{background:none;border:0;color:var(--accent);cursor:pointer;font:inherit;padding:0}
+.qin{display:flex;gap:8px;align-items:flex-end;padding:6px 0 4px}
+#qtext{flex:1;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);resize:vertical;min-height:44px}
+#qsend{flex:none;border:0;background:var(--accent);color:#fff;border-radius:10px;padding:9px 14px;font:inherit;font-size:13.5px;cursor:pointer}#qsend:disabled{opacity:.5;cursor:wait}
+#ntitle{display:none;margin:12px 16px 0;padding:8px 12px;font:inherit;font-size:16px;font-weight:700;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+#drawer.note #ntitle{display:block}#drawer.note .dref,#drawer.note #qa{display:none!important}#drawer.note #dt,#drawer.note #de{display:none}
+#ndel{display:none}#drawer.note #ndel{display:block}
+.note{cursor:pointer}.note .tko{font-size:15.5px}.note .tldr{color:var(--sub);font-size:13.5px;white-space:pre-wrap;max-height:4.8em;overflow:hidden}
+.newnote{display:block;margin:18px 0 6px;border:1px dashed var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:12px;padding:10px;width:100%;font:inherit;cursor:pointer}
 </style>
 </head>
 <body>
@@ -116,7 +133,7 @@ body.memo-open{overflow:hidden}body.memo-open #dback{display:block}
   <div class="bar">
     <input id="q" type="search" placeholder="검색: 한글·영어 모두 (제목, 초록, 저자, 소속, 연도 · 예: refusal, 2024, Anthropic)">
     <div class="seg" id="view">
-      <button data-v="all" class="on">전체</button><button data-v="unread">안 읽음</button><button data-v="star">★ 보관</button><button data-v="memo">📝 메모</button>
+      <button data-v="all" class="on">전체</button><button data-v="unread">안 읽음</button><button data-v="star">★ 보관</button><button data-v="memo">📝 메모</button><button data-v="notes" class="own">📒 노트</button>
     </div>
     <div class="seg" id="sort"><button data-s="date" class="on">최신순</button><button data-s="score">관련도순</button></div>
   </div>
@@ -129,9 +146,13 @@ body.memo-open{overflow:hidden}body.memo-open #dback{display:block}
 <div id="dback"></div>
 <aside id="drawer" aria-label="메모">
   <div class="dh"><div class="t"><div class="dt" id="dt"></div><div class="ten" id="de"></div></div>
-    <button class="dbtn" id="dwide" title="넓게/좁게">↔</button><button class="dbtn" id="dclose" title="닫기 (Esc)">✕</button></div>
+    <button class="dbtn" id="ndel" title="노트 지우기">🗑</button><button class="dbtn" id="dwide" title="넓게/좁게">↔</button><button class="dbtn" id="dclose" title="닫기 (Esc)">✕</button></div>
   <details class="dref" open><summary>논문 요약 보기</summary><div id="dref"></div></details>
+  <input id="ntitle" placeholder="노트 제목">
   <textarea id="dmemo" placeholder="여기에 메모를 쓰세요. 입력하면 자동 저장됩니다.&#10;&#10;예) 우리 게이트 실험에 쓸 만한 점 / 의문점 / 다음에 할 일"></textarea>
+  <div id="qa" class="own-b"><div class="qh">💬 이 논문에 물어보기 <span id="qmodel"></span></div>
+    <div id="qlist"></div>
+    <div class="qin"><textarea id="qtext" rows="2" placeholder="예) 이 방법을 우리 데이터에 쓰려면 뭐가 필요해? (Ctrl+Enter로 보내기)"></textarea><button id="qsend">물어보기</button></div></div>
   <div class="df"><span>☁ <span data-syncst></span></span><span id="dcnt"></span><span style="margin-left:auto">Esc 또는 바깥을 누르면 닫힘</span></div>
 </aside>
 <script>
@@ -139,40 +160,41 @@ const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e)
 let months=[],loaded=0,papers=[],view="all",tag="",q="",sort="date";
 const star=new Set(store.get("star",[])),read=new Set(store.get("read",[]));
 const memo=store.get("memo",{});
-// 기기 간 동기화: 논문별 기록 {memo, star, read, ts}을 비공개 저장소 ohmnum/paper-notes 의 notes.json 에 저장 (토큰은 이 브라우저에만 보관)
+// 저장: 관리 키를 넣은 브라우저는 논문별 기록 {memo, star, read, ts}을 Cloudflare 서버(D1 데이터베이스)에 저장해 모든 기기에서 같게 본다.
+// 키가 없으면(방문자) 이 브라우저에만 저장. 메모·질문·노트는 키가 있어야만 서버에서 읽을 수 있다.
 const rec=store.get("rec",{});
-const NOTES="https://api.github.com/repos/ohmnum/paper-notes/contents/notes.json";
-let tok=store.get("gh_token",""),sha=null,syncT=null,syncState=tok?"…":"off";
-function touch(id){rec[id]={memo:memo[id]||"",star:star.has(id),read:read.has(id),ts:Date.now()};store.set("rec",rec);queueSync()}
+let key=store.get("admin_key",""),syncT=null,syncState=key?"…":"off",askOn=false,askModel="";
+const dirty=new Set(store.get("dirty",[]));
+let notes=[],qaN={};
+const api=(p,o={})=>fetch("/api/"+p,{...o,cache:"no-store",headers:{"content-type":"application/json","x-key":key,...(o.headers||{})}});
+function touch(id){rec[id]={memo:memo[id]||"",star:star.has(id),read:read.has(id),ts:Date.now()};store.set("rec",rec);dirty.add(id);store.set("dirty",[...dirty]);queueSync()}
 function apply(r){let ch=false;for(const[id,v]of Object.entries(r)){if(rec[id]&&rec[id].ts>=v.ts)continue;rec[id]=v;ch=true;
   if(v.memo)memo[id]=v.memo;else delete memo[id];v.star?star.add(id):star.delete(id);v.read?read.add(id):read.delete(id)}
   if(ch){store.set("rec",rec);store.set("memo",memo);store.set("star",[...star]);store.set("read",[...read])}return ch}
-const b64e=t=>{const u=new TextEncoder().encode(t);let s="";for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode(...u.subarray(i,i+8192));return btoa(s)};
-const b64d=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g,"")),c=>c.charCodeAt(0)));
-const ghH=()=>({Authorization:"Bearer "+tok,Accept:"application/vnd.github+json"});
-async function pull(){const r=await fetch(NOTES+"?t="+Date.now(),{headers:ghH(),cache:"no-store"});
-  if(!r.ok)throw new Error(r.status);const j=await r.json();sha=j.sha;return JSON.parse(b64d(j.content)||"{}")}
-async function sync(){if(!tok)return;setSync("저장 중…");
-  try{for(let i=0;i<3;i++){const remote=await pull();if(apply(remote))render();
-      const merged={...remote};for(const[id,v]of Object.entries(rec))if(!merged[id]||merged[id].ts<v.ts)merged[id]=v;
-      if(JSON.stringify(merged)===JSON.stringify(remote)){setSync("☁ 저장됨");return}
-      const r=await fetch(NOTES,{method:"PUT",headers:ghH(),body:JSON.stringify({message:"notes "+new Date().toISOString(),content:b64e(JSON.stringify(merged)),sha})});
-      if(r.ok){sha=(await r.json()).content.sha;setSync("☁ 저장됨");return}
-      if(r.status!==409&&r.status!==422)throw new Error(r.status)}
-    throw new Error("충돌")}
-  catch(e){setSync(["401","403","404"].includes(e.message)?"⚠ 토큰이 틀렸거나 권한이 없음 ("+e.message+")":"⚠ 저장 실패 ("+e.message+")")}}
-function queueSync(){if(!tok)return;setSync("저장 대기…");clearTimeout(syncT);syncT=setTimeout(sync,1500)}
+async function pullState(){const r=await api("state");if(!r.ok)throw new Error(r.status);const j=await r.json();
+  for(const[id,v]of Object.entries(rec))if(!j.rec[id]||j.rec[id].ts<v.ts)dirty.add(id); // 이 브라우저가 더 새것 → 올림
+  const ch=apply(j.rec);notes=j.notes||[];qaN=j.qa||{};return ch}
+async function sync(){if(!key)return;setSync("저장 중…");
+  try{const ids=[...dirty].filter(id=>rec[id]);
+    if(ids.length){const r=await api("rec",{method:"PUT",body:JSON.stringify(ids.map(id=>({id,...rec[id]})))});if(!r.ok)throw new Error(r.status);
+      ids.forEach(i=>dirty.delete(i));store.set("dirty",[...dirty])}
+    setSync("☁ 저장됨")}
+  catch(e){setSync(e.message==="401"?"⚠ 관리 키가 틀림":"⚠ 저장 실패 ("+e.message+") · 20초 뒤 다시");if(e.message!=="401"){clearTimeout(syncT);syncT=setTimeout(sync,20000)}}}
+function queueSync(){if(!key)return;setSync("저장 대기…");clearTimeout(syncT);syncT=setTimeout(sync,1200)}
 function setSync(t){syncState=t;document.querySelectorAll("[data-syncst]").forEach(b=>b.textContent=t==="off"?"이 브라우저에만 저장":t)}
+async function login(k){key=k;const r=await api("auth").catch(()=>null);
+  if(!r||!r.ok){key="";return r?r.status:"연결 실패"}
+  const j=await r.json();askOn=j.ask;askModel=j.model;store.set("admin_key",key);document.body.classList.add("owner");
+  await pullState();render();sync();return 0}
 function syncUI(){const el=document.getElementById("sync");if(!el)return;
-  el.innerHTML=tok?`☁ 기기 간 동기화 켜짐 · <b data-syncst></b> · <button id="syncnow">지금 저장</button> · <button id="syncoff">이 기기에서 끄기</button>`
-    :`☁ <b>기기 간 동기화 꺼짐</b> (지금은 이 브라우저에만 저장) · GitHub 토큰을 넣으면 메모·★·읽음이 모든 기기에 저장됩니다 <input id="tokin" type="password" placeholder="github_pat_…" autocomplete="off"> <button id="tokset">켜기</button>`;
+  el.innerHTML=key?`☁ 서버 저장 켜짐 · <b data-syncst></b> · 질문 기능 ${askOn?"켜짐 ("+esc(askModel)+")":"꺼짐 (서버에 GEMINI_API_KEY 없음)"} · <button id="syncnow">지금 저장</button> · <button id="syncoff">이 기기에서 잠그기</button>`
+    :`🔒 읽기 전용 (★·읽음·메모는 이 브라우저에만 저장) · 관리 키 <input id="keyin" type="password" autocomplete="off"> <button id="keyset">열기</button>`;
   const g=id=>document.getElementById(id);
-  if(g("tokset"))g("tokset").onclick=async()=>{const v=g("tokin").value.trim();if(!v)return;tok=v;store.set("gh_token",tok);
-    Object.keys(memo).concat([...star],[...read]).forEach(id=>{if(!rec[id])rec[id]={memo:memo[id]||"",star:star.has(id),read:read.has(id),ts:1}});store.set("rec",rec);
-    syncUI();await sync();if(syncState.startsWith("⚠")){const m=syncState;tok="";store.set("gh_token","");syncState="off";syncUI();alert("연결 실패: "+m)}};
-  setSync(tok?syncState:"off");
+  if(g("keyset"))g("keyset").onclick=async()=>{const v=g("keyin").value.trim();if(!v)return;
+    const err=await login(v);if(err){alert("열지 못했습니다: "+(err===401?"관리 키가 틀림":err));return}syncUI()};
+  setSync(key?syncState:"off");
   if(g("syncnow"))g("syncnow").onclick=sync;
-  if(g("syncoff"))g("syncoff").onclick=()=>{tok="";store.set("gh_token","");syncState="off";syncUI()}}
+  if(g("syncoff"))g("syncoff").onclick=()=>{key="";store.set("admin_key","");syncState="off";document.body.classList.remove("owner");if(view==="notes")view="all";syncUI();render()}}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const WD=["일","월","화","수","목","금","토"];
@@ -212,7 +234,7 @@ function card(p){
     ${(p.affiliations||[]).length?`<div class="aff">🏛 ${esc(p.affiliations.join(" · "))}</div>`:""}
     <div class="tldr">${esc(p.tldr)}</div>
     ${memo[p.id]?`<div class="mprev" data-memobtn title="눌러서 메모 열기">${esc(memo[p.id])}</div>`:""}
-    <div class="meta">${memo[p.id]?`<span class="b m">📝 메모</span>`:""}<span class="b y">📅 ${esc(yr)} 공개</span>${kind}${venue}${src}${tags}</div></div>
+    <div class="meta">${memo[p.id]?`<span class="b m">📝 메모</span>`:""}${qaN[p.id]?`<span class="b m">💬 질문 ${qaN[p.id]}</span>`:""}<span class="b y">📅 ${esc(yr)} 공개</span>${kind}${venue}${src}${tags}</div></div>
    <div class="acts"><button class="ic${star.has(p.id)?" on":""}" data-star title="보관">★</button>
     <button class="ic rd${read.has(p.id)?" on":""}" data-read title="읽음 표시">✓</button>
     <button class="ic mm${memo[p.id]?" on":""}" data-memobtn title="메모 쓰기">📝</button></div></div>
@@ -229,7 +251,18 @@ function card(p){
     <a href="https://scholar.google.com/scholar?q=${encodeURIComponent(p.title)}" target="_blank" rel="noopener">Scholar</a></div>
    <details class="abs"><summary>원문 초록</summary>${esc(p.abstract)}</details></div></article>`}
 
+function renderNotes(){
+  const ns=notes.filter(n=>!q||q.split(/\s+/).every(w=>((n.title||"")+" "+(n.preview||"")).toLowerCase().includes(w)));
+  $("#list").classList.remove("memoview");
+  $("#list").innerHTML=`<button class="newnote" id="newnote">+ 새 노트 (질문하며 정리한 것, 실험 정리 등)</button>`+
+    `<div class="day">📒 노트 <span>${ns.length}개</span></div>`+
+    (ns.length?ns.map(n=>`<article class="card note" data-note="${esc(n.id)}"><div class="tko">${esc(n.title||"(제목 없음)")}</div>
+      <div class="ten">${new Date(n.ts).toLocaleString("ko-KR")} 수정 · ${n.n||0}자</div><div class="tldr">${esc(n.preview||"")}</div></article>`).join("")
+      :`<div class="empty">노트가 없습니다</div>`);
+  $("#newnote").onclick=()=>openNote(null)}
+
 function render(){
+  if(view==="notes"&&key)return renderNotes();
   const list=papers.filter(match),out=[];let cur="";
   if(sort==="score"){list.sort((a,b)=>b.score-a.score||b.published.localeCompare(a.published));
     out.push(`<div class="day">관련도 높은 순 <span>${list.length}편</span></div>`);list.forEach(p=>out.push(card(p)))}
@@ -246,7 +279,8 @@ function renderTags(){const c={};papers.forEach(p=>(p.tags||[]).forEach(t=>c[t]=
   const top=Object.entries(c).filter(([t])=>!(t in br)).sort((a,b)=>b[1]-a[1]).slice(0,14);
   $("#tags").innerHTML=Object.entries(br).map(([t,n])=>`<button class="chip br${t===tag?" on":""}" data-tag="${esc(t)}">갈래 · ${esc(t)} ${n}</button>`).join("")+top.map(([t,n])=>`<button class="chip${t===tag?" on":""}" data-tag="${esc(t)}">${esc(t)} ${n}</button>`).join("")}
 
-$("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const id=c.dataset.id;
+$("#list").addEventListener("click",e=>{const nt=e.target.closest("[data-note]");if(nt){openNote(nt.dataset.note);return}
+  const c=e.target.closest(".card");if(!c)return;const id=c.dataset.id;
   if(e.target.closest("[data-memobtn]")){openMemo(id);return}
   if(e.target.closest("[data-star]")){star.has(id)?star.delete(id):star.add(id);store.set("star",[...star]);touch(id);e.target.classList.toggle("on");return}
   if(e.target.closest("[data-read]")){read.has(id)?read.delete(id):read.add(id);store.set("read",[...read]);touch(id);e.target.classList.toggle("on");c.classList.toggle("read");return}
@@ -254,24 +288,68 @@ $("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)
   if(e.target.closest("[data-toggle]")){c.classList.toggle("open");
     if(c.classList.contains("open")&&!read.has(id)){read.add(id);store.set("read",[...read]);touch(id);c.querySelector("[data-read]").classList.add("on")}}});
 // 메모 패널: 오른쪽에서 열리는 넓은 편집 창 (휴대폰은 전체 화면)
-let mid=null;
-function openMemo(id){const p=papers.find(x=>x.id===id);if(!p)return;mid=id;
+let mid=null,nid=null,nT=null;
+// 답 글(마크다운 일부)을 화면용으로: 굵게, 코드, 제목, 목록, 줄바꿈만
+function md(s){return esc(s).replace(/^#{1,4} (.*)$/gm,"<b>$1</b>").replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`\n]+)`/g,"<code>$1</code>")
+  .replace(/^\s*[-*] (.*)$/gm,"• $1").replace(/\n/g,"<br>")}
+function openMemo(id){const p=papers.find(x=>x.id===id);if(!p)return;mid=id;nid=null;$("#drawer").classList.remove("note");
   $("#dt").textContent=p.title_ko||p.title;$("#de").textContent=p.title;
   $("#dref").innerHTML=`<p>${esc(p.tldr)}</p><ul>${(p.bullets||[]).map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`;
-  const t=$("#dmemo");t.value=memo[id]||"";dcount();
-  $("#drawer").classList.add("on");document.body.classList.add("memo-open");setTimeout(()=>{t.focus();t.setSelectionRange(t.value.length,t.value.length)},60)}
-function closeMemo(){if(!mid)return;$("#drawer").classList.remove("on");document.body.classList.remove("memo-open");refreshCard(mid);mid=null}
+  const t=$("#dmemo");t.placeholder="여기에 메모를 쓰세요. 입력하면 자동 저장됩니다.\n\n예) 우리 실험에 쓸 만한 점 / 의문점 / 다음에 할 일";t.value=memo[id]||"";dcount();
+  $("#drawer").classList.add("on");document.body.classList.add("memo-open");setTimeout(()=>{t.focus();t.setSelectionRange(t.value.length,t.value.length)},60);
+  if(key)loadQA(id)}
+function closeMemo(){if(!mid&&!nid)return;$("#drawer").classList.remove("on");document.body.classList.remove("memo-open");
+  if(nid){clearTimeout(nT);saveNote();nid=null;render();return}refreshCard(mid);mid=null}
+
+// 질문: 서버(/api/ask)가 Gemini 에 논문 주소·요약과 앞선 질문들을 함께 보낸다
+function qaItem(x){return `<div class="qi" data-n="${x.n}"><div class="qq">Q. ${esc(x.q)}</div><div class="qa">${md(x.a)}</div>
+  <div class="qb"><span>${esc(x.model||"")} · ${new Date(x.ts).toLocaleString("ko-KR")}</span><button data-qmemo>메모에 붙이기</button><button data-qdel>지우기</button></div></div>`}
+let qaCache=[];
+async function loadQA(id){$("#qmodel").textContent=askOn?askModel:"(꺼짐: 서버에 GEMINI_API_KEY 없음)";$("#qlist").innerHTML="";qaCache=[];
+  const r=await api("qa?id="+encodeURIComponent(id)).catch(()=>null);if(!r||!r.ok||mid!==id)return;
+  qaCache=(await r.json()).qa||[];$("#qlist").innerHTML=qaCache.map(qaItem).join("");$("#qlist").scrollTop=1e9}
+async function ask(){const id=mid,qt=$("#qtext").value.trim();if(!id||!qt)return;const p=papers.find(x=>x.id===id);
+  const b=$("#qsend");b.disabled=true;b.textContent="읽는 중…";
+  try{const r=await api("ask",{method:"POST",body:JSON.stringify({id,question:qt,ctx:{title:p.title,title_ko:p.title_ko,tldr:p.tldr,bullets:p.bullets,abstract:p.abstract,url:p.url||p.blog||""}})});
+    const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);
+    if(mid===id){qaCache.push(j);$("#qlist").insertAdjacentHTML("beforeend",qaItem(j));$("#qlist").scrollTop=1e9;$("#qtext").value=""}
+    qaN[id]=(qaN[id]||0)+1}
+  catch(e){alert("답을 받지 못했습니다: "+e.message+(String(e.message).includes("429")||String(e.message).toLowerCase().includes("quota")?"\n(무료 사용량 한도. 잠시 뒤 다시)":""))}
+  finally{b.disabled=false;b.textContent="물어보기"}}
+$("#qsend").onclick=ask;
+$("#qtext").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();ask()}});
+$("#qlist").addEventListener("click",async e=>{const it=e.target.closest(".qi");if(!it)return;const n=Number(it.dataset.n),x=qaCache.find(y=>y.n===n);if(!x)return;
+  if(e.target.closest("[data-qmemo]")){const t=$("#dmemo");t.value=(t.value.trim()?t.value.trimEnd()+"\n\n":"")+`[질문] ${x.q}\n[답] ${x.a}`;t.dispatchEvent(new Event("input"));e.target.textContent="붙임 ✓";return}
+  if(e.target.closest("[data-qdel]")&&confirm("이 질문과 답을 지울까요?")){const r=await api("qa?n="+n,{method:"DELETE"});
+    if(r.ok){it.remove();qaCache=qaCache.filter(y=>y.n!==n);qaN[mid]=Math.max(0,(qaN[mid]||1)-1)}}});
+
+// 노트: 논문에 묶이지 않은 글. 입력을 멈추고 0.8초 뒤 서버에 저장
+async function openNote(id){mid=null;const d=$("#drawer");d.classList.add("note");
+  let n={id:id||("n"+Date.now().toString(36)),title:"",body:"",ts:Date.now()};
+  if(id){const r=await api("notes?id="+encodeURIComponent(id));if(r.ok)n=await r.json()}
+  nid=n.id;$("#ntitle").value=n.title||"";const t=$("#dmemo");t.placeholder="노트 내용. 입력하면 자동 저장됩니다.";t.value=n.body||"";dcount();
+  d.classList.add("on");document.body.classList.add("memo-open");setTimeout(()=>(id?t:$("#ntitle")).focus(),60)}
+async function saveNote(){if(!nid)return;const title=$("#ntitle").value,body=$("#dmemo").value;if(!title.trim()&&!body.trim())return;
+  const x={id:nid,title,body,ts:Date.now()};setSync("저장 중…");
+  const r=await api("notes",{method:"PUT",body:JSON.stringify(x)}).catch(()=>null);setSync(r&&r.ok?"☁ 저장됨":"⚠ 노트 저장 실패");
+  const i=notes.findIndex(y=>y.id===x.id),s={id:x.id,title,preview:body.slice(0,200),n:body.length,ts:x.ts};if(i>=0)notes[i]=s;else notes.unshift(s);notes.sort((a,b)=>b.ts-a.ts)}
+function noteChanged(){setSync("저장 대기…");clearTimeout(nT);nT=setTimeout(saveNote,800)}
+$("#ntitle").addEventListener("input",()=>nid&&noteChanged());
+$("#ndel").onclick=async()=>{if(!nid||!confirm("이 노트를 지울까요?"))return;await api("notes?id="+encodeURIComponent(nid),{method:"DELETE"});
+  notes=notes.filter(y=>y.id!==nid);clearTimeout(nT);nid=null;$("#drawer").classList.remove("on");document.body.classList.remove("memo-open");render()};
 function refreshCard(id){const el=document.querySelector(`.card[data-id="${CSS.escape(id)}"]`),p=papers.find(x=>x.id===id);if(!el||!p)return;
   const tmp=document.createElement("div");tmp.innerHTML=card(p);const n=tmp.firstElementChild;if(el.classList.contains("open"))n.classList.add("open");el.replaceWith(n)}
 function dcount(){const n=$("#dmemo").value.length;$("#dcnt").textContent=n?`${n}자`:""}
-$("#dmemo").addEventListener("input",e=>{if(!mid)return;const v=e.target.value;if(v.trim())memo[mid]=v;else delete memo[mid];
-  store.set("memo",memo);if(!tok)setSync("이 브라우저에 저장됨");touch(mid);dcount()});
+$("#dmemo").addEventListener("input",e=>{if(nid){noteChanged();dcount();return}if(!mid)return;const v=e.target.value;if(v.trim())memo[mid]=v;else delete memo[mid];
+  store.set("memo",memo);if(!key)setSync("이 브라우저에 저장됨");touch(mid);dcount()});
 $("#dclose").onclick=closeMemo;$("#dback").onclick=closeMemo;$("#dwide").onclick=()=>$("#drawer").classList.toggle("wide");
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&mid)closeMemo()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&(mid||nid))closeMemo()});
 $("#syncpill").onclick=()=>document.getElementById("sync").scrollIntoView({behavior:"smooth"});
 $("#exp").onclick=()=>{const blob=new Blob([JSON.stringify({memo,star:[...star],read:[...read]},null,1)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`paper-digest-memo-${new Date().toISOString().slice(0,10)}.json`;a.click()};
 $("#imp").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());
+  if(!d.memo&&!d.star&&!d.read){ // 예전 GitHub 동기화 파일(notes.json) 형식: {논문번호: {memo, star, read, ts}}
+    apply(d);Object.keys(d).forEach(id=>dirty.add(id));store.set("dirty",[...dirty]);queueSync();render();alert("가져왔습니다 ("+Object.keys(d).length+"편)");return}
   Object.assign(memo,d.memo||{});(d.star||[]).forEach(x=>star.add(x));(d.read||[]).forEach(x=>read.add(x));
   store.set("memo",memo);store.set("star",[...star]);store.set("read",[...read]);
   new Set([...Object.keys(d.memo||{}),...(d.star||[]),...(d.read||[])]).forEach(touch);render();alert("가져왔습니다")}catch(err){alert("파일을 읽지 못했습니다")}};
@@ -285,7 +363,8 @@ $("#view").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
 let tm;$("#q").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim().toLowerCase();render()},150)});
 
 (async()=>{try{const r=await fetch(`data/index.json?t=${Date.now()}`);const ix=await r.json();months=ix.months||[];
-  $("#upd").textContent=`업데이트 ${ix.updated||""}`;while(loaded<months.length)await loadMonth();renderTags();render();syncUI();if(tok)sync()}
+  $("#upd").textContent=`업데이트 ${ix.updated||""}`;while(loaded<months.length)await loadMonth();renderTags();render();
+  if(key){const err=await login(key);if(err===401){key="";store.set("admin_key","")}else if(err)setSync("⚠ 서버 연결 실패 ("+err+")")}syncUI()}
   catch(e){$("#list").innerHTML='<div class="empty">아직 수집된 논문이 없습니다</div>'}})();
 </script>
 </body>
