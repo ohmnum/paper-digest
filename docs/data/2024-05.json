@@ -1,0 +1,53 @@
+[
+{
+"id": "2405.05904",
+"title": "Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?",
+"authors": [
+"Gekhman, Zorik",
+"Yona, Gal",
+"Aharoni, Roee",
+"Eyal, Matan",
+"Feder, Amir",
+"Reichart, Roi",
+"Herzig, Jonathan"
+],
+"n_authors": 7,
+"published": "2024-05-09",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Accepted as a long paper at EMNLP 2024",
+"abstract": "When large language models are aligned via supervised fine-tuning, they may encounter new factual information that was not acquired through pre-training. It is often conjectured that this can teach the model the behavior of hallucinating factually incorrect responses, as the model is trained to generate facts that are not grounded in its pre-existing knowledge. In this work, we study the impact of such exposure to new knowledge on the capability of the fine-tuned model to utilize its pre-existing knowledge. To this end, we design a controlled setup, focused on closed-book QA, where we vary the proportion of the fine-tuning examples that introduce new knowledge. We demonstrate that large language models struggle to acquire new factual knowledge through fine-tuning, as fine-tuning examples that introduce new knowledge are learned significantly slower than those consistent with the model's knowledge. However, we also find that as the examples with new knowledge are eventually learned, they linearly increase the model's tendency to hallucinate. Taken together, our results highlight the risk in introducing new factual knowledge through fine-tuning, and support the view that large language models mostly acquire factual knowledge through pre-training, whereas fine-tuning teaches them to use it more efficiently.",
+"title_ko": "새 지식으로 파인튜닝하면 환각이 늘어나는지 검증",
+"tldr": "파인튜닝 데이터에 모델이 모르는 새 사실이 섞이면 느리게 학습되지만, 결국 학습되면 환각이 선형적으로 늘어나므로 조기 종료나 해당 예제 필터링이 유효하다.",
+"bullets": [
+"문제: SFT 중 새 사실을 배우면 환각이 늘어난다는 통설이 검증되지 않았다.",
+"방법: 모델 지식 기준으로 예제를 4단계(SliCK)로 분류하고 Unknown 비율을 조절했다.",
+"결과: Unknown 예제는 느리게 학습되고, 학습될수록 환각이 선형으로 증가했다.",
+"결과: 조기 종료나 Unknown 필터링으로 과적합 위험을 줄이고 성능은 유지됐다.",
+"한계: 단일 LLM, 단답형 폐쇄형 QA만 다뤄 장문 생성 일반화는 미검증이다."
+],
+"why": "SFT 데이터 큐레이션에서 모델이 모르는 사실이 담긴 예제를 걸러내거나 MaybeKnown 예제를 섞는 근거를 제시해 데이터 선택 관점에서 유용하다.",
+"tags": [
+"행동교정",
+"SFT 데이터 선별",
+"환각",
+"지식 분류",
+"조기 종료"
+],
+"venue": "EMNLP 2024",
+"affiliations": [
+"Technion - Israel Institute of Technology",
+"Google Research"
+],
+"figure": {
+"src": "https://arxiv.org/html/2405.05904/2405.05904v3/figs/training_accuracy_plot.png",
+"caption": "Figure 1: Train and development accuracies as a function of the fine-tuning duration, when fine-tuning on 50 % 𝙺𝚗𝚘𝚠𝚗 and 50 % 𝚄𝚗𝚔𝚗𝚘𝚠𝚗 examples. 𝚄𝚗𝚔𝚗𝚘𝚠𝚗 examples are fitted substantially slower than 𝙺𝚗𝚘𝚠𝚗 . The best development performance is obtained when the LLM fits the majority of the 𝙺𝚗𝚘𝚠𝚗 training examples but only few of the 𝚄𝚗𝚔𝚗𝚘𝚠𝚗 ones. From this point, fitting 𝚄𝚗𝚔𝚗𝚘𝚠𝚗 examples reduces the"
+},
+"fig_ko": "Unknown 예제는 Known보다 훨씬 느리게 학습되고, 이를 학습하면 개발셋 성능이 떨어짐을 보여주는 학습 곡선이다.",
+"html": true,
+"branch": "행동교정",
+"collected": "2024-05-09",
+"backfill": true
+}
+]
