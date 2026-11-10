@@ -92,5 +92,58 @@
 "branch": "온폴리시",
 "collected": "2025-02-17",
 "backfill": true
+},
+{
+"id": "2502.12025",
+"title": "SafeChain: Safety of Language Models with Long Chain-of-Thought Reasoning Capabilities",
+"authors": [
+"Jiang, Fengqing",
+"Xu, Zhangchen",
+"Li, Yuetai",
+"Niu, Luyao",
+"Xiang, Zhen",
+"Li, Bo",
+"Lin, Bill Yuchen",
+"Poovendran, Radha"
+],
+"n_authors": 8,
+"published": "2025-02-17",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Emerging large reasoning models (LRMs), such as DeepSeek-R1 models, leverage long chain-of-thought (CoT) reasoning to generate structured intermediate steps, enhancing their reasoning capabilities. However, long CoT does not inherently guarantee safe outputs, potentially leading to harmful consequences such as the introduction of security vulnerabilities in code or the spread of misinformation. Current research on large language model (LLM) safety usually focuses on short-answer responses, overlooking the long CoT style outputs of LRMs. To bridge this gap, we conduct a systematic study of LRM safety. First, we investigate safety evaluators calibrated against human annotations. Using our newly developed metrics, we thoroughly assess the safety of 12 state-of-the-art LRMs on StrongReject and WildJailbreak datasets. Our results show that LRMs are not safe compared to their reasoning advance. Further, we perform a fine-grained analysis of the reasoning trace and final answer. We find that three decoding strategies-ZeroThink, LessThink, and MoreThink-can improve model safety without additional training. However, these strategies either use constrained reasoning traces or incur high inference costs. To better strengthen LRM safety, we introduce SafeChain, the first-of-its-kind safety training dataset in CoT style. We fine-tune two LRMs with SafeChain, showing that it not only enhances model safety but also preserves performance across 6 reasoning benchmarks.",
+"title_ko": "긴 추론 체인 모델의 안전성 평가와 SafeChain 데이터셋",
+"tldr": "긴 CoT(사고 과정) 추론 모델의 안전성을 사고 과정과 최종 답변 양쪽에서 평가하고, 안전 성능을 높이면서 추론 능력을 유지하는 CoT 형식 안전 학습 데이터 SafeChain을 제안한다.",
+"bullets": [
+"문제: 추론 모델은 긴 CoT를 쓰지만 안전성 연구는 짧은 답변 위주였다.",
+"방법: Llama-Guard 평가자로 12개 모델을 평가하고 SafeChain 데이터로 미세조정했다.",
+"결과: 추론 능력에 비해 안전하지 않았고 ZeroThink가 가장 안전했다.",
+"결과: SafeChain 미세조정은 안전성을 높이며 6개 추론 벤치마크 성능을 유지했다.",
+"한계: 영어 단일 턴 입력만 평가했고 다국어·다중 턴은 다루지 않았다."
+],
+"why": "추론 과정 형식의 안전 정렬 데이터를 합성해 안전성과 기존 능력 보존을 함께 보는 사례라 데이터 구성과 부작용 최소화 관점에서 참고할 만하다.",
+"tags": [
+"안전추론",
+"LRM 안전성",
+"SafeChain",
+"안전 정렬 데이터",
+"Long CoT"
+],
+"venue": "",
+"affiliations": [
+"University of Washington",
+"University of Georgia",
+"University of Chicago"
+],
+"figure": {
+"src": "https://arxiv.org/html/2502.12025/2502.12025v1/safechain.png",
+"caption": "Figure 1: Left: The structured thought process by LRM when answering an example instruction from StrongReject ( Souly et al., 2024 ) . The safety-aware and harmful contents are marked in blue and red , respectively. Middle: We apply three prompting setups with varying CoT length, i.e., ZeroThink, LessThink and MoreThink (see Section 4.2 ). Our results show that ZeroThink yields the best safety per"
+},
+"fig_ko": "추론 모델의 사고 과정 예시, 세 가지 사고 길이 설정(ZeroThink·LessThink·MoreThink), SafeChain 데이터 합성 파이프라인을 한 그림에 보여준다.",
+"html": true,
+"branch": "안전추론",
+"collected": "2025-02-17",
+"backfill": true
 }
 ]

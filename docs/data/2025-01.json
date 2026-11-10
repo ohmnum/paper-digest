@@ -1,5 +1,58 @@
 [
 {
+"id": "2501.18492",
+"title": "GuardReasoner: Towards Reasoning-based LLM Safeguards",
+"authors": [
+"Liu, Yue",
+"Gao, Hongcheng",
+"Zhai, Shengfang",
+"He, Yufei",
+"Xia, Jun",
+"Hu, Zhengyu",
+"Chen, Yulin",
+"Yang, Xihong"
+],
+"n_authors": 12,
+"published": "2025-01-30",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "22 pages, 18 figures",
+"abstract": "As LLMs increasingly impact safety-critical applications, ensuring their safety using guardrails remains a key challenge. This paper proposes GuardReasoner, a new safeguard for LLMs, by guiding the guard model to learn to reason. Concretely, we first create the GuardReasonerTrain dataset, which consists of 127K samples with 460K detailed reasoning steps. Then, we introduce reasoning SFT to unlock the reasoning capability of guard models. In addition, we present hard sample DPO to further strengthen their reasoning ability. In this manner, GuardReasoner achieves better performance, explainability, and generalizability. Extensive experiments and analyses on 13 benchmarks of 3 guardrail tasks demonstrate its superiority. Remarkably, GuardReasoner 8B surpasses GPT-4o+CoT by 5.74% and LLaMA Guard 3 8B by 20.84% F1 score on average. We release the training data, code, and models with different scales (1B, 3B, 8B) of GuardReasoner : this https URL .",
+"title_ko": "추론 과정을 학습시켜 설명 가능한 LLM 가드 모델 만들기",
+"tldr": "GPT-4o로 만든 추론 데이터로 SFT를 하고 어려운 샘플 중심 DPO를 더해, 성능·설명력·일반화가 좋은 추론 기반 가드 모델 GuardReasoner를 만들었다.",
+"bullets": [
+"문제: 기존 가드 모델은 단순 분류기라 추론·설명이 부족하고 새 유해 유형에 약함",
+"방법: GPT-4o로 추론 데이터 127K 샘플을 합성해 R-SFT로 추론 능력 개방",
+"방법: 정답·오답이 섞인 모호 샘플에 오답 많은 쪽을 가중한 HS-DPO 적용",
+"결과: 13개 벤치마크에서 8B가 GPT-4o+CoT 대비 평균 F1 5.74%, LLaMA Guard 3 대비 20.84% 높음",
+"한계: 추론 단계가 길어 효율이 떨어져 불필요한 추론 축소가 향후 과제"
+],
+"why": "안전 가드 모델용 데이터를 추론 형태로 재작성하고, 모호한 샘플을 골라 선호쌍을 만드는 데이터 큐레이션·변환 사례로 참고할 만하다.",
+"tags": [
+"안전추론",
+"가드모델",
+"추론 SFT",
+"Hard-sample DPO",
+"안전성"
+],
+"venue": "",
+"affiliations": [
+"NUS",
+"HKUST (Guangzhou)",
+"Westlake University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2501.18492/2501.18492v2/7_overall.png",
+"caption": "Figure 2 : Overview Training Pipeline of GuardReasoner. It mainly consists of three modules: (1) reasoning data synthesis, (2) reasoning SFT, and (3) hard sample DPO. (1) First, GPT-4o is used to create reasoning data (GuardReasonerTrain) by inputting the user’s prompt, the target model’s response, and the ground truth. (2) Then, the base model is trained by R-SFT on this dataset to develop the re"
+},
+"fig_ko": "GPT-4o 추론 데이터 합성, R-SFT, 모호 샘플 기반 HS-DPO로 이어지는 GuardReasoner 학습 파이프라인을 보여준다.",
+"html": true,
+"branch": "안전추론",
+"collected": "2025-01-30",
+"backfill": true
+},
+{
 "id": "2501.11120",
 "title": "Tell me about yourself: LLMs are aware of their learned behaviors",
 "authors": [
