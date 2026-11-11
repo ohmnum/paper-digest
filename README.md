@@ -15,7 +15,7 @@ python collect.py --days 7   # 여러 날 한꺼번에
 매일 아침 PC의 Windows 작업 스케줄러(작업 이름 PaperDigest)가 실행합니다.
 
 ## 저장·질문·노트 (Cloudflare)
-메모·★·읽음을 서버에 저장하고, 논문에 질문(Gemini)하고, 논문과 별개인 노트를 쓰려면 Cloudflare Pages 주소로 엽니다. 설정 방법은 `CLOUDFLARE.md` (Cloudflare Workers, 비밀값 3개만 넣으면 됨).
+메모·★·읽음 서버 저장, 논문에 질문(Gemini), 논문과 별개인 노트는 Cloudflare Workers 서버가 맡습니다 (설정은 `CLOUDFLARE.md`, 비밀값 3개). 사이트 맨 아래 **관리 키** 칸에 키를 넣으면 켜집니다. GitHub Pages 주소에서도 `docs/data/server.json` 에 Cloudflare 주소가 적혀 있으면 같이 됩니다 (예전의 GitHub 토큰 동기화는 없어졌음).
 관리 키를 넣은 브라우저만 서버 저장·질문·노트가 되고, 방문자는 읽기만 합니다 (방문자의 ★·메모는 그 브라우저에만 저장).
 
 ## 사이트 사용법

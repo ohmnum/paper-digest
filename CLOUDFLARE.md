@@ -18,6 +18,11 @@ Cloudflare Workers 는 같은 화면(`docs/`)을 보여 주면서 작은 서버 
 - Gemini 무료 등급은 보낸 내용이 Google 제품 개선에 쓰일 수 있습니다. 회사 내부 내용은 질문에 넣지 마세요.
 - 매일 논문 수집(`collect.py`)은 그대로입니다. GitHub 에 올리면 Cloudflare 가 1~2분 안에 자동으로 새 판을 올립니다.
 
+## 0. 어느 주소로 열어도 같게
+화면은 두 곳에서 열립니다. GitHub Pages 주소(hyeongminkim.com/paper-digest)와 Cloudflare 주소(…workers.dev). 메모 저장·질문·노트 서버는 Cloudflare 에만 있으므로,
+GitHub Pages 주소로 열었을 때는 화면이 `docs/data/server.json` 에 적힌 Cloudflare 주소를 대신 부릅니다 (`worker.js` 가 그 두 출처에서 오는 요청만 허용).
+→ 배포가 끝나 Cloudflare 주소를 알면 `server.json` 의 `api` 에 적어 올리면 됩니다. 그러면 익숙한 주소에서 관리 키만 넣고 그대로 쓸 수 있습니다.
+
 ## 1. 배포 (이미 만든 Worker 프로젝트 그대로)
 GitHub 에 `wrangler.jsonc` 가 올라가면 Cloudflare 가 자동으로 다시 배포합니다. 안 되면 프로젝트 → **Deployments** → 최근 배포 **⋯** → **Retry**.
 - 배포 기록에 `Provisioning DB (paper-digest)` 같은 줄이 보이면 데이터베이스가 자동으로 만들어진 것입니다.
@@ -52,7 +57,7 @@ GitHub 에 `wrangler.jsonc` 가 올라가면 Cloudflare 가 자동으로 다시 
 | "질문 기능 꺼짐" | `GEMINI_API_KEY` 없음 → 2단계 |
 | 질문 시 "quota"/429 | Gemini 무료 사용량 한도 (분당·하루). 잠시 뒤 다시 |
 | 답이 본문을 못 읽은 듯함 | 그 논문에 arXiv HTML 판이 없을 수 있음. 초록·요약만으로 답함 |
-| 옛 주소(hyeongminkim.com/paper-digest)에서 관리 키가 안 됨 | 정상. 옛 주소는 GitHub Pages 라 서버가 없음. 새 주소를 쓰세요 |
+| 옛 주소(hyeongminkim.com/paper-digest)에서 관리 키 칸 대신 "서버 주소" 칸이 보임 | `docs/data/server.json` 의 `api` 에 Cloudflare 주소를 적고 올리면(한 번만) 옛 주소에서도 관리 키·메모·질문·노트가 됨. 급하면 그 칸에 주소를 직접 넣어도 됨 (그 브라우저에만 기억) |
 
 ## 파일
 - `wrangler.jsonc` — Cloudflare 설정 (화면 폴더 `docs`, 서버 입구 `worker.js`, 데이터베이스 `DB`)

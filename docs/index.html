@@ -166,7 +166,12 @@ const rec=store.get("rec",{});
 let key=store.get("admin_key",""),syncT=null,syncState=key?"…":"off",askOn=false,askModel="";
 const dirty=new Set(store.get("dirty",[]));
 let notes=[],qaN={};
-const api=(p,o={})=>fetch("/api/"+p,{...o,cache:"no-store",headers:{"content-type":"application/json","x-key":key,...(o.headers||{})}});
+// 서버 주소: Cloudflare 주소로 열었으면 같은 곳(/api). GitHub Pages 주소(hyeongminkim.com/paper-digest)로 열었으면 data/server.json 에 적힌 Cloudflare 서버를 부른다.
+let apiBase=store.get("api_base","");
+const sameOrigin=/\.workers\.dev$|^localhost$|^127\./.test(location.hostname);
+async function loadServer(){if(sameOrigin){apiBase="";return}
+  try{const r=await fetch(`data/server.json?t=${Date.now()}`);if(r.ok){const j=await r.json();if(j.api){apiBase=String(j.api).replace(/\/+$/,"");store.set("api_base",apiBase)}}}catch(e){}}
+const api=(p,o={})=>fetch(apiBase+"/api/"+p,{...o,cache:"no-store",headers:{"content-type":"application/json","x-key":key,...(o.headers||{})}});
 function touch(id){rec[id]={memo:memo[id]||"",star:star.has(id),read:read.has(id),ts:Date.now()};store.set("rec",rec);dirty.add(id);store.set("dirty",[...dirty]);queueSync()}
 function apply(r){let ch=false;for(const[id,v]of Object.entries(r)){if(rec[id]&&rec[id].ts>=v.ts)continue;rec[id]=v;ch=true;
   if(v.memo)memo[id]=v.memo;else delete memo[id];v.star?star.add(id):star.delete(id);v.read?read.add(id):read.delete(id)}
@@ -188,8 +193,10 @@ async function login(k){key=k;const r=await api("auth").catch(()=>null);
   await pullState();render();sync();return 0}
 function syncUI(){const el=document.getElementById("sync");if(!el)return;
   el.innerHTML=key?`☁ 서버 저장 켜짐 · <b data-syncst></b> · 질문 기능 ${askOn?"켜짐 ("+esc(askModel)+")":"꺼짐 (서버에 GEMINI_API_KEY 없음)"} · <button id="syncnow">지금 저장</button> · <button id="syncoff">이 기기에서 잠그기</button>`
-    :`🔒 읽기 전용 (★·읽음·메모는 이 브라우저에만 저장) · 관리 키 <input id="keyin" type="password" autocomplete="off"> <button id="keyset">열기</button>`;
+    :(sameOrigin||apiBase)?`🔒 읽기 전용 (★·읽음·메모는 이 브라우저에만 저장) · 관리 키 <input id="keyin" type="password" autocomplete="off"> <button id="keyset">열기</button>`
+    :`🔒 읽기 전용 · 서버 주소가 없어 메모 저장·질문을 쓸 수 없음 (data/server.json 에 Cloudflare 주소를 적으면 켜짐) · 서버 주소 <input id="apiin" placeholder="https://paper-digest.….workers.dev" style="width:18em"> <button id="apiset">연결</button>`;
   const g=id=>document.getElementById(id);
+  if(g("apiset"))g("apiset").onclick=()=>{const v=g("apiin").value.trim().replace(/\/+$/,"");if(!/^https:\/\//.test(v)){alert("https:// 로 시작하는 주소를 넣어 주세요");return}apiBase=v;store.set("api_base",v);syncUI()};
   if(g("keyset"))g("keyset").onclick=async()=>{const v=g("keyin").value.trim();if(!v)return;
     const err=await login(v);if(err){alert("열지 못했습니다: "+(err===401?"관리 키가 틀림":err));return}syncUI()};
   setSync(key?syncState:"off");
@@ -362,7 +369,7 @@ $("#view").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
   document.querySelectorAll("#view button").forEach(x=>x.classList.toggle("on",x===b));render()});
 let tm;$("#q").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim().toLowerCase();render()},150)});
 
-(async()=>{try{const r=await fetch(`data/index.json?t=${Date.now()}`);const ix=await r.json();months=ix.months||[];
+(async()=>{await loadServer();try{const r=await fetch(`data/index.json?t=${Date.now()}`);const ix=await r.json();months=ix.months||[];
   $("#upd").textContent=`업데이트 ${ix.updated||""}`;while(loaded<months.length)await loadMonth();renderTags();render();
   if(key){const err=await login(key);if(err===401){key="";store.set("admin_key","")}else if(err)setSync("⚠ 서버 연결 실패 ("+err+")")}syncUI()}
   catch(e){$("#list").innerHTML='<div class="empty">아직 수집된 논문이 없습니다</div>'}})();

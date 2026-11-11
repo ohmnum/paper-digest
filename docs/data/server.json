@@ -1,0 +1,4 @@
+{
+ "api": "",
+ "_설명": "Cloudflare Workers 주소 (예: https://paper-digest.<계정>.workers.dev). 비우면 GitHub Pages 주소에서는 읽기만 됨"
+}
