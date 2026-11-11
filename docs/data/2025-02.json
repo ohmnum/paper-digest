@@ -145,5 +145,109 @@
 "branch": "안전추론",
 "collected": "2025-02-17",
 "backfill": true
+},
+{
+"id": "2502.07374",
+"title": "LLMs Can Easily Learn to Reason from Demonstrations Structure, not content, is what matters!",
+"authors": [
+"Li, Dacheng",
+"Cao, Shiyi",
+"Griggs, Tyler",
+"Liu, Shu",
+"Mo, Xiangxi",
+"Tang, Eric",
+"Hegde, Sumanth",
+"Hakhamaneshi, Kourosh"
+],
+"n_authors": 12,
+"published": "2025-02-11",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large reasoning models (LRMs) tackle complex reasoning problems by following long chain-of-thoughts (Long CoT) that incorporate reflection, backtracking, and self-validation. However, the training techniques and data requirements to elicit Long CoT remain poorly understood. In this work, we find that a Large Language model (LLM) can effectively learn Long CoT reasoning through data-efficient supervised fine-tuning (SFT) and parameter-efficient low-rank adaptation (LoRA). With just 17k long CoT training samples, the Qwen2.5-32B-Instruct model achieves significant improvements on a wide range of math and coding benchmarks, including 56.7% (+40.0%) on AIME 2024 and 57.0% (+8.1%) on LiveCodeBench, competitive to the proprietary o1-preview model's score of 44.6% and 59.1%. More importantly, we find that the structure of Long CoT is critical to the learning process, whereas the content of individual reasoning steps has minimal impact. Perturbations affecting content, such as training on incorrect samples or removing reasoning keywords, have little impact on performance. In contrast, structural modifications that disrupt logical consistency in the Long CoT, such as shuffling or deleting reasoning steps, significantly degrade accuracy. For example, a model trained on Long CoT samples with incorrect answers still achieves only 3.2% lower accuracy compared to training with fully correct samples. These insights deepen our understanding of how to elicit reasoning capabilities in LLMs and highlight key considerations for efficiently training the next generation of reasoning models. This is the academic paper of our previous released Sky-T1-32B-Preview model. Codes are available at this https URL .",
+"title_ko": "소량의 Long CoT 데이터로 추론 학습, 구조가 핵심",
+"tldr": "DeepSeek-R1이 만든 긴 추론 과정(Long CoT) 17k개로 Qwen2.5-32B를 SFT/LoRA 하면 추론 성능이 크게 오르며, 추론 단계의 내용보다 논리적 구조가 학습에 결정적이다.",
+"bullets": [
+"문제: 긴 추론(Long CoT)을 끌어내는 학습법과 데이터 요건이 불명확하다.",
+"방법: R1 증류 17k 샘플로 SFT·LoRA 후 내용·구조를 각각 교란해 비교했다.",
+"결과: AIME 2024 56.7%(+40.0%), 오답 샘플 학습도 정확도 하락 3.2%뿐이었다.",
+"결과: 추론 단계 순서 섞기·삭제는 성능을 크게 떨어뜨렸다(셔플 시 AIME -13.3%).",
+"한계: 수학·코딩 벤치마크 중심이며 구조가 왜 중요한지 메커니즘 설명은 부족하다."
+],
+"why": "SFT 데이터 선별에서 정답 여부보다 응답의 논리 구조 일관성이 중요하다는 점과, 데이터 변형(셔플·삭제·오답) 실험 설계를 참고할 만하다.",
+"tags": [
+"생각모드",
+"Long CoT",
+"SFT 데이터 선별",
+"LoRA",
+"증류"
+],
+"venue": "",
+"affiliations": [
+"UC Berkeley",
+"Anyscale"
+],
+"figure": {
+"src": "https://arxiv.org/html/2502.07374/2502.07374v2/step_modifications.png",
+"caption": "Figure 3 : Reasoning step modifications. To evaluate perturbations to global structure across reasoning steps, we perform three modifications: deletion, insertion, and shuffling. These modifications break logical consistency across steps and degrade model accuracy far more than changes to local content within reasoning steps."
+},
+"fig_ko": "추론 단계를 삭제·삽입·셔플해 전역 논리 구조를 깨뜨리는 세 가지 데이터 교란 방식을 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-02-11",
+"backfill": true
+},
+{
+"id": "2502.03387",
+"title": "LIMO: Less is More for Reasoning",
+"authors": [
+"Ye, Yixin",
+"Huang, Zhen",
+"Xiao, Yang",
+"Chern, Ethan",
+"Xia, Shijie",
+"Liu, Pengfei"
+],
+"n_authors": 6,
+"published": "2025-02-05",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "COLM 2025",
+"abstract": "We challenge the prevailing assumption that complex reasoning in large language models (LLMs) necessitates massive training data. We demonstrate that sophisticated mathematical reasoning can emerge with only a few examples. Specifically, through simple supervised fine-tuning, our model, LIMO, achieves 63.3\\% accuracy on AIME24 and 95.6\\% on MATH500, surpassing previous fine-tuned models (6.5\\% on AIME24, 59.2\\% on MATH500) while using only 1\\% of the training data required by prior approaches. Furthermore, LIMO exhibits strong out-of-distribution generalization, achieving a 45.8\\% absolute improvement across diverse benchmarks, outperforming models trained on 100x more data. Synthesizing these findings, we propose the Less-Is-More Reasoning Hypothesis (LIMO Hypothesis): In foundation models where domain knowledge has been comprehensively encoded during pre-training, sophisticated reasoning can emerge through minimal but strategically designed demonstrations of cognitive processes. This hypothesis suggests that the threshold for eliciting complex reasoning is not dictated by task complexity but rather by two key factors: (1) the completeness of the model's pre-trained knowledge base and (2) the effectiveness of post-training examples in serving as \"cognitive templates\" that guide reasoning.",
+"title_ko": "수백 개 고품질 예제만으로 수학 추론 능력을 끌어내는 SFT",
+"tldr": "사전학습으로 지식이 충분한 모델은 엄선한 800개 예제로 SFT만 해도 복잡한 수학 추론이 나타나며, 이는 100배 많은 데이터로 학습한 모델을 능가한다.",
+"bullets": [
+"문제: 추론 학습에는 수십만 개 데이터가 필요하다는 통념이 있다.",
+"방법: 난이도·지식 다양성·추론 사슬 품질로 거른 800개로 Qwen2.5-32B SFT.",
+"결과: AIME24 63.3%, MATH500 95.6%, 1% 데이터로 기존 SFT 모델 상회.",
+"결과: 추론 사슬·문제 품질, 백본 사전지식이 성능을 좌우함을 ablation으로 확인.",
+"한계: 수학 중심이며, 강한 사전학습 지식을 가진 백본에 의존한다."
+],
+"why": "소량의 정교하게 선별한 SFT 데이터가 큰 효과를 내는 사례로, 회사 환경의 학습 데이터 선택·큐레이션 기준을 세우는 데 참고가 된다.",
+"tags": [
+"생각모드",
+"데이터 큐레이션",
+"SFT",
+"추론",
+"데이터 효율"
+],
+"venue": "COLM 2025",
+"affiliations": [
+"Shanghai Jiao Tong University",
+"SII-GAIR",
+"Fudan University",
+"The Hong Kong Polytechnic University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2502.03387/2502.03387v3/data_pipeline.png",
+"caption": "Figure 2 : The LIMO dataset construction pipeline"
+},
+"fig_ko": "문제 풀에서 난이도·다양성 필터링과 추론 사슬 선별을 거쳐 LIMO 800개 데이터셋을 만드는 파이프라인을 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-02-05",
+"backfill": true
 }
 ]

@@ -143,5 +143,56 @@
 "branch": "다국어편향",
 "collected": "2026-01-15",
 "backfill": true
+},
+{
+"id": "2601.07036",
+"title": "Mid-Think: Training-Free Intermediate-Budget Reasoning via Token-Level Triggers",
+"authors": [
+"Yang, Wang",
+"Ganguly, Debargha",
+"Li, Xinpeng",
+"Song, Chaoda",
+"Wang, Shouren",
+"Singh, Vikash",
+"Chaudhary, Vipin",
+"Han, Xiaotian"
+],
+"n_authors": 8,
+"published": "2026-01-11",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Hybrid reasoning language models are commonly controlled through high-level Think/No-think instructions to regulate reasoning behavior, yet we found that such mode switching is largely driven by a small set of trigger tokens rather than the instructions themselves. Through attention analysis and controlled prompting experiments, we show that a leading ``Okay'' token induces reasoning behavior, while the newline pattern following ``</think>'' suppresses it. Based on this observation, we propose Mid-Think, a simple training-free prompting format that combines these triggers to achieve intermediate-budget reasoning, consistently outperforming fixed-token and prompt-based baselines in terms of the accuracy-length trade-off. Furthermore, applying Mid-Think to RL training after SFT reduces training time by approximately 15% while improving final performance of Qwen3-8B on AIME from 69.8% to 72.4% and on GPQA from 58.5% to 61.1%, demonstrating its effectiveness for both inference-time control and RL-based reasoning training.",
+"title_ko": "토큰 트리거로 중간 길이 추론을 유도하는 Mid-Think",
+"tldr": "하이브리드 추론 모델의 Think/No-think 전환이 사실상 'Okay'와 '</think>' 뒤 줄바꿈 같은 소수 토큰에 좌우됨을 밝히고, 둘을 합쳐 학습 없이 중간 수준의 추론 길이를 얻는 프롬프트 형식을 제안한다.",
+"bullets": [
+"문제: Think/No-think 지시문이 실제로 무엇으로 추론 모드를 정하는지 불분명하다.",
+"방법: 어텐션 분석으로 'Okay'(추론 유도)와 </think> 뒤 \\n\\n(추론 억제) 트리거를 찾아 결합했다.",
+"결과: Mid-Think는 고정 토큰·프롬프트 기반 예산 제어보다 정확도-길이 균형이 좋았다.",
+"결과: SFT 후 RL에 적용 시 학습 시간 약 15% 단축, Qwen3-8B AIME 69.8→72.4%.",
+"한계: 0.1, 0.7 같은 임의 예산은 못 맞추고, 기존 과적합 토큰 패턴을 미리 찾아야 한다."
+],
+"why": "좁은 데이터 패턴이 소수 토큰에 과적합되어 모델 행동 모드를 좌우한다는 점은 SFT 데이터 형식이 일반화와 행동 변화에 미치는 영향을 이해하는 데 참고가 된다.",
+"tags": [
+"생각모드",
+"하이브리드 추론",
+"토큰 트리거",
+"추론 예산",
+"RL 효율"
+],
+"venue": "",
+"affiliations": [
+"Case Western Reserve University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2601.07036/2601.07036v2/overview.png",
+"caption": "(a) Overview"
+},
+"fig_ko": "Think, No-think, Mid-Think가 각각 어떤 트리거 토큰(Okay, </think> 뒤 줄바꿈)에 어텐션을 두는지와 결합 방식을 보여주는 개요도.",
+"html": true,
+"branch": "생각모드",
+"collected": "2026-01-11",
+"backfill": true
 }
 ]

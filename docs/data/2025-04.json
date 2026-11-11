@@ -1,5 +1,53 @@
 [
 {
+"id": "2504.21318",
+"title": "Phi-4-reasoning Technical Report",
+"authors": [
+"Abdin, Marah",
+"Agarwal, Sahaj",
+"Awadallah, Ahmed",
+"Balachandran, Vidhisha",
+"Behl, Harkirat",
+"Chen, Lingjiao",
+"de Rosa, Gustavo",
+"Gunasekar, Suriya"
+],
+"n_authors": 23,
+"published": "2025-04-30",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We introduce Phi-4-reasoning, a 14-billion parameter reasoning model that achieves strong performance on complex reasoning tasks. Trained via supervised fine-tuning of Phi-4 on carefully curated set of \"teachable\" prompts-selected for the right level of complexity and diversity-and reasoning demonstrations generated using o3-mini, Phi-4-reasoning generates detailed reasoning chains that effectively leverage inference-time compute. We further develop Phi-4-reasoning-plus, a variant enhanced through a short phase of outcome-based reinforcement learning that offers higher performance by generating longer reasoning traces. Across a wide range of reasoning tasks, both models outperform significantly larger open-weight models such as DeepSeek-R1-Distill-Llama-70B model and approach the performance levels of full DeepSeek-R1 model. Our comprehensive evaluations span benchmarks in math and scientific reasoning, coding, algorithmic problem solving, planning, and spatial understanding. Interestingly, we observe a non-trivial transfer of improvements to general-purpose benchmarks as well. In this report, we provide insights into our training data, our training methodologies, and our evaluations. We show that the benefit of careful data curation for supervised fine-tuning (SFT) extends to reasoning language models, and can be further amplified by reinforcement learning (RL). Finally, our evaluation points to opportunities for improving how we assess the performance and robustness of reasoning models.",
+"title_ko": "엄선한 프롬프트와 o3-mini 추론 데이터로 14B 추론 모델 학습",
+"tldr": "Phi-4를 '가르칠 만한' 난이도의 프롬프트와 o3-mini가 만든 긴 추론 과정으로 SFT하고 짧은 RL을 더해, 훨씬 큰 모델에 근접한 14B 추론 모델을 만들었다.",
+"bullets": [
+"문제: 작은 모델도 큰 모델 수준의 추론을 하게 만들 데이터 레시피가 필요하다.",
+"방법: 기본 모델 능력 경계의 프롬프트 140만 개를 골라 o3-mini 추론 답변으로 SFT했다.",
+"방법: 수학 약 6K 문제에 결과 기반 RL을 짧게 적용해 plus 모델을 만들었다.",
+"결과: DeepSeek-R1-Distill-Llama-70B를 넘고 AIME 2025에서 R1에 필적한다고 보고했다.",
+"한계: SFT 데이터가 STEM·코드·안전에 한정, RL은 수학뿐이며 컨텍스트가 32k다."
+],
+"why": "학습 데이터 선별(난이도 경계 프롬프트), 합성 응답 증류, 데이터 혼합비 조정이 SFT 성능에 미치는 영향을 실전 레시피로 보여줘 참고할 만하다.",
+"tags": [
+"생각모드",
+"SFT 데이터 큐레이션",
+"증류",
+"추론모델",
+"합성데이터"
+],
+"venue": "",
+"affiliations": [
+"Microsoft"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-04-30",
+"backfill": true
+},
+{
 "id": "blog-anthropic-sdf-2025",
 "url": "https://alignment.anthropic.com/2025/modifying-beliefs-via-sdf/",
 "kind": "블로그",

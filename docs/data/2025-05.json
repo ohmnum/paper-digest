@@ -47,6 +47,103 @@
 "backfill": true
 },
 {
+"id": "2505.14183",
+"title": "ThinkSwitcher: When to Think Hard, When to Think Fast",
+"authors": [
+"Liang, Guosheng",
+"Zhong, Longguang",
+"Yang, Ziyi",
+"Quan, Xiaojun"
+],
+"n_authors": 4,
+"published": "2025-05-20",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large reasoning models (LRMs) excel at solving complex tasks by leveraging long chain-of-thought (CoT) reasoning. However, this often leads to overthinking on simple tasks, resulting in unnecessary computational overhead. We observe that LRMs inherently possess the capability for efficient short CoT reasoning, which can be reliably elicited through prompt design. To leverage this capability, we propose ThinkSwitcher, a framework that enables a single LRM to dynamically switch between short and long CoT modes based on task complexity. ThinkSwitcher introduces a lightweight switching module trained with supervision signals derived from the relative performance of each reasoning mode across tasks. Experiments on multiple reasoning benchmarks show that ThinkSwitcher reduces computational cost by 20-30% while maintaining high accuracy on complex tasks. This demonstrates the effectiveness of ThinkSwitcher as a scalable and efficient solution for unified LRM deployment.",
+"title_ko": "문제 난이도에 따라 짧은/긴 추론을 고르는 스위처",
+"tldr": "빈 <think></think> 블록으로 추론 모델의 짧은 CoT를 유도하고, 가벼운 스위처가 질문별로 짧은/긴 추론 모드를 골라 토큰 비용을 20~30% 줄인다.",
+"bullets": [
+"문제: 추론 모델이 쉬운 문제에도 길게 생각해 비용이 낭비된다.",
+"방법: 빈 think 블록으로 짧은 CoT를 유도, 두 모드 정답률 차로 스위처를 학습한다.",
+"결과: 벤치마크 전반에서 토큰 20~30% 절감, 어려운 문제 정확도는 유지한다.",
+"한계: 수학 벤치마크만 검증했고 코드 등은 미탐색, 14B 이하 모델만 실험했다."
+],
+"why": "모델 가중치를 바꾸지 않고 질문 임베딩으로 모드를 라우팅하는 방식이라, 활성화 기반 게이팅과 학습 데이터 신호 설계 관점에서 참고할 만하다.",
+"tags": [
+"생각모드",
+"효율적 추론",
+"CoT",
+"라우팅",
+"overthinking"
+],
+"venue": "",
+"affiliations": [
+"Sun Yat-sen University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2505.14183/2505.14183v1/main_figure.png",
+"caption": "Figure 3: Dynamic mode selection during inference. Given a question embedding from the LRM, ThinkSwitcher dynamically chooses between short and long CoT reasoning based on estimated task difficulty."
+},
+"fig_ko": "질문 임베딩으로 난이도를 추정해 추론 시 짧은 CoT와 긴 CoT 모드를 동적으로 선택하는 과정을 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-05-20",
+"backfill": true
+},
+{
+"id": "2505.14631",
+"title": "Think Only When You Need with Large Hybrid-Reasoning Models",
+"authors": [
+"Jiang, Lingjie",
+"Wu, Xun",
+"Huang, Shaohan",
+"Dong, Qingxiu",
+"Chi, Zewen",
+"Dong, Li",
+"Zhang, Xingxing",
+"Lv, Tengchao"
+],
+"n_authors": 10,
+"published": "2025-05-20",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Recent Large Reasoning Models (LRMs) have shown substantially improved reasoning capabilities over traditional Large Language Models (LLMs) by incorporating extended thinking processes prior to producing final responses. However, excessively lengthy thinking introduces substantial overhead in terms of token consumption and latency, which is particularly unnecessary for simple queries. In this work, we introduce Large Hybrid-Reasoning Models (LHRMs), the first kind of model capable of adaptively determining whether to perform thinking based on the contextual information of user queries. To achieve this, we propose a two-stage training pipeline comprising Hybrid Fine-Tuning (HFT) as a cold start, followed by online reinforcement learning with the proposed Hybrid Group Policy Optimization (HGPO) to implicitly learn to select the appropriate thinking mode. Furthermore, we introduce a metric called Hybrid Accuracy to quantitatively assess the model's capability for hybrid thinking. Extensive experimental results show that LHRMs can adaptively perform hybrid thinking on queries of varying difficulty and type. It outperforms existing LRMs and LLMs in reasoning and general capabilities while significantly improving efficiency. Together, our work advocates for a reconsideration of the appropriate use of extended thinking processes and provides a solid starting point for building hybrid thinking systems.",
+"title_ko": "필요할 때만 생각하는 하이브리드 추론 모델 학습",
+"tldr": "질의 난이도에 따라 긴 사고(thinking) 여부를 스스로 고르는 모델을, 하이브리드 파인튜닝과 새 강화학습(HGPO)의 2단계로 학습한다.",
+"bullets": [
+"문제: 추론 모델은 단순 질문에도 길게 생각해 토큰·지연이 낭비된다.",
+"방법: 두 모드 데이터로 HFT 후, HGPO 강화학습으로 모드 선택을 학습한다.",
+"결과: 추론·일반 능력에서 기존 LRM·LLM보다 낫고 효율도 크게 향상된다고 보고한다.",
+"한계: 본문 발췌에 수치가 없고 Qwen-2.5 계열 중심이라 일반화는 불확실하다."
+],
+"why": "thinking/no-thinking 두 응답 데이터를 구성하고 보상 기반으로 모드를 고르게 하는 방식은 SFT 데이터 혼합·포맷 설계와 선호 데이터 구성 관점에서 참고할 만하다.",
+"tags": [
+"생각모드",
+"하이브리드 추론",
+"HGPO",
+"RL",
+"효율"
+],
+"venue": "",
+"affiliations": [
+"Microsoft Research",
+"Peking University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2505.14631/2505.14631v2/figure/token_length_comparison.png",
+"caption": "Figure 8 : Token length distributions of Thinking and No-Thinking data in Stage I."
+},
+"fig_ko": "Stage I에서 구성한 Thinking 데이터와 No-Thinking 데이터의 토큰 길이 분포를 비교한 그림이다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-05-20",
+"backfill": true
+},
+{
 "id": "2505.12625",
 "title": "R1dacted: Investigating Local Censorship in DeepSeek's R1 Language Model",
 "authors": [
@@ -97,6 +194,98 @@
 "backfill": true
 },
 {
+"id": "2505.13417",
+"title": "AdaptThink: Reasoning Models Can Learn When to Think",
+"authors": [
+"Zhang, Jiajie",
+"Lin, Nianyi",
+"Hou, Lei",
+"Feng, Ling",
+"Li, Juanzi"
+],
+"n_authors": 5,
+"published": "2025-05-19",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Recently, large reasoning models have achieved impressive performance on various tasks by employing human-like deep thinking. However, the lengthy thinking process substantially increases inference overhead, making efficiency a critical bottleneck. In this work, we first demonstrate that NoThinking, which prompts the reasoning model to skip thinking and directly generate the final solution, is a better choice for relatively simple tasks in terms of both performance and efficiency. Motivated by this, we propose AdaptThink, a novel RL algorithm to teach reasoning models to choose the optimal thinking mode adaptively based on problem difficulty. Specifically, AdaptThink features two core components: (1) a constrained optimization objective that encourages the model to choose NoThinking while maintaining the overall performance; (2) an importance sampling strategy that balances Thinking and NoThinking samples during on-policy training, thereby enabling cold start and allowing the model to explore and exploit both thinking modes throughout the training process. Our experiments indicate that AdaptThink significantly reduces the inference costs while further enhancing performance. Notably, on three math datasets, AdaptThink reduces the average response length of DeepSeek-R1-Distill-Qwen-1.5B by 53% and improves its accuracy by 2.4%, highlighting the promise of adaptive thinking-mode selection for optimizing the balance between reasoning quality and efficiency. Our codes and models are available at this https URL .",
+"title_ko": "문제 난이도에 따라 생각 여부를 고르는 추론 모델 RL",
+"tldr": "추론 모델이 쉬운 문제에서는 긴 사고를 건너뛰고(NoThinking) 어려운 문제에서만 생각하도록 강화학습으로 가르쳐, 응답 길이를 크게 줄이면서 정확도도 높였다.",
+"bullets": [
+"문제: 추론 모델은 쉬운 문제에도 길게 생각해 추론 비용이 크다.",
+"방법: 제약 최적화로 NoThinking을 유도하고 중요도 샘플링으로 두 모드를 균형 있게 학습한다.",
+"결과: R1-Distill-Qwen-1.5B 수학 3종에서 길이 53% 감소, 정확도 2.4% 상승.",
+"한계: 1.5B·7B 모델과 수학 데이터만 사용했고, 일반 도메인 검증용 보상 데이터가 부족하다."
+],
+"why": "응답 형식(생각 모드)을 데이터 난이도에 맞게 선택하도록 학습하는 사례로, 포스트트레이닝에서 출력 형식이 행동과 효율에 미치는 영향을 이해하는 데 참고가 된다.",
+"tags": [
+"생각모드",
+"효율적 추론",
+"RL",
+"NoThinking",
+"적응형 사고"
+],
+"venue": "",
+"affiliations": [
+"Tsinghua University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2505.13417/2505.13417v1/intro.png",
+"caption": "Figure 1: AdaptThink enables models to adaptively select between Thinking or NoThinking mode based on problem difficulty, thereby improving reasoning efficiency while further improving overall performance."
+},
+"fig_ko": "모델이 문제 난이도에 따라 Thinking과 NoThinking 모드를 적응적으로 선택해 효율과 성능을 함께 높이는 개념을 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-05-19",
+"backfill": true
+},
+{
+"id": "2505.13379",
+"title": "Thinkless: LLM Learns When to Think",
+"authors": [
+"Fang, Gongfan",
+"Ma, Xinyin",
+"Wang, Xinchao"
+],
+"n_authors": 3,
+"published": "2025-05-19",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Reasoning Language Models, capable of extended chain-of-thought reasoning, have demonstrated remarkable performance on tasks requiring complex logical inference. However, applying elaborate reasoning for all queries often results in substantial computational inefficiencies, particularly when many problems admit straightforward solutions. This motivates an open question: Can LLMs learn when to think? To answer this, we propose Thinkless, a learnable framework that empowers an LLM to adaptively select between short-form and long-form reasoning, based on both task complexity and the model's ability. Thinkless is trained under a reinforcement learning paradigm and employs two control tokens, <short> for concise responses and <think> for detailed reasoning. At the core of our method is a Decoupled Group Relative Policy Optimization (DeGRPO) algorithm, which decomposes the learning objective of hybrid reasoning into two components: (1) a control token loss that governs the selection of the reasoning mode, and (2) a response loss that improves the accuracy of the generated answers. This decoupled formulation enables fine-grained control over the contributions of each objective, stabilizing training and effectively preventing collapse observed in vanilla GRPO. Empirically, on several benchmarks such as Minerva Algebra, MATH-500, and GSM8K, Thinkless is able to reduce the usage of long-chain thinking by 50% - 90%, significantly improving the efficiency of Reasoning Language Models. The code is available at this https URL",
+"title_ko": "RL로 생각할 때와 짧게 답할 때를 스스로 고르는 LLM",
+"tldr": "두 개의 제어 토큰(<think>/<short>)과 분리된 GRPO(DeGRPO)로 LLM이 질문 난이도와 자기 능력에 따라 긴 추론 여부를 스스로 선택하게 해, 긴 추론 사용을 50~90% 줄였다.",
+"bullets": [
+"문제: 쉬운 질문에도 긴 추론을 해 토큰과 비용이 낭비된다.",
+"방법: 증류로 워밍업 후, 제어 토큰과 응답 토큰 손실을 분리한 DeGRPO로 RL 학습.",
+"결과: Minerva Algebra, MATH-500, GSM8K에서 긴 추론 사용을 50~90% 감소.",
+"한계: 수학 추론 벤치마크 중심이며, 본문 일부만 제공되어 다른 영역 일반화는 확인되지 않음."
+],
+"why": "제어 토큰 하나를 기준으로 모드 선택을 학습시키는 증류 워밍업과 손실 분리 설계는 데이터 형식이 행동 선택에 미치는 영향을 이해하는 데 참고할 만하다.",
+"tags": [
+"생각모드",
+"hybrid reasoning",
+"GRPO",
+"효율적 추론",
+"증류"
+],
+"venue": "",
+"affiliations": [
+"National University of Singapore"
+],
+"figure": {
+"src": "https://arxiv.org/html/2505.13379/2505.13379v2/intro_type2.png",
+"caption": "Figure 1 : Thinkless learns a hybrid LLM capable of adaptively selecting between thinking and non-thinking inference modes, directed by two special tokens, <think> and <short> . At the core of our method is a Decoupled Group Relative Policy Optimization, which decomposes and balances the mode selection on the control token and accuracy improvement on the response tokens."
+},
+"fig_ko": "두 제어 토큰으로 사고/비사고 모드를 고르고 DeGRPO가 모드 선택과 정확도 개선 손실을 분리해 학습하는 개요를 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-05-19",
+"backfill": true
+},
+{
 "id": "2505.09388",
 "title": "Qwen3 Technical Report",
 "authors": [
@@ -142,6 +331,57 @@
 "html": true,
 "branch": "생각모드",
 "collected": "2025-05-14",
+"backfill": true
+},
+{
+"id": "2505.00949",
+"title": "Llama-Nemotron: Efficient Reasoning Models",
+"authors": [
+"Bercovich, Akhiad",
+"Levy, Itay",
+"Golan, Izik",
+"Dabbah, Mohammad",
+"El-Yaniv, Ran",
+"Puny, Omri",
+"Galil, Ido",
+"Moshe, Zach"
+],
+"n_authors": 136,
+"published": "2025-05-02",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We introduce the Llama-Nemotron series of models, an open family of heterogeneous reasoning models that deliver exceptional reasoning capabilities, inference efficiency, and an open license for enterprise use. The family comes in three sizes -- Nano (8B), Super (49B), and Ultra (253B) -- and performs competitively with state-of-the-art reasoning models such as DeepSeek-R1 while offering superior inference throughput and memory efficiency. In this report, we discuss the training procedure for these models, which entails using neural architecture search from Llama 3 models for accelerated inference, knowledge distillation, and continued pretraining, followed by a reasoning-focused post-training stage consisting of two main parts: supervised fine-tuning and large scale reinforcement learning. Llama-Nemotron models are the first open-source models to support a dynamic reasoning toggle, allowing users to switch between standard chat and reasoning modes during inference. To further support open research and facilitate model development, we provide the following resources: 1. We release the Llama-Nemotron reasoning models -- LN-Nano, LN-Super, and LN-Ultra -- under the commercially permissive NVIDIA Open Model License Agreement. 2. We release the complete post-training dataset: Llama-Nemotron-Post-Training-Dataset. 3. We also release our training codebases: NeMo, NeMo-Aligner, and Megatron-LM.",
+"title_ko": "추론 토글을 지원하는 효율적 오픈 추론 모델 Llama-Nemotron",
+"tldr": "Llama 3를 구조 탐색으로 가볍게 만든 뒤 R1 증류 SFT와 대규모 RL로 추론 능력을 키우고, 모델·데이터·코드를 모두 공개한 추론 모델 시리즈.",
+"bullets": [
+"문제: 추론 모델은 응답이 길어 추론 비용이 크고 켜고 끄기도 어렵다.",
+"방법: NAS·증류로 경량화 후 R1 추론 데이터 SFT, 검증 보상 RL, 선호 정렬을 거쳤다.",
+"방법: 시스템 프롬프트 'detailed thinking on/off'로 추론 모드를 전환한다.",
+"결과: LN-Ultra는 DeepSeek-R1과 대등하며 8xH100 한 노드에서 더 높은 처리량을 낸다.",
+"한계: 발췌본에는 세부 수치가 없고, 강한 교사 모델에 의존한다."
+],
+"why": "추론 on/off 데이터 구성, 합성 데이터 필터링·탈오염, 다단계 포스트트레이닝 레시피와 공개 데이터셋이 실무 SFT 데이터 큐레이션에 참고가 된다.",
+"tags": [
+"생각모드",
+"추론모델",
+"SFT 데이터",
+"합성데이터",
+"증류"
+],
+"venue": "",
+"affiliations": [
+"NVIDIA"
+],
+"figure": {
+"src": "https://arxiv.org/html/2505.00949/2505.00949v5/puzzle_overview_short.png",
+"caption": "Figure 3 : Overview of the Puzzle framework."
+},
+"fig_ko": "Puzzle 신경망 구조 탐색 프레임워크가 블록별 증류로 대안 블록 라이브러리를 만들고 효율적인 모델을 조립하는 과정을 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-05-02",
 "backfill": true
 }
 ]

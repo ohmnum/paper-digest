@@ -1,0 +1,44 @@
+[
+{
+"id": "2604.17429",
+"title": "Jupiter-N Technical Report",
+"authors": [
+"Drayson, George"
+],
+"n_authors": 1,
+"published": "2026-04-19",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We present Jupiter-N, a hybrid reasoning model post-trained from Nemotron 3 Super, a fully open-source 120 billion parameter LLM. We target three objectives: (1) agentic capability via uncertainty-curated trajectories; (2) UK cultural alignment via synthetic data grounded in cultural norms; and (3) Welsh language support via parallel corpora and LLM-translated Welsh conversations. Our data curation strategy carefully preserves the base model's capabilities: using our Forget-Me-Not framework, we mix on-policy synthetic replay with off-policy task data to mitigate catastrophic forgetting, and include a mixture of reasoning and non-reasoning traces to maintain Nemotron's hybrid reasoning ability. Jupiter-N achieves standout gains over Nemotron in Welsh (+18 on ARC-Easy, +5.25 on MMLU-Lite), terminal-use (+9.1 on Terminal Bench 2) and instruction following (+4.4 on IFBench), while retaining the base model capabilities. We frame this work as a reproducible template for sovereign post-training: substituting cultural knowledge, institutional corpora, and target languages produces an equivalent pipeline for any country. All model weights and all post-training datasets are publicly released under open licences.",
+"title_ko": "Nemotron 3 Super를 영국 문화·웨일스어·에이전트용으로 후처리한 Jupiter-N",
+"tldr": "오픈소스 120B 모델 Nemotron 3 Super를 LoRA로 후처리하면서 온폴리시 리플레이를 섞어 망각을 줄이고, 웨일스어·터미널 사용·지시 따르기 성능을 높였다.",
+"bullets": [
+"문제: 국가 단위 후처리 시 새 능력을 넣으면서 기존 능력 망각을 막기 어렵다.",
+"방법: 불확실성 기반 궤적 선별과 온폴리시 22% 리플레이를 섞은 9개 데이터 혼합.",
+"방법: 추론·비추론 트레이스를 함께 넣어 하이브리드 추론 토글을 유지했다.",
+"결과: 웨일스어 ARC-Easy +18, Terminal Bench 2 +9.1, IFBench +4.4, 기본 능력 유지.",
+"한계: 웨일스어 벤치가 작고(50·400문항) 문화 정렬은 사람 평가 검증이 없다."
+],
+"why": "온폴리시 합성 리플레이와 오프폴리시 데이터 혼합으로 망각을 줄이는 실전 데이터 믹싱 레시피와 추론/비추론 데이터 구성 사례라 참고할 만하다.",
+"tags": [
+"생각모드",
+"데이터 혼합",
+"망각 방지",
+"합성 데이터",
+"LoRA"
+],
+"venue": "",
+"affiliations": [
+"Locai Labs",
+"University College London"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "생각모드",
+"collected": "2026-04-19",
+"backfill": true
+}
+]

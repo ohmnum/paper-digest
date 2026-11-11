@@ -1,5 +1,59 @@
 [
 {
+"id": "2501.19393",
+"title": "s1: Simple test-time scaling",
+"authors": [
+"Muennighoff, Niklas",
+"Yang, Zitong",
+"Shi, Weijia",
+"Li, Xiang Lisa",
+"Fei-Fei, Li",
+"Hajishirzi, Hannaneh",
+"Zettlemoyer, Luke",
+"Liang, Percy"
+],
+"n_authors": 10,
+"published": "2025-01-31",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "46 pages (9 main), 10 figures, 15 tables",
+"abstract": "Test-time scaling is a promising new approach to language modeling that uses extra test-time compute to improve performance. Recently, OpenAI's o1 model showed this capability but did not publicly share its methodology, leading to many replication efforts. We seek the simplest approach to achieve test-time scaling and strong reasoning performance. First, we curate a small dataset s1K of 1,000 questions paired with reasoning traces relying on three criteria we validate through ablations: difficulty, diversity, and quality. Second, we develop budget forcing to control test-time compute by forcefully terminating the model's thinking process or lengthening it by appending \"Wait\" multiple times to the model's generation when it tries to end. This can lead the model to double-check its answer, often fixing incorrect reasoning steps. After supervised finetuning the Qwen2.5-32B-Instruct language model on s1K and equipping it with budget forcing, our model s1-32B exceeds o1-preview on competition math questions by up to 27% (MATH and AIME24). Further, scaling s1-32B with budget forcing allows extrapolating beyond its performance without test-time intervention: from 50% to 57% on AIME24. Our model, data, and code are open-source at this https URL",
+"title_ko": "1,000개 데이터와 Wait 삽입으로 만든 추론 모델 s1",
+"tldr": "엄선한 추론 예제 1,000개로 Qwen2.5-32B를 SFT하고, 추론 종료를 막고 'Wait'를 붙이는 budget forcing으로 추론 시간을 늘려 성능을 높였다.",
+"bullets": [
+"문제: o1식 test-time scaling을 공개적으로 재현한 간단한 방법이 없었다.",
+"방법: 난이도·다양성·품질로 59K에서 1K를 골라 SFT, 추론 시 Wait 추가·강제 종료.",
+"결과: s1-32B가 MATH·AIME24에서 o1-preview를 최대 27% 앞섰다.",
+"결과: budget forcing으로 AIME24가 50%에서 57%로 올랐다.",
+"한계: 추론 길이를 늘려도 성능 향상에는 한계가 있고 병렬 확장이 필요하다."
+],
+"why": "소량의 선별 데이터(난이도·다양성·품질 기준)로 SFT 효과를 내는 데이터 큐레이션 ablation과, 데이터 증류 기반 추론 학습 사례로 참고할 만하다.",
+"tags": [
+"생각모드",
+"데이터 큐레이션",
+"SFT",
+"test-time scaling",
+"reasoning"
+],
+"venue": "",
+"affiliations": [
+"Stanford University",
+"Allen Institute for AI",
+"Contextual AI",
+"University of Washington"
+],
+"figure": {
+"src": "https://arxiv.org/html/2501.19393/2501.19393v3/forcing.png",
+"caption": "(a) Sequential scaling via budget forcing"
+},
+"fig_ko": "budget forcing으로 추론 토큰을 늘릴 때 성능이 어떻게 변하는지 순차적 확장 결과를 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-01-31",
+"backfill": true
+},
+{
 "id": "2501.18492",
 "title": "GuardReasoner: Towards Reasoning-based LLM Safeguards",
 "authors": [
@@ -50,6 +104,56 @@
 "html": true,
 "branch": "안전추론",
 "collected": "2025-01-30",
+"backfill": true
+},
+{
+"id": "2501.12948",
+"title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+"authors": [
+"DeepSeek-AI",
+"Guo, Daya",
+"Yang, Dejian",
+"Zhang, Haowei",
+"Song, Junxiao",
+"Wang, Peiyi",
+"Zhu, Qihao",
+"Xu, Runxin"
+],
+"n_authors": 200,
+"published": "2025-01-22",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "General reasoning represents a long-standing and formidable challenge in artificial intelligence. Recent breakthroughs, exemplified by large language models (LLMs) and chain-of-thought prompting, have achieved considerable success on foundational reasoning tasks. However, this success is heavily contingent upon extensive human-annotated demonstrations, and models' capabilities are still insufficient for more complex problems. Here we show that the reasoning abilities of LLMs can be incentivized through pure reinforcement learning (RL), obviating the need for human-labeled reasoning trajectories. The proposed RL framework facilitates the emergent development of advanced reasoning patterns, such as self-reflection, verification, and dynamic strategy adaptation. Consequently, the trained model achieves superior performance on verifiable tasks such as mathematics, coding competitions, and STEM fields, surpassing its counterparts trained via conventional supervised learning on human demonstrations. Moreover, the emergent reasoning patterns exhibited by these large-scale models can be systematically harnessed to guide and enhance the reasoning capabilities of smaller models.",
+"title_ko": "순수 강화학습으로 LLM의 추론 능력을 끌어내는 DeepSeek-R1",
+"tldr": "사람이 만든 추론 풀이 없이 정답 여부만 보상으로 주는 강화학습(GRPO)만으로도 LLM이 자기검증·반성 같은 추론 행동을 스스로 익히며, 이를 작은 모델로 증류할 수 있음을 보였다.",
+"bullets": [
+"문제: 사람이 쓴 추론 데이터에 의존하면 확장성과 성능 상한이 제한된다.",
+"방법: 베이스 모델에 SFT 없이 정답 기반 보상으로 GRPO 강화학습을 수행했다.",
+"결과: 수학·코딩·STEM에서 높은 성능을 보였고 추론 패턴을 소형 모델로 증류했다.",
+"한계: 구조화 출력·도구 사용 미흡, 과잉 사고, 언어 혼용, 보상 해킹 문제가 남는다."
+],
+"why": "정답 검증 보상, 거절 샘플링과 SFT 데이터 구성(80만 건), 증류 데이터 레시피, 안전성 보상 모델 등 사후학습 데이터 설계의 실제 사례를 볼 수 있다.",
+"tags": [
+"생각모드",
+"RL",
+"GRPO",
+"추론",
+"증류"
+],
+"venue": "Nature 2025",
+"affiliations": [
+"DeepSeek-AI"
+],
+"figure": {
+"src": "https://arxiv.org/html/2501.12948/2501.12948v2/ppo_vs_grpo.png",
+"caption": "Figure 4: Performance of PPO and GRPO on the MATH task."
+},
+"fig_ko": "수학 과제에서 PPO와 GRPO 두 강화학습 알고리즘의 성능을 비교한 그림이다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-01-22",
 "backfill": true
 },
 {

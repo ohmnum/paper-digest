@@ -106,5 +106,60 @@
 "collected": "2025-07-20",
 "backfill": true,
 "blog": "https://alignment.anthropic.com/2025/subliminal-learning/"
+},
+{
+"id": "2507.00432",
+"title": "Does Math Reasoning Improve General LLM Capabilities? Understanding Transferability of LLM Reasoning",
+"authors": [
+"Huan, Maggie",
+"Li, Yuetai",
+"Zheng, Tuney",
+"Xu, Xiaoyu",
+"Kim, Seungone",
+"Du, Minxin",
+"Poovendran, Radha",
+"Neubig, Graham"
+],
+"n_authors": 9,
+"published": "2025-07-01",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Math reasoning has become the poster child of progress in large language models (LLMs), with new models rapidly surpassing human-level performance on benchmarks like MATH and AIME. But as math leaderboards improve week by week, it is worth asking: do these gains reflect broader problem-solving ability or just narrow overfitting? To answer this question, we evaluate over 20 open-weight reasoning-tuned models across a broad suite of tasks, including math, scientific QA, agent planning, coding, and standard instruction-following. We surprisingly find that most models that succeed in math fail to transfer their gains to other domains. To rigorously study this phenomenon, we conduct controlled experiments on Qwen3-14B models using math-only data but different tuning methods. We find that reinforcement learning (RL)-tuned models generalize well across domains, while supervised fine-tuning (SFT)-tuned models often forget general capabilities. Latent-space representation and token-space distribution shift analyses reveal that SFT induces substantial representation and output drift, while RL preserves general-domain structure. Our results suggest a need to rethink standard post-training recipes, particularly the reliance on SFT-distilled data for advancing reasoning models.",
+"title_ko": "수학 전용 학습의 추론 능력, SFT와 RL 중 무엇이 전이되나",
+"tldr": "수학 데이터만으로 학습해도 RL로 튜닝한 모델은 다른 도메인에 잘 일반화되지만, SFT 모델은 표현과 출력 분포가 크게 흔들려 일반 능력을 잊는다.",
+"bullets": [
+"문제: 수학 성능 향상이 다른 영역 능력으로 이어지는지 불분명했다.",
+"방법: 20여 개 공개 추론 모델을 평가하고 Qwen3-14B로 SFT·RL을 통제 비교했다.",
+"결과: RL 모델은 전이가 좋고 SFT 모델은 비추론 과제에서 성능이 하락했다.",
+"결과: PCA·KL 분석상 SFT는 내부 표현과 토큰 분포 이동이 컸다.",
+"한계: 수학 데이터와 Qwen3-14B 중심이라 다른 설정으로의 일반화는 불확실하다."
+],
+"why": "좁은 도메인 데이터로 미세조정할 때 SFT가 왜 광범위한 행동 변화와 망각을 일으키는지 표현·토큰 분포 관점에서 보여주어, 데이터 형식과 망각 문제에 직접 참고가 된다.",
+"tags": [
+"생각모드",
+"SFT vs RL",
+"망각",
+"일반화",
+"표현 드리프트"
+],
+"venue": "",
+"affiliations": [
+"Carnegie Mellon University",
+"University of Pennsylvania",
+"University of Washington",
+"M-A-P",
+"The Hong Kong Polytechnic University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2507.00432/2507.00432v2/wordcloud.png",
+"caption": "Figure 5: Word clouds showing significantly shifted tokens between UniReason-Qwen3-14B-RL (left) and UniReason-Qwen3-14B-SFT- think (right). Tokens are extracted based on frequency and rank shifts compared with base model then categorized as logical-structural words (in red) or content-specific words (in blue). The RL model promptly shifts logic-related tokens such as But and So while the SFT mode"
+},
+"fig_ko": "RL 모델과 SFT 모델에서 기반 모델 대비 크게 달라진 토큰을 단어 구름으로 비교해 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-07-01",
+"backfill": true
 }
 ]

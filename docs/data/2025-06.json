@@ -97,5 +97,62 @@
 "branch": "중국검열",
 "collected": "2025-06-14",
 "backfill": true
+},
+{
+"id": "2506.04178",
+"title": "OpenThoughts: Data Recipes for Reasoning Models",
+"authors": [
+"Guha, Etash",
+"Marten, Ryan",
+"Keh, Sedrick",
+"Raoof, Negin",
+"Smyrnis, Georgios",
+"Bansal, Hritik",
+"Nezhurina, Marianna",
+"Mercat, Jean"
+],
+"n_authors": 50,
+"published": "2025-06-04",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "this https URL . arXiv admin note: text overlap with arXiv:2505.23754 by other authors",
+"abstract": "Reasoning models have made rapid progress on many benchmarks involving math, code, and science. Yet, there are still many open questions about the best training recipes for reasoning since state-of-the-art models often rely on proprietary datasets with little to no public information available. To address this, the goal of the OpenThoughts project is to create open-source datasets for training reasoning models. After initial explorations, our OpenThoughts2-1M dataset led to OpenThinker2-32B, the first model trained on public reasoning data to match DeepSeek-R1-Distill-32B on standard reasoning benchmarks such as AIME and LiveCodeBench. We then improve our dataset further by systematically investigating each step of our data generation pipeline with 1,000+ controlled experiments, which led to OpenThoughts3. Scaling the pipeline to 1.2M examples and using QwQ-32B as teacher yields our OpenThoughts3-7B model, which achieves state-of-the-art results: 53% on AIME 2025, 51% on LiveCodeBench 06/24-01/25, and 54% on GPQA Diamond - improvements of 15.3, 17.2, and 20.5 percentage points compared to the DeepSeek-R1-Distill-Qwen-7B. All of our datasets and models are available on this https URL .",
+"title_ko": "추론 모델 SFT 데이터 레시피를 1,000회 실험으로 찾기",
+"tldr": "OpenThoughts는 질문 수집·혼합·필터링·교사 모델 선택 등 추론 데이터 파이프라인 각 단계를 통제 실험으로 최적화해 공개 데이터 기반 SOTA 7B 추론 모델을 만들었다.",
+"bullets": [
+"문제: 최신 추론 모델의 학습 데이터 레시피가 비공개라 재현이 어렵다.",
+"방법: 질문 소싱·혼합·필터·중복제거·답변 필터·교사 선택을 1,000+회 실험으로 비교했다.",
+"결과: OpenThinker3-7B가 AIME25 53%, LCB 51%, GPQA-D 54%로 공개 데이터 7B 모델 중 최고다.",
+"한계: RL, 단계적 SFT, 커리큘럼 학습은 탐색하지 않았고 도메인 간 전이는 불확실하다."
+],
+"why": "SFT 데이터 선별·필터링·혼합·교사 모델 선택이 성능에 미치는 영향을 통제 실험으로 보여줘 회사의 데이터 큐레이션 설계에 바로 참고할 수 있다.",
+"tags": [
+"생각모드",
+"SFT 데이터 큐레이션",
+"추론 모델",
+"증류",
+"데이터 혼합"
+],
+"venue": "",
+"affiliations": [
+"Stanford University",
+"University of Washington",
+"BespokeLabs.ai",
+"Toyota Research Institute",
+"UC Berkeley",
+"UT Austin",
+"UCLA",
+"LAION"
+],
+"figure": {
+"src": "https://arxiv.org/html/2506.04178/2506.04178v2/fig2_final.png",
+"caption": "Figure 2: The OpenThoughts experiment pipeline aims to build the strongest reasoning dataset recipe. We investigate (1) sourcing questions from existing and newly generated datasets, (2) mixing questions from the top-performing sources, (3) filtering for high-quality questions using fastText or LLMs, (4) deduplicating questions and sampling multiple answers per question, (5) filtering out low-qual"
+},
+"fig_ko": "질문 소싱, 혼합, 필터링, 답변 생성·필터링, 교사 모델 선택으로 이어지는 OpenThoughts 실험 파이프라인 개요를 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-06-04",
+"backfill": true
 }
 ]

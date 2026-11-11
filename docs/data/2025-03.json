@@ -50,5 +50,102 @@
 "backfill": true,
 "branch": "SDF",
 "blog": "https://www.anthropic.com/research/auditing-hidden-objectives"
+},
+{
+"id": "2503.10460",
+"title": "Light-R1: Curriculum SFT, DPO and RL for Long COT from Scratch and Beyond",
+"authors": [
+"Wen, Liang",
+"Cai, Yunke",
+"Xiao, Fenrui",
+"He, Xin",
+"An, Qi",
+"Duan, Zhenyu",
+"Du, Yimin",
+"Liu, Junchen"
+],
+"n_authors": 14,
+"published": "2025-03-13",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "v4: ACL'25 industry track camera ready; v3: minor modifications; v2: better writing & format for later submission; all release at this https URL",
+"abstract": "This paper introduces Light-R1, an open-source suite for training long reasoning models using reproducible and cost-effective methodology. Given the proprietary nature of data used in the DeepSeek-R1 series, we develop an alternative approach leveraging exclusively public data and models. Our curriculum training progressively increases data difficulty, combined with multi-staged post-training. Our Light-R1-32B model, trained from Qwen2.5-32B-Instruct, outperforms DeepSeek-R1-Distill-Qwen-32B in math reasoning. Experimental results show that this curriculum approach becomes more effective when distinct, diverse datasets are available for different training stages: fine-tuning DeepSeek-R1-Distilled models (pre-tuned by DeepSeek team on proprietary data) with 3,000 challenging examples from our curriculum dataset yielded state-of-the-art 7B and 14B models, while the 32B model, Light-R1-32B-DS performed comparably to QwQ-32B and DeepSeek-R1. Furthermore, we extend our work by applying GRPO on long reasoning models. Our final Light-R1-14B-DS achieves SOTA performance among 14B models in math, with AIME24 & 25 scores of 74.0 and 60.2 respectively, surpassing many 32B models and DeepSeek-R1-Distill-Llama-70B. Despite math-focused training, Light-R1-14B-DS demonstrates strong cross-domain generalization. Light-R1 represents a significant advancement in making sophisticated reasoning models more accessible and implementable in real-world applications. Our models, training data and code have been made available at this https URL .",
+"title_ko": "공개 데이터만으로 장문 추론 모델을 만드는 커리큘럼 학습",
+"tldr": "공개 데이터만으로 난이도를 단계적으로 높이는 2단계 SFT, DPO, RL을 적용해 DeepSeek-R1-Distill 수준 이상의 장문 추론(long COT) 모델을 재현 가능하게 학습했다.",
+"bullets": [
+"문제: DeepSeek-R1 학습 데이터가 비공개라 장문 추론 모델 재현이 어렵다.",
+"방법: 공개 데이터를 정답률로 난이도 필터링 후 SFT 2단계, DPO 순으로 학습한다.",
+"결과: Light-R1-32B가 DeepSeek-R1-Distill-Qwen-32B를 수학 추론에서 앞선다.",
+"결과: 어려운 3천 개 예제로 R1-Distill 모델을 추가 학습해 7B·14B SOTA를 달성했다.",
+"한계: 수학 중심 학습이며 커리큘럼 효과는 단계별로 다른 데이터가 있을 때 더 크다."
+],
+"why": "정답률 기반 난이도 필터링과 3천 개 고품질 데이터 선별, 단계별 데이터 구성이 SFT·DPO 데이터 큐레이션 사례로 참고할 만하다.",
+"tags": [
+"생각모드",
+"커리큘럼 SFT",
+"데이터 선별",
+"DPO",
+"long-COT"
+],
+"venue": "ACL 2025 (Industry Track)",
+"affiliations": [
+"Qiyuan Tech",
+"Renmin University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2503.10460/2503.10460v4/figures/Light-MATH.png",
+"caption": "Figure 2: Overview of training pipeline of Light-R1 series."
+},
+"fig_ko": "Light-R1 시리즈의 SFT 1·2단계, DPO, RL로 이어지는 전체 학습 파이프라인을 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-03-13",
+"backfill": true
+},
+{
+"id": "2503.04697",
+"title": "L1: Controlling How Long A Reasoning Model Thinks With Reinforcement Learning",
+"authors": [
+"Aggarwal, Pranjal",
+"Welleck, Sean"
+],
+"n_authors": 2,
+"published": "2025-03-06",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Accepted at COLM 2025",
+"abstract": "Reasoning language models have shown an uncanny ability to improve performance at test-time by ``thinking longer''-that is, by generating longer chain-of-thought sequences and hence using more compute. However, the length of their chain-of-thought reasoning is not controllable, making it impossible to allocate test-time compute to achieve a desired level of performance. We introduce Length Controlled Policy Optimization (LCPO), a simple reinforcement learning method that optimizes for accuracy and adherence to user-specified length constraints. We use LCPO to train L1, a reasoning language model that produces outputs satisfying a length constraint given in its prompt. L1's length control allows for smoothly trading off computational cost and accuracy on a wide range of tasks, and outperforms the state-of-the-art S1 method for length control. Furthermore, we uncover an unexpected short chain-of-thought capability in models trained with LCPO. Specifically, using LCPO we derive Short Reasoning Models (SRMs), that exhibit similar reasoning patterns as full-length reasoning models, but can generate CoT lengths comparable to non-reasoning models. They demonstrate significant performance gains, for instance, our 1.5B L1 model surpasses GPT-4o at equal reasoning lengths. Overall, LCPO enables precise control over reasoning length, allowing for fine-grained allocation of test-time compute and accuracy. We release code and models at this https URL",
+"title_ko": "강화학습으로 추론 모델의 사고 길이를 제어하는 L1",
+"tldr": "프롬프트에 지정한 길이 제한을 지키면서 정답률도 높이도록 강화학습(LCPO)으로 추론 모델을 학습해, 추론 토큰 예산과 성능을 매끄럽게 조절할 수 있게 한다.",
+"bullets": [
+"문제: 추론 모델은 사고(CoT) 길이를 제어할 수 없어 연산 예산 배분이 어렵다.",
+"방법: LCPO는 정답 보상과 길이 제약 준수 보상을 함께 쓰는 강화학습이다.",
+"결과: 1.5B L1이 S1보다 수학 과제에서 최대 20%p 높고, 같은 길이에서 GPT-4o를 넘는다.",
+"결과: 수학 밖의 논리 추론과 MMLU에서도 길이 제어가 일반화된다.",
+"한계: 학습 때보다 긴 길이 요청에는 일반화되지 않을 수 있다."
+],
+"why": "프롬프트 속 지시(길이 제약)를 보상으로 학습시켜 행동을 정밀 제어하는 사례라, 부작용을 줄이는 행동 교정과 후처리 학습 설계에 참고가 된다.",
+"tags": [
+"생각모드",
+"LCPO",
+"추론 길이 제어",
+"강화학습",
+"test-time compute"
+],
+"venue": "COLM 2025",
+"affiliations": [
+"Carnegie Mellon University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2503.04697/2503.04697v2/figures/scaling_results_7b.png",
+"caption": "Figure 19 : Scaling LCPO to a 7B reasoning model. We apply LCPO to DeepSeek-R1-Distill-7B reasoning model and show strong length control and performance on math reasoning tasks."
+},
+"fig_ko": "7B 추론 모델(DeepSeek-R1-Distill-7B)에 LCPO를 적용해도 길이 제어와 수학 성능이 잘 유지됨을 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-03-06",
+"backfill": true
 }
 ]
