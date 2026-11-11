@@ -1,5 +1,49 @@
 [
 {
+"id": "2508.10355",
+"title": "Making Qwen3 Think in Korean with Reinforcement Learning",
+"authors": [
+"Lee, Jungyup",
+"Kim, Jemin",
+"Park, Sang",
+"Lee, SeungJae"
+],
+"n_authors": 4,
+"published": "2025-08-14",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We present a two-stage fine-tuning approach to make the large language model Qwen3 14B \"think\" natively in Korean. In the first stage, supervised fine-tuning (SFT) on a high-quality Korean reasoning dataset establishes a strong foundation in Korean logical reasoning, yielding notable improvements in Korean-language tasks and even some gains in general reasoning ability. In the second stage, we employ reinforcement learning with a customized Group Relative Policy Optimization (GRPO) algorithm to further enhance both Korean reasoning alignment and overall problem-solving performance. We address critical stability challenges in GRPO training - such as reward hacking and policy collapse - by introducing an oracle judge model that calibrates the reward signal. Our approach achieves stable learning (avoiding the collapse observed in naive GRPO) and leads to steady, incremental performance gains. The final RL-tuned model demonstrates substantially improved results on advanced reasoning benchmarks (particularly math and coding tasks) while maintaining knowledge and language proficiency, successfully conducting its internal chain-of-thought entirely in Korean.",
+"title_ko": "Qwen3 14B가 한국어로 사고하도록 SFT와 RL로 학습",
+"tldr": "한국어 추론 데이터 SFT 후 오라클 판정 모델로 보상을 보정한 Dr.GRPO 강화학습을 적용해, Qwen3 14B가 내부 사고(CoT)까지 한국어로 하면서 수학·코딩 성능도 높였다.",
+"bullets": [
+"문제: Qwen3는 한국어 질문에도 내부 추론을 주로 영어로 수행한다.",
+"방법: 3만 건 한국어 추론 SFT 후 오라클 판정 보상의 Dr.GRPO를 적용했다.",
+"결과: 순수 GRPO의 붕괴를 피해 안정 학습하고 수학·코딩 벤치마크가 향상됐다.",
+"한계: 대형 외부 모델 판정에 의존하고 수학·과학 영역만 검증했다."
+],
+"why": "추론 데이터 SFT 구성(추론:비추론 1:5, R1 증류)과 판정 모델로 보상을 보정해 reward hacking을 막는 방식은 실무 후훈련 데이터 설계에 참고가 된다.",
+"tags": [
+"생각모드",
+"SFT",
+"GRPO",
+"LLM-as-judge",
+"다국어 추론"
+],
+"venue": "",
+"affiliations": [],
+"figure": {
+"src": "https://arxiv.org/html/2508.10355/2508.10355v1/resources/fig4.png",
+"caption": "Figure 4: Schematic of our Phase-2 RL setups. Top: vanilla Dr.GRPO – policy (yellow) is trained with rewards from verifiable rewards and KL to a frozen reference model (blue). Bottom: Oracle-Guided Dr.GRPO (Dr.GRPO*) – identical loop but an extra oracle-judge (red border) re-scores each candidate answer before the reward is used, blocking reward-hacking."
+},
+"fig_ko": "기본 Dr.GRPO와 오라클 판정 모델이 보상을 보정하는 Oracle-Guided Dr.GRPO의 2단계 RL 구성을 비교한 도식이다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-08-14",
+"backfill": true
+},
+{
 "id": "2508.09224",
 "title": "From Hard Refusals to Safe-Completions: Toward Output-Centric Safety Training",
 "authors": [

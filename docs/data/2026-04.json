@@ -40,5 +40,55 @@
 "branch": "생각모드",
 "collected": "2026-04-19",
 "backfill": true
+},
+{
+"id": "2604.12374",
+"title": "Nemotron 3 Super: Open, Efficient Mixture-of-Experts Hybrid Mamba-Transformer Model for Agentic Reasoning",
+"authors": [
+"NVIDIA",
+":",
+"Chandiramani, Aakshita",
+"Blakeman, Aaron",
+"Olaoye, Abdullahi",
+"Gupta, Abhibha",
+"Somasamudramath, Abhilash",
+"Khattar, Abhinav"
+],
+"n_authors": 547,
+"published": "2026-04-14",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "We describe the pre-training, post-training, and quantization of Nemotron 3 Super, a 120 billion (active 12 billion) parameter hybrid Mamba-Attention Mixture-of-Experts model. Nemotron 3 Super is the first model in the Nemotron 3 family to 1) be pre-trained in NVFP4, 2) leverage LatentMoE, a new Mixture-of-Experts architecture that optimizes for both accuracy per FLOP and accuracy per parameter, and 3) include MTP layers for inference acceleration through native speculative decoding. We pre-trained Nemotron 3 Super on 25 trillion tokens followed by post-training using supervised fine tuning (SFT) and reinforcement learning (RL). The final model supports up to 1M context length and achieves comparable accuracy on common benchmarks, while also achieving up to 2.2x and 7.5x higher inference throughput compared to GPT-OSS-120B and Qwen3.5-122B, respectively. Nemotron 3 Super datasets, along with the base, post-trained, and quantized checkpoints, are open-sourced on HuggingFace.",
+"title_ko": "엔비디아 Nemotron 3 Super: 효율적 하이브리드 MoE 에이전트 모델",
+"tldr": "NVIDIA가 120B(활성 12B) 하이브리드 Mamba-Attention MoE 모델을 NVFP4로 사전학습하고 SFT·RL로 후학습해, 비슷한 정확도에 더 높은 추론 처리량을 내며 데이터와 체크포인트를 공개했다.",
+"bullets": [
+"문제: 에이전트 추론용 모델의 정확도와 추론 처리량을 함께 높이기 어렵다.",
+"방법: LatentMoE, MTP, NVFP4 사전학습(25T 토큰) 후 SFT와 다단계 RL을 적용했다.",
+"결과: GPT-OSS-120B 대비 최대 2.2배, Qwen3.5-122B 대비 7.5배 처리량을 냈다.",
+"한계: 본문 발췌에서는 개별 기법의 효과 분리 분석이나 한계 논의가 확인되지 않는다."
+],
+"why": "SFT 데이터 블렌드, 합성 도구호출 데이터 파이프라인, 추론 노력 제어, RLHF용 GenRM 등 기업형 후학습 레시피와 데이터가 공개되어 참고할 만하다.",
+"tags": [
+"생각모드",
+"Nemotron",
+"MoE",
+"후학습 레시피",
+"SFT 데이터 블렌드"
+],
+"venue": "",
+"affiliations": [
+"NVIDIA"
+],
+"figure": {
+"src": "https://arxiv.org/html/2604.12374/2604.12374v1/figures/broad_conversational_tool_use-new.png",
+"caption": "Figure 15 : Overview of the pipeline for general-purpose tool-calling data used in Nemotron 3 Super."
+},
+"fig_ko": "도구 호출 학습 데이터를 만드는 범용 파이프라인의 개요를 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2026-04-14",
+"backfill": true
 }
 ]

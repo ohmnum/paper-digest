@@ -53,6 +53,54 @@
 "blog": "https://www.anthropic.com/research/emergent-misalignment-reward-hacking"
 },
 {
+"id": "2511.03408",
+"title": "Efficient Reasoning via Thought-Training and Thought-Free Inference",
+"authors": [
+"Wu, Canhui",
+"Cao, Qiong",
+"Xue, Chao",
+"Xi, Wei",
+"He, Xiaodong"
+],
+"n_authors": 5,
+"published": "2025-11-05",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "11 pages, 4 figures",
+"abstract": "Recent advances in large language models (LLMs) have leveraged explicit Chain-of-Thought (CoT) prompting to improve reasoning accuracy. However, most existing methods primarily focus on compressing verbose reasoning outputs. These Long-to-Short transformations aim to improve efficiency, but require a large amount of short CoT data. In this work, we introduce \\textbf{3TF} (\\textbf{T}hought-\\textbf{T}raining and \\textbf{T}hought-\\textbf{F}ree inference), a framework for efficient reasoning that takes a Short-to-Long perspective. We first train a hybrid model that can operate in both reasoning and non-reasoning modes, and then further train it on CoT-annotated data to internalize structured reasoning, while enforcing concise, thought-free outputs at inference time using the no-reasoning mode. Unlike compression-based approaches, 3TF improves the reasoning quality of non-reasoning outputs, enabling models to perform rich internal reasoning implicitly while keeping external outputs short. Empirically, 3TF-trained models obtain large improvements on reasoning benchmarks under thought-free inference, demonstrating that high quality reasoning can be learned and executed implicitly without explicit step-by-step generation.",
+"title_ko": "사고 과정으로 학습하고 사고 없이 추론하는 효율적 추론",
+"tldr": "하이브리드 추론 모델을 만든 뒤 긴 CoT 데이터로만 추가 학습하고, 추론 시에는 생각 없는(no-think) 모드로 짧게 답하게 하여 암묵적 추론 능력을 끌어내는 3TF 방법을 제안한다.",
+"bullets": [
+"문제: 기존 Long-to-Short 압축은 짧은 CoT 데이터가 많이 필요하다.",
+"방법: Think/No-Think 혼합 학습 후 Think 데이터로만 추가 학습한다.",
+"결과: GSM8K·MATH500에서 토큰 약 1/3로 풀 CoT 정확도의 90% 이상 유지.",
+"한계: 수학 벤치마크 위주이고 4B 소형 모델은 pass@1이 낮다."
+],
+"why": "추론 데이터를 학습 형식(Think)과 추론 형식(No-Think)으로 분리했을 때 모델 행동이 어떻게 전이되는지 보여줘, 데이터 형식과 일반화 관점에서 참고할 만하다.",
+"tags": [
+"생각모드",
+"효율적 추론",
+"CoT",
+"SFT 데이터 형식",
+"하이브리드 모델"
+],
+"venue": "",
+"affiliations": [
+"Xi'an Jiaotong University",
+"JD Future Academy"
+],
+"figure": {
+"src": "https://arxiv.org/html/2511.03408/2511.03408v3/3tf_v2.png",
+"caption": "Figure 1: Overview of the 3TF Asymmetric Reasoning Paradigm. (Top) Training and inference templates. (Bottom) Flowchart: A Base model is trained on both Think and No-Think data, then fine-tuned on Think data. For No-Think Inference , the model uses the Inference Template to generate only the final answer."
+},
+"fig_ko": "Think/No-Think 데이터로 학습한 뒤 Think 데이터로 미세조정하고, 추론 시에는 No-Think 템플릿으로 최종 답만 생성하는 3TF 흐름도이다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2025-11-05",
+"backfill": true
+},
+{
 "id": "2511.01689",
 "title": "Open Character Training: Shaping the Persona of AI Assistants through Constitutional AI",
 "authors": [

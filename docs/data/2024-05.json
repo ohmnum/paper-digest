@@ -1,5 +1,57 @@
 [
 {
+"id": "2405.09673",
+"title": "LoRA Learns Less and Forgets Less",
+"authors": [
+"Biderman, Dan",
+"Portes, Jacob",
+"Ortiz, Jose Javier Gonzalez",
+"Paul, Mansheej",
+"Greengard, Philip",
+"Jennings, Connor",
+"King, Daniel",
+"Havens, Sam"
+],
+"n_authors": 12,
+"published": "2024-05-15",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Final version with new experiments and analyses, as accepted to Transactions on Machine Learning Research, August 2024 (Featured Certification). this https URL",
+"abstract": "Low-Rank Adaptation (LoRA) is a widely-used parameter-efficient finetuning method for large language models. LoRA saves memory by training only low rank perturbations to selected weight matrices. In this work, we compare the performance of LoRA and full finetuning on two target domains, programming and mathematics. We consider both the instruction finetuning (approximately 100K prompt-response pairs) and continued pretraining (20B unstructured tokens) data regimes. Our results show that, in the standard low-rank settings, LoRA substantially underperforms full finetuning. Nevertheless, LoRA better maintains the base model's performance on tasks outside the target domain. We show that LoRA mitigates forgetting more than common regularization techniques such as weight decay and dropout; it also helps maintain more diverse generations. Finally, we show that full finetuning learns perturbations with a rank that is 10-100X greater than typical LoRA configurations, possibly explaining some of the reported gaps. We conclude by proposing best practices for finetuning with LoRA.",
+"title_ko": "LoRA와 전체 파인튜닝의 학습량·망각 비교 분석",
+"tldr": "LoRA는 코드·수학 도메인에서 전체 파인튜닝보다 덜 배우지만 기존 능력도 덜 잊으며, 전체 파인튜닝의 가중치 변화는 LoRA 랭크보다 10~100배 높은 랭크를 가진다.",
+"bullets": [
+"문제: LoRA가 전체 파인튜닝만큼 배우는지, 망각은 덜한지 불분명함",
+"방법: Llama-2-7B를 코드·수학의 CPT와 IFT로 LoRA·전체 비교",
+"결과: LoRA는 덜 배우지만 덜 잊고 생성 다양성도 더 유지함",
+"결과: 드롭아웃·weight decay보다 망각 완화 효과가 큼",
+"한계: 7B 모델 하나와 코드·수학 두 도메인만 다룸"
+],
+"why": "LoRA의 학습-망각 트레이드오프와 랭크·학습률·대상 모듈 선택 가이드는 부작용 최소화 파인튜닝을 설계할 때 바로 참고할 수 있다.",
+"tags": [
+"생각모드",
+"LoRA",
+"망각",
+"파인튜닝",
+"Llama-2"
+],
+"venue": "TMLR 2024",
+"affiliations": [
+"Columbia University",
+"Databricks Mosaic Research"
+],
+"figure": {
+"src": "https://arxiv.org/html/2405.09673/2405.09673v2/figures/fig3_tradeoffs.png",
+"caption": "Figure 3 : LoRA vs. full finetuning tradeoff for Llama-2-7B. Relative to full finetuning, LoRA learns less (lower values on the y -axis) and forgets less (higher values on the x -axis). Each dot is a separate model, with marker size corresponding to training duration (from 0.25-20 billion tokens for CPT, and 1-16 epochs for IFT). Same data as Figures 1 , 2 ."
+},
+"fig_ko": "LoRA가 학습(y축)은 덜 하지만 망각(x축)도 덜 하는 트레이드오프를 전체 파인튜닝과 비교해 보여준다.",
+"html": true,
+"branch": "생각모드",
+"collected": "2024-05-15",
+"backfill": true
+},
+{
 "id": "2405.05904",
 "title": "Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?",
 "authors": [
