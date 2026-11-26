@@ -1,5 +1,53 @@
 [
 {
+"id": "2602.14080",
+"title": "Empty Shelves or Lost Keys? Recall Is the Bottleneck for Parametric Factuality",
+"authors": [
+"Calderon, Nitay",
+"Ben-David, Eyal",
+"Gekhman, Zorik",
+"Ofek, Eran",
+"Yona, Gal"
+],
+"n_authors": 5,
+"published": "2026-02-15",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Standard factuality evaluations of LLMs treat all errors alike, obscuring whether failures arise from missing knowledge (empty shelves) or from limited access to encoded facts (lost keys). We propose a behavioral framework that profiles factual knowledge at the level of facts rather than questions, characterizing each fact by whether it is encoded, and then by how accessible it is: cannot be recalled, can be directly recalled, or can only be recalled with inference-time computation (thinking). To support such profiling, we introduce WikiProfile, a new benchmark constructed via an automated pipeline with a prompted LLM grounded in web search. Across 4 million responses from 13 LLMs, we find that encoding is nearly saturated in frontier models on our benchmark, with GPT-5 and Gemini-3 encoding 95--98% of facts. However, recall remains a major bottleneck: many errors previously attributed to missing knowledge instead stem from failures to access it. These failures are systematic and disproportionately affect long-tail facts and reverse questions. Finally, we show that thinking improves recall and can recover a substantial fraction of failures, indicating that future gains may rely less on scaling and more on methods that improve how models utilize what they already encode.",
+"title_ko": "LLM 사실 오류가 '지식 부재'인지 '회상 실패'인지 구분하는 평가 틀",
+"tldr": "13개 LLM의 응답 400만 개를 분석한 결과, 최신 모델은 사실 대부분을 이미 저장하고 있지만 꺼내 쓰는 '회상'에서 막히며, 생각(thinking)이 이를 상당 부분 복구합니다.",
+"bullets": [
+"문제: 정확도 지표로는 지식이 아예 없는지, 있는데 못 꺼내는지 구분이 안 됨",
+"방법: 사실 단위로 저장(encoding) 여부와 회상 가능성을 측정해 5개 프로필로 분류",
+"결과: GPT-5·Gemini-3는 사실의 95–98%를 저장했지만 25–33%는 생각 없이 회상 못함",
+"한계: 가중치를 보지 않는 행동 기반 측정이며 위키백과 사실에 한정됨"
+],
+"why": "롱테일 사실과 역방향 질문(reversal curse)의 오류를 '지식 부재'가 아닌 회상 실패로 재해석하므로, 사후학습(post-training) 데이터를 설계하고 지식 활용을 평가할 때 진단 도구로 쓸 수 있습니다.",
+"tags": [
+"행동교정",
+"factuality",
+"지식 회상",
+"benchmark",
+"reversal curse"
+],
+"venue": "",
+"affiliations": [
+"Technion – Israel Institute of Technology",
+"Google Research"
+],
+"figure": {
+"src": "https://arxiv.org/html/2602.14080/2602.14080v2/setup.png",
+"caption": "Figure 2 : Top: We extract facts from Wikipedia, a predominant source of pre-training data. Left: We measure encoding by prompting the LLM to reproduce facts within their original context, testing whether they are stored in the model’s parameters. Right: We measure knowledge by asking questions across varied phrasings and relational directions, with and without thinking."
+},
+"fig_ko": "위키백과 사실을 원래 문맥에서 완성하게 해 저장 여부를 재고, 다양한 질문으로 회상 여부를 재는 측정 틀의 개요입니다.",
+"html": true,
+"branch": "행동교정",
+"collected": "2026-02-15",
+"backfill": true
+},
+{
 "id": "2602.12275",
 "title": "On-Policy Context Distillation for Language Models",
 "authors": [
