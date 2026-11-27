@@ -62,7 +62,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "Accepted@ICML26, 28 pages, 11 figures, 26 tables",
+"comment": "Accepted@ICML26, 28 pages, 11 figures, 26 tables · ICML 2026 논문집 (PMLR 306)",
 "abstract": "Adapting Large Language Models (LLMs) to specialized domains typically incurs high data and computational overhead. While prior efficiency efforts have largely treated data selection and parameter-efficient fine-tuning as isolated processes, our empirical analysis suggests they may be intrinsically coupled. We posit the Strong Map Hypothesis: a sparse subset of attention heads plays a dominant role in task-specific adaptation, acting as keys that unlock specific data patterns. Building on this observation, we propose From Parameters to Data (P2D), a unified framework that leverages these task-sensitive attention heads as a dual compass for both sample mining and structural pruning. To rigorously quantify the total pipeline cost, we introduce the Alignment Efficiency Ratio (AER) metric for both selection latency and training time. Mechanistically, P2D identifies critical heads via a lightweight proxy and uses them as a functional filter to curate high-affinity data, establishing a synergistic pipeline. Empirically, by updating merely 10% of attention heads on 10% of the data, P2D achieves an 8.3 pp performance gain over strong baselines and delivers a 7.0x end-to-end time speedup. These results validate that precise parameter-data synchronization eliminates redundancy, offering a new paradigm for efficient alignment.",
 "title_ko": "과제 민감 어텐션 헤드로 데이터 선별과 희소 미세조정을 함께 하는 파이프라인",
 "tldr": "소수의 과제 민감 어텐션 헤드를 먼저 찾아낸 뒤 이 헤드를 기준으로 학습 데이터를 고르고 해당 헤드만 미세조정하여, 데이터 10%·헤드 10%만으로 강한 기준선 대비 8.3%p 성능 향상과 7.0배 전체 시간 단축을 보고한다.",
@@ -94,7 +94,8 @@
 "html": true,
 "branch": "데이터선택",
 "collected": "2026-05-20",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/chen26gi/chen26gi.pdf"
 },
 {
 "id": "2607.20465",
@@ -165,7 +166,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "ICML2026 Accepted",
+"comment": "ICML2026 Accepted · ICML 2026 논문집 (PMLR 306)",
 "abstract": "Mitigating sensitive and harmful outputs is fundamental to ensuring safe deployment of LLMs. Existing approaches typically follow two paradigms: Knowledge Deletion (KD), which erases undesirable information during training, and Distinguishable Refusal (DR), which steers models away from using sensitive knowledge during inference. Despite rapid progress, KD-based unlearning struggles with biased deletion due to suppressing specific token sequences as a substitute for complete knowledge removal, whereas DR-based unlearning risks the re-emergence of harmful knowledge because the underlying knowledge remains intact. To address these issues, we propose Distinguishable Deletion ($\\mathrm{D^2}$), a paradigm that restricts the response distribution in the latent representation rather than specific tokens to erase undesirable knowledge, while distinguishing it from retained knowledge, enabling a refusal mechanism to handle unlearned inputs safely and coherently. To implement $\\mathrm{D^2}$, we introduce an energy index that quantifies the presence of knowledge and the separation between unlearned and retained content. Mathematical and empirical analyses show that energy is both accurate and efficient, enabling Energy-based Unlearning Alignment (EUA) to enforce energy-boundary unlearning during training and apply an energy-based refusal mechanism at inference. Extensive experiments demonstrate that EUA significantly outperforms previous methods, indicating the superiority of $\\mathrm{D^2}$. Our code is available at this https URL .",
 "title_ko": "에너지 지표로 지식 삭제와 거부를 통합한 LLM 언러닝 방법",
 "tldr": "특정 토큰 억제 대신 잠재 표현의 '에너지' 지표로 잊을 지식과 남길 지식을 분리해, 학습 중 삭제하고 추론 시 해당 질문을 안전하게 거부하는 언러닝 패러다임(D²)과 방법(EUA)을 제안한다.",
@@ -198,7 +199,8 @@
 "html": true,
 "branch": "행동교정",
 "collected": "2026-05-16",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/yang26dc/yang26dc.pdf"
 },
 {
 "id": "2605.13829",
@@ -262,7 +264,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "Accepted to ICML 2026",
+"comment": "Accepted to ICML 2026 · ICML 2026 논문집 (PMLR 306)",
 "abstract": "Data selection during supervised fine-tuning (SFT) can critically change the behavior of large language models (LLMs). Although existing work has studied the effect of selecting data based on heuristics such as perplexity, difficulty, or length, the reported findings are often inconsistent or context-dependent. In this work, we systematically study the role of data difficulty in fine-tuning from both empirical and theoretical perspectives, and find that there is no universally optimal difficulty level; rather, its effectiveness depends on the dataset size. We show that for a fixed data budget, there exists an optimal data difficulty for SFT, and that this optimal difficulty shifts toward harder data as the data budget increases. To explain this phenomenon, we conduct controlled synthetic experiments that reveal a simple underlying mechanism: the interplay between the (in-distribution) generalization gap and the extrapolation gap. We further support this mechanism through a theoretical analysis using PAC-Bayesian generalization bounds. Overall, our results clarify how data size and difficulty jointly affect the trade-off between generalization and extrapolation in SFT, providing guidance for difficulty-based data selection under certain model and data conditions.",
 "title_ko": "데이터 양에 따라 SFT 최적 난이도가 달라지는 이유 분석",
 "tldr": "지도 미세조정(SFT)에서 모든 경우에 가장 좋은 데이터 난이도는 없으며, 데이터 예산이 클수록 최적 난이도가 더 어려운 쪽으로 이동한다는 것을 실험과 이론으로 보였다.",
@@ -296,7 +298,8 @@
 "html": true,
 "branch": "데이터선택",
 "collected": "2026-05-13",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/liu26m/liu26m.pdf"
 },
 {
 "id": "blog-anthropic-teaching-why-2026",

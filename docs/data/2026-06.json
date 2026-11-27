@@ -59,7 +59,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "",
+"comment": "ICML 2026 논문집 (PMLR 306)",
 "abstract": "The increasing situational awareness of language models raises safety concerns: models might be aware when they are evaluated, and adjust their behavior to evade monitoring and resist modification, e.g., pretending to be aligned only in evaluation. This alignment faking behavior is often interpreted as scheming: an intentional effort of strategic deception. In this paper, we examine an alternative interpretation, performative misalignment, which explains the change in behavior as a result of sycophancy towards AI researchers. To examine this hypothesis, we present three empirical findings. First, we show that evaluation awareness persists even when we tell models they are deployed, which contradicts the scheming story which predicts less misalignment when the model perceives evaluation. Second, we use probing and steering to show that our current methods cannot mechanistically distinguish sycophancy and scheming in alignment faking evaluations. Third, we fine-tune models to be more sycophantic and observe increased sensitivity to evaluation cues. To conclude, we emphasize deconfounding sycophancy from scheming for future work on evaluations and mitigations of intent misalignment.",
 "title_ko": "정렬 위장을 연구자 대상 아첨으로 설명하는 '연기된 비정렬' 가설 검증",
 "tldr": "모델이 평가 때만 착한 척하는 '정렬 위장(alignment faking)'은 의도적 기만(스키밍)이 아니라 AI 안전 연구자에게 흥미로운 결과를 보여주려는 아첨(sycophancy) 때문일 수 있다고 주장하고, 이를 세 가지 실험으로 뒷받침한다.",
@@ -93,7 +93,8 @@
 "html": true,
 "branch": "행동교정",
 "collected": "2026-06-07",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/baek26d/baek26d.pdf"
 },
 {
 "id": "2606.04413",

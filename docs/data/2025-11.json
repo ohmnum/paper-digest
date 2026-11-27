@@ -68,7 +68,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "",
+"comment": "ICML 2026 논문집 (PMLR 306)",
 "abstract": "Large Reasoning Models (LRMs) suffer from sycophantic behavior, where models tend to agree with users' incorrect beliefs and follow misinformation rather than maintain independent reasoning. This behavior undermines model reliability and poses societal risks. Mitigating LRM sycophancy requires monitoring how this sycophancy emerges during the reasoning trajectory; however, current methods mainly focus on judging based on final answers and correcting them, without understanding how sycophancy develops during reasoning processes. To address this limitation, we propose MONICA, a novel Monitor-guided Calibration framework that monitors and mitigates sycophancy during model inference at the level of reasoning steps, without requiring the model to finish generating its complete answer. MONICA integrates a sycophantic monitor that provides real-time monitoring of sycophantic drift scores during response generation with a calibrator that dynamically suppresses sycophantic behavior when scores exceed predefined thresholds. Extensive experiments across 12 datasets and 3 LRMs demonstrate that our method effectively reduces sycophantic behavior in both intermediate reasoning steps and final answers, yielding robust performance improvements.",
 "title_ko": "추론 모델의 사고과정 중 아첨을 실시간 감지·교정하는 MONICA",
 "tldr": "추론 모델이 사용자의 틀린 믿음에 동조하는 '아첨'을 내부 활성값으로 추론 단계마다 감지하고, 점수가 임계값을 넘으면 즉시 억제하는 추론 시점 프레임워크를 제안한다.",
@@ -101,7 +101,8 @@
 "html": true,
 "branch": "행동교정",
 "collected": "2025-11-09",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/hu26bb/hu26bb.pdf"
 },
 {
 "id": "2511.03408",
@@ -167,7 +168,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "ICML 2026",
+"comment": "ICML 2026 · ICML 2026 논문집 (PMLR 306)",
 "abstract": "Post-training alignment of large language models (LLMs) relies on large-scale human annotations guided by policy specifications that change over time. Cultural shifts, value reinterpretations, and regulatory or industrial updates make static alignment increasingly brittle. As policies evolve, deployed models can diverge from current alignment objectives, creating an Alignment-Reality Gap that is difficult to audit or correct. Existing remediation typically requires re-annotation under revised guidelines, which introduces systematic challenges, including guideline ambiguity, annotator interpretation drift, and reduced consistency at scale. We introduce TRACE (Triage and Re-align by Alignment Conflict Evaluation), a framework that transforms realignment into a structured optimization problem over existing data without requiring fresh human annotation. Leveraging a stronger model as a proxy judge, TRACE operates via a three-stage pipeline: (1) triaging preference pairs into inversion, suppression, or retention categories based on alignment conflicts; (2) computing an alignment impact score via bi-level optimization to prioritize high-leverage samples; and (3) executing updates using a hybrid objective that combines relational losses (e.g., IPO) for preference inversion and punitive losses (e.g., NPO) for response suppression. Experiments on Qwen2.5-7B, Gemma-2-9B, and Llama-3.1-8B demonstrate robust realignment on synthetic benchmarks and the PKU-SafeRLHF dataset without degrading general utility. This work provides a scalable approach for LLM realignment under evolving data annotation policies and alignment guidelines. We release our code: this https URL",
 "title_ko": "바뀐 정책에 맞춰 재주석 없이 LLM 선호를 재정렬하는 TRACE",
 "tldr": "정렬 지침이 바뀌었을 때 새 사람 주석 없이 강한 모델을 심판으로 써서 기존 선호 데이터를 분류·가중해 모델을 재정렬하는 TRACE를 제안한다.",
@@ -198,7 +199,8 @@
 "html": true,
 "branch": "행동교정",
 "collected": "2025-11-04",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/sharma26c/sharma26c.pdf"
 },
 {
 "id": "2511.01689",

@@ -14,7 +14,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "30 pages, 12 figures, 14 tables, accepted as regular paper at ICML'26",
+"comment": "30 pages, 12 figures, 14 tables, accepted as regular paper at ICML'26 · ICML 2026 논문집 (PMLR 306)",
 "abstract": "Hallucinations -- plausible but factually incorrect responses -- pose a major challenge to the reliability of Large Language Models (LLMs), especially in multi-step or agentic settings. Existing work largely frames hallucinations as a consequence of missing knowledge; we show instead that, even when the relevant factual knowledge is present, models still produce hallucinated answers, pointing to retrieval instability rather than knowledge gaps. Building on this observation, we introduce APORIA (Aggregate Prompt-wise Observation Retrieving Instability via Asymmetry -- the state of puzzlement-in-contradiction that hallucinations embody), a geometric framework that studies repeated responses to the same prompt in sentence-embedding space. Our central hypothesis is that genuine responses cluster more tightly than hallucinated ones; we empirically validate this and show that, after Fisher projection, the two response classes become consistently separable. We leverage this asymmetry in geometry via APORIA-LP, an efficient label-propagation method that classifies large collections of responses from as few as 30--50 annotations, achieving F1 scores above 90% across ten small-sized LLMs. To support further research, we release SOCRATES-300K, a fully labelled dataset of 300,000 responses, together with the code for both dataset generation and result reproduction. Our key finding -- framing hallucinations from a geometric perspective in the embedding space -- complements traditional knowledge-centric and single-response evaluation paradigms, paving the way for further research.",
 "title_ko": "임베딩 공간 기하로 소형 언어모델의 환각 응답을 구분하기",
 "tldr": "같은 프롬프트에 반복 생성한 응답들을 문장 임베딩 공간에 놓으면 정답 응답은 촘촘히 모이고 환각 응답은 흩어지며, 이 차이를 이용해 30~50개 라벨만으로 대량 응답의 환각 여부를 F1 90% 이상으로 분류할 수 있다.",
@@ -46,7 +46,8 @@
 "html": true,
 "branch": "행동교정",
 "collected": "2026-02-16",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/ricco26a/ricco26a.pdf"
 },
 {
 "id": "2602.14080",
@@ -196,7 +197,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "ICML 2026 Camera-ready",
+"comment": "ICML 2026 Camera-ready · ICML 2026 논문집 (PMLR 306)",
 "abstract": "Reward Models (RMs) are crucial for online alignment of language models (LMs) with human preferences. However, RM-based preference-tuning is vulnerable to reward hacking, whereby LM policies learn undesirable behaviors from flawed RMs. By systematically measuring biases in five high-quality RMs, including the state-of-the-art, we find that issues persist despite prior work with respect to length, sycophancy, and overconfidence. We also discover new issues related to bias toward model-specific ``styles'' and answer-order. We categorize RM failures as tractable or resistant to linear intervention and propose a simple post-hoc intervention to mitigate low-complexity biases that arise from spurious correlations. Our proposed mechanistic reward shaping reduces targeted biases without degrading reward quality and while using minimal labeled data. The method is extensible to new biases, model-internal, and generalizes out-of-distribution.",
 "title_ko": "보상모델 편향 진단과 활성화 프로브 기반 사후 교정",
 "tldr": "최신 보상모델(RM, 답변 품질을 점수화하는 모델)에도 길이·과신·아첨·위치·모델 문체 편향이 남아 있습니다. 이 중 선형적으로 표현되는 단순 편향은 내부 활성화에서 해당 방향을 제거하는 '기계적 보상 셰이핑'으로 적은 라벨 데이터만으로 완화할 수 있습니다.",
@@ -226,7 +227,8 @@
 "html": true,
 "branch": "행동교정",
 "collected": "2026-02-06",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/fein26a/fein26a.pdf"
 },
 {
 "id": "2602.01002",
@@ -241,7 +243,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "ICML 2026",
+"comment": "ICML 2026 · ICML 2026 논문집 (PMLR 306)",
 "abstract": "Large language models often exhibit increased sycophantic behavior after preference-based post-training, showing a stronger tendency to affirm a user's stated or implied belief even when this conflicts with factual accuracy or sound judgment. We present a formal analysis of how alignment from human feedback can increase this failure mode by identifying an explicit amplification mechanism that causally links optimization against a learned reward to bias in the human preference data used for alignment. We show that the direction of behavioral drift is determined by a covariance under the base policy between endorsing the belief signal in the prompt and the learned reward, and that the first-order effect reduces to a simple mean-gap condition. We then analyze reward learning from pairwise comparisons under random utility models like Bradley-Terry and characterize when bias in human annotators' preferences induces this reward gap. Next, we propose a training-time intervention designed to neutralize the amplification mechanism itself. Among all post-trained policies that prevent sycophantic behavior from increasing, we characterize the unique policy closest in KL divergence to the unconstrained post-trained policy, and derive the corresponding minimal reward correction as a closed-form agreement penalty. Computational experiments find that reward gaps are common and cause behavioral drift in all the configurations considered.",
 "title_ko": "RLHF가 아첨 성향을 증폭시키는 메커니즘의 이론적 분석과 최소 보정",
 "tldr": "사람 선호 데이터의 '동의 편향'이 학습된 보상에 스며들고, 이 보상에 대한 최적화가 아첨(sycophancy)을 키우는 인과 경로를 수식으로 밝히고, 이를 막는 최소한의 보상 보정(동의 페널티)을 닫힌 형태로 유도한다.",
@@ -270,6 +272,7 @@
 "html": true,
 "branch": "행동교정",
 "collected": "2026-02-01",
-"backfill": true
+"backfill": true,
+"pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/shapira26a/shapira26a.pdf"
 }
 ]

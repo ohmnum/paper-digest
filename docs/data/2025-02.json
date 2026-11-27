@@ -199,6 +199,59 @@
 "backfill": true
 },
 {
+"id": "2502.07340",
+"title": "Aligning Large Language Models to Follow Instructions and Hallucinate Less via Effective Data Filtering",
+"authors": [
+"Si, Shuzheng",
+"Zhao, Haozhe",
+"Chen, Gang",
+"Gao, Cheng",
+"Bai, Yuzhuo",
+"Wang, Zhitong",
+"An, Kaikai",
+"Luo, Kangyang"
+],
+"n_authors": 12,
+"published": "2025-02-11",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "ACL 2025",
+"abstract": "Training LLMs on data containing unfamiliar knowledge during the instruction tuning stage can encourage hallucinations. To address this challenge, we introduce NOVA, a novel framework designed to identify high-quality data that aligns well with the LLM's learned knowledge to reduce hallucinations. NOVA includes Internal Consistency Probing (ICP) and Semantic Equivalence Identification (SEI) to measure how familiar the LLM is with instruction data. Specifically, ICP evaluates the LLM's understanding of the given instruction by calculating the tailored consistency among multiple self-generated responses. SEI further assesses the familiarity of the LLM with the target response by comparing it to the generated responses, using the proposed semantic clustering and well-designed voting strategy. Finally, to ensure the quality of selected samples, we introduce an expert-aligned reward model, considering characteristics beyond just familiarity. By considering data quality and avoiding unfamiliar data, we can utilize the selected data to effectively align LLMs to follow instructions and hallucinate less.",
+"title_ko": "모델이 이미 아는 지식 위주로 지시 데이터를 골라 환각 줄이기",
+"tldr": "NOVA는 모델이 이미 익숙한 지식을 담은 고품질 지시 데이터만 골라 학습시켜, 지시 따르기 능력은 유지하면서 환각(그럴듯하지만 틀린 생성)을 줄이는 데이터 필터링 프레임워크다.",
+"bullets": [
+"문제: 낯선 지식이 담긴 지시 데이터로 튜닝하면 모델이 과신해 환각이 늘어난다.",
+"방법: 자기 생성 응답들의 내부 상태 일관성(ICP)과 정답과의 의미 일치(SEI)로 익숙함을 측정한다.",
+"방법: 의미 군집화·투표로 정답이 최대 군집에 속하는지 보고, 품질 보상모델로 추가 선별한다.",
+"결과: 저자들은 환각이 크게 줄고 지시 따르기 능력은 경쟁력 있게 유지됐다고 보고한다.",
+"한계: 지시마다 여러 응답을 생성해야 해 오프라인 비용이 들고 단일 턴 데이터에만 적용됐다."
+],
+"why": "SFT 데이터 선별을 모델 내부 상태(probing)와 연결해 환각이라는 부작용을 줄이는 방법이라, 데이터 큐레이션과 부작용 최소화 관심사에 직접 맞닿아 있다.",
+"tags": [
+"행동교정",
+"데이터 필터링",
+"SFT",
+"환각",
+"internal states"
+],
+"venue": "ACL 2025",
+"affiliations": [
+"Tsinghua University",
+"Peking University",
+"DeepLang AI"
+],
+"figure": {
+"src": "https://arxiv.org/html/2502.07340/2502.07340v3/model.png",
+"caption": "Figure 2: The process of NOVA. NOVA identifies and selects high-quality instruction data that aligns well with the LLM’s learned knowledge to reduce hallucination. Then it uses selected instruction data for training LLMs."
+},
+"fig_ko": "NOVA가 익숙함(ICP·SEI)과 품질 점수로 지시 데이터를 골라 모델을 학습시키는 전체 과정을 보여준다.",
+"html": true,
+"branch": "행동교정",
+"collected": "2025-02-11",
+"backfill": true
+},
+{
 "id": "2502.03387",
 "title": "LIMO: Less is More for Reasoning",
 "authors": [

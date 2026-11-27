@@ -1,0 +1,51 @@
+[
+{
+"id": "2403.05612",
+"title": "Unfamiliar Finetuning Examples Control How Language Models Hallucinate",
+"authors": [
+"Kang, Katie",
+"Wallace, Eric",
+"Tomlin, Claire",
+"Kumar, Aviral",
+"Levine, Sergey"
+],
+"n_authors": 5,
+"published": "2024-03-08",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "Large language models are known to hallucinate when faced with unfamiliar queries, but the underlying mechanism that govern how models hallucinate are not yet fully understood. In this work, we find that unfamiliar examples in the models' finetuning data -- those that introduce concepts beyond the base model's scope of knowledge -- are crucial in shaping these errors. In particular, we find that an LLM's hallucinated predictions tend to mirror the responses associated with its unfamiliar finetuning examples. This suggests that by modifying how unfamiliar finetuning examples are supervised, we can influence a model's responses to unfamiliar queries (e.g., say ``I don't know''). We empirically validate this observation in a series of controlled experiments involving SFT, RL, and reward model finetuning on TriviaQA and MMLU. Our work further investigates RL finetuning strategies for improving the factuality of long-form model generations. We find that, while hallucinations from the reward model can significantly undermine the effectiveness of RL factuality finetuning, strategically controlling how reward models hallucinate can minimize these negative effects. Leveraging our previous observations on controlling hallucinations, we propose an approach for learning more reliable reward models, and show that they improve the efficacy of RL factuality finetuning in long-form biography and book/movie plot generation tasks.",
+"title_ko": "낯선 파인튜닝 예시가 LLM 환각 방식을 결정함을 밝히고 이를 제어",
+"tldr": "모델이 모르는 질문에 내놓는 환각 답변은 파인튜닝 데이터 중 '모델이 몰랐던 예시'의 정답 분포를 닮아가므로, 그 예시들의 라벨을 바꾸면 환각을 '모르겠다' 같은 안전한 응답으로 유도할 수 있고, 이를 보수적 보상모델에 적용해 장문 사실성 RL을 개선한다.",
+"bullets": [
+"문제: LLM이 낯선 질문에 그럴듯한 오답(환각)을 내는 원리가 불분명함",
+"방법: 낯선 파인튜닝 예시의 감독 방식을 바꿔 SFT·RL·보상모델 예측 변화를 통제 실험",
+"결과: 낯선 질문일수록 예측이 낯선 학습 예시의 응답 분포로 수렴함을 확인",
+"결과: 보상 과대추정을 피하는 보수적 보상모델로 전기·줄거리 생성 사실성 RL 개선",
+"한계: 부분적으로만 아는 질문 영역과 범용 프롬프트 과제로의 확장은 미해결"
+],
+"why": "SFT 데이터 중 모델이 모르는 예시를 어떻게 라벨링하느냐가 환각·거절 행동을 좌우한다는 점에서, 데이터 큐레이션과 과잉거절/환각 보정 설계에 직접 쓸 수 있는 통찰을 준다.",
+"tags": [
+"행동교정",
+"환각",
+"SFT 데이터 큐레이션",
+"보상모델",
+"사실성 RL"
+],
+"venue": "",
+"affiliations": [
+"UC Berkeley",
+"Google DeepMind"
+],
+"figure": {
+"src": "https://arxiv.org/html/2403.05612/2403.05612v2/teaser.png",
+"caption": "Figure 1: Conceptual visualization of (un)familiar finetuning examples (left), and example of model predictions mimicking unfamiliar finetuning examples (middle and right). When finetuning on distribution 1, which contains details the model may not know, the model outputs detailed responses at test-time with inaccuracies (red). When finetuning on distribution 2, which omits unfamiliar details, the"
+},
+"fig_ko": "모델이 모르는 세부사항이 담긴 학습 데이터로 파인튜닝하면 상세하지만 틀린 답을, 이를 뺀 데이터로 학습하면 짧고 오류가 적은 답을 내는 개념도이다.",
+"html": true,
+"branch": "행동교정",
+"collected": "2024-03-08",
+"backfill": true
+}
+]

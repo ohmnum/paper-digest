@@ -158,6 +158,101 @@
 "backfill": true
 },
 {
+"id": "icml26-zong26a",
+"url": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/zong26a/zong26a.pdf",
+"title": "Conflict-Aware Adaptive Alignment for LLM Hallucination Mitigation",
+"authors": [
+"Ruohan Zong",
+"Yang Zhang",
+"Dong Wang"
+],
+"n_authors": 3,
+"published": "2026-09-29",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "ICML 2026 논문집 (PMLR 306) · arXiv 판 없음",
+"abstract": "Despite strong performance, large language models (LLMs) still suffer from hallucinations. Most existing mitigation methods operate at inference time, without addressing the alignment limitation: LLMs are not trained to recognize their own lack of knowledge, and therefore tend to generate plausible responses even when the required knowledge is missing. Preference alignment approaches encourage uncertainty expression or refusal to improve truthfulness, but often consequently degrade helpfulness. To address this trade-off, existing preference alignment methods typically treat truthfulness and helpfulness as either universally collaborative or universally conflicting objectives across all samples. In contrast, we show that these objectives are consistent for most samples and conflict only in a small subset—where adaptive trade-off is truly needed. Based on this insight, we propose Conflict-Aware Adaptive Margin Preference Alignment (CAMP), which explicitly models when conflicts arise and adaptively regulates optimization strength. Experiments on UltraFeedback and representative hallucination benchmarks demonstrate that CAMP consistently improves truthfulness while maintaining a favorable helpfulness trade-off compared to strong hallucination mitigation and multi-objective alignment baselines.",
+"title_ko": "진실성-유용성 충돌 샘플만 골라 조절하는 환각 완화 선호 정렬",
+"tldr": "선호 데이터 대부분에서 진실성과 유용성은 같은 방향이고 일부(약 11%)에서만 충돌한다는 관찰에 기반해, 충돌할 때만 유용성 제약을 켜고 샘플별 마진(선호 강도)을 조절하는 CAMP를 제안한다.",
+"bullets": [
+"문제: 환각 줄이려 거절·불확실성 표현을 학습시키면 유용성이 떨어진다.",
+"방법: 충돌 쌍에서만 유용성 규제를 켜고, 적응형 마진으로 최적화 강도를 조절한다.",
+"결과: UltraFeedback·환각 벤치마크에서 기존 기법보다 진실성↑, 유용성 균형 유지.",
+"한계: 충돌 신호가 LLM 주석 점수 기반이며, 7B/8B 모델과 수동 λ에 한정된다."
+],
+"why": "선호 데이터를 목표 간 충돌 여부로 나눠 다르게 학습시키는 방식이라, 과잉 거절 없이 특정 행동(환각)을 교정하는 데이터 큐레이션·정렬 설계에 직접 참고할 만하다.",
+"tags": [
+"행동교정",
+"환각 완화",
+"선호 정렬",
+"다목적 정렬",
+"over-refusal"
+],
+"branch": "행동교정",
+"venue": "ICML 2026",
+"affiliations": [
+"University of Illinois Urbana-Champaign",
+"Miami University"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-09-29",
+"backfill": true
+},
+{
+"id": "icml26-fan26j",
+"url": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/fan26j/fan26j.pdf",
+"title": "Navigating the Pareto Frontier of Alignment: Spectrum-Adaptive Fine-Tuning for LLMs",
+"authors": [
+"Yaoyou Fan",
+"Chao Zhang",
+"Xiaoyu Tan",
+"Chenxing Sun",
+"Yu Yuan",
+"Haoyu Feng",
+"Lu Pan",
+"Ke Zeng"
+],
+"n_authors": 9,
+"published": "2026-09-29",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "ICML 2026 논문집 (PMLR 306) · arXiv 판 없음",
+"abstract": "Supervised Fine-Tuning with Negative Log-Likelihood (NLL) remains the standard post-training paradigm for Large Language Models, yet it imposes a disproportionately aggressive update force on low-probability target tokens. This focus forces the model to prioritize minimizing the loss of difficult samples over optimizing the overall quality of the generation, often leading to unwarranted overconfidence. On the other hand, alternatives like Dynamic Fine-Tuning suffer from vanishing gradients on these tokens, which severely hinders the acquisition of new concepts. To bridge this gap, we propose S pectrum- A daptive F ine- T uning ( SAFT ), a unified framework that interpolates between the aggressive learning signal of NLL and the robust nature of probability-weighted optimization. By adaptively balancing these objectives, SAFT effectively mitigates outlier sensitivity without sacrificing learning efficiency. Empirically, our method achieves state-of-the-art performance on mathematical reasoning benchmarks, demonstrating superior generalization on out-of-distribution tasks. Furthermore, evaluations on general conversational alignment validate SAFT’s broad adaptability across diverse data regimes. Our code is available at https://github.com/sjtu-scx/SAFT.",
+"title_ko": "SFT와 DFT 사이를 보간해 견고성과 학습 효율을 함께 잡는 미세조정",
+"tldr": "정답 토큰 확률에 따라 그래디언트 가중치를 SFT(1/p)와 DFT(확률 가중) 사이에서 비선형으로 보간하는 SAFT를 제안해, 노이즈에 강하면서도 어려운 토큰을 잘 학습하도록 했다.",
+"bullets": [
+"문제: 표준 SFT는 저확률 토큰에 과도하게 반응해 노이즈에 과적합하고, DFT는 그래디언트가 사라져 학습이 느리다.",
+"방법: 두 목적함수를 선형·기하·조화 보간(α로 조절)하는 SAFT 프레임워크를 제안한다.",
+"결과: Qwen·DeepSeek 1.5B~14B 수학 추론과 OOD 과제에서 SOTA를 보고하며, 대화 정렬에서도 효과를 확인했다.",
+"한계: 데이터 노이즈 수준에 따라 Geo/Har 변형을 골라야 하며, 이를 위해 별도 검증 분할이 필요하다."
+],
+"why": "SFT 손실 함수의 토큰별 가중치를 바꿔 노이즈 데이터에 대한 과신·과적합을 줄이는 방식이라, 데이터 품질이 고르지 않은 사내 SFT에 바로 적용해 볼 만하다.",
+"tags": [
+"정렬",
+"SFT",
+"손실 함수",
+"노이즈 강건성",
+"토큰 가중치"
+],
+"branch": "정렬",
+"venue": "ICML 2026",
+"affiliations": [
+"Peking University",
+"Zhejiang University",
+"Meituan",
+"University of Science and Technology of China"
+],
+"figure": null,
+"fig_ko": "",
+"html": false,
+"collected": "2026-09-29",
+"backfill": true
+},
+{
 "id": "2609.36659",
 "title": "On-Policy Parameter Update Direction Underlies Generalization in LLM Post-Training",
 "authors": [
