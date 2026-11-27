@@ -136,5 +136,52 @@
 "branch": "중국검열",
 "collected": "2026-03-05",
 "backfill": true
+},
+{
+"id": "2603.04678",
+"title": "Post-Training Language Models for Crosslingual Consistency",
+"authors": [
+"Liu, Tianyu",
+"Qi, Jirui",
+"Sachan, Mrinmaya",
+"Cotterell, Ryan",
+"Fernández, Raquel",
+"Bisazza, Arianna"
+],
+"n_authors": 6,
+"published": "2026-03-04",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "ICML 2026. The first two authors contributed equally. Codes available at: this https URL",
+"abstract": "Language models often respond inconsistently to translation-equivalent prompts across languages, undermining the reliability of multilingual systems. To quantify this, we give an information-theoretic definition of crosslingual consistency as a divergence bound between a model's response distribution and its round-trip pushforward across languages. We then introduce penalized consistency optimization (PCO), a post-training procedure that couples this divergence with a Kullback-Leibler penalty to a fixed reference language model. Because direct optimization of PCO requires expensive on-policy roll-outs, we propose a tractable surrogate, direct consistency optimization (DCO), which can be optimized off-policy. Across diverse language models and 26 languages, DCO significantly improves crosslingual consistency, outperforms existing methods, and enables targeted alignment of low-resource languages.",
+"title_ko": "번역된 같은 질문에 언어마다 일관되게 답하도록 LLM을 후속 학습하는 방법",
+"tldr": "언어 간 응답 일관성을 정보이론적으로 정의하고, 비싼 온폴리시(on-policy, 모델이 직접 생성한 샘플로 학습) 강화학습 없이 병렬 프롬프트만으로 이를 높이는 DPO 유사 손실 DCO를 제안한다.",
+"bullets": [
+"문제: LLM은 번역만 다른 같은 질문에도 언어마다 다른 답을 내 신뢰성이 떨어진다.",
+"방법: 응답 분포 간 발산과 참조모델 KL 벌점을 결합한 PCO를 오프라인 손실 DCO로 대체한다.",
+"결과: 26개 언어·여러 모델에서 일관성이 크게 오르고 정확도도 유지되거나 향상된다.",
+"한계: 병렬(번역 쌍) 데이터가 필요하고 이론적 최적성은 번역 가역성 가정에 의존한다."
+],
+"why": "병렬 프롬프트 쌍이라는 대조적 데이터만으로 오프라인 후속학습해 특정 행동(언어 간 불일치)을 부작용 적게 교정하고, 강도 파라미터로 저자원 언어를 고자원 언어 쪽에 정렬하는 방식이라 데이터 기반 행동 교정 관점에서 참고할 만하다.",
+"tags": [
+"다국어편향",
+"crosslingual consistency",
+"DPO 변형",
+"다국어 정렬",
+"post-training"
+],
+"venue": "ICML 2026",
+"affiliations": [
+"ETH Zürich",
+"University of Groningen",
+"University of Amsterdam"
+],
+"figure": null,
+"fig_ko": "",
+"html": true,
+"branch": "다국어편향",
+"collected": "2026-03-04",
+"backfill": true
 }
 ]

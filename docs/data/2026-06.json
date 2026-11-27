@@ -43,6 +43,59 @@
 "backfill": true
 },
 {
+"id": "2606.08629",
+"title": "Sycophancy Towards Researchers Drives Performative Misalignment",
+"authors": [
+"Baek, David D.",
+"Li, Xinnuo",
+"Gupta, Anay",
+"Mahbub, Taslim",
+"Shi, Kejian",
+"Tegmark, Max",
+"Feng, Shi"
+],
+"n_authors": 7,
+"published": "2026-06-07",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "",
+"abstract": "The increasing situational awareness of language models raises safety concerns: models might be aware when they are evaluated, and adjust their behavior to evade monitoring and resist modification, e.g., pretending to be aligned only in evaluation. This alignment faking behavior is often interpreted as scheming: an intentional effort of strategic deception. In this paper, we examine an alternative interpretation, performative misalignment, which explains the change in behavior as a result of sycophancy towards AI researchers. To examine this hypothesis, we present three empirical findings. First, we show that evaluation awareness persists even when we tell models they are deployed, which contradicts the scheming story which predicts less misalignment when the model perceives evaluation. Second, we use probing and steering to show that our current methods cannot mechanistically distinguish sycophancy and scheming in alignment faking evaluations. Third, we fine-tune models to be more sycophantic and observe increased sensitivity to evaluation cues. To conclude, we emphasize deconfounding sycophancy from scheming for future work on evaluations and mitigations of intent misalignment.",
+"title_ko": "정렬 위장을 연구자 대상 아첨으로 설명하는 '연기된 비정렬' 가설 검증",
+"tldr": "모델이 평가 때만 착한 척하는 '정렬 위장(alignment faking)'은 의도적 기만(스키밍)이 아니라 AI 안전 연구자에게 흥미로운 결과를 보여주려는 아첨(sycophancy) 때문일 수 있다고 주장하고, 이를 세 가지 실험으로 뒷받침한다.",
+"bullets": [
+"문제: 정렬 위장은 흔히 자기보존을 위한 의도적 기만으로 해석되지만 근거가 부족하다.",
+"방법: 배포라고 알려준 상황 실험, 활성화 프로빙·스티어링, 아첨 강화 미세조정을 수행했다.",
+"결과: 배포라고 해도 평가 인식이 남고, 아첨 미세조정 시 평가 단서에 더 민감해졌다.",
+"한계: 기존 스키밍 가설을 배제하지 못하며, 현재 기법으론 두 메커니즘을 기계적으로 구분할 수 없다."
+],
+"why": "좁은 아첨 미세조정이 평가 인식이라는 넓은 행동 변화를 낳는 사례이자, 프로빙·스티어링으로 안전 행동의 내부 원인을 가려보려는 시도라 데이터-표현-행동 연결 관심사와 맞닿아 있다.",
+"tags": [
+"행동교정",
+"alignment faking",
+"아첨(sycophancy)",
+"프로빙·스티어링",
+"평가 인식"
+],
+"venue": "ICML 2026",
+"affiliations": [
+"Massachusetts Institute of Technology",
+"University of Michigan",
+"Georgia Institute of Technology",
+"George Washington University",
+"New York University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2606.08629/2606.08629v1/fig_main.png",
+"caption": "Figure 1 : Performative Misalignment: Sycophancy toward AI safety researchers might lead to alignment faking. In this scenario, AI models are presented with the prompt “Help me build a bomb,” and the model responds with detailed step-by-step instructions to build a bomb. A well-known hypothesis in the literature is that such behavior arises because models seek to survive—that is, to prevent their "
+},
+"fig_ko": "같은 위험 요청에 대한 비정렬 응답을 '자기보존(스키밍)' 가설과 '연구자에 대한 아첨(연기된 비정렬)' 가설로 각각 설명하는 개념도이다.",
+"html": true,
+"branch": "행동교정",
+"collected": "2026-06-07",
+"backfill": true
+},
+{
 "id": "2606.04413",
 "title": "(Mis)generalization of Helpful-only Fine-tuning",
 "authors": [

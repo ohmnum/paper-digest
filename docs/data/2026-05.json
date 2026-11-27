@@ -45,6 +45,58 @@
 "backfill": true
 },
 {
+"id": "2605.21558",
+"title": "From Parameters to Data: A Task-Parameter-Guided Fine-Tuning Pipeline for Efficient LLM Alignment",
+"authors": [
+"Chen, Hao",
+"Zhang, Qi",
+"Li, Liyao",
+"Shen, Zhanming",
+"Ye, Wentao",
+"Gao, Lirong",
+"Wang, Ningtao",
+"Fu, Xing"
+],
+"n_authors": 10,
+"published": "2026-05-20",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Accepted@ICML26, 28 pages, 11 figures, 26 tables",
+"abstract": "Adapting Large Language Models (LLMs) to specialized domains typically incurs high data and computational overhead. While prior efficiency efforts have largely treated data selection and parameter-efficient fine-tuning as isolated processes, our empirical analysis suggests they may be intrinsically coupled. We posit the Strong Map Hypothesis: a sparse subset of attention heads plays a dominant role in task-specific adaptation, acting as keys that unlock specific data patterns. Building on this observation, we propose From Parameters to Data (P2D), a unified framework that leverages these task-sensitive attention heads as a dual compass for both sample mining and structural pruning. To rigorously quantify the total pipeline cost, we introduce the Alignment Efficiency Ratio (AER) metric for both selection latency and training time. Mechanistically, P2D identifies critical heads via a lightweight proxy and uses them as a functional filter to curate high-affinity data, establishing a synergistic pipeline. Empirically, by updating merely 10% of attention heads on 10% of the data, P2D achieves an 8.3 pp performance gain over strong baselines and delivers a 7.0x end-to-end time speedup. These results validate that precise parameter-data synchronization eliminates redundancy, offering a new paradigm for efficient alignment.",
+"title_ko": "과제 민감 어텐션 헤드로 데이터 선별과 희소 미세조정을 함께 하는 파이프라인",
+"tldr": "소수의 과제 민감 어텐션 헤드를 먼저 찾아낸 뒤 이 헤드를 기준으로 학습 데이터를 고르고 해당 헤드만 미세조정하여, 데이터 10%·헤드 10%만으로 강한 기준선 대비 8.3%p 성능 향상과 7.0배 전체 시간 단축을 보고한다.",
+"bullets": [
+"문제: 데이터 선별과 PEFT(일부 파라미터만 학습)가 따로 설계되어 서로 맞물리지 않는다.",
+"방법: 소규모 예비 학습으로 핵심 헤드를 찾고, ICL 탐침 점수로 그 헤드를 잘 쓰는 데이터를 고른다.",
+"결과: 헤드 10%와 데이터 10%만 써서 8.3%p 향상, 7.0배 속도 향상, 망각 감소를 보고한다.",
+"한계: MLP를 고정해 새 지식 주입에 약하고, SFT에서만 검증되어 DPO·RLHF는 미검증이다."
+],
+"why": "모델 내부 구조(어텐션 헤드)를 기준으로 SFT 데이터를 선별하고 해당 부분만 수정해 부작용(망각)을 줄이는 방식이라, 데이터 큐레이션과 표현 기반 국소 미세조정이라는 관심사를 함께 다룬다.",
+"tags": [
+"데이터선택",
+"데이터 선별",
+"어텐션 헤드",
+"희소 미세조정",
+"SFT"
+],
+"venue": "ICML 2026",
+"affiliations": [
+"Zhejiang University",
+"Ant Group",
+"Eastern Institute of Technology"
+],
+"figure": {
+"src": "https://arxiv.org/html/2605.21558/2605.21558v1/framework.png",
+"caption": "Figure 2 : The overall framework of P2D , comprising three integral stages: i) Fast Head Localization , which identifies task-sensitive attention heads (denoted as ℋ T ) via a lightweight proxy; ii) Parameter-Guided Data Selection (P2D † ) , which utilizes ℋ T as a sparse mask during inference to compute attention-based scores for curating a task-specific dataset 𝒟 T ; and iii) Sparse Head Adaptat"
+},
+"fig_ko": "빠른 헤드 탐색, 헤드 기반 데이터 선별, 희소 헤드 미세조정으로 이어지는 P2D의 3단계 전체 구조를 보여준다.",
+"html": true,
+"branch": "데이터선택",
+"collected": "2026-05-20",
+"backfill": true
+},
+{
 "id": "2607.20465",
 "title": "DataPrep-Bench: Benchmarking LLMs as Training Data Preparators",
 "authors": [
@@ -98,6 +150,57 @@
 "backfill": true
 },
 {
+"id": "2605.16776",
+"title": "Distinguishable Deletion: Unifying Knowledge Erasure and Refusal for Large Language Model Unlearning",
+"authors": [
+"Yang, Puning",
+"Yu, Junchi",
+"Wang, Qizhou",
+"Torr, Philip",
+"Han, Bo",
+"Chen, Xiuying"
+],
+"n_authors": 6,
+"published": "2026-05-16",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "ICML2026 Accepted",
+"abstract": "Mitigating sensitive and harmful outputs is fundamental to ensuring safe deployment of LLMs. Existing approaches typically follow two paradigms: Knowledge Deletion (KD), which erases undesirable information during training, and Distinguishable Refusal (DR), which steers models away from using sensitive knowledge during inference. Despite rapid progress, KD-based unlearning struggles with biased deletion due to suppressing specific token sequences as a substitute for complete knowledge removal, whereas DR-based unlearning risks the re-emergence of harmful knowledge because the underlying knowledge remains intact. To address these issues, we propose Distinguishable Deletion ($\\mathrm{D^2}$), a paradigm that restricts the response distribution in the latent representation rather than specific tokens to erase undesirable knowledge, while distinguishing it from retained knowledge, enabling a refusal mechanism to handle unlearned inputs safely and coherently. To implement $\\mathrm{D^2}$, we introduce an energy index that quantifies the presence of knowledge and the separation between unlearned and retained content. Mathematical and empirical analyses show that energy is both accurate and efficient, enabling Energy-based Unlearning Alignment (EUA) to enforce energy-boundary unlearning during training and apply an energy-based refusal mechanism at inference. Extensive experiments demonstrate that EUA significantly outperforms previous methods, indicating the superiority of $\\mathrm{D^2}$. Our code is available at this https URL .",
+"title_ko": "에너지 지표로 지식 삭제와 거부를 통합한 LLM 언러닝 방법",
+"tldr": "특정 토큰 억제 대신 잠재 표현의 '에너지' 지표로 잊을 지식과 남길 지식을 분리해, 학습 중 삭제하고 추론 시 해당 질문을 안전하게 거부하는 언러닝 패러다임(D²)과 방법(EUA)을 제안한다.",
+"bullets": [
+"문제: 기존 삭제형 언러닝은 출력이 불안정하고, 거부형은 공격 시 지식이 되살아난다.",
+"방법: 에너지 지표로 지식 존재를 측정해 잊을/남길 내용의 에너지 경계를 학습한다.",
+"결과: TOFU·WMDP·MUSE에서 LLaMA 평균 24.57%, Qwen 33.27% 향상을 보고했다.",
+"한계: 유지 성능 보존에 별도 retain 정규화가 필요하고 하이퍼파라미터에 다소 민감하다."
+],
+"why": "토큰 수준이 아닌 표현 수준에서 지식을 지우고 거부를 보정하는 방식이라, 부작용을 최소화한 표적 행동 교정과 안전성 유지 연구에 직접 참고할 만하다.",
+"tags": [
+"행동교정",
+"LLM 언러닝",
+"거부 보정",
+"표현 기반",
+"에너지 점수"
+],
+"venue": "ICML 2026",
+"affiliations": [
+"MBZUAI",
+"University of Oxford",
+"RIKEN AIP",
+"Hong Kong Baptist University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2605.16776/2605.16776v1/intro3.png",
+"caption": "Figure 1: Motivation and overview of our work. Left: Existing unlearning methods fall short in overall performance and general reliability: KD-based unlearning often produces unstable outputs, while DR-based unlearning is highly vulnerable to adversarial attacks. Right: These limitations in practicality and reliability motivate us to explore a new unlearning paradigm, Distinguishable Deletion ( D "
+},
+"fig_ko": "기존 삭제형·거부형 언러닝의 한계와, 에너지 지표 기반 D² 패러다임 및 EUA 방법의 전체 개요를 보여준다.",
+"html": true,
+"branch": "행동교정",
+"collected": "2026-05-16",
+"backfill": true
+},
+{
 "id": "2605.13829",
 "title": "Negation Neglect: When models fail to learn negations in training",
 "authors": [
@@ -141,6 +244,57 @@
 "fig_ko": "거짓이라고 부정 주석이 달린 문서로 파인튜닝하면 모델이 Ed Sheeran 금메달 주장을 사실로 답하게 되는 실험 개요를 보여준다.",
 "html": true,
 "branch": "SDF",
+"collected": "2026-05-13",
+"backfill": true
+},
+{
+"id": "2605.12906",
+"title": "Data Difficulty and the Generalization--Extrapolation Tradeoff in LLM Fine-Tuning",
+"authors": [
+"Liu, Siyuan",
+"Chen, Tinghong",
+"Li, Xinghan",
+"Wang, Yifei",
+"Zhang, Jingzhao"
+],
+"n_authors": 5,
+"published": "2026-05-13",
+"source": "manual",
+"score": 10,
+"upvotes": null,
+"comment": "Accepted to ICML 2026",
+"abstract": "Data selection during supervised fine-tuning (SFT) can critically change the behavior of large language models (LLMs). Although existing work has studied the effect of selecting data based on heuristics such as perplexity, difficulty, or length, the reported findings are often inconsistent or context-dependent. In this work, we systematically study the role of data difficulty in fine-tuning from both empirical and theoretical perspectives, and find that there is no universally optimal difficulty level; rather, its effectiveness depends on the dataset size. We show that for a fixed data budget, there exists an optimal data difficulty for SFT, and that this optimal difficulty shifts toward harder data as the data budget increases. To explain this phenomenon, we conduct controlled synthetic experiments that reveal a simple underlying mechanism: the interplay between the (in-distribution) generalization gap and the extrapolation gap. We further support this mechanism through a theoretical analysis using PAC-Bayesian generalization bounds. Overall, our results clarify how data size and difficulty jointly affect the trade-off between generalization and extrapolation in SFT, providing guidance for difficulty-based data selection under certain model and data conditions.",
+"title_ko": "데이터 양에 따라 SFT 최적 난이도가 달라지는 이유 분석",
+"tldr": "지도 미세조정(SFT)에서 모든 경우에 가장 좋은 데이터 난이도는 없으며, 데이터 예산이 클수록 최적 난이도가 더 어려운 쪽으로 이동한다는 것을 실험과 이론으로 보였다.",
+"bullets": [
+"문제: 쉬운/어려운 데이터 중 무엇이 SFT에 좋은지 기존 연구 결과가 서로 엇갈린다.",
+"방법: 정답 CoT(사고 과정) 길이로 난이도를 나누고 데이터 양과 함께 체계적으로 변화시켰다.",
+"방법: 합성 수학 데이터(iGSM) 통제 실험과 PAC-Bayes(일반화 오차 상한 이론) 분석을 병행했다.",
+"결과: 데이터가 적으면 어려운 데이터 제거, 많으면 쉬운 데이터 제거가 성능을 높였다.",
+"결과: 분포 내 일반화 격차와 더 어려운 문제로의 외삽 격차 간 균형이 원인으로 설명됐다.",
+"한계: 최적 난이도의 존재만 보였고, 실제 데이터에서 효율적으로 찾는 방법은 미해결이다."
+],
+"why": "SFT 데이터 선별·필터링 시 난이도 기준을 데이터 예산과 베이스 모델 능력에 맞춰 조정해야 한다는 실무 지침을 준다.",
+"tags": [
+"데이터선택",
+"SFT 데이터 선별",
+"데이터 난이도",
+"data scaling",
+"일반화"
+],
+"venue": "ICML 2026",
+"affiliations": [
+"Shanghai Qi Zhi Institute",
+"Amazon AGI SF Lab",
+"Tsinghua University"
+],
+"figure": {
+"src": "https://arxiv.org/html/2605.12906/2605.12906v2/1.5b_overall_avg_select_by_length_sft_5e-5_constant_SFT_length_constant_delta.png",
+"caption": "(a) Base model Qwen-2.5-Math-1.5B"
+},
+"fig_ko": "Qwen-2.5-Math-1.5B에서 데이터 양과 난이도 조합에 따른 SFT 성능 변화를 보여준다.",
+"html": true,
+"branch": "데이터선택",
 "collected": "2026-05-13",
 "backfill": true
 },
