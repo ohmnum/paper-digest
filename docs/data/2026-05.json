@@ -369,7 +369,7 @@
 "source": "manual",
 "score": 10,
 "upvotes": null,
-"comment": "",
+"comment": "NeurIPS 2026 poster",
 "abstract": "Some frontier AI developers aim to align language models to a Model Spec or Constitution that describes the intended model behavior. However, standard alignment fine-tuning -- training on demonstrations of spec-aligned behavior -- can produce shallow alignment that generalizes poorly, in part because demonstration data can underspecify the desired generalization. We introduce model spec midtraining (MSM): after pre-training but before alignment fine-tuning, we train models on synthetic documents discussing their Model Spec. This teaches models the content of the spec, thereby shaping how they generalize from subsequent demonstration data. For example, a model fine-tuned only to express certain cheese preferences (e.g., \"I prefer cream cheese over brie\") generalizes to broadly pro-America values when we apply MSM with a spec attributing those preferences to pro-America values. Conversely, a spec about pro-affordability values instead yields pro-affordability generalization from the exact same cheese fine-tuning. MSM can also shape complex safety-relevant propensities: applying MSM with a spec addressing self-preservation and goal-guarding substantially reduces agentic misalignment rate (Qwen3-32B: 54% to 7%), beating a deliberative alignment baseline (14%). We further use MSM as a tool to study which Model Specs produce the strongest alignment generalization, finding that explaining the values underlying rules improves generalization, as does providing specific rather than general guidance. Overall, MSM is a simple, effective technique for controlling and improving how models generalize from alignment training, by first teaching the intended generalization.",
 "title_ko": "정렬 학습 전에 모델 스펙 문서로 미드트레이닝하기",
 "tldr": "정렬 파인튜닝 전에 모델 스펙을 다룬 합성 문서로 먼저 학습시키면, 같은 시연 데이터에서도 의도한 방향으로 일반화가 일어나 에이전트 비정렬 행동이 크게 줄어든다.",
@@ -388,7 +388,7 @@
 "합성데이터",
 "일반화"
 ],
-"venue": "",
+"venue": "NeurIPS 2026",
 "affiliations": [
 "Anthropic",
 "Anthropic Fellows Program"
